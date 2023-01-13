@@ -1,0 +1,111 @@
+<section th:fragment="main-menu" class="menu">
+	<nav class="navbar navigation">
+		<div class="container">
+			<!-- Navbar Links -->
+			<div id="navbar" class="navbar-collapse collapse text-center">
+				<ul class="nav navbar-nav">
+
+					<!-- Home -->
+					<li class="dropdown ">
+						<a th:href="@{/}"><iconify-icon icon="ion:home"></iconify-icon> 홈</a>
+					</li><!-- / Home -->
+
+					<!-- Brend -->
+					<li class="dropdown dropdown-slide">
+						<a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="350"
+							role="button" aria-haspopup="true" aria-expanded="false">브랜드 <span
+								class="tf-ion-ios-arrow-down"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="#">회사소개</a></li>
+							<li><a href="#">제품소개</a></li>
+							<li><a href="#">쇼룸안내</a></li>
+						</ul>
+					</li><!-- / Brend -->
+
+					<!-- Pages -->
+					<li class="dropdown dropdown-slide">
+						<a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="350"
+							role="button" aria-haspopup="true" aria-expanded="false">전체 상품 <span
+								class="tf-ion-ios-arrow-down"></span></a>
+						<div class="dropdown-menu">
+							<div class="row">
+
+								<!-- product -->
+								<div class="col-sm-3 col-xs-12">
+									<ul>
+										<li class="dropdown-header">상품</li>
+										<li role="separator" class="divider"></li>
+										<li><a th:href="@{/productall}">전체보기</a></li>
+										<li><a href="#">페브릭소파</a></li>
+										<li><a href="#">가죽소파</a></li>
+										<li><a href="#">펫소파</a></li>
+										<li><a href="#">리빙룸</a></li>
+									</ul>
+
+								</div>
+								<div class="col-sm-3 col-xs-12">
+									<ul>
+										<li class="dropdown-header">크기</li>
+										<li role="separator" class="divider"></li>
+										<li><a href="#">1인용</a></li>
+										<li><a href="#">2인용</a></li>
+										<li><a href="#">3인용</a></li>
+										<li><a href="#">4인용</a></li>
+										<li><a href="#">5인용</a></li>
+										<li><a href="#">6인용</a></li>
+									</ul>
+									
+									<ul>
+										<li class="dropdown-header"></li>
+										<li role="separator" class="divider"></li>
+										<li><a href="#">펫쇼파</a></li>
+										<li><a href="#">펫스텝</a></li>
+									</ul>
+									
+									<ul>
+										<li class="dropdown-header"></li>
+										<li role="separator" class="divider"></li>
+										<li><a href="#">쿠션</a></li>
+										<li><a href="#">러그</a></li>
+									</ul>
+								</div>
+								<!-- Mega Menu -->
+								<div class="col-sm-3 col-xs-12">
+									<a href="shop.html">
+										<img class="img-responsive" th:src="@{/images/shop/header-img.jpg}" alt="menu image" />
+									</a>
+								</div>
+							</div><!-- / .row -->
+						</div><!-- / .dropdown-menu -->
+					</li><!-- / Pages -->
+
+
+
+					<!-- Blog -->
+					<li class="dropdown dropdown-slide">
+						<a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="350"
+							role="button" aria-haspopup="true" aria-expanded="false">커뮤니티 <span
+								class="tf-ion-ios-arrow-down"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="#">공지사항</a></li>
+							<li><a href="#">자주하는 문의</a></li>
+						</ul>
+					</li><!-- / Blog -->
+
+					<!-- Shop -->
+					<li class="dropdown dropdown-slide">
+						<a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="350"
+							role="button" aria-haspopup="true" aria-expanded="false">이벤트 <span
+								class="tf-ion-ios-arrow-down"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="#">이벤트</a></li>
+							<li><a href="#">쿠폰</a></li>
+						</ul>
+					</li><!-- / Blog -->
+				</ul><!-- / .nav .navbar-nav -->
+
+			</div>
+			<!--/.navbar-collapse -->
+		</div><!-- / .container -->
+	</nav>
+</section>
