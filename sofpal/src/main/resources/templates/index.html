@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+  <!-- Basic Page Needs
+  ================================================== -->
+  <meta charset="utf-8">
+  <title>SOF8</title>
+
+  <!-- Mobile Specific Metas
+  ================================================== -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="Construction Html5 Template">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <meta name="author" content="Themefisher">
+  <meta name="generator" content="Themefisher Constra HTML Template v1.0">
+  
+  <!-- theme meta -->
+  <meta name="theme-name" content="aviato" />
+  
+  <!-- Favicon -->
+  <link rel="shortcut icon" type="image/x-icon" href="images/favicon.png" />
+  
+  <!-- Google font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+  
+  <!-- Themefisher Icon font -->
+  <link rel="stylesheet" href="plugins/themefisher-font/style.css">
+  <!-- bootstrap.min css -->
+  <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.min.css">
+  
+  <!-- Animate css -->
+  <link rel="stylesheet" href="plugins/animate/animate.css">
+  <!-- Slick Carousel -->
+  <link rel="stylesheet" href="plugins/slick/slick.css">
+  <link rel="stylesheet" href="plugins/slick/slick-theme.css">
+  
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+
+<script src="https://code.iconify.design/iconify-icon/1.0.2/iconify-icon.min.js"></script>
+</head>
+
+<body id="body">
+
+<!-- Start Top Header Bar -->
+<section class="top-header">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-4 col-xs-12 col-sm-4">
+				<!-- Site Logo -->
+				<div class="logo">
+					<img th:src="@{/images/logo.png}"/>
+				</div>
+			</div>
+			<div>
+				<ul class="top-menu text-right list-inline">
+					<!-- Search -->
+					<li class="dropdown search dropdown-slide">
+							<a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><i class="tf-ion-ios-search-strong"></i></a>
+							<ul class="dropdown-menu search-dropdown">
+								<li>
+									<form action="post"><input type="search" class="form-control" placeholder="Search..."></form>
+								</li>
+							</ul>
+					</li><!-- / Search -->
+					<!-- Join -->
+					<li class="join-site">
+							<a href="#!" class="join"><iconify-icon inline icon="ion:person-add"></iconify-icon> 회원가입</a>
+					</li><!-- / Join -->
+					<!-- Login -->
+					<li class="login-site">
+							<a href="#!" class="join"><iconify-icon inline icon="ion:person-circle"></iconify-icon> 로그인</a>
+					</li><!-- / Login -->
+					<!-- Cart -->
+					<li class="dropdown cart-nav dropdown-slide">
+						<a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><iconify-icon inline icon="ion:bag"></iconify-icon> 장바구니</a>
+						<div class="dropdown-menu cart-dropdown">
+							<!-- Cart Item -->
+							<div class="media">
+								<a class="pull-left" href="#!">
+									<img class="media-object" th:src="@{/images/shop/cart/cart-1.jpg}" alt="image" />
+								</a>
+								<div class="media-body">
+									<h4 class="media-heading"><a href="#!">Ladies Bag</a></h4>
+									<div class="cart-price">
+										<span>1 x</span>
+										<span>1250.00</span>
+									</div>
+									<h5><strong>$1200</strong></h5>
+								</div>
+								<a href="#!" class="remove"><i class="tf-ion-close"></i></a>
+							</div><!-- / Cart Item -->
+							<!-- Cart Item -->
+							<div class="media">
+								<a class="pull-left" href="#!">
+									<img class="media-object" th:src="@{/images/shop/cart/cart-2.jpg}" alt="image" />
+								</a>
+								<div class="media-body">
+									<h4 class="media-heading"><a href="#!">Ladies Bag</a></h4>
+									<div class="cart-price">
+										<span>1 x</span>
+										<span>1250.00</span>
+									</div>
+									<h5><strong>$1200</strong></h5>
+								</div>
+								<a href="#!" class="remove"><i class="tf-ion-close"></i></a>
+							</div><!-- / Cart Item -->
+
+							<div class="cart-summary">
+								<span>Total</span>
+								<span class="total-price">$1799.00</span>
+							</div>
+							<ul class="text-center cart-buttons">
+								<li><a href="cart.html" class="btn btn-small">View Cart</a></li>
+								<li><a href="checkout.html" class="btn btn-small btn-solid-border">Checkout</a></li>
+							</ul>
+						</div>
+					</li><!-- / Cart -->
+
+					<!-- Search -->
+				</ul><!-- / .nav .navbar-nav .navbar-right -->
+			</div>
+		</div>
+	</div>	
+</section><!-- End Top Header Bar -->
+
+
+<!-- Main Menu Section -->
+<section class="menu">
+	<nav class="navbar navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<h2 class="menu-title">Main Menu</h2>
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+					aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+
+			</div><!-- / .navbar-header -->
+
+			<!-- Navbar Links -->
+			<div id="navbar" class="navbar-collapse collapse text-center">
+				<ul class="nav navbar-nav">
+
+					<!-- Home -->
+					<li class="dropdown ">
+						<a th:href="@{/}"><iconify-icon icon="ion:home"></iconify-icon> 홈</a>
+					</li><!-- / Home -->
+
+					<!-- Brend -->
+					<li class="dropdown dropdown-slide">
+						<a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="350"
+							role="button" aria-haspopup="true" aria-expanded="false">브랜드 <span
+								class="tf-ion-ios-arrow-down"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="#">회사소개</a></li>
+							<li><a href="#">제품소개</a></li>
+							<li><a href="#">쇼룸안내</a></li>
+						</ul>
+					</li><!-- / Brend -->
+
+					<!-- Pages -->
+					<li class="dropdown dropdown-slide">
+						<a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="350"
+							role="button" aria-haspopup="true" aria-expanded="false">전체 상품 <span
+								class="tf-ion-ios-arrow-down"></span></a>
+						<div class="dropdown-menu">
+							<div class="row">
+
+								<!-- product -->
+								<div class="col-sm-3 col-xs-12">
+									<ul>
+										<li class="dropdown-header">상품</li>
+										<li role="separator" class="divider"></li>
+										<li><a href="#">전체보기</a></li>
+										<li><a href="#">페브릭소파</a></li>
+										<li><a href="#">가죽소파</a></li>
+										<li><a href="#">펫소파</a></li>
+										<li><a href="#">리빙룸</a></li>
+									</ul>
+
+								</div>
+								<div class="col-sm-3 col-xs-12">
+									<ul>
+										<li class="dropdown-header">크기</li>
+										<li role="separator" class="divider"></li>
+										<li><a href="#">1인용</a></li>
+										<li><a href="#">2인용</a></li>
+										<li><a href="#">3인용</a></li>
+										<li><a href="#">4인용</a></li>
+										<li><a href="#">5인용</a></li>
+										<li><a href="#">6인용</a></li>
+									</ul>
+									
+									<ul>
+										<li class="dropdown-header"></li>
+										<li role="separator" class="divider"></li>
+										<li><a href="#">펫쇼파</a></li>
+										<li><a href="#">펫스텝</a></li>
+									</ul>
+									
+									<ul>
+										<li class="dropdown-header"></li>
+										<li role="separator" class="divider"></li>
+										<li><a href="#">쿠션</a></li>
+										<li><a href="#">러그</a></li>
+									</ul>
+								</div>
+								<!-- Mega Menu -->
+								<div class="col-sm-3 col-xs-12">
+									<a href="shop.html">
+										<img class="img-responsive" th:src="@{/images/shop/header-img.jpg}" alt="menu image" />
+									</a>
+								</div>
+							</div><!-- / .row -->
+						</div><!-- / .dropdown-menu -->
+					</li><!-- / Pages -->
+
+
+
+					<!-- Blog -->
+					<li class="dropdown dropdown-slide">
+						<a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="350"
+							role="button" aria-haspopup="true" aria-expanded="false">커뮤니티 <span
+								class="tf-ion-ios-arrow-down"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="#">공지사항</a></li>
+							<li><a href="#">자주하는 문의</a></li>
+						</ul>
+					</li><!-- / Blog -->
+
+					<!-- Shop -->
+					<li class="dropdown dropdown-slide">
+						<a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="350"
+							role="button" aria-haspopup="true" aria-expanded="false">이벤트 <span
+								class="tf-ion-ios-arrow-down"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="#">이벤트</a></li>
+							<li><a href="#">쿠폰</a></li>
+						</ul>
+					</li><!-- / Blog -->
+				</ul><!-- / .nav .navbar-nav -->
+
+			</div>
+			<!--/.navbar-collapse -->
+		</div><!-- / .container -->
+	</nav>
+</section>
+
+<div class="hero-slider">
+  <div class="slider-item th-fullpage hero-area" style="background-image: url(images/slider/slider-1.png);">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 text-center">
+          <p data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".1">SOF8</p>
+          <h1 data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".5">당신의 온전한 휴식을 위해</h1>
+          <a data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".8" class="btn" href="shop.html">Shop Now</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slider-item th-fullpage hero-area" style="background-image: url(images/slider/slider-2.png);">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 text-center">
+          <p data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".1">SOF8</p>
+          <h1 data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".5">당신의 안락한 하루를 위해</h1>
+          <a data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".8" class="btn" href="shop.html">Shop Now</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slider-item th-fullpage hero-area" style="background-image: url(images/slider/slider-3.png);">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 text-center">
+          <p data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".1">SOF8</p>
+          <h1 data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".5">다르게, 더 바르게 만듭니다.</h1>
+          <a data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".8" class="btn" href="shop.html">Shop Now</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="products section bg-pale-dogwood">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="category-box category-box-2">
+					<a href="#!">
+						<img th:src="@{/images/shop/event/main-event.jpg}" alt="" />
+						<div class="content">
+							<h2>EVENT</h2>
+						</div>
+					</a>	
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="category-box">
+					<a href="#!">
+						<img th:src="@{/images/shop/event/event1.png}" alt="" />
+					</a>	
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="category-box-info">
+					<a href="#!"><h2>천연 가죽 소파</h2></a><br/><br/>
+					<h3>1,600,000원</h3>&nbsp;&nbsp;
+					<p style="text-decoration: line-through;">2,000,000원</p>&emsp;&emsp;&emsp;
+					<h2 id="discount">20%</h2><br/><br/><br/>
+				</div>
+			</div>
+		<!-- Modal -->
+		<div class="modal product-modal fade" id="product-modal">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<i class="tf-ion-close"></i>
+			</button>
+		  	<div class="modal-dialog " role="document">
+		    	<div class="modal-content">
+			      	<div class="modal-body">
+			        	<div class="row">
+			        		<div class="col-md-8 col-sm-6 col-xs-12">
+			        			<div class="modal-image">
+				        			<img class="img-responsive" th:src="@{/images/shop/products/modal-product.jpg}" alt="product-img" />
+			        			</div>
+			        		</div>
+			        		<div class="col-md-4 col-sm-6 col-xs-12">
+			        			<div class="product-short-details">
+			        				<h2 class="product-title">GM Pendant, Basalt Grey</h2>
+			        				<p class="product-price">$200</p>
+			        				<p class="product-short-description">
+			        					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem iusto nihil cum. Illo laborum numquam rem aut officia dicta cumque.
+			        				</p>
+			        				<a href="cart.html" class="btn btn-main">Add To Cart</a>
+			        				<a href="product-single.html" class="btn btn-transparent">View Product Details</a>
+			        			</div>
+			        		</div>
+			        	</div>
+			        </div>
+		    	</div>
+		  	</div>
+		</div><!-- /.modal -->
+
+		</div>
+	</div>
+</section>
+
+<section class="product-video section bg-viva-magenta">
+	<div class="container">
+		<div class="row">
+		
+		</div>
+	</div>
+</section>
+
+<section class="product-category section">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="title text-center">
+					<h2>2023 신상품</h2>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="product-item">
+					<div class="product-thumb">
+						<span class="bage">Sale</span>
+						<img class="img-responsive" th:src="@{/images/shop/products/product-1.jpg}" alt="product-img" />
+						<div class="preview-meta">
+							<ul>
+								<li>
+									<span  data-toggle="modal" data-target="#product-modal">
+										<i class="tf-ion-ios-search-strong"></i>
+									</span>
+								</li>
+								<li>
+			                        <a href="#!" ><i class="tf-ion-ios-heart"></i></a>
+								</li>
+								<li>
+									<a href="#!"><i class="tf-ion-android-cart"></i></a>
+								</li>
+							</ul>
+                      	</div>
+					</div>
+					<div class="product-content">
+						<h4><a href="product-single.html">Reef Boardsport</a></h4>
+						<p class="price">$200</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="product-item">
+					<div class="product-thumb">
+						<span class="bage">Sale</span>
+						<img class="img-responsive" th:src="@{/images/shop/products/product-2.jpg}" alt="product-img" />
+						<div class="preview-meta">
+							<ul>
+								<li>
+									<span  data-toggle="modal" data-target="#product-modal">
+										<i class="tf-ion-ios-search-strong"></i>
+									</span>
+								</li>
+								<li>
+			                        <a href="#!" ><i class="tf-ion-ios-heart"></i></a>
+								</li>
+								<li>
+									<a href="#!"><i class="tf-ion-android-cart"></i></a>
+								</li>
+							</ul>
+                      	</div>
+					</div>
+					<div class="product-content">
+						<h4><a href="product-single.html">Reef Boardsport</a></h4>
+						<p class="price">$200</p>
+					</div>
+				</div>
+			</div>
+						<div class="col-md-4">
+				<div class="product-item">
+					<div class="product-thumb">
+						<span class="bage">Sale</span>
+						<img class="img-responsive" th:src="@{/images/shop/products/product-3.jpg}" alt="product-img" />
+						<div class="preview-meta">
+							<ul>
+								<li>
+									<span  data-toggle="modal" data-target="#product-modal">
+										<i class="tf-ion-ios-search-strong"></i>
+									</span>
+								</li>
+								<li>
+			                        <a href="#!" ><i class="tf-ion-ios-heart"></i></a>
+								</li>
+								<li>
+									<a href="#!"><i class="tf-ion-android-cart"></i></a>
+								</li>
+							</ul>
+                      	</div>
+					</div>
+					<div class="product-content">
+						<h4><a href="product-single.html">Reef Boardsport</a></h4>
+						<p class="price">$200</p>
+					</div>
+				</div>
+			</div>			<div class="col-md-4">
+				<div class="product-item">
+					<div class="product-thumb">
+						<span class="bage">Sale</span>
+						<img class="img-responsive" th:src="@{/images/shop/products/product-4.jpg}" alt="product-img" />
+						<div class="preview-meta">
+							<ul>
+								<li>
+									<span  data-toggle="modal" data-target="#product-modal">
+										<i class="tf-ion-ios-search-strong"></i>
+									</span>
+								</li>
+								<li>
+			                        <a href="#!" ><i class="tf-ion-ios-heart"></i></a>
+								</li>
+								<li>
+									<a href="#!"><i class="tf-ion-android-cart"></i></a>
+								</li>
+							</ul>
+                      	</div>
+					</div>
+					<div class="product-content">
+						<h4><a href="product-single.html">Reef Boardsport</a></h4>
+						<p class="price">$200</p>
+					</div>
+				</div>
+			</div>			<div class="col-md-4">
+				<div class="product-item">
+					<div class="product-thumb">
+						<span class="bage">Sale</span>
+						<img class="img-responsive" th:src="@{/images/shop/products/product-5.jpg}" alt="product-img" />
+						<div class="preview-meta">
+							<ul>
+								<li>
+									<span  data-toggle="modal" data-target="#product-modal">
+										<i class="tf-ion-ios-search-strong"></i>
+									</span>
+								</li>
+								<li>
+			                        <a href="#!" ><i class="tf-ion-ios-heart"></i></a>
+								</li>
+								<li>
+									<a href="#!"><i class="tf-ion-android-cart"></i></a>
+								</li>
+							</ul>
+                      	</div>
+					</div>
+					<div class="product-content">
+						<h4><a href="product-single.html">Reef Boardsport</a></h4>
+						<p class="price">$200</p>
+					</div>
+				</div>
+			</div>			<div class="col-md-4">
+				<div class="product-item">
+					<div class="product-thumb">
+						<span class="bage">Sale</span>
+						<img class="img-responsive" th:src="@{/images/shop/products/product-6.jpg}" alt="product-img" />
+						<div class="preview-meta">
+							<ul>
+								<li>
+									<span  data-toggle="modal" data-target="#product-modal">
+										<i class="tf-ion-ios-search-strong"></i>
+									</span>
+								</li>
+								<li>
+			                        <a href="#!" ><i class="tf-ion-ios-heart"></i></a>
+								</li>
+								<li>
+									<a href="#!"><i class="tf-ion-android-cart"></i></a>
+								</li>
+							</ul>
+                      	</div>
+					</div>
+					<div class="product-content">
+						<h4><a href="product-single.html">Reef Boardsport</a></h4>
+						<p class="price">$200</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<footer class="footer section text-center">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<ul class="footer-menu text-uppercase">
+					<li>
+						<a href="contact.html">CONTACT</a>
+					</li>
+					<li>
+						<a href="shop.html">SHOP</a>
+					</li>
+					<li>
+						<a href="pricing.html">Pricing</a>
+					</li>
+					<li>
+						<a href="contact.html">PRIVACY POLICY</a>
+					</li>
+				</ul>
+				<p class="copyright-text">Copyright &copy;2023, Designed &amp; Developed by <a href="https://github.com/kckhw35/SOF8">SOF8</a></p>
+			</div>
+		</div>
+	</div>
+</footer>
+
+    <!-- 
+    Essential Scripts
+    =====================================-->
+    
+    <!-- Main jQuery -->
+    <script th:src="@{/plugins/jquery/dist/jquery.min.js}"></script>
+    <!-- Bootstrap 3.1 -->
+    <script th:src="@{/plugins/bootstrap/js/bootstrap.min.js}"></script>
+    <!-- Bootstrap Touchpin -->
+    <script th:src="@{/plugins/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js}"></script>
+    <!-- Instagram Feed Js -->
+    <script th:src="@{/plugins/instafeed/instafeed.min.js}"></script>
+    <!-- Video Lightbox Plugin -->
+    <script th:src="@{/plugins/ekko-lightbox/dist/ekko-lightbox.min.js}"></script>
+    <!-- Count Down Js -->
+    <script th:src="@{/plugins/syo-timer/build/jquery.syotimer.min.js}"></script>
+
+    <!-- slick Carousel -->
+    <script th:src="@{/plugins/slick/slick.min.js}"></script>
+    <script th:src="@{/plugins/slick/slick-animation.min.js}"></script>
+
+    <!-- Google Mapl -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCC72vZw-6tGqFyRhhg5CkF2fqfILn2Tsw"></script>
+    <script type="text/javascript" th:src="@{/plugins/google-map/gmap.js}"></script>
+
+    <!-- Main Js File -->
+    <script th:src="@{/js/script.js}"></script>
+    
+  </body>
+  </html>
