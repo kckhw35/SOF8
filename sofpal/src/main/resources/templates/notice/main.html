@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
+<!-- Basic Page Needs
+	  ================================================== -->
+<meta charset="utf-8">
+<title>SOF8</title>
+
+<!-- Mobile Specific Metas
+	  ================================================== -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="Construction Html5 Template">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<meta name="author" content="Themefisher">
+<meta name="generator" content="Themefisher Constra HTML Template v1.0">
+
+<!-- theme meta -->
+<meta name="theme-name" content="aviato" />
+
+<!-- Favicon -->
+<link rel="shortcut icon" type="image/x-icon" href="images/favicon.png" />
+
+<!-- Google font -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+	href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap"
+	rel="stylesheet">
+
+<!-- Themefisher Icon font -->
+<link rel="stylesheet" th:href="@{/plugins/themefisher-font/style.css}">
+<!-- bootstrap.min css -->
+<link rel="stylesheet"
+	th:href="@{/plugins/bootstrap/css/bootstrap.min.css}">
+
+<!-- Animate css -->
+<link rel="stylesheet" th:href="@{/plugins/animate/animate.css}">
+<!-- Slick Carousel -->
+<link rel="stylesheet" th:href="@{/plugins/slick/slick.css}">
+<link rel="stylesheet" th:href="@{/plugins/slick/slick-theme.css}">
+
+<!-- Main Stylesheet -->
+<link rel="stylesheet" th:href="@{/css/style.css}">
+
+<script
+	src="https://code.iconify.design/iconify-icon/1.0.2/iconify-icon.min.js"></script>
+</head>
+
+<body id="body">
+
+	<div th:replace="inc/top-header :: top-header"></div>
+	<div th:replace="inc/main-menu :: main-menu"></div>
+
+	<!-- ========================page-header ============================ -->
+	<section class="page-header">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="content">
+						<h1 class="text-center">공지사항</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- ========================== page-wrapper========================== -->
+	<div class="container">
+		<h2>공지사항</h2>
+
+		<table class="table">
+			<thead>
+				<tr>
+					<th>번호</th>
+					<th>제목</th>
+					<th>날짜</th>
+					<th>작성자</th>
+					<th>조회수</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>1</td>
+					<td><a href="#">자코모 사칭 스팸문자에 고객님들의 주의를 당부드립니다.</a></td>
+					<td>2022.12.29</td>
+					<td>자코모</td>
+					<td>231</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td><a href="#">드디어! [제주도]에도 자코모 소파가 배송됩니다.</a></td>
+					<td>2022.12.29</td>
+					<td>자코모</td>
+					<td>413</td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td><a href="#">자코모몰 카드 무이자 및 부분 무이자 할부 안내</a></td>
+					<td>2022.12.29</td>
+					<td>자코모</td>
+					<td>321</td>
+				</tr>
+				<tr>
+					<td>4</td>
+					<td><a href="#">2022년 12월 자코모야 만들어줘 아이디어 당첨자 안내</a></td>
+					<td>2022.12.29</td>
+					<td>자코모</td>
+					<td>5432</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class=text-center>
+			<ul class="pagination">
+				<li><a href="#">1</a></li>
+				<li><a href="#">2</a></li>
+				<li><a href="#">3</a></li>
+				<li><a href="#">4</a></li>
+				<li><a href="#">5</a></li>
+			</ul>
+		</div>
+	</div>
+
+
+	<footer class="footer section text-center">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<ul class="footer-menu text-uppercase">
+						<li><a href="contact.html">CONTACT</a></li>
+						<li><a href="shop.html">SHOP</a></li>
+						<li><a href="pricing.html">Pricing</a></li>
+						<li><a href="contact.html">PRIVACY POLICY</a></li>
+					</ul>
+					<p class="copyright-text">
+						Copyright &copy;2023, Designed &amp; Developed by <a
+							href="https://github.com/kckhw35/SOF8">SOF8</a>
+					</p>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<!-- 
+    Essential Scripts
+    =====================================-->
+
+	<!-- Main jQuery -->
+	<script th:src="@{/plugins/jquery/dist/jquery.min.js}"></script>
+	<!-- Bootstrap 3.1 -->
+	<script th:src="@{/plugins/bootstrap/js/bootstrap.min.js}"></script>
+	<!-- Bootstrap Touchpin -->
+	<script
+		th:src="@{/plugins/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js}"></script>
+	<!-- Instagram Feed Js -->
+	<script th:src="@{/plugins/instafeed/instafeed.min.js}"></script>
+	<!-- Video Lightbox Plugin -->
+	<script th:src="@{/plugins/ekko-lightbox/dist/ekko-lightbox.min.js}"></script>
+	<!-- Count Down Js -->
+	<script th:src="@{/plugins/syo-timer/build/jquery.syotimer.min.js}"></script>
+
+	<!-- slick Carousel -->
+	<script th:src="@{/plugins/slick/slick.min.js}"></script>
+	<script th:src="@{/plugins/slick/slick-animation.min.js}"></script>
+
+	<!-- Google Mapl -->
+	<script
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCC72vZw-6tGqFyRhhg5CkF2fqfILn2Tsw"></script>
+	<script type="text/javascript" th:src="@{/plugins/google-map/gmap.js}"></script>
+
+	<!-- Main Js File -->
+	<script th:src="@{/js/script.js}"></script>
+
+</body>
+</html>
