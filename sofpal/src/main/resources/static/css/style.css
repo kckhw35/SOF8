@@ -358,7 +358,7 @@ input[type=email]:focus, input[type=password]:focus, input[type=text]:focus, inp
 }
 .page-header .breadcrumb li {
   font-weight: 200;
-  font-size: 12px;
+  font-size: 15px;
 }
 .page-header .breadcrumb li a {
   color: #000;
