@@ -1,9 +1,20 @@
 <script>
-
+	$(document).ready(function() {
+		$('#btn_submit').click(function(){
+			var c = confirm('가입 하시겠습니까?');
+			if(c == true){
+				$('#form_join').attr({
+					'method' : 'post',
+					'action' : '[[@{/member/joinok}]]'
+				});
+				$('#form_join').submit();
+			}
+		});
+	});
 </script>
 
 <style>
-.large{
+.large {
 	font-size: 14px;
 }
 </style>
@@ -14,7 +25,7 @@
 			<div class="col-md-6 col-md-offset-3">
 				<div class="block text-center">
 					<h2 class="text-center">회원가입 정보입력</h2>
-					<form class="text-left clearfix" th:action="@{/member/joinok}">
+					<form id="from_join" class="text-left clearfix" th:action="@{/member/joinok}">
 						<div class="form-group">
 							<label class="form-label">* 아이디</label>
 							<input type="text" class="form-control" id="user_id">
@@ -59,13 +70,13 @@
 							<input type="text" class="form-control"	id="de_addr">
 						</div>
 						<div class="form-group text-center">
-							<button type="submit" class="btn btn-main btn-block text-center">
+							<button id="btn_submit" type="submit" class="btn btn-main btn-block text-center">
 								<span class="large">회원가입</span>
 							</button>
 						</div>
 					</form>
-					<p class="mt-20">Already hava an account ?<a href="login.html"> Login</a></p><br>
-					<p><a href="forget-password.html"> Forgot your password?</a></p>
+					<p class="mt-20">이미 계정이 있으신가요 ?<a th:href="@{/member/login}"> 로그인</a></p><br>
+					<p><a href="#"> 비밀번호를 잊으셨나요?</a></p>
 				</div>
 			</div>
 		</div>
