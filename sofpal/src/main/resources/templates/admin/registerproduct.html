@@ -1,0 +1,155 @@
+<style>
+	#register_btn{
+		text-align: center;
+	}
+	
+	#register_btn > a{
+		font-size: 16px;
+	}
+</style>
+<script>
+	/* function checkboxcnf(checkbox){
+		var discount = document.getElementById('discount');
+		
+		discount.disabled = checkbox.checked ? false : true;
+		
+		if(discount.disabled){
+			discount.value = null;
+		}else{
+			discount.focus();
+		}
+	}; */
+	
+	function registerproduct(){
+		$('#register_form a').click(function(){
+			var c = confirm('등록 하시겠습니까?');
+			if(c == true){
+				$('#register_form').attr({
+					'method' : 'post',
+					'action' : '[[@{/product/register}]]'
+				});
+				$('#register_form').submit();
+			};
+		});
+	};
+
+	window.onload = function() {
+		/* checkboxcnf(checkbox); */
+		registerproduct();
+	};
+</script>
+<section class="single-product">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6">
+				<ol class="breadcrumb">
+					<li><a th:href="@{/product/productall}">전체상품</a></li>
+					<li><a href="#">Shop</a></li>
+					<li class="active">Single Product</li>
+				</ol>
+			</div>
+			<div class="col-md-6">
+				<ol class="product-pagination text-right">
+					<li><a href="#"><i class="tf-ion-ios-arrow-left"></i> 이전</a></li>
+					<li><a href="#">다음 <i class="tf-ion-ios-arrow-right"></i></a></li>
+				</ol>
+			</div>
+		</div>
+		
+		<div class="row mt-20">
+			<form id="register_form">
+				<div class="col-md-5">
+					<input type="file" id="p_img" name="p_img" accept="image/*" required multiple>
+				</div>
+				<div class="col-md-7">
+					<div class="single-product-details">
+						<div class="form-group">
+	                        <label>카테고리</label>&nbsp;
+	                        <select id="cat_id" name="cat_id">
+							    <option value="1">패브릭소파</option>
+							    <option value="2">가죽소파</option>
+							    <option value="3">펫소파</option>
+							    <option value="4">리빙룸</option>
+						  	</select>
+	                    </div>
+						<div class="form-group">
+	                        <label>상품이름</label>
+	                        <input type="text" class="form-control" id="p_name" name="p_name"/>
+	                    </div>
+	                    <div class="form-group">
+	                        <label>가격</label>
+	                        <input type="text" class="form-control" id="price" name="price"/>
+	                    </div>
+						<div class="form-group">
+	                        <label>배송비</label>
+	                        <input type="text" class="form-control" id="del_cost" name="del_cost"/>
+	                    </div>
+	                    <div class="product-quantity">
+							<span>수량</span>
+							<div class="product-quantity-slider">
+								<input id="cnt" type="text" value="0" name="cnt">
+							</div>
+						</div>
+	                    <div class="form-group">
+	                        <label>할인</label>
+	                        <!-- <input type='checkbox' id="sale-check" onclick='checkboxcnf(this)'/> -->
+	                       	<input type="text" class="form-control" id="discount" name="discount"/>
+	                    </div>
+	                    <div class="form-group">
+							<label>크기</label><br/>
+	                        <input type="radio" name="size" id="size" value="1"/> 1인용&emsp;
+	                        <input type="radio" name="size" id="size" value="2"/> 2인용&emsp;
+	                        <input type="radio" name="size" id="size" value="3"/> 3인용&emsp;
+	                        <input type="radio" name="size" id="size" value="4"/> 4인용&emsp;
+	                        <input type="radio" name="size" id="size" value="5"/> 5인용&emsp;
+	                        <input type="radio" name="size" id="size" value="6"/> 6인용
+						</div>
+						<div class="form-group">
+							<label>색상</label>&nbsp;
+							<select id="color" name="color">
+							    <option value="pale_dogwood" data-image="images/shop/color/pale_dogwood.png">pale_dogwood</option>
+							    <option value="gray_sand">gray_sand</option>
+							    <option value="gray_lilac">gray_lilac</option>
+							    <option value="plein_air">plein_air</option>
+							    <option value="pale_khaki">pale_khaki</option>
+							    <option value="fields_of_rye">fields_of_rye</option>
+							    <option value="agate_gray">agate_gray</option>
+							    <option value="viva_magenta">viva_magenta</option>
+							    <option value="biscary_bay">biscary_bay</option>
+							    <option value="fir_green">fir_green</option>
+							    <option value="rose_taupe">rose_taupe</option>
+							    <option value="polar_night">polar_night</option>
+							    <option value="tawny_port">tawny_port</option>
+							    <option value="gloxinia">gloxinia</option>
+							    <option value="silver_pine">silver_pine</option>
+						  	</select>
+						</div>
+	                    <div class="form-group">
+	                        <label>보이기</label><br/>
+	                        <input type="radio" id="visiable" name="visiable" value="true" checked> 네&emsp;
+	                        <input type="radio" id="visiable" name="visiable" value="false"> 아니오
+	                    </div>					
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="tabCommon mt-20">
+							<ul class="nav nav-tabs">
+								<li class="active"><a data-toggle="tab" href="#" aria-expanded="true">상품 설명</a></li>
+							</ul>
+							<div class="tab-content patternbg">
+								<div id="details" class="tab-pane fade active in">
+									<textarea id="p_content" name="p_content" rows="10" cols="100" style="width: 100%;"></textarea>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="register_btn">
+					<a href="#" class="btn btn-main mt-20" name="register_product">상품 등록하기</a>
+				</div>
+			</form>	
+		</div>
+	</div>
+</section>

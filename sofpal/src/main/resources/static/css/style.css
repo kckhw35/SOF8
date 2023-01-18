@@ -1323,7 +1323,7 @@ input[type=email]:focus, input[type=password]:focus, input[type=text]:focus, inp
 .single-product-details .product-quantity > span {
   width: 100px;
   color: #000;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
   display: inline-block;
 }

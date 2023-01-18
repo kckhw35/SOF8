@@ -22,5 +22,6 @@ public class Product {
 	int cnt;
 	int discount;
 	int size;
+	String color;
 	boolean visiable;
 }

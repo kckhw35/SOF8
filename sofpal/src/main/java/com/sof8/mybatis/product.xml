@@ -11,10 +11,10 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		SELECT * FROM product
 	</select>
 	<insert id="insert" parameterType="Product">
-		INSERT INTO product VALUES (${p_id}, ${cat_id}, #{p_name}, #{p_content}, #{p_img}, ${price}, ${del_cost}, ${cnt}, ${discount}, ${size}, #{visiable})
+		INSERT INTO product VALUES (p_id, ${cat_id}, #{p_name}, #{p_content}, #{p_img}, ${price}, ${del_cost}, ${cnt}, ${discount}, ${size}, #{color}, #{visiable})
 	</insert>
 	<update id="update" parameterType="Product">
-		UPDATE product SET p_name = #{p_name}, p_content = #{p_content}, p_img = #{p_img}, price = ${price}, del_cost = ${del_cost}, cnt = ${cnt}, discount = ${discount}, size = ${size}, visiable = #{visiable} WHERE p_id = ${p_id}
+		UPDATE product SET p_name = #{p_name}, p_content = #{p_content}, p_img = #{p_img}, price = ${price}, del_cost = ${del_cost}, cnt = ${cnt}, discount = ${discount}, size = ${size}, color = #{color}, visiable = #{visiable} WHERE p_id = ${p_id}
 	</update>
 	<delete id="delete" parameterType="int">
 		DELETE FROM product WHERE p_id = ${p_id}
