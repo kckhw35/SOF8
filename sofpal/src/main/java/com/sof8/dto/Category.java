@@ -1,5 +1,7 @@
 package com.sof8.dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,8 +13,8 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Test {
-	private String id;
-	private String pwd;
-	private String name;
+public class Category {
+	private int cat_id;
+	private String cat_name;
+	private int cat_id2;
 }

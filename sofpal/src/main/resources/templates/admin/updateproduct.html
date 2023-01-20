@@ -20,29 +20,29 @@
 		}
 	}; */
 	
-	function registerproduct(){
-		$('#register_form a[name="register_product"]').click(function(){
-			var c = confirm('등록 하시겠습니까?');
+	function updateproduct(){
+		$('#update_form a[name="update_product"]').click(function(){
+			var c = confirm('수정 하시겠습니까?');
 			if(c == true){
-				$('#register_form').attr({
+				$('#update_form').attr({
 					'enctype': 'multipart/form-data',
 					'method' : 'post',
-					'action' : '[[@{/product/register}]]'
+					'action' : '[[@{/product/update}]]'
 				});
-				$('#register_form').submit();
+				$('#update_form').submit();
 			};
 		});
 	};
 
 	window.onload = function() {
 		/* checkboxcnf(checkbox); */
-		registerproduct();
+		updateproduct();
 	};
 </script>
 <section class="single-product">
 	<div class="container">
 		<div class="row mt-20">
-			<form id="register_form">
+			<form id="update_form">
 				<div class="col-md-5">
 					<input type="file" id="p_img" name="img" accept="images/shop/products/*" required multiple>
 				</div>
@@ -59,26 +59,26 @@
 	                    </div>
 						<div class="form-group">
 	                        <label>상품이름</label>
-	                        <input type="text" class="form-control" id="p_name" name="p_name"/>
+	                        <input type="text" class="form-control" th:value="${p.p_name}" id="p_name" name="p_name"/>
 	                    </div>
 	                    <div class="form-group">
 	                        <label>가격</label>
-	                        <input type="text" class="form-control" id="price" name="price"/>
+	                        <input type="text" class="form-control" th:value="${p.price}" id="price" name="price"/>
 	                    </div>
 						<div class="form-group">
 	                        <label>배송비</label>
-	                        <input type="text" class="form-control" id="del_cost" name="del_cost"/>
+	                        <input type="text" class="form-control" th:value="${p.del_cost}" id="del_cost" name="del_cost"/>
 	                    </div>
 	                    <div class="product-quantity">
 							<span>수량</span>
 							<div class="product-quantity-slider">
-								<input id="cnt" type="text" value="1" name="cnt">
+								<input id="cnt" type="text" th:value="${p.cnt}" name="cnt">
 							</div>
 						</div>
 	                    <div class="form-group">
 	                        <label>할인</label>
 	                        <!-- <input type='checkbox' id="sale-check" onclick='checkboxcnf(this)'/> -->
-	                       	<input type="text" class="form-control" id="discount" name="discount"/>
+	                       	<input type="text" class="form-control" th:value="${p.discount}" id="discount" name="discount"/>
 	                    </div>
 	                    <div class="form-group">
 							<label>크기</label><br/>
@@ -132,7 +132,7 @@
 					</div>
 				</div>
 				<div id="register_btn">
-					<a href="#" class="btn btn-main mt-20" name="register_product">상품 등록하기</a>
+					<a href="#" class="btn btn-main mt-20" name="update_product">상품 수정하기</a>
 				</div>
 			</form>	
 		</div>
