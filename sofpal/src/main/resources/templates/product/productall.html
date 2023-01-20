@@ -24,6 +24,7 @@
 			<tr th:each="p : ${plist}">
 				<div class="col-md-4">
 				<div class="product-item">
+<<<<<<< HEAD
 						<div class="product-thumb" th:OnClick="|location.href ='@{/product/productdetail(p_id=${p.p_id})}'|" th:value="${p.p_id}" style="cursor:pointer;" >
 							<td><img class="img-responsive" th:src="@{/images/shop/products/}+${p.p_img}"/></td>
 							<input type="hidden" name="p_img" th:value="${p.p_img}">
@@ -32,6 +33,26 @@
 							<td><h4><a th:href="@{/product/productdetail(p_id=${p.p_id})}" th:value="${p.p_id}" th:text="${p.p_name}"></a></h4></td>
 							<p class="price"><td th:text="${p.price}"></td></p>
 						</div>
+=======
+					<div class="product-thumb" OnClick="location.href ='/'" style="cursor:pointer;" >
+						<span class="bage">Sale</span>
+						<img class="img-responsive" th:src="@{/images/shop/products/product-1.jpg}"  alt="product-img" />
+						<div class="preview-meta">
+							<ul>
+								<li>
+			                        <a href="#!" ><i class="tf-ion-ios-heart"></i></a>
+								</li>
+								<li>
+									<a href="#!"><i class="tf-ion-android-cart"></i></a>
+								</li>
+							</ul>
+                      	</div>
+					</div>
+					<div class="product-content">
+						<h4><a href="product-single.html">Reef Boardsport</a></h4>
+						<p class="price">$200</p>
+					</div>
+>>>>>>> refs/remotes/origin/main
 				</div>
 			</div>
 			</tr>	

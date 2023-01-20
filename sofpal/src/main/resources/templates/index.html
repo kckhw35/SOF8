@@ -1,31 +1,71 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-<!-- Basic Page Needs
-	  ================================================== -->
-<meta charset="utf-8">
-<title>SOF8</title>
+	<!-- Basic Page Needs
+		  ================================================== -->
+	<meta charset="utf-8">
+	<title>SOF8</title>
+	
+	<!-- Mobile Specific Metas
+		  ================================================== -->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="description" content="Construction Html5 Template">
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+	<meta name="author" content="Themefisher">
+	<meta name="generator" content="Themefisher Constra HTML Template v1.0">
+	
+	<!-- theme meta -->
+	<meta name="theme-name" content="aviato" />
+	
+	<!-- Favicon -->
+	<link rel="shortcut icon" type="image/x-icon" th:href="@{/images/favicon.png}" />
+	
+	<!-- Google font -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+	
+	<!-- Themefisher Icon font -->
+	<link rel="stylesheet" th:href="@{/plugins/themefisher-font/style.css}">
+	<!-- bootstrap.min css -->
+	<link rel="stylesheet" th:href="@{/plugins/bootstrap/css/bootstrap.min.css}">
+	
+	<!-- Animate css -->
+	<link rel="stylesheet" th:href="@{/plugins/animate/animate.css}">
+	<!-- Slick Carousel -->
+	<link rel="stylesheet" th:href="@{/plugins/slick/slick.css}">
+	<link rel="stylesheet" th:href="@{/plugins/slick/slick-theme.css}">
+	
+	<!-- Main Stylesheet -->
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+	
+	<script src="https://code.iconify.design/iconify-icon/1.0.2/iconify-icon.min.js"></script>
 
-<!-- Mobile Specific Metas
-	  ================================================== -->
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="description" content="Construction Html5 Template">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-<meta name="author" content="Themefisher">
-<meta name="generator" content="Themefisher Constra HTML Template v1.0">
+	<!-- 
+    Essential Scripts
+    =====================================-->
 
-<!-- theme meta -->
-<meta name="theme-name" content="aviato" />
+	<!-- Main jQuery -->
+	<script th:src="@{/plugins/jquery/dist/jquery.min.js}"></script>
+	<!-- Bootstrap 3.1 -->
+	<script th:src="@{/plugins/bootstrap/js/bootstrap.min.js}"></script>
+	<!-- Bootstrap Touchpin -->
+	<script	th:src="@{/plugins/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js}"></script>
+	<!-- Video Lightbox Plugin -->
+	<script th:src="@{/plugins/ekko-lightbox/dist/ekko-lightbox.min.js}"></script>
+	<!-- Count Down Js -->
+	<script th:src="@{/plugins/syo-timer/build/jquery.syotimer.min.js}"></script>
 
-<!-- Favicon -->
-<link rel="shortcut icon" type="image/x-icon" th:href="@{/images/favicon.png}" />
+	<!-- slick Carousel -->
+	<script th:src="@{/plugins/slick/slick.min.js}"></script>
+	<script th:src="@{/plugins/slick/slick-animation.min.js}"></script>
 
-<!-- Google font -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+	<!-- Google Mapl -->
+	<script	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCC72vZw-6tGqFyRhhg5CkF2fqfILn2Tsw"></script>
+	<script type="text/javascript" th:src="@{/plugins/google-map/gmap.js}"></script>
 
+<<<<<<< HEAD
 <!-- Themefisher Icon font -->
 <link rel="stylesheet" th:href="@{/plugins/themefisher-font/style.css}">
 <!-- bootstrap.min css -->
@@ -45,6 +85,10 @@
 	
 <script src="https://code.iconify.design/iconify-icon/1.0.2/iconify-icon.min.js"></script>
 		
+=======
+	<!-- Main Js File -->
+	<script th:src="@{/js/script.js}"></script>
+>>>>>>> refs/remotes/origin/main
 </head>
 <body id="body">
 	<div th:replace="inc/top-header :: top-header"></div>
@@ -72,35 +116,14 @@
 			</div>
 		</div>
 	</footer>
+<<<<<<< HEAD
 	<!-- 
    		 Essential Scripts
     =====================================-->
+=======
 
-	<!-- Main jQuery -->
-	<script th:src="@{/plugins/jquery/dist/jquery.min.js}"></script>
-	<!-- Bootstrap 3.1 -->
-	<script th:src="@{/plugins/bootstrap/js/bootstrap.min.js}"></script>
-	<!-- Bootstrap Touchpin -->
-	<script
-		th:src="@{/plugins/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js}"></script>
-	<!-- Instagram Feed Js -->
-	<script th:src="@{/plugins/instafeed/instafeed.min.js}"></script>
-	<!-- Video Lightbox Plugin -->
-	<script th:src="@{/plugins/ekko-lightbox/dist/ekko-lightbox.min.js}"></script>
-	<!-- Count Down Js -->
-	<script th:src="@{/plugins/syo-timer/build/jquery.syotimer.min.js}"></script>
+>>>>>>> refs/remotes/origin/main
 
-	<!-- slick Carousel -->
-	<script th:src="@{/plugins/slick/slick.min.js}"></script>
-	<script th:src="@{/plugins/slick/slick-animation.min.js}"></script>
-
-	<!-- Google Mapl -->
-	<script
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCC72vZw-6tGqFyRhhg5CkF2fqfILn2Tsw"></script>
-	<script type="text/javascript" th:src="@{/plugins/google-map/gmap.js}"></script>
-
-	<!-- Main Js File -->
-	<script th:src="@{/js/script.js}"></script>
 
 </body>
 </html>
