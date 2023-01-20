@@ -9,5 +9,5 @@ import com.sof8.frame.Sof8Mapper;
 @Repository
 @Mapper
 public interface TestMapper extends Sof8Mapper<String, Test>{
-
+	
 }

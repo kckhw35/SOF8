@@ -1,0 +1,53 @@
+
+<body id="body">
+	<!-- ========================page-header ============================ -->
+	<section class="page-header" style="background-image: url(../images/slider/slider-2.png);">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div style="padding:80px" class="content">
+						<h1 class="text-center">NOTICE</h1>
+						<h3 class="text-center col-md-12"><b>공지사항</b></h3>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- ========================== page-wrapper========================== -->
+	<div class="container">
+		<h2>공지사항</h2>
+		<br> <br>
+		<div class="row"
+			style="background-color: #F7F7F7; padding: 20px 20px 20px 5px; margin: 5px; border-top: solid 2px; border-bottom: solid 2px">
+			<h3 style="font-weight: bold;" class="col" th:text=${notice.title}>
+				tilte</h3>
+		</div>
+		<div class="row"
+			style="padding: 5px 20px 5px 5px; margin: 0px 5px 0px 5px; margin-bottom: 25px; border-bottom: solid 1px">
+			<span style="font-weight: bold;" class="col-md-1"
+				th:text="${notice.admin_id}">자코모</span> <span
+				style="border-left: solid 1px" class="col-md-2"
+				th:text="${notice.rdate}">1996.09.25</span> <span class="pull-right"
+				th:text="${notice.hit}"></span> <span style="font-weight: bold;"
+				class="pull-right">조회수&nbsp&nbsp</span>
+		</div>
+
+		<div style="border-bottom: solid 1px; padding: 5px 5px 30px 5px; margin: 0px 5px 0px 5px;">
+			<div class="text-center" th:text=${notice.content}></div>
+		</div>
+
+
+		<div class="row pull-right" style="margin-top: 50px; margin-right: 5px;">
+			<div class="btn-group" role="group">
+			<!-- 목록 클릭시, 사용자의 검색키워드와 페이지가 유지된 목록으로 이동시킨다. -->
+				<button th:if="!${keyword} or ${keyword} =='null'" type="button" class="btn btn-default"><a th:href="@{|/notice?page=${page}|}">목록</a></button>
+				<button th:unless="!${keyword} or ${keyword} =='null'" type="button" class="btn btn-default"><a th:href="@{|/notice?page=${page}&searchOption=${searchOption}&keyword=${keyword}|}">목록</a></button>
+				
+				<button type="button" class="btn btn-default"><a th:href="@{|/admin/notice/${notice.b_id}/delete|}">삭제</a></button>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
