@@ -1,0 +1,115 @@
+@charset "UTF-8";
+
+/*******************************************
+[Table of Content]
+1. Common			: 공통 
+2. Member 			: 
+	2.1 join		: 회원가입
+	2.2 joinok		: 회원가입 성공
+	2.3 joinfail	: 회원가입 실패
+	2.4 login		: 로그인
+	2.5 loginfail	: 로그인 실패
+3. Mypage
+	3.1 sidenav		: 마이페이지 메뉴 	
+	3.2 info		: 회원정보
+	3.3 edit		: 회원정보 수정
+
+*******************************************/
+/*=== [ 1. Common ] ===*/
+.large {
+	font-size: 14px;
+} /* join, joinok, joinfail, loginfail */
+
+.clearfix {
+	margin-top: 40px;
+} /* joinfail, loginfail */
+
+.eye {
+	line-height: 45px;
+	font-size: 22px;
+} /* join, edit */
+
+.form-control-feedback {
+	pointer-events: auto;
+} /* join, edit */
+
+.line {
+	padding: 10px;
+	border: 1px solid #dedede;
+} /* info, edit */
+
+
+/*=== [ 2. Member ] ===*/
+/*== [ 2.1 join ] ==*/
+.account .join-email .form-group {
+	float: left;
+}
+
+.account .join-email .form-group:first-child {
+	width: calc(70% - 2px);
+	margin-right: 4px;
+}
+
+.account .join-email .form-group:last-child {
+	width: calc(30% - 2px);
+}
+
+.account .join-email .form-group .input-lg {
+	font-size: 14px;
+}
+
+/*== [ 2.2 joinok ] ==*/
+/*== [ 2.3 joinfail ] ==*/
+/*== [ 2.4 login ] ==*/
+.space-bottom {
+	margin-bottom: 14px;
+}
+
+/*== [ 2.5 loginfail ] ==*/
+
+
+/*=== [ 3. Mypage ] ===*/
+/*== [ 3.1 sidenav ] ==*/
+.ud-space {
+	margin: 20px 0;
+}
+.sidenav .nav-pills>li.active>a, 
+.sidenav .nav-pills>li.active>a:focus,
+.sidenav .nav-pills>li.active>a:hover {
+	color: #FFF;
+	background-color: #000;
+}
+
+/*== [ 3.2 info ] ==*/
+.info .form-control {
+	border: 0px;
+}
+
+/*== [ 3.3 edit ] ==*/
+.edit .edit-email {
+	overflow: hidden;
+	position: relative;
+}
+
+.edit .edit-email .form-control {
+	float: left;
+}
+
+.edit .edit-email #email {
+	width: calc(70% - 2px);
+	margin-right: 4px;
+}
+
+.edit .edit-email #slt_email {
+	width: calc(30% - 2px);
+	font-size: 12px;
+}
+
+/*== [ 3.4 edit ] ==*/
+.cancel pre {
+	font-size : 0.8em;
+}
+.cancel #form_pwd {
+	margin-top: 14px;
+}
+

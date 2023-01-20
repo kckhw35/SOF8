@@ -1,0 +1,123 @@
+<section class="edit">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-3" th:include="@{/mypage/sidenav}"></div>
+			<div class="col-md-9">
+				<div class="line">
+					<h2 class="text-center">회원정보 수정</h2>
+					<form class="form-horizontal clearfix" id="form_edit">
+						<hr style="margin-top: 0px;">
+						<div class="form-group">						
+							<label class="col-md-2 control-label">아이디:</label>
+							<div class="col-md-10">
+								<input type="text" class="form-control" name="user_id" id="user_id" th:value="${user.user_id}" readonly="readonly">
+							</div>
+						</div>
+						<hr>
+						<div class="form-group has-feedback" id="form_nowpwd">
+							<label class="col-md-2 control-label">현재 비밀번호:</label>
+							<div class="col-md-10">
+								<input type="password" class="form-control" name="now_pwd" id="now_pwd">
+								<span class="glyphicon glyphicon-eye-open form-control-feedback eye"></span>							
+								<span class="control-label" id="error_nowpwd"></span>
+								<input type="hidden" name="edit_pwd" id="edit_pwd" th:value="${user.pwd}">
+							</div>
+						</div>
+						<hr>
+						<div class="form-group has-feedback" id="form_pwd">
+							<label class="col-md-2 control-label ">비밀번호:</label>
+							<div class="col-md-10">
+								<input type="password" class="form-control" name="pwd" id="pwd">
+								<span class="glyphicon glyphicon-eye-open form-control-feedback eye"></span>							
+								<span class="control-label" id="error_pwd"></span>
+							</div>
+						</div>
+						<hr>
+						<div class="form-group has-feedback" id="form_chk_pwd">
+							<label class="col-md-2 control-label">비밀번호 확인:</label>
+							<div class="col-md-10">
+								<input type="password" class="form-control" name="chk_pwd" id="chk_pwd">
+								<span class="glyphicon glyphicon-eye-open form-control-feedback eye"></span>							
+								<span class="control-label" id="error_chk_pwd"></span>
+							</div>
+						</div>
+						<hr>
+						<div class="form-group">
+							<label class="col-md-2 control-label">이름:</label>
+							<div class="col-md-10">
+								<input type="text" class="form-control" name="name" id="name" th:value="${user.name}">
+								<span class="control-label" id="error_name"></span>
+							</div>
+						</div>
+						<hr>				
+						<div class="form-group">
+							<label class="col-md-2 control-label">이메일:</label>							
+							<div class="col-md-10">
+								<div class="edit-email">				
+									<input type="text" class="form-control" name="email" id="email">
+									<select class="form-control input-lg" id="slt_email">
+										<option value="">직접입력</option>
+										<option value="naver">naver.com</option>
+										<option value="hanmail">hanmail.net</option>
+										<option value="daum">daum.net</option>
+										<option value="nate">nate.com</option>
+										<option value="hotmail">hotmail.com</option>
+										<option value="gmail">gmail.com</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<hr>
+						<div class="form-group" id="form_tel">
+							<label class="col-md-2 control-label">휴대전화:</label>
+							<div class="col-md-10">
+								<input type="text" class="form-control" name="tel" id="tel"	th:value="${user.tel}">
+								<span class="control-label" id="error_tel"></span>
+							</div>
+						</div>
+						<hr>
+						<div class="form-group" id="form_zipcode">
+							<label class="col-md-2 control-label">우편번호:</label>
+							<div class="col-md-10">
+								<div class="input-group">
+									<input type="text" class="form-control" name="zipcode" id="zipcode"	th:value="${user.zipcode}">
+									<span class="control-label" id="error_zipcode"></span>
+									<span class="input-group-btn">
+										<button type="button" class="btn btn-lg" id="btn_zipcode">
+											<span class="large">우편번호검색</span>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+						<hr>
+						<div class="form-group" id="form_addr">
+							<label class="col-md-2 control-label">주소:</label>
+							<div class="col-md-10">
+								<input type="text" class="form-control" name=addr id="addr"	th:value="${user.addr}">
+								<span class="control-label" id="error_addr"></span>
+							</div>
+						</div>
+						<hr>
+						<div class="form-group" id="form_detailaddr">
+							<label class="col-md-2 control-label">상세주소:</label>
+							<div class="col-md-10">
+								<input type="text" class="form-control" name="de_addr" id="de_addr"	th:value="${user.de_addr}">
+								<span class="control-label" id="error_detailaddr"></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-md-6">
+								<button id="btn_cancel" class="btn btn-solid-border btn-block text-center large">취소</button>
+							</div>
+							<div class="col-md-6">
+								<button id="btn_edit" type="submit" class="btn btn-main btn-block text-center large">정보수정</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+

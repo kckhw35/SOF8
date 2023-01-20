@@ -11,23 +11,32 @@
 				<ul class="top-menu text-right list-inline">
 					<!-- Search -->
 					<li class="dropdown search dropdown-slide">
-							<a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><i class="tf-ion-ios-search-strong"></i></a>
-							<ul class="dropdown-menu search-dropdown">
-								<li>
-									<form action="post"><input type="search" class="form-control" placeholder="Search..."></form>
-								</li>
-							</ul>
+						<a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><i class="tf-ion-ios-search-strong"></i></a>
+						<ul class="dropdown-menu search-dropdown">
+							<li>
+								<form action="post"><input type="search" class="form-control" placeholder="Search..."></form>
+							</li>
+						</ul>
 					</li><!-- / Search -->
 					<!-- Join -->
-					<li class="join-site">
+					<li class="join-site" th:if="${session.login_user == null}">
 							<a th:href="@{/member/join}" class="join"><iconify-icon inline icon="ion:person-add"></iconify-icon> 회원가입</a>
 					</li><!-- / Join -->
+					<!-- MyPage -->
+					<li class="join-site" th:if="${session.login_user != null}">
+							<a th:href="@{/mypage/info}" class="join"><iconify-icon inline icon="ion:person"></iconify-icon> 마이페이지</a>
+					</li><!-- / MyPage -->
 					<!-- Login -->
-					<li class="login-site">
-							<a th:href="@{/member/login}" class="join"><iconify-icon inline icon="ion:person-circle"></iconify-icon> 로그인</a>
+					<li class="login-site" th:if="${session.login_user == null}">
+							<a th:href="@{/member/login}"class="join"><iconify-icon icon="ri:login-box-fill"></iconify-icon> 로그인</a>
 					</li><!-- / Login -->
+					<!-- Logout -->
+					<li class="login-site" th:if="${session.login_user != null}">
+							<a th:href="@{/member/logout}" class="join"><iconify-icon inline icon="ri:logout-box-r-fill"></iconify-icon> 로그아웃</a>
+					</li><!-- / Logout -->
+					
 					<!-- Cart -->
-					<li class="dropdown cart-nav dropdown-slide">
+					<li class="dropdown cart-nav dropdown-slide" th:if="${session.login_user != null}">
 						<a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><iconify-icon inline icon="ion:bag"></iconify-icon> 장바구니</a>
 						<div class="dropdown-menu cart-dropdown">
 							<!-- Cart Item -->

@@ -1,29 +1,30 @@
-<style>
-.space-bottom {
-	margin-bottom: 14px;
-}
-</style>
-<section class="signin-page account">
+<section class="account">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
 				<div class="block text-center">
 					<h2 class="text-center">회원 로그인</h2>
-					<form class="text-left clearfix" action="#">
+					<form class="text-left clearfix" id="form_login">
 						<div class="form-group">
-							<input type="text" class="form-control" placeholder="ID">
+							<input type="text" class="form-control" name="user_id" placeholder="ID">
 						</div>
 						<div class="form-group">
-							<input type="password" class="form-control"
-								placeholder="Password">
+							<input type="password" class="form-control" name="pwd" placeholder="Password">
+							<span class="control-label text-danger"	th:text="${error_login}"></span>
+						</div>
+						<div class="form-group">
+							<input type="checkbox" class="save_id" name="checkId" id="saveId">
+							<label for="saveId">아이디 저장(구현 예정)</label>
 						</div>
 						<div class="text-center">
-							<button type="submit" class="btn btn-main btn-block text-center space-bottom">Login</button>
+							<button type="submit" class="btn btn-main btn-block text-center space-bottom" id="btn_loginok">Login</button>
 						</div>
 					</form>
-					<p class="mt-20">처음이신가요 ?<a th:href="@{/member/join}"> 회원가입</a></p>
+					<p class="mt-20">사이트 방문이 처음이신가요 ?<a th:href="@{/member/join}"> 회원가입</a></p><br>
+					<p class="mt-20">아이디/비밀번호를 잊으셨나요?<a th:href="@{/member/find_id}"> 아이디 찾기</a>/<a th:href="@{/member/find_password}">비밀번호 찾기</a></p> 
 				</div>
 			</div>
 		</div>
 	</div>
 </section>
+ 

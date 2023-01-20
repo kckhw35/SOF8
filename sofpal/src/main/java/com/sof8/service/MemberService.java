@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sof8.dto.Member;
-import com.sof8.dto.Test;
 import com.sof8.frame.Sof8Service;
 import com.sof8.mapper.MemberMapper;
 
@@ -39,6 +38,10 @@ public class MemberService implements Sof8Service<String, Member>{
 	@Override
 	public List<Member> get() throws Exception {
 		return mapper.selectall();
+	}
+
+	public void modifyEnable(String k) throws Exception {
+		mapper.updateEnable(k);
 	}
 
 }

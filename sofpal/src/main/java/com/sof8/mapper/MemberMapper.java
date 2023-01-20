@@ -10,4 +10,6 @@ import com.sof8.frame.Sof8Mapper;
 @Mapper
 public interface MemberMapper extends Sof8Mapper<String, Member>{
 
+	public void updateEnable(String k) throws Exception;
+	
 }

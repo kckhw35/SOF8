@@ -1,0 +1,65 @@
+<section class="info">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-3" th:include="@{/mypage/sidenav}"></div>
+			<div class="col-md-9">
+				<div class="line">
+					<h1 class="text-center">
+						<small><b>회원정보</b></small>
+					</h1>
+					<hr>
+					<div class="form-horizontal clearfix">
+						<div class="form-group">						
+							<label class="col-md-2 control-label">아이디:</label>
+							<div class="col-md-10 ">
+								<span class="form-control">[[${user.user_id}]]</span>
+							</div>
+						</div>
+						<hr>
+						<div class="form-group">
+							<label class="col-md-2 control-label">이름:</label>
+							<div class="col-md-10">
+								<span class="form-control">[[${user.name}]]</span>
+							</div>
+						</div>
+						<hr>
+						<div class="form-group">
+							<label class="col-md-2 control-label">이메일:</label>
+							<div class="col-md-10">
+								<span class="form-control">[[${user.email}]]</span>
+							</div>
+						</div>						
+						<hr>
+						<div class="form-group">
+							<label class="col-md-2 control-label">휴대전화:</label>
+							<div class="col-md-10">
+								<span class="form-control">[[${user.tel}]]</span>
+							</div>
+						</div>
+						<hr>
+						<div class="form-group">
+							<label class="col-md-2 control-label">우편번호:</label>
+							<div class="col-md-10">
+								<span class="form-control">[[${user.zipcode}]]</span>
+							</div>
+						</div>
+						<hr>
+						<div class="form-group">
+							<label class="col-md-2 control-label">주소:</label>
+							<div class="col-md-10">
+								<span class="form-control">[[${user.addr}]]</span>
+							</div>
+						</div>
+						<hr>
+						<div class="form-group">
+							<label class="col-md-2 control-label">상세주소:</label>
+							<div class="col-md-10">
+								<span class="form-control">[[${user.de_addr}]]</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
