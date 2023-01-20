@@ -30,70 +30,28 @@
 	<link rel="stylesheet" th:href="@{/plugins/themefisher-font/style.css}">
 	<!-- bootstrap.min css -->
 	<link rel="stylesheet" th:href="@{/plugins/bootstrap/css/bootstrap.min.css}">
-	
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">	
 	<!-- Animate css -->
 	<link rel="stylesheet" th:href="@{/plugins/animate/animate.css}">
 	<!-- Slick Carousel -->
 	<link rel="stylesheet" th:href="@{/plugins/slick/slick.css}">
 	<link rel="stylesheet" th:href="@{/plugins/slick/slick-theme.css}">
-	
+
 	<!-- Main Stylesheet -->
 	<link rel="stylesheet" th:href="@{/css/style.css}">
+	<link rel="stylesheet" th:href="@{/css/style-member.css}">
+	<!-- Password Eyes Icon -->
+	<link rel="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 	
 	<script src="https://code.iconify.design/iconify-icon/1.0.2/iconify-icon.min.js"></script>
-
-	<!-- 
-    Essential Scripts
-    =====================================-->
-
-	<!-- Main jQuery -->
-	<script th:src="@{/plugins/jquery/dist/jquery.min.js}"></script>
-	<!-- Bootstrap 3.1 -->
-	<script th:src="@{/plugins/bootstrap/js/bootstrap.min.js}"></script>
-	<!-- Bootstrap Touchpin -->
-	<script	th:src="@{/plugins/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js}"></script>
-	<!-- Video Lightbox Plugin -->
-	<script th:src="@{/plugins/ekko-lightbox/dist/ekko-lightbox.min.js}"></script>
-	<!-- Count Down Js -->
-	<script th:src="@{/plugins/syo-timer/build/jquery.syotimer.min.js}"></script>
-
-	<!-- slick Carousel -->
-	<script th:src="@{/plugins/slick/slick.min.js}"></script>
-	<script th:src="@{/plugins/slick/slick-animation.min.js}"></script>
-
-	<!-- Google Mapl -->
-	<script	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCC72vZw-6tGqFyRhhg5CkF2fqfILn2Tsw"></script>
-	<script type="text/javascript" th:src="@{/plugins/google-map/gmap.js}"></script>
-
-<<<<<<< HEAD
-<!-- Themefisher Icon font -->
-<link rel="stylesheet" th:href="@{/plugins/themefisher-font/style.css}">
-<!-- bootstrap.min css -->
-<link rel="stylesheet" th:href="@{/plugins/bootstrap/css/bootstrap.min.css}">
-
-<!-- Animate css -->
-<link rel="stylesheet" th:href="@{/plugins/animate/animate.css}">
-<!-- Slick Carousel -->
-<link rel="stylesheet" th:href="@{/plugins/slick/slick.css}">
-<link rel="stylesheet" th:href="@{/plugins/slick/slick-theme.css}">
-
-<!-- Main Stylesheet -->
-<link rel="stylesheet" th:href="@{/css/style.css}">
-
-<!-- jQuery -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 	
-<script src="https://code.iconify.design/iconify-icon/1.0.2/iconify-icon.min.js"></script>
-		
-=======
-	<!-- Main Js File -->
-	<script th:src="@{/js/script.js}"></script>
->>>>>>> refs/remotes/origin/main
-</head>
+	<script th:src="@{/js/script-member.js}"></script>
+	</head>
+
 <body id="body">
 	<div th:replace="inc/top-header :: top-header"></div>
 	<div th:replace="inc/main-menu :: main-menu"></div>
-
+	
 	<section>
 		<div th:include="${content} ? ${content} : content"></div>
 	</section>
@@ -116,14 +74,31 @@
 			</div>
 		</div>
 	</footer>
-<<<<<<< HEAD
+
 	<!-- 
-   		 Essential Scripts
+    Essential Scripts
     =====================================-->
-=======
 
->>>>>>> refs/remotes/origin/main
-
-
+	<!-- Main jQuery -->
+	<script th:src="@{/plugins/jquery/dist/jquery.min.js}"></script>
+	<!-- Bootstrap 3.1 -->
+	<script th:src="@{/plugins/bootstrap/js/bootstrap.min.js}"></script>
+	<!-- Bootstrap Touchpin -->
+	<script	th:src="@{/plugins/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js}"></script>
+	<!-- Video Lightbox Plugin -->
+	<script th:src="@{/plugins/ekko-lightbox/dist/ekko-lightbox.min.js}"></script>
+	<!-- Count Down Js -->
+	<script th:src="@{/plugins/syo-timer/build/jquery.syotimer.min.js}"></script>
+	<!-- slick Carousel -->
+	<script th:src="@{/plugins/slick/slick.min.js}"></script>
+	<script th:src="@{/plugins/slick/slick-animation.min.js}"></script>
+	<!-- Google Mapl -->
+	<script	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCC72vZw-6tGqFyRhhg5CkF2fqfILn2Tsw"></script>
+	<script type="text/javascript" th:src="@{/plugins/google-map/gmap.js}"></script>
+	<!-- Main Js File -->
+	<script th:src="@{/js/script.js}"></script>
+	<!-- kakao postcode api -->
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	
 </body>
 </html>
