@@ -195,32 +195,29 @@ function check_admin_account() {
 
 // 사용자 아이디 찾기 버튼
 function find_user_id() {
-	var user = null;
-	var error = null;
-	var name = $('#name').val();
-	var email = $('#email').val();
 	$('#btn_findid').click(function() {
-		if((check_name() & check_email) == 0) {
+		var name = $('#name').val();
+		var email = $('#email').val();
+	
+		if((check_name() & check_email()) == 0) {
+			$('#form_findid').addClass('has-error');
+			$('#error_email').text('이름 혹은 이메일을 입력해주세요.');
 			return false;
 		}
 	
 		$.ajax({
-			url: '/mypage/cancelok',
+			url: '/find_id',
 			method: 'post',
 			data: {
 				'name': name,
 				'email': email
 			}, 
-			success: function() {
-				alert('성공적으로 탈퇴되었습니다.')
-				location.href='/';
+			success: function(data) {
+				var	member = data;
+				console.log(member);
+				return member;
 			}
 		});
-/*		$('#form_findid').attr({
-			'method' : 'post',
-			'action' : '/find_id'
-		});
-		$('#form_findid').submit();*/
 	});
 }
 
@@ -681,6 +678,7 @@ window.onload = function() {
 	admin_login();
 	admin_loginok();
 	edit_cancel();
+	find_user_id();
 	check_member_account();
 	check_admin_account();
 	check_edit();

@@ -113,22 +113,7 @@ public class MemberController {
 
 	// 127.0.0.1/member/find_id
 	@RequestMapping("/find_id")
-	public String find_id(Model model, Member member) {
-		if (member.getName() != "" && member.getEmail() != "") {
-			try {
-				Member user = service.getId(member);
-				System.out.println(user);
-				if (user != null) {
-					model.addAttribute("user", user);
-					System.out.println("[SUCCESS] : MemberController/find_id - 아이디 찾기 성공");
-				}
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				model.addAttribute("error", "이름 또는 이메일을 잘못 입력하셨습니다.");
-				System.out.println("[ERROR] : MemberController/find_id - 아이디 찾기 실패");
-			}
-		}
+	public String find_id(Model model) {
 		model.addAttribute("content", dir + "find_id");
 		System.out.println("[SUCCESS] : MemberController/find_id - 아이디찾기 화면출력");
 		return "index";
