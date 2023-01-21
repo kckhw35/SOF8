@@ -26,4 +26,9 @@ public class Member {
 	private Boolean enable;
 	
 	private String edit_pwd; 
+	
+	public Member(String name, String email) {
+		this.name = name;
+		this.email = email;
+	}
 }

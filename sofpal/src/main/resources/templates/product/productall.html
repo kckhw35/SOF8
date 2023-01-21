@@ -11,7 +11,7 @@
 						<li><a th:href="@{/product/pet}">펫소파</a></li>
 						<li><a th:href="@{/product/livingroom}">리빙룸</a></li>
 					</ol>
-					<li><a th:href="@{/admin/registerproduct}">상품등록</a></li>
+					<li th:if="${session.admin != null}"><a th:href="@{/admin/registerproduct}">상품등록</a></li>
 				</div>
 			</div>
 		</div>

@@ -3,23 +3,22 @@
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
 				<div class="block text-center">
-					<h2 class="text-center">아이디 찾기</h2>
-					
-					<!-- 이름과 이메일이 일치한 회원이 없을시 -->
-					<div class="form-group clearfix" th:if="${user} == null">
-						<iconify-icon icon="ic:baseline-person-search" width="120" style="margin: atuol;"></iconify-icon>
-						<p style="display: block;">가입 시 입력한 정보를 정확히 입력해 주세요.</p>
-						<div class="form-group clearfix" id="form_name">
-							<input type="text" class="form-control" name="name" id="name" placeholder="이름 입력">
-							<span class="control-label" id="error_name"></span>
-						</div>
-						<div class="form-group" id="form_email">
-							<div class="join-email">
-								<div class="form-group">
-									<input type="text" class="form-control" name="email" id="email" placeholder="이메일 입력">
-								</div>
-								<div class="form-group">
-									<select class="form-control input-lg" id="slt_email">
+					<h2>아이디 찾기</h2>	
+					<form id="form_findid" >
+						<!-- 이름과 이메일이 일치한 회원이 없을시 -->
+						<div class="form-group text-left" th:if="${member == null}">
+							<div class="text-center">
+								<iconify-icon icon="ic:baseline-person-sear ch" width="120"></iconify-icon>
+								<p style="display: block;">가입시 입력한 정보를 정확히 입력해 주세요.</p>
+							</div>
+							<div id="form_name" class="form-group clearfix">
+								<input type="text" id="name" name="name" class="form-control" placeholder="이름 입력">
+								<span id="error_name" class="control-label"></span>
+							</div>
+							<div id="form_email" class="form-group">
+								<div class="edit-email">				
+									<input type="text" id="email" name="email" class="form-control" placeholder="이메일 입력">
+									<select id="slt_email" class="form-control input-lg">
 										<option value="">직접입력</option>
 										<option value="naver">naver.com</option>
 										<option value="hanmail">hanmail.net</option>
@@ -29,20 +28,18 @@
 										<option value="gmail">gmail.com</option>
 									</select>
 								</div>
+								<span id="error_email" class="control-label" th:text="${error}"></span>
 							</div>
-							<span class="control-label" id="error_email"></span>
+							<button id="btn_findid" class="btn btn-lg btn-main btn-block large">아이디 찾기</button>
 						</div>
-						<button id="btn_findid" class="btn btn-lg btn-main btn-block large text-center" onclick="location.href='#'">아이디 찾기</button>
-						<br><br><p class="mt-20">비밀번호를 잊으셨나요?<a th:href="@{/member/find_password}"> 비밀번호 찾기</a></p><br>		
-					</div>
-					
-					<!-- 이름과 이메일이 일치한 회원이 있을시 -->
-					<div class="form-group clearfix" th:if="${user} != null">
-						<iconify-icon icon="ic:baseline-person-search" width="120" style="margin: atuol;"></iconify-icon>
-						<p class="complete" style="display: block;">홍길동 회원님의 아이디는<br><strong>ID</strong> 입니다.</p>
-						<button id="btn_ok" class="btn btn-lg btn-main btn-block large" onclick="location.href='/member/login'">확인</button>
-						<br><br><p class="mt-20">비밀번호를 잊으셨나요?<a th:href="@{/member/find_password}"> 비밀번호 찾기</a></p><br>		
-					</div>
+						<!-- 이름과 이메일이 일치한 회원이 있을시 -->
+						<div class="form-group " th:if="${member != null}">
+							<iconify-icon icon="ic:baseline-person-search" width="120"></iconify-icon>
+							<p class="complete" style="display: block;">[[${member.name}]] 회원님의 아이디는 <strong>[[${member.user_id}]]</strong> 입니다.</p>
+							<button id="btn_ok" class="btn btn-lg btn-main btn-block large clearfix" onclick="location.href='/member/login'">확인</button>
+						</div>
+					</form>
+					<p class="mt-20 ">비밀번호를 잊으셨나요?<a th:href="@{/member/find_password}"> 비밀번호 찾기</a></p><br>								
 				</div>
 			</div>
 		</div>

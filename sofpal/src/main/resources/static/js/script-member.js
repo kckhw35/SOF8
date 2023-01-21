@@ -10,6 +10,62 @@
 
 /*=== [ 1. Button Fuction ] ===*/
 
+// 정보수정 취소 버튼  
+function edit_cancel() {
+	$('#btn_cancel').click(function() {
+		location.href = '/mypage/info';
+	});
+};
+
+// 이전으로 버튼 
+function back() {
+	$('#btn_back').click(function() {
+		history.go(-1);
+	});
+}
+
+// 홈으로 버튼
+function home() {
+	$('#btn_home').click(function() {
+		location.href = '/';
+	});
+};
+
+// 사용자 로그인폼 버튼
+function login() {
+	$('#btn_login').click(function() {
+		location.href = '/member/login';
+	});
+};
+
+// 사용자 로그인 버튼
+function loginok() {
+	$('#btn_loginok').click(function() {
+		$('#form_login').attr({
+			'method': 'post',
+			'action': '/member/loginok'
+		});
+		$('#btn_login').submit();
+	});
+};
+
+// 관리자 로그인폼 버튼
+function admin_login() {
+	$('#btn_admin_login').click(function() {
+		location.href = '/admin';
+	});
+};
+
+// 관리자 로그인 버튼
+function admin_loginok() {
+	$('#btn_admin_loginok').click(function() {
+		$('#form_admin_login').attr({
+			'method': 'post',
+			'action': '/admin/loginok'
+		});
+		$('#btn_admin_loginok').submit();
+	});
+};
 
 // 비밀번호 보이기/숨기기 토글 버튼
 function pwd_toggle() {
@@ -41,45 +97,6 @@ function select_email() {
 		} else if($(this).val() == 'gmail') {
 			$('#email').val('@gmail.com');
 		}
-	});
-};
-
-// 정보수정 취소 버튼  
-function edit_cancel() {
-	$('#btn_cancel').click(function() {
-		location.href = '/mypage/info';
-	});
-};
-
-// 이전으로 버튼 
-function back() {
-	$('#btn_back').click(function() {
-		history.go(-1);
-	});
-}
-
-// 홈으로 버튼
-function home() {
-	$('#btn_home').click(function() {
-		location.href = '/';
-	});
-};
-
-// 로그인폼 버튼
-function login() {
-	$('#btn_login').click(function() {
-		location.href = '/member/login';
-	});
-};
-
-// 로그인 버튼
-function loginok() {
-	$('#btn_loginok').click(function() {
-		$('#form_login').attr({
-			'method': 'post',
-			'action': '/member/loginok'
-		});
-		$('#btn_login').submit();
 	});
 };
 
@@ -137,9 +154,9 @@ function search_zipcode() {
 	});
 };
 
-// 회원가입 버튼 
-function check_join() {
-	$('#btn_join').click(function() {
+// 사용자 회원가입 버튼 
+function check_member_account() {
+	$('#btn_member_account').click(function() {
 		var c = confirm('가입 하시겠습니까?');
 		if (c == true) {
 			if ((check_userid() & check_pwd() & check_chkpwd() 
@@ -148,16 +165,64 @@ function check_join() {
 				
 				return false;
 			}
-
-			$('#form_join').attr({
+			$('#form_account').attr({
 				'method': 'post',
-				'action': '/member/joinok'
+				'action': '/member/accountok'
 			});
-
-			$('#form_join').submit();
+			$('#form_account').submit();
 		}
 	});
 };
+
+// 관리자 회원가입 버튼 
+function check_admin_account() {
+	$('#btn_admin_account').click(function() {
+		var c = confirm('가입 하시겠습니까?');
+		if (c == true) {
+			if ((check_userid() & check_pwd() & check_chkpwd() 
+				& check_name()) == 0) {
+
+				return false;
+			}
+			$('#form_admin_account').attr({
+				'method': 'post',
+				'action': '/admin/accountok'
+			});
+			$('#form_admin_account').submit();
+		}
+	});
+};
+
+// 사용자 아이디 찾기 버튼
+function find_user_id() {
+	var user = null;
+	var error = null;
+	var name = $('#name').val();
+	var email = $('#email').val();
+	$('#btn_findid').click(function() {
+		if((check_name() & check_email) == 0) {
+			return false;
+		}
+	
+		$.ajax({
+			url: '/mypage/cancelok',
+			method: 'post',
+			data: {
+				'name': name,
+				'email': email
+			}, 
+			success: function() {
+				alert('성공적으로 탈퇴되었습니다.')
+				location.href='/';
+			}
+		});
+/*		$('#form_findid').attr({
+			'method' : 'post',
+			'action' : '/find_id'
+		});
+		$('#form_findid').submit();*/
+	});
+}
 
 // 회원정보수정 버튼
 function check_edit() {
@@ -230,13 +295,38 @@ function getMatchedPwd(pwd) {
 	return result;	
 }
 
-// 아이디 일치 확인 
+// 사용자 아이디 중복 확인 
 function getMatchedId(user_id) {
 	var result = 0;
 	$.ajax({
-		url: '/member/checkid',
+		url: '/checkid',
 		data: {
 			'user_id': user_id
+		},
+		async: false,	// ajax 동기식 속성 부여해야 ajax 성공시 result 값이 1로 반환이 됨.
+		success: function(data) {
+			if (data == 0) {
+				$('#form_id').removeClass('has-error');
+				$('#form_id').addClass('has-success');
+				$('#error_id').text('사용가능한 아이디입니다.');
+				result = 1;
+			} else {
+				$('#form_id').removeClass('has-success');
+				$('#form_id').addClass('has-error');
+				$('#error_id').text('중복된 아이디입니다.');
+			}
+		}
+	});
+	return result;
+};
+
+// 관리자 아이디 중복 확인 
+function getMatchedAdminId(admin_id) {
+	var result = 0;
+	$.ajax({
+		url: '/check_adminid',
+		data: {
+			'admin_id': admin_id
 		},
 		async: false,	// ajax 동기식 속성 부여해야 ajax 성공시 result 값이 1로 반환이 됨.
 		success: function(data) {
@@ -272,8 +362,31 @@ function check_userid() {
 		$('#form_id').addClass('has-error');
 		$('#error_id').text('잘못된 형식의 아이디입니다.');
 	} else {
-		// 아이디 중복 확인
+		// 사용자 아이디 중복 확인
 		result = getMatchedId(user_id);
+	}
+	return result;
+};
+
+// 관리자 아이디 유효성 검사
+function check_adminid() {
+	var result = 0;
+	// input 값 초기화
+	var admin_id = $('#admin_id').val();
+	// 7-15자의 하나 이상의 대소문자 영문과 숫자 및 일부 특수문자(_)만 입력 가능한 정규식
+	var reg = /^(?=.*[a-zA-Z])[-a-zA-Z0-9_]{7,15}$/;
+
+	if (admin_id == "") {
+		$('#form_id').removeClass('has-success');
+		$('#form_id').addClass('has-error');
+		$('#error_id').text('아이디를 입력해 주세요.');
+	} else if (!reg.test(admin_id)) {
+		$('#form_id').removeClass('has-success');
+		$('#form_id').addClass('has-error');
+		$('#error_id').text('잘못된 형식의 아이디입니다.');
+	} else {
+		// 사용자 아이디 중복 확인
+		result = getMatchedAdminId(admin_id);
 	}
 	return result;
 };
@@ -494,6 +607,12 @@ function check_valid() {
 		result = check_userid();
 	});
 
+	$('#admin_id').focusin(function() {
+		$('#error_id').html('<small class="text-primary"><b>7-15자, 하나 이상의 대소문자, 숫자 및 특수문자(_)</b></small>');
+	}).focusout(function() {
+		result = check_adminid();
+	});
+
 	$('#now_pwd').focusout(function() {
 		result = check_nowpwd()
 	});
@@ -559,8 +678,11 @@ window.onload = function() {
 	back();
 	login();
 	loginok();
+	admin_login();
+	admin_loginok();
 	edit_cancel();
-	check_join();
+	check_member_account();
+	check_admin_account();
 	check_edit();
 	check_dormancy();
 };

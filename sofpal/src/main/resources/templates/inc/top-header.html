@@ -18,25 +18,37 @@
 							</li>
 						</ul>
 					</li><!-- / Search -->
+					
+					
 					<!-- Join -->
-					<li class="join-site" th:if="${session.login_user == null}">
-							<a th:href="@{/member/join}" class="join"><iconify-icon inline icon="ion:person-add"></iconify-icon> 회원가입</a>
+					<li class="account-site" th:if="${session.admin == null && session.member == null}">
+						<a th:href="@{/member/account}" class="account"><iconify-icon inline icon="ion:person-add"></iconify-icon> 회원가입</a>
 					</li><!-- / Join -->
+					<!-- Admin -->
+					<li th:if="${session.admin != null}"><span style="color:red; font-weight: border; border: 2px solid red;">[[${session.admin.admin_name}]] 관리자</span></li>
 					<!-- MyPage -->
-					<li class="join-site" th:if="${session.login_user != null}">
-							<a th:href="@{/mypage/info}" class="join"><iconify-icon inline icon="ion:person"></iconify-icon> 마이페이지</a>
+					<li class="account-site" th:if="${session.admin == null && session.member != null}">
+						<a th:href="@{/mypage/info}" class="account"><iconify-icon inline icon="ion:person"></iconify-icon> 마이페이지</a>
 					</li><!-- / MyPage -->
 					<!-- Login -->
-					<li class="login-site" th:if="${session.login_user == null}">
-							<a th:href="@{/member/login}"class="join"><iconify-icon icon="ri:login-box-fill"></iconify-icon> 로그인</a>
+					<li class="login-site" th:if="${session.admin == null && session.member == null}">
+						<a th:href="@{/member/login}"class="account"><iconify-icon icon="ri:login-box-fill"></iconify-icon> 로그인</a>
 					</li><!-- / Login -->
 					<!-- Logout -->
-					<li class="login-site" th:if="${session.login_user != null}">
-							<a th:href="@{/member/logout}" class="join"><iconify-icon inline icon="ri:logout-box-r-fill"></iconify-icon> 로그아웃</a>
+					<li class="login-site" th:if="${session.admin == null && session.member != null}">
+						<a th:href="@{/member/logout}" class="account"><iconify-icon inline icon="ri:logout-box-r-fill"></iconify-icon> 로그아웃</a>
 					</li><!-- / Logout -->
+					<!-- Admin Logout -->
+					<li class="login-site" th:if="${session.admin != null}">
+						<a th:href="@{/admin/logout}" class="account"><iconify-icon inline icon="ri:logout-box-r-fill"></iconify-icon> 로그아웃</a>
+					</li><!-- / Admin Logout -->	
 					
+					
+					
+					
+									
 					<!-- Cart -->
-					<li class="dropdown cart-nav dropdown-slide" th:if="${session.login_user != null}">
+					<li class="dropdown cart-nav dropdown-slide" th:if="${session.admin == null && session.member != null}">
 						<a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><iconify-icon inline icon="ion:bag"></iconify-icon> 장바구니</a>
 						<div class="dropdown-menu cart-dropdown">
 							<!-- Cart Item -->

@@ -25,13 +25,13 @@ public class MypageController {
 		// 세션이 있다면(로그인 중이라면)
 		if(session != null) {
 			// 세션 아이디를 다운캐스팅하여 Member 변수에 초기화
-			Member user = (Member) session.getAttribute("login_user");
+			Member member = (Member) session.getAttribute("member");
 			try {
 				// 회원 정보 로딩
-				user = service.get(user.getUser_id());
-				System.out.println("[DATA] user: " + user);
+				member = service.get(member.getUser_id());
+				System.out.println("[DATA] user: " + member);
 				
-				model.addAttribute("user", user);
+				model.addAttribute("member", member);
 				model.addAttribute("content", dir + "info");
 				System.out.println("[SUCCESS] : MemberController/mypage - 회원정보 로딩 성공");
 				return "index";
@@ -50,13 +50,13 @@ public class MypageController {
 		// 세션이 있다면(로그인 중이라면)
 		if(session != null) {
 			// 세션 아이디를 다운캐스팅하여 Member 변수에 초기화
-			Member user = (Member) session.getAttribute("login_user");
+			Member member = (Member) session.getAttribute("member");
 			try {
 				// 회원 정보 로딩
-				user = service.get(user.getUser_id());
-				System.out.println("[DATA] user: " + user);
+				member = service.get(member.getUser_id());
+				System.out.println("[DATA] user: " + member);
 				
-				model.addAttribute("user", user);
+				model.addAttribute("member", member);
 				model.addAttribute("content", dir + "edit");
 				
 				System.out.println("[SUCCESS] : MemberController/edit - 회원정보 수정 로딩 성공");
@@ -115,9 +115,9 @@ public class MypageController {
 		// 세션이 있다면(로그인 중이라면)
 		if(session != null) {
 			try {
-				Member user = (Member) session.getAttribute("login_user");
-				if(user.getPwd().equals(pwd)) {
-					service.modifyEnable(user.getUser_id());
+				Member member = (Member) session.getAttribute("member");
+				if(member.getPwd().equals(pwd)) {
+					service.modifyEnable(member.getUser_id());
 					session.invalidate();
 					System.out.println("[SUCCESS] : MemberController/cancelok - 회원탈퇴 성공");
 					return "redirect:/";

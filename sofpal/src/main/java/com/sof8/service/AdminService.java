@@ -5,18 +5,18 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sof8.dto.Member;
+import com.sof8.dto.Admin;
 import com.sof8.frame.Sof8Service;
-import com.sof8.mapper.MemberMapper;
+import com.sof8.mapper.AdminMapper;
 
 @Service
-public class MemberService implements Sof8Service<String, Member>{
+public class AdminService implements Sof8Service<String, Admin>{
 
 	@Autowired
-	MemberMapper mapper;
+	AdminMapper mapper;
 
 	@Override
-	public void register(Member v) throws Exception {
+	public void register(Admin v) throws Exception {
 		mapper.insert(v);
 	}
 
@@ -26,26 +26,22 @@ public class MemberService implements Sof8Service<String, Member>{
 	}
 
 	@Override
-	public void modify(Member v) throws Exception {
+	public void modify(Admin v) throws Exception {
 		mapper.update(v);
 	}
 
 	@Override
-	public Member get(String k) throws Exception {
+	public Admin get(String k) throws Exception {
 		return mapper.select(k);
 	}
 
 	@Override
-	public List<Member> get() throws Exception {
+	public List<Admin> get() throws Exception {
 		return mapper.selectall();
 	}
 
 	public void modifyEnable(String k) throws Exception {
 		mapper.updateEnable(k);
-	}
-
-	public Member getId(Member v) throws Exception {
-		return mapper.selectMemberId(v);
 	}
 
 }

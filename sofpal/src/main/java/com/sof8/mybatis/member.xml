@@ -14,6 +14,10 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<select id="selectall" resultType="Member">
 		SELECT * FROM member
 	</select>
+	<!-- 아이디 찾기 -->
+	<select id="selectMemberId" parameterType="Member" resultType="Member">
+		SELECT * FROM member WHERE name = #{name} AND email=#{email}
+	</select>	
 	<!-- 회원정보 수정 -->
 	<update id="update" parameterType="Member">
 		UPDATE member 
@@ -21,12 +25,11 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		 	zipcode = #{zipcode}, addr = #{addr}, de_addr = #{de_addr} 
 		WHERE user_id = #{user_id}
 	</update>
-	<delete id="delete" parameterType="String">
-		DELETE FROM member WHERE user_id = #{user_id}
-	</delete>
-	
 	<!-- 회원탈퇴 시 휴면상태로 변경 -->
 	<update id="updateEnable" parameterType="String">
 		UPDATE member SET enable = 0 WHERE user_id = #{user_id}
-	</update>
+	</update>	
+	<delete id="delete" parameterType="String">
+		DELETE FROM member WHERE user_id = #{user_id}
+	</delete>
 </mapper>
