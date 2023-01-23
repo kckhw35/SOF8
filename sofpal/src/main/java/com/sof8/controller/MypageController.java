@@ -46,17 +46,17 @@ public class MypageController {
 	
 	// 127.0.0.1/mypage/edit
 	@RequestMapping("/edit")
-	public String edit(HttpSession session, Model model) {
+	public String edit(HttpSession session, Model model, Member member) {
 		// 세션이 있다면(로그인 중이라면)
 		if(session != null) {
 			// 세션 아이디를 다운캐스팅하여 Member 변수에 초기화
-			Member member = (Member) session.getAttribute("member");
+			Member m = (Member) session.getAttribute("member");
 			try {
 				// 회원 정보 로딩
-				member = service.get(member.getUser_id());
-				System.out.println("[DATA] user: " + member);
+				m = service.get(m.getUser_id());
+				System.out.println("[DATA] user: " + m);
 				
-				model.addAttribute("member", member);
+				model.addAttribute("member", m);
 				model.addAttribute("content", dir + "edit");
 				
 				System.out.println("[SUCCESS] : MemberController/edit - 회원정보 수정 로딩 성공");
@@ -111,13 +111,13 @@ public class MypageController {
 	
 	// 127.0.0.1/mypage/cancelok
 	@RequestMapping("/cancelok")
-	public String cancelok(HttpSession session, String pwd, Model model) {
+	public String cancelok(HttpSession session,Model model, Member member) {
 		// 세션이 있다면(로그인 중이라면)
 		if(session != null) {
 			try {
-				Member member = (Member) session.getAttribute("member");
-				if(member.getPwd().equals(pwd)) {
-					service.modifyEnable(member.getUser_id());
+				Member m = (Member) session.getAttribute("member");
+				if(m.getPwd().equals(member.getPwd())) {
+					service.modifyEnable(m.getUser_id());
 					session.invalidate();
 					System.out.println("[SUCCESS] : MemberController/cancelok - 회원탈퇴 성공");
 					return "redirect:/";

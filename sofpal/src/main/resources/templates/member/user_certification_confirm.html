@@ -10,10 +10,10 @@
 						<div class="form-group clearfix">
 							<input type="text" class="form-control" placeholder="인증번호 입력">
 							<span  id="" class="control-label"></span>
-							<p class="mt-20"> 인증메일이 도착하지 않았나요? <a href="#"> 인증번호 다시받기 </a></p><br>					
 						</div>
-						<button id="btn_next" class="btn btn-lg btn-main btn-block large" onclick="location.href='/member/reset_password'">다음으로</button>
+						<p class="mt-20"> 인증메일이 도착하지 않았나요? <a href="#"> 인증번호 다시받기 </a></p><br>											
 					</div>
+					<button type="button" class="btn btn-lg btn-main btn-block large" th:onclick="|location.href='@{/member/reset_password'}|">다음으로</button>
 				</div>
 			</div>
 		</div>

@@ -28,7 +28,7 @@ public class AdminController {
 	// 관리자 로그인
 	// 127.0.0.1/admin
 	@RequestMapping("")
-	public String login(Model model) {
+	public String login(Model model, Admin Admin) {
 		model.addAttribute("content", dir+"login");
 		System.out.println("[SUCCESS] : AdminController/ - 관리자 로그인 화면 성공");
 		return "index";
@@ -37,7 +37,7 @@ public class AdminController {
 	// 관리자 회원가입
 	// 127.0.0.1/admin/account
 	@RequestMapping("/account")
-	public String admin(Model model) {
+	public String admin(Model model, Admin Admin) {
 		model.addAttribute("content", dir+"account");
 		System.out.println("[SUCCESS] : AdminController/account - 관리자 회원가입 화면 성공");
 		return "index";
@@ -68,17 +68,17 @@ public class AdminController {
 	
 	// 127.0.0.1/admin/loginok
 	@RequestMapping("/loginok")
-	public String loginok(HttpSession session, Model model, String admin_id, String pwd) {
+	public String loginok(HttpSession session, Model model, Admin admin) {
 		String error = null;
 		try {
 			// 가입된 아이디 조회
-			Admin admin = aservice.get(admin_id);
+			Admin a = aservice.get(admin.getAdmin_id());
 			// 가입된 아이디라면
-			if (admin != null) {
+			if (a != null) {
 				// 가입된 아이디의 비밀번호가 일치한다면
-				if (admin.getAdmin_pwd().equals(pwd)) {
+				if (a.getAdmin_pwd().equals(admin.getAdmin_pwd())) {
 					// 세션에 로그인 유저정보 저장
-					session.setAttribute("admin", admin);
+					session.setAttribute("admin", a);
 					// 홈 화면으로 이동
 					System.out.println("[SUCCESS] : AdminController/loginok - 관리자 로그인 성공");
 					return "redirect:/";                   

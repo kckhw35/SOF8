@@ -11,7 +11,7 @@
 							<p class="complete"> [ <strong>[[${name}]]</strong> ] </p> 
 							<p style="display: block;"><small>가입시 등록한 이메일로 메일이 발송됩니다.</small></p>
 						</div>
-						<button id="btn_next" class="btn btn-lg btn-main btn-block large" onclick="location.href='/member/user_certification_confirm'">다음으로</button>
+						<button type="button" class="btn btn-lg btn-main btn-block large" th:onclick="|location.href='@{/member/user_certification_confirm'}|">다음으로</button>
 					</div>
 				</div>
 			</div>

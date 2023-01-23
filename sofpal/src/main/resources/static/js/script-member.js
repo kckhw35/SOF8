@@ -10,63 +10,6 @@
 
 /*=== [ 1. Button Fuction ] ===*/
 
-// 정보수정 취소 버튼  
-function edit_cancel() {
-	$('#btn_cancel').click(function() {
-		location.href = '/mypage/info';
-	});
-};
-
-// 이전으로 버튼 
-function back() {
-	$('#btn_back').click(function() {
-		history.go(-1);
-	});
-}
-
-// 홈으로 버튼
-function home() {
-	$('#btn_home').click(function() {
-		location.href = '/';
-	});
-};
-
-// 사용자 로그인폼 버튼
-function login() {
-	$('#btn_login').click(function() {
-		location.href = '/member/login';
-	});
-};
-
-// 사용자 로그인 버튼
-function loginok() {
-	$('#btn_loginok').click(function() {
-		$('#form_login').attr({
-			'method': 'post',
-			'action': '/member/loginok'
-		});
-		$('#btn_login').submit();
-	});
-};
-
-// 관리자 로그인폼 버튼
-function admin_login() {
-	$('#btn_admin_login').click(function() {
-		location.href = '/admin';
-	});
-};
-
-// 관리자 로그인 버튼
-function admin_loginok() {
-	$('#btn_admin_loginok').click(function() {
-		$('#form_admin_login').attr({
-			'method': 'post',
-			'action': '/admin/loginok'
-		});
-		$('#btn_admin_loginok').submit();
-	});
-};
-
 // 비밀번호 보이기/숨기기 토글 버튼
 function pwd_toggle() {
 	$('.eye').on('click', function() {
@@ -102,177 +45,117 @@ function select_email() {
 
 // 우편번호검색 버튼
 function search_zipcode() {
-	$('#btn_zipcode').click(function() {
-		$('#form_zipcode').removeClass('has-error');
-		$('#error_zipcode').text('');
-		$('#btn_zipcode').removeClass('btn btn-lg btn-danger');
-		$('#btn_zipcode').addClass('btn btn-lg');
-		$('#form_addr').removeClass('has-error');
-		$('#error_addr').text('');
+	$('#form_zipcode').removeClass('has-error');
+	$('#error_zipcode').text('');
+	$('#btn_zipcode').removeClass('btn btn-lg btn-danger');
+	$('#btn_zipcode').addClass('btn btn-lg');
+	$('#form_addr').removeClass('has-error');
+	$('#error_addr').text('');
 
-		new daum.Postcode({
-			oncomplete: function(data) {
-				// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+	new daum.Postcode({
+		oncomplete: function(data) {
+			// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
-				// 각 주소의 노출 규칙에 따라 주소를 조합한다.
-				// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-				var addr = ''; // 주소 변수
-				var extraAddr = ''; // 참고항목 변수
+			// 각 주소의 노출 규칙에 따라 주소를 조합한다.
+			// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+			var addr = ''; // 주소 변수
+			var extraAddr = ''; // 참고항목 변수
 
-				//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-				if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-					addr = data.roadAddress;
-				} else { // 사용자가 지번 주소를 선택했을 경우(J)
-					addr = data.jibunAddress;
+			//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+			if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+				addr = data.roadAddress;
+			} else { // 사용자가 지번 주소를 선택했을 경우(J)
+				addr = data.jibunAddress;
+			}
+
+			// 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+			if (data.userSelectedType === 'R') {
+				// 법정동명이 있을 경우 추가한다. (법정리는 제외)
+				// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+				if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+					extraAddr += data.bname;
+				}
+				// 건물명이 있고, 공동주택일 경우 추가한다.
+				if (data.buildingName !== '' && data.apartment === 'Y') {
+					extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+				}
+				// 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+				if (extraAddr !== '') {
+					extraAddr = ' (' + extraAddr + ')';
 				}
 
-				// 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
-				if (data.userSelectedType === 'R') {
-					// 법정동명이 있을 경우 추가한다. (법정리는 제외)
-					// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-					if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
-						extraAddr += data.bname;
-					}
-					// 건물명이 있고, 공동주택일 경우 추가한다.
-					if (data.buildingName !== '' && data.apartment === 'Y') {
-						extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-					}
-					// 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-					if (extraAddr !== '') {
-						extraAddr = ' (' + extraAddr + ')';
-					}
-
-				}
-
-				// 우편번호와 주소 정보를 해당 필드에 넣는다.
-				document.getElementById('zipcode').value = data.zonecode;
-				document.getElementById("addr").value = addr;
-				// 커서를 상세주소 필드로 이동한다.
-				document.getElementById("de_addr").focus();
 			}
-		}).open();
-	});
+
+			// 우편번호와 주소 정보를 해당 필드에 넣는다.
+			document.getElementById('zipcode').value = data.zonecode;
+			document.getElementById("addr").value = addr;
+			// 커서를 상세주소 필드로 이동한다.
+			document.getElementById("de_addr").focus();
+		}
+	}).open();
 };
 
-// 사용자 회원가입 버튼 
-function check_member_account() {
-	$('#btn_member_account').click(function() {
-		var c = confirm('가입 하시겠습니까?');
-		if (c == true) {
-			if ((check_userid() & check_pwd() & check_chkpwd() 
-				& check_name() & check_email() & check_tel() 
-				& check_zipcode() & check_addr() & check_detailaddr()) == 0) {
-				
-				return false;
-			}
-			$('#form_account').attr({
-				'method': 'post',
-				'action': '/member/accountok'
-			});
-			$('#form_account').submit();
+// 회원가입 확인 
+function check_account() {
+	var c = confirm('가입 하시겠습니까?');
+	if (c == true) {
+		if ((check_userid() & check_pwd() & check_chkpwd() 
+			& check_name() & check_email() & check_tel() 
+			& check_zipcode() & check_addr() & check_detailaddr()) == 0) {
+			
+			return false;
 		}
-	});
-};
-
-// 관리자 회원가입 버튼 
-function check_admin_account() {
-	$('#btn_admin_account').click(function() {
-		var c = confirm('가입 하시겠습니까?');
-		if (c == true) {
-			if ((check_userid() & check_pwd() & check_chkpwd() 
-				& check_name()) == 0) {
-
-				return false;
-			}
-			$('#form_admin_account').attr({
-				'method': 'post',
-				'action': '/admin/accountok'
-			});
-			$('#form_admin_account').submit();
-		}
-	});
+	}
 };
 
 // 사용자 아이디 찾기 버튼
 function find_user_id() {
 	$('#btn_findid').click(function() {
+		/*
 		var name = $('#name').val();
 		var email = $('#email').val();
-	
+		*/
+		var member = $('#form_findid').serialize();
 		if((check_name() & check_email()) == 0) {
 			$('#form_findid').addClass('has-error');
 			$('#error_email').text('이름 혹은 이메일을 입력해주세요.');
 			return false;
 		}
-	
 		$.ajax({
-			url: '/find_id',
-			method: 'post',
+			type: 'POST',
+			url: '/member/found_id',
+			cache: false,
+			data : member
+			/*			
 			data: {
 				'name': name,
 				'email': email
-			}, 
-			success: function(data) {
-				var	member = data;
-				console.log(member);
-				return member;
 			}
+			*/
+		}).done(function(fragment) {
+			$('#find').replaceWith(fragment);
 		});
-	});
-}
-
-// 회원정보수정 버튼
-function check_edit() {
-	$('#btn_edit').click(function() {
-		var c = confirm('수정 하시겠습니까?');
-		if (c == true) {
-
-			if (check_nowpwd() == 1) {
-				if (check_pwd() & check_chkpwd() == 0) {
-					return false;
-				} else {
-					$('#edit_pwd').val($('#pwd').val());
-				}
-			}
-
-			if ((check_name() & check_email() & check_tel() 
-				& check_zipcode() & check_addr() & check_detailaddr()) == 0) {
-				
-				return false;
-			}
-
-			$('#form_edit').attr({
-				'method': 'post',
-				'action': '/mypage/editok'
-			});
-
-			$('#form_edit').submit();
-		}
 	});
 };
 
-// 회원탈퇴(계정휴면) 버튼
-function check_dormancy() {
-	$('#btn_dormancy').click(function() {
-		var pwd = $('#cancel_pwd').val();
-		var c = confirm('탈퇴 하시겠습니까?');
-		if (c == true) {
-			$.ajax({
-				url: '/mypage/cancelok',
-				data: {
-					'pwd': pwd
-				}, 
-				success: function() {
-					alert('성공적으로 탈퇴되었습니다.')
-					location.href='/';
-				}, error: function() {
-					return false;
-				}
-			});
-		}
-	});	
-}
+// 회원정보수정 버튼
+function check_edit() {
+	var c = confirm('수정 하시겠습니까?');
+	if (c == true) {
 
+		if (check_nowpwd() == 1) {
+			if (check_pwd() & check_chkpwd() == 0) {
+				return false;
+			}
+		}
+
+		if ((check_name() & check_email() & check_tel() 
+			& check_zipcode() & check_addr() & check_detailaddr()) == 0) {
+			
+			return false;
+		}
+	}
+};
 
 /*=== [ 2. Validation Function ] ===*/
 
@@ -597,57 +480,56 @@ function check_detailaddr() {
 
 // 유효성검사 
 function check_valid() {
-	var result = 0;
 	$('#user_id').focusin(function() {
 		$('#error_id').html('<small class="text-primary"><b>7-15자, 하나 이상의 대소문자, 숫자 및 특수문자(_)</b></small>');
 	}).focusout(function() {
-		result = check_userid();
+		check_userid();
 	});
 
 	$('#admin_id').focusin(function() {
 		$('#error_id').html('<small class="text-primary"><b>7-15자, 하나 이상의 대소문자, 숫자 및 특수문자(_)</b></small>');
 	}).focusout(function() {
-		result = check_adminid();
+		check_adminid();
 	});
 
 	$('#now_pwd').focusout(function() {
-		result = check_nowpwd()
+		check_nowpwd()
 	});
 
 	$('#pwd').focusin(function() {
 		$('#error_pwd').html('<small class="text-primary"><b>8-20자, 하나 이상의 문자, 숫자 및 특수문자(!@#$%^&*?)</b></small>');
 	}).focusout(function() {
-		result = check_pwd()
+		check_pwd()
 	});
 
 	$('#chk_pwd').focusout(function() {
-		result = check_chkpwd()
+		check_chkpwd()
 	});
 
 	$('#name').focusin(function() {
 		$('#error_name').html('<small class="text-primary"><b>2-6자, 한글</b></small>');
 	}).focusout(function() {
-		result = check_name()
+		check_name()
 	});
 
 	$('#email').focusout(function() {
-		result = check_email()
+		check_email()
 	});
 
 	$('#tel').focusout(function() {
-		result = check_tel()
+		check_tel()
 	});
 
 	$('#zipcode').focusout(function() {
-		result = check_zipcode()
+		check_zipcode()
 	});
 
 	$('#addr').focusout(function() {
-		result = check_addr()
+		 check_addr()
 	});
 
 	$('#de_addr').focusout(function() {
-		result = check_detailaddr()
+		 check_detailaddr()
 	});
 };
 
@@ -668,19 +550,7 @@ function mypage_nav() {
 window.onload = function() {
 	mypage_nav();
 	select_email()
-	search_zipcode();
 	check_valid();
 	pwd_toggle();
-	home();
-	back();
-	login();
-	loginok();
-	admin_login();
-	admin_loginok();
-	edit_cancel();
 	find_user_id();
-	check_member_account();
-	check_admin_account();
-	check_edit();
-	check_dormancy();
 };

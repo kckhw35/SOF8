@@ -6,44 +6,43 @@
 				<div class="line">
 					<div class="block">
 						<h2 class="text-center">회원탈퇴</h2>
-						<div class="form-group clearfix">
-							<hr style="margin-top: 0px;">
-							<div class="form-group">
-								<h2>
-									<small>01. 회원탈퇴 안내</small>
-								</h2>
-								<pre>
-SOF8 탈퇴안내
-
-회원님께서 회원 탈퇴를 원하신다니 저희 쇼핑몰의 서비스가 많이 부족하고 미흡했나 봅니다. 
-불편하셨던 점이나 불만사항을 알려주시면 적극 반영해서 고객님의 불편함을 해결해 드리도록 노력하겠습니다. 
-
-■ 아울러 회원 탈퇴시의 아래 사항을 숙지하시기 바랍니다. 
-1. 회원 탈퇴 시 회원님의 정보는 상품 반품 및 A/S를 위해 전자상거래 등에서의 소비자 보호에 관한 법률에 의거한
-   고객정보 보호정책에따라 관리 됩니다. 
-								</pre>
-								<hr>
-								<h2>
-									<small>02. 회원탈퇴 확인</small>
-								</h2>
-								<div class="form-horizontal line">
-									<div id="form_pwd" class="form-group has-feedback">
-										<label class="col-md-2 control-label">비밀번호:</label>
-										<div class="col-md-10">
-											<input type="password" id="cancel_pwd" name="pwd" class="form-control">
-											<span class="glyphicon glyphicon-eye-open form-control-feedback eye"></span>
-											<!-- <span class="control-label" id="error_pwd"></span> -->
+						<form th:action="@{/mypage/cancelok}" th:onsubmit="return confirm('탈퇴하시겠습니까?')" th:object="${member}" method="post">
+							<div class="form-group clearfix">
+								<hr style="margin-top: 0px;">
+								<div class="form-group">
+									<h2><small>01. 회원탈퇴 안내</small></h2>
+									<pre>
+	SOF8 탈퇴안내
+	
+	회원님께서 회원 탈퇴를 원하신다니 저희 쇼핑몰의 서비스가 많이 부족하고 미흡했나 봅니다. 
+	불편하셨던 점이나 불만사항을 알려주시면 적극 반영해서 고객님의 불편함을 해결해 드리도록 노력하겠습니다. 
+	
+	■ 아울러 회원 탈퇴시의 아래 사항을 숙지하시기 바랍니다. 
+	1. 회원 탈퇴 시 회원님의 정보는 상품 반품 및 A/S를 위해 전자상거래 등에서의 소비자 보호에 관한 법률에 의거한
+	   고객정보 보호정책에따라 관리 됩니다. 
+									</pre>
+									<hr>
+									<h2><small>02. 회원탈퇴 확인</small></h2>
+									<div class="form-horizontal line">
+										<div id="form_pwd" class="form-group has-feedback">
+											<label class="col-md-2 control-label">비밀번호:</label>
+											<div class="col-md-10">
+												<input type="password" id="pwd" th:field="*{pwd}" class="form-control">
+												<span class="glyphicon glyphicon-eye-open form-control-feedback eye"></span>
+												<span class="control-label" id="error_pwd"></span>
+											</div>
 										</div>
 									</div>
+									
 								</div>
+								<div class="col-xs-6 col-sm-6 col-md-6">
+									<button type="button" class="btn btn-solid-border btn-block large" th:onclick="|location.href='@{/mypage/info}'|">취소</button>
+								</div>
+								<div class="col-xs-6 col-sm-6 col-md-6">
+									<button type="submit" class="btn btn-lg btn-main btn-block large">회원탈퇴</button>
+								</div>							
 							</div>
-							<div class="col-xs-6 col-sm-6 col-md-6">
-								<button id="btn_cancel" class="btn btn-solid-border btn-block large">취소</button>
-							</div>
-							<div class="col-xs-6 col-sm-6 col-md-6">
-								<button id="btn_dormancy" class="btn btn-lg btn-main btn-block large">회원탈퇴</button>
-							</div>							
-						</div>
+						</form>
 					</div>
 				</div>
 			</div>

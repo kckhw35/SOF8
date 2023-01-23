@@ -21,7 +21,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<!-- 회원정보 수정 -->
 	<update id="update" parameterType="Member">
 		UPDATE member 
-		SET pwd = #{edit_pwd}, name = #{name}, email = #{email}, tel = #{tel},
+		SET pwd = #{pwd}, name = #{name}, email = #{email}, tel = #{tel},
 		 	zipcode = #{zipcode}, addr = #{addr}, de_addr = #{de_addr} 
 		WHERE user_id = #{user_id}
 	</update>

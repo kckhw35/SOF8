@@ -5,6 +5,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.sof8.dto.Member;
@@ -21,7 +23,7 @@ public class MemberController {
 
 	// 127.0.0.1/member/account
 	@RequestMapping("/account")
-	public String account(Model model) {
+	public String account(Model model, Member member) {
 		// 회원가입폼 출력
 		model.addAttribute("content", dir + "account");
 		System.out.println("[SUCCESS] : MemberController/account - 회원가입폼");
@@ -53,7 +55,7 @@ public class MemberController {
 
 	// 127.0.0.1/member/login
 	@RequestMapping("/login")
-	public String login(Model model) {
+	public String login(Model model, Member member) {
 		model.addAttribute("content", dir + "login");
 		System.out.println("[SUCCESS] : MemberController/login - 로그인 화면출력");
 		return "index";
@@ -61,19 +63,19 @@ public class MemberController {
 
 	// 127.0.0.1/member/loginok
 	@RequestMapping("/loginok")
-	public String loginok(HttpSession session, Model model, String user_id, String pwd) {
+	public String loginok(HttpSession session, Model model, Member member) {
 		String error = null;
 		try {
 			// 가입된 아이디 조회
-			Member member = service.get(user_id);
+			Member m = service.get(member.getUser_id());
 			// 가입된 아이디라면
-			if (member != null) {
+			if (m != null) {
 				// 가입된 아이디가 활동가능하다면
-				if (member.getEnable() == true) {
+				if (m.getEnable() == true) {
 					// 가입된 아이디의 비밀번호가 일치한다면
-					if (member.getPwd().equals(pwd)) {
+					if (m.getPwd().equals(member.getPwd())) {
 						// 세션에 로그인 유저정보 저장
-						session.setAttribute("member", member);
+						session.setAttribute("member", m);
 						// 홈 화면으로 이동
 						System.out.println("[SUCCESS] : MemberController/loginok - 로그인 성공");
 						return "redirect:/";
@@ -112,13 +114,58 @@ public class MemberController {
 	}
 
 	// 127.0.0.1/member/find_id
-	@RequestMapping("/find_id")
-	public String find_id(Model model) {
+	@GetMapping("/find_id")
+	public String find_id(Model model, Member member) {
 		model.addAttribute("content", dir + "find_id");
 		System.out.println("[SUCCESS] : MemberController/find_id - 아이디찾기 화면출력");
 		return "index";
 	}
 
+	// 127.0.0.1/find_id
+	@PostMapping("/found_id")
+	public Object found_id(Model model, Member member) {
+	//public Object found_id(Model model, String name, String email) {
+		String error = null;
+		Member user = null;
+		if (member.getName() != "" && member.getEmail() != "") {
+			try {
+
+				user = service.getId(member);
+				if (user != null) {
+					model.addAttribute("user", user);
+					System.out.println("user: " + user);
+					System.out.println("model: " + model);
+					System.out.println("[SUCCESS] : MemberController/found_id - 아이디 찾기 성공");	
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.out.println("[ERROR] : MemberController/found_id - 아이디 찾기 실패");
+				error = "이름 또는 이메일을 잘못 입력하셨습니다.";
+			}
+		}
+		model.addAttribute("error", error);
+		return "member/find_id :: #find";
+		/*
+		if (name != "" && email != "") {
+			try {
+				Member user = new Member(name, email);
+				Member member = service.getId(user);
+				if (member != null) {
+					System.out.println(member);
+					model.addAttribute("member", member);
+					System.out.println("[SUCCESS] : MemberController/found_id - 아이디 찾기 성공");	
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.out.println("[ERROR] : MemberController/found_id - 아이디 찾기 실패");
+				error = "이름 또는 이메일을 잘못 입력하셨습니다.";
+			}
+		}
+		*/
+	}	
+	
 	// 127.0.0.1/member/find_password
 	@RequestMapping("/find_password")
 	public String find_password(Model model) {

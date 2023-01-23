@@ -13,10 +13,10 @@
 						</div>
 						<div class="row">
 							<div class="col-xs-6 col-sm-6 col-md-6">
-								<button id="btn_home" class="btn btn-lg btn-solid-border btn-block large">홈으로</button>
+								<button type="button" class="btn btn-lg btn-main btn-block large" th:onclick="|location.href='@{/}'|">홈으로</button>
 							</div>
 							<div class="col-xs-6 col-sm-6 col-md-6">
-								<button id="btn_login" class="btn btn-lg btn-main btn-block large">로그인</button>
+								<button type="button" class="btn btn-lg btn-main btn-block large" th:onclick="|location.href='@{/member/login}'|">로그인</button>
 							</div>
 						</div>
 					</div>
