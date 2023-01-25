@@ -13,6 +13,9 @@ import com.sof8.frame.Sof8Mapper;
 @Mapper
 public interface NoticeMapper extends Sof8Mapper<Integer, Notice>{
 	
+	//게시글 수 카운팅
+	public int count();
+	
 	public List<Notice> optionSelect(Map<String, Object> searchInfo) throws Exception;
 
 }

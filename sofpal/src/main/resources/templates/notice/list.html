@@ -24,7 +24,7 @@
 		
 		
 		//페이지네이션 : 왼쪽으로 가기 버튼
-		$('ul.pagination').append('<li id="first" class="page-item"><a class="page-link" href="#" aria-label="Previous">&laquo;</a></li>');
+		$('ul.pagination').append('<li id="first" class="page-item"><a class="page-link" href="#" aria-label="Previous">Previous</a></li>');
 		
 		//해당하는 페이지구현
 		for (i=leftPage; i <= rightPage; i++) {
@@ -34,7 +34,7 @@
 		}
 		
 		//오른쪽 가기 버튼
-		$('ul.pagination').append('<li id="last" class="page-item"><a class="page-link" href="#" aria-label="Next">&raquo;</a></li>');
+		$('ul.pagination').append('<li id="last" class="page-item"><a class="page-link" href="#" aria-label="Next">Next</a></li>');
 		
 		$('#notice_data tbody tr').hide();
 		$('#notice_data tbody tr').slice(startItem, lastItem).show();
@@ -76,18 +76,14 @@
 
 <body id="body">
 	<!-- ========================page-header ============================ -->
-	<section class="page-header"
-		style="background-image: url(../images/slider/slider-2.png);">
+	<section class="page-header" style="background-image: url(../images/slider/slider-2.png);">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
-					<div style="padding: 80px" class="content">
+					<div style="padding:80px" class="content">
 						<h1 class="text-center">NOTICE</h1>
-						<h3 class="text-center col-md-12">
-							<b>공지사항</b>
-						</h3>
+						<h3 style="display:block" class="text-center"><b>공지사항</b></h3>
 					</div>
-
 				</div>
 			</div>
 		</div>
@@ -119,14 +115,14 @@
 				</tr>
 			</tbody>
 		</table>
-
+		
 		<nav class="text-center">
-			<ul class="pagination">
+			<ul class="pagination post-pagination">
 				<li id="first" class="page-item">
-				<a class="page-link" href="#" aria-label="Previous">&laquo;</a>
+				<a class="page-link" href="#" aria-label="Previous">Prev</a>
 				</li>
 				<li id="last" class="page-item"><a class="page-link" href="#"
-					aria-label="Next">&raquo;
+					aria-label="Next">Next
 				</a></li>
 			</ul>
 		</nav>
@@ -141,6 +137,7 @@
 				</select> 
 				<input name="keyword" th:value=${keyword} class="form-control" type="search"> 
 				<input class="btn btn-default" type="submit" value="검색">
+				<button style="margin-left:10px" type="button" class="btn btn-default"><a th:href="@{/notice/write}">등록</a></button>
 			</div>
 		</form>
 	</div>
