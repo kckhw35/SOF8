@@ -129,5 +129,15 @@ public class MypageController {
 		}
 		return "redirect:/";
 	}
-	
+
+	// 127.0.0.1/mypage/mark
+	@RequestMapping("/mark")
+	public String mark(HttpSession session,Model model, Member member) {
+		// 세션이 있다면(로그인 중이라면)
+		if(session != null) {
+			// 찜목록 화면이동
+			model.addAttribute("content", dir + "mark");
+		}
+		return "index";
+	}
 }

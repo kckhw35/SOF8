@@ -44,11 +44,11 @@ function select_email() {
 };
 
 // 우편번호검색 버튼
-function search_zipcode() {
-	$('#form_zipcode').removeClass('has-error');
-	$('#error_zipcode').text('');
-	$('#btn_zipcode').removeClass('btn btn-lg btn-danger');
-	$('#btn_zipcode').addClass('btn btn-lg');
+function search_postcode() {
+	$('#form_postcode').removeClass('has-error');
+	$('#error_postcode').text('');
+	$('#btn_postcode').removeClass('btn btn-lg btn-danger');
+	$('#btn_postcode').addClass('btn btn-lg');
 	$('#form_addr').removeClass('has-error');
 	$('#error_addr').text('');
 
@@ -87,7 +87,7 @@ function search_zipcode() {
 			}
 
 			// 우편번호와 주소 정보를 해당 필드에 넣는다.
-			document.getElementById('zipcode').value = data.zonecode;
+			document.getElementById('postcode').value = data.zonecode;
 			document.getElementById("addr").value = addr;
 			// 커서를 상세주소 필드로 이동한다.
 			document.getElementById("de_addr").focus();
@@ -101,7 +101,7 @@ function check_account() {
 	if (c == true) {
 		if ((check_userid() & check_pwd() & check_chkpwd() 
 			& check_name() & check_email() & check_tel() 
-			& check_zipcode() & check_addr() & check_detailaddr()) == 0) {
+			& check_postcode() & check_addr() & check_detailaddr()) == 0) {
 			
 			return false;
 		}
@@ -109,32 +109,19 @@ function check_account() {
 };
 
 // 사용자 아이디 찾기 버튼
-function find_user_id() {
-	$('#btn_findid').click(function() {
-		/*
-		var name = $('#name').val();
-		var email = $('#email').val();
-		*/
-		var member = $('#form_findid').serialize();
-		if((check_name() & check_email()) == 0) {
-			$('#form_findid').addClass('has-error');
-			$('#error_email').text('이름 혹은 이메일을 입력해주세요.');
-			return false;
-		}
-		$.ajax({
-			type: 'POST',
-			url: '/member/found_id',
-			cache: false,
-			data : member
-			/*			
-			data: {
-				'name': name,
-				'email': email
-			}
-			*/
-		}).done(function(fragment) {
-			$('#find').replaceWith(fragment);
-		});
+function find_id() {
+	var member = $('#form_findid').serialize();
+	if((check_name() & check_email()) == 0) {
+		$('#error_email').text('이름 혹은 이메일을 입력해주세요.');
+		return false;
+	}
+	$.ajax({
+		type: 'POST',
+		url: '/member/found_id',
+		cache: false,
+		data: member
+	}).done(function(fragment) {
+		$('#form_findid').replaceWith(fragment);
 	});
 };
 
@@ -150,7 +137,7 @@ function check_edit() {
 		}
 
 		if ((check_name() & check_email() & check_tel() 
-			& check_zipcode() & check_addr() & check_detailaddr()) == 0) {
+			& check_postcode() & check_addr() & check_detailaddr()) == 0) {
 			
 			return false;
 		}
@@ -414,21 +401,21 @@ function check_tel() {
 };
 
 // 우편번호 유효성 검사
-function check_zipcode() {
+function check_postcode() {
 	var result = 0;
 	// input 값 초기화 
-	var zipcode = $('#zipcode').val();
+	var postcode = $('#postcode').val();
 
-	if (zipcode == null || zipcode == "") {
-		$('#form_zipcode').addClass('has-error');
-		$('#error_zipcode').text('우편번호를 입력해 주세요.');
-		$('#btn_zipcode').removeClass('btn btn-lg');
-		$('#btn_zipcode').addClass('btn btn-lg btn-danger');
+	if (postcode == null || postcode == "") {
+		$('#form_postcode').addClass('has-error');
+		$('#error_postcode').text('우편번호를 입력해 주세요.');
+		$('#btn_postcode').removeClass('btn btn-lg');
+		$('#btn_postcode').addClass('btn btn-lg btn-danger');
 	} else {
-		$('#form_zipcode').removeClass('has-error');
-		$('#error_zipcode').text('');
-		$('#btn_zipcode').removeClass('btn btn-lg btn-danger');
-		$('#btn_zipcode').addClass('btn btn-lg');
+		$('#form_postcode').removeClass('has-error');
+		$('#error_postcode').text('');
+		$('#btn_postcode').removeClass('btn btn-lg btn-danger');
+		$('#btn_postcode').addClass('btn btn-lg');
 		result = 1;
 	}
 	return result;
@@ -520,8 +507,8 @@ function check_valid() {
 		check_tel()
 	});
 
-	$('#zipcode').focusout(function() {
-		check_zipcode()
+	$('#postcode').focusout(function() {
+		check_postcode()
 	});
 
 	$('#addr').focusout(function() {
@@ -548,9 +535,8 @@ function mypage_nav() {
 
 
 window.onload = function() {
-	mypage_nav();
+	pwd_toggle();
 	select_email()
 	check_valid();
-	pwd_toggle();
-	find_user_id();
+	mypage_nav();
 };

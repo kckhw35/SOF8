@@ -126,16 +126,16 @@ public class MemberController {
 	public Object found_id(Model model, Member member) {
 	//public Object found_id(Model model, String name, String email) {
 		String error = null;
-		Member user = null;
+		Member m = null;
 		if (member.getName() != "" && member.getEmail() != "") {
 			try {
-
-				user = service.getId(member);
-				if (user != null) {
-					model.addAttribute("user", user);
-					System.out.println("user: " + user);
+				m = service.getId(member);
+				if (m != null) {
+					model.addAttribute("member", m);
 					System.out.println("model: " + model);
 					System.out.println("[SUCCESS] : MemberController/found_id - 아이디 찾기 성공");	
+				} else {
+					error = "이름 또는 이메일을 잘못 입력하셨습니다.";
 				}
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -145,25 +145,7 @@ public class MemberController {
 			}
 		}
 		model.addAttribute("error", error);
-		return "member/find_id :: #find";
-		/*
-		if (name != "" && email != "") {
-			try {
-				Member user = new Member(name, email);
-				Member member = service.getId(user);
-				if (member != null) {
-					System.out.println(member);
-					model.addAttribute("member", member);
-					System.out.println("[SUCCESS] : MemberController/found_id - 아이디 찾기 성공");	
-				}
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				System.out.println("[ERROR] : MemberController/found_id - 아이디 찾기 실패");
-				error = "이름 또는 이메일을 잘못 입력하셨습니다.";
-			}
-		}
-		*/
+		return "member/find_id :: #form_findid";
 	}	
 	
 	// 127.0.0.1/member/find_password
@@ -217,4 +199,5 @@ public class MemberController {
 		}
 		return "index";
 	}
+	
 }

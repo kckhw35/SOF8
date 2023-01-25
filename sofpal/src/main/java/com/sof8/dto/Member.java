@@ -19,7 +19,7 @@ public class Member {
 	private String name;
 	private String email;
 	private String tel;
-	private String zipcode;
+	private String postcode;
 	private String addr;
 	private String de_addr;
 	private Date joindate;

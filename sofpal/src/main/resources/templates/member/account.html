@@ -30,7 +30,6 @@
 							<input type="text" th:field="*{name}" class="form-control">
 							<span id="error_name" class="control-label"></span>
 						</div>
-						
 						<div id="form_email" class="form-group">
 							<label class="control-label" for="email">* 이메일</label>
 							<div class="edit-email">				
@@ -52,15 +51,15 @@
 							<input type="text" th:field="*{tel}"  class="form-control"placeholder="'-'를 입력해주세요">
 							<span id="error_tel" class="control-label"></span>							
 						</div>
-						<div id="form_zipcode" class="form-group">
-							<label class="control-label" for="zipcode">* 우편번호</label>
+						<div id="form_postcode" class="form-group">
+							<label class="control-label" for="postcode">* 우편번호</label>
 							<div class="input-group">
-								<input type="text" th:field="*{zipcode}" class="form-control" readonly>
+								<input type="text" th:field="*{postcode}" class="form-control" readonly>
 								<span class="input-group-btn">
-									<button type="button" class="btn btn-lg" th:onclick="search_zipcode()"><span class="large">우편번호검색</span></button>
+									<button type="button" class="btn btn-lg" th:onclick="search_postcode()"><span class="large">우편번호검색</span></button>
 								</span>
 							</div>
-							<span id="error_zipcode" class="control-label"></span>
+							<span id="error_postcode" class="control-label"></span>
 						</div>
 						<div id="form_addr" class="form-group">
 							<label class="control-label" for="addr">* 주소</label> 

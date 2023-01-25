@@ -14,30 +14,35 @@
 	3.2 info		: 회원정보
 	3.3 edit		: 회원정보 수정
 
+4. Order
+	4.1 cart		: 장바구니	
+
 *******************************************/
 /*=== [ 1. Common ] ===*/
+.none .block {
+	background-color: #fff;
+	border: 1px solid #dedede;
+	padding: 30px;
+	margin: 100px 0;
+}
+
 .large {
 	font-size: 14px;
 } /* account, accountok, accountfail, loginfail */
-
 .clearfix {
 	margin-top: 40px;
 } /* accountfail, loginfail */
-
 .eye {
 	line-height: 45px;
 	font-size: 22px;
 } /* account, edit */
-
 .form-control-feedback {
 	pointer-events: auto;
 } /* account, edit */
-
 .line {
 	padding: 10px;
 	border: 1px solid #dedede;
 } /* info, edit */
-
 .edit-email {
 	overflow: hidden;
 	position: relative;
@@ -70,9 +75,8 @@
 	margin: 20px 0;
 }
 
-.sidenav .nav-pills>li.active>a, 
-.sidenav .nav-pills>li.active>a:focus,
-.sidenav .nav-pills>li.active>a:hover {
+.sidenav .nav-pills>li.active>a, .sidenav .nav-pills>li.active>a:focus,
+	.sidenav .nav-pills>li.active>a:hover {
 	color: #FFF;
 	background-color: #000;
 }
@@ -84,11 +88,162 @@
 
 /*== [ 3.3 edit ] ==*/
 /*== [ 3.4 edit ] ==*/
+.center {
+	text-align: center;	
+}
+dl {
+	list-style: none;
+}
+
 .cancel pre {
-	font-size : 0.8em;
+	font-size: 0.8em;
 }
 
 .cancel #form_pwd {
 	margin-top: 14px;
 }
 
+/*=== [ 4. Order ] ===*/
+/*== [ 4.1 cart ] ==*/
+
+/* 장바구니 테이블 */
+.cart .product-list .table th {
+	border: 0;
+}
+.cart .product-list .table td {
+	border: 1px solid #ddd;
+}
+.cart th {
+    text-align: center;
+}
+
+/* 상품명을 제외한 나머지 컬럼 중앙정렬 */
+.cart td:not(:nth-child(2)) {
+	text-align: center;
+}
+
+.page-wrapper {
+	padding-top: 0;
+}
+
+@media screen and (max-width: 768px) {
+	.widthDisplayNone {
+    	display: none !important;
+	}
+}
+
+/* 합계금액 영역 */
+.price-box {
+	padding: 20px 40px 25px 40px;
+	border: 1px solid #dedede;
+}
+
+.price-content {
+	display: table;
+	float: right;
+	text-align: right;
+}
+
+.price-list {
+	position: relative;
+}
+
+.price-list dl {
+	display: table-cell;
+	padding: 5px 10px 5px 10px;
+	font-size: 15px;
+	text-align: right;
+}
+
+.price-list dd {
+	color: #000;
+}
+
+.price-list span {
+	display: table-cell;
+	padding: 0 15px 0 15px;
+	text-align: center;
+	vertical-align: middle;
+}
+
+@media screen and (max-width: 768px) {
+	.price-box {
+		padding: 15px 20px 15px 20px;
+	}
+	
+	.price-content {
+		float: none;
+		clear: both;
+		text-align: left;
+		width: 100%;
+	}
+	
+	.price-list dl {
+		display: block;
+		clear: both;
+		font-size: 14px;
+	}
+	
+	.price-list dt {
+		float: left;
+		width: 50%;
+		text-align: left;
+	}
+	
+	.price-list dd {
+		float: right;
+		width: 50%;
+		text-align: right;
+	}
+	
+	.price-list span {
+		display: none;
+	}
+	
+	.price-total {
+		padding-right: 10px;
+	}
+}
+
+/* 장바구니 주문 버튼 */
+.btn-order-box {
+    padding: 20px 0 0 0;
+    text-align: right;
+}
+
+.btn-order-box .btn-left-box {
+    float: left;
+}
+
+.btn-left-box {
+    text-align: left;
+}
+
+.btn-order-box .btn-right-box {
+    float: right;
+}
+
+.btn-right-box {
+    text-align: right;
+}
+
+@media screen and (max-width: 768px){
+	.btn-order-box {
+	    padding-top: 20px;
+	}
+	
+	.btn-order-box .btn-left-box {
+	    float: none;
+	    display: block;
+	    clear: both;
+	    text-align: center;
+	}	
+	
+	.btn-order-box .btn-right-box {
+	    float: none;
+	    display: block;
+	    clear: both;
+	    text-align: center;
+	    margin-top: 10px;
+	}
+}

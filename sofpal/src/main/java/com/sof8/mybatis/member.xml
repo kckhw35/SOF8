@@ -5,8 +5,8 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 <mapper namespace="com.sof8.mapper.MemberMapper">
 	<!-- 회원가입 -->
 	<insert id="insert" parameterType="Member">
-		INSERT INTO member (user_id, pwd, name, email, tel, zipcode, addr, de_addr) 
-		VALUES (#{user_id}, #{pwd}, #{name}, #{email}, #{tel}, #{zipcode}, #{addr}, #{de_addr})
+		INSERT INTO member (user_id, pwd, name, email, tel, postcode, addr, de_addr) 
+		VALUES (#{user_id}, #{pwd}, #{name}, #{email}, #{tel}, #{postcode}, #{addr}, #{de_addr})
 	</insert>
 	<select id="select" parameterType="String" resultType="Member">
 		SELECT * FROM member WHERE user_id = #{user_id}
@@ -22,7 +22,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<update id="update" parameterType="Member">
 		UPDATE member 
 		SET pwd = #{pwd}, name = #{name}, email = #{email}, tel = #{tel},
-		 	zipcode = #{zipcode}, addr = #{addr}, de_addr = #{de_addr} 
+		 	postcode = #{postcode}, addr = #{addr}, de_addr = #{de_addr} 
 		WHERE user_id = #{user_id}
 	</update>
 	<!-- 회원탈퇴 시 휴면상태로 변경 -->
