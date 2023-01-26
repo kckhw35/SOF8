@@ -1,14 +1,14 @@
 <style>
-	#register_btn{
+	#update_btn{
 		text-align: center;
 	}
 	
-	#register_btn > a{
+	#update_btn > a{
 		font-size: 16px;
 	}
 </style>
 <script>
-	/* function checkboxcnf(checkbox){
+	function checkboxcnf(checkbox){
 		var discount = document.getElementById('discount');
 		
 		discount.disabled = checkbox.checked ? false : true;
@@ -18,14 +18,14 @@
 		}else{
 			discount.focus();
 		}
-	}; */
+	};
 	
 	function updateproduct(){
 		$('#update_form a[name="update_product"]').click(function(){
 			var c = confirm('수정 하시겠습니까?');
 			if(c == true){
 				$('#update_form').attr({
-					'enctype': 'multipart/form-data',
+					'enctype': 'multipart/form-data', 
 					'method' : 'post',
 					'action' : '[[@{/product/update}]]'
 				});
@@ -34,8 +34,27 @@
 		});
 	};
 
+	function checksize(){
+		var frm = document.update_form;
+		var size = '${p.size}';
+		
+		if(size == 1){
+			frm.size(0).checked = true;
+		}else if(size == 2){
+			frm.size(1).checked = true;
+		}else if(size == 3){
+			frm.size(2).checked = true;
+		}else if(size == 4){
+			frm.size(3).checked = true;
+		}else if(size == 5){
+			frm.size(4).checked = true;
+		}else if(size == 6){
+			frm.size(5).checked = true;
+		}
+	};
+	
 	window.onload = function() {
-		/* checkboxcnf(checkbox); */
+		checksize();
 		updateproduct();
 	};
 </script>
@@ -77,22 +96,28 @@
 						</div>
 	                    <div class="form-group">
 	                        <label>할인</label>
-	                        <!-- <input type='checkbox' id="sale-check" onclick='checkboxcnf(this)'/> -->
-	                       	<input type="text" class="form-control" th:value="${p.discount}" id="discount" name="discount"/>
+	                        <span th:if="${p.discount} != null and ${p.discount} != ''">
+	                        	<input type='checkbox' id="sale-check" onclick='checkboxcnf(this)' checked="checked"/>
+	                        	<input type="text" class="form-control" th:value="${p.discount}" id="discount" name="discount"/>
+	                        </span>
+							<span th:unless="${p.discount} != null and ${p.discount} != ''">
+								<input type='checkbox' id="sale-check" onclick='checkboxcnf(this)'/>
+	                       		<input type="text" class="form-control" id="discount" name="discount" disabled/>
+							</span>
 	                    </div>
 	                    <div class="form-group">
 							<label>크기</label><br/>
-	                        <input type="radio" name="size" id="size" value="1"/> 1인용&emsp;
-	                        <input type="radio" name="size" id="size" value="2"/> 2인용&emsp;
-	                        <input type="radio" name="size" id="size" value="3"/> 3인용&emsp;
-	                        <input type="radio" name="size" id="size" value="4"/> 4인용&emsp;
-	                        <input type="radio" name="size" id="size" value="5"/> 5인용&emsp;
-	                        <input type="radio" name="size" id="size" value="6"/> 6인용
+								 <input type="radio" name="size" id="size" value="1"/> 1인용&emsp;
+								 <input type="radio" name="size" id="size" value="2"/> 2인용&emsp;
+								 <input type="radio" name="size" id="size" value="3"/> 3인용&emsp;
+								 <input type="radio" name="size" id="size" value="4"/> 4인용&emsp;
+								 <input type="radio" name="size" id="size" value="5"/> 5인용&emsp;
+								 <input type="radio" name="size" id="size" value="6"/> 6인용
 						</div>
 						<div class="form-group">
 							<label>색상</label>&nbsp;
 							<select id="color" name="color">
-							    <option value="pale_dogwood" data-image="images/shop/color/pale_dogwood.png">pale_dogwood</option>
+							    <option value="pale_dogwood">pale_dogwood</option>
 							    <option value="gray_sand">gray_sand</option>
 							    <option value="gray_lilac">gray_lilac</option>
 							    <option value="plein_air">plein_air</option>
@@ -131,7 +156,7 @@
 						</div>
 					</div>
 				</div>
-				<div id="register_btn">
+				<div id="update_btn">
 					<a href="#" class="btn btn-main mt-20" name="update_product">상품 수정하기</a>
 				</div>
 			</form>	

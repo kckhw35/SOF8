@@ -113,27 +113,4 @@ public class AdminController {
 		
 		return "redirect:/";                   
 	}
-	
-	
-	// 상품등록
-	@RequestMapping("/registerproduct")
-	public String registerproduct(Model model) {
-		model.addAttribute("content", dir+"registerproduct");
-		return "index";
-	}
-	
-	@RequestMapping("/updateproduct")
-	public String updateproduct(Model model, int p_id) {
-		Product p = null;
-		
-		try {
-			p = pservice.get(p_id);
-			model.addAttribute("p", p);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		model.addAttribute("content", dir+"updateproduct");
-		return "index";
-	}
 }

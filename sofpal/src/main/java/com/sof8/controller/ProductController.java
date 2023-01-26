@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.sof8.dto.Category;
 import com.sof8.dto.Product;
 import com.sof8.frame.ImgUtil;
 import com.sof8.service.CategoryService;
@@ -102,10 +101,9 @@ public class ProductController {
 	
 	// 상품 수정하기
 	@RequestMapping("/update")
-	public String modify(Model model, Product product) {
+	public String update(Model model, Product product) {
 		
 		String p_img = product.getImg().getOriginalFilename();		
-		product.setP_img(p_img);
 		
 		if(p_img.equals("") || p_img == null) {
 			try {
@@ -126,26 +124,17 @@ public class ProductController {
 		
 		return "redirect:/productdetail?p_id="+product.getP_id();
 	}
+	
+	// 상품 삭제하기
+	@RequestMapping("/delete")
+	public String delete(Model model, int p_id) {
+		try {
+			pservice.remove(p_id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return "redirect:productall";
+	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

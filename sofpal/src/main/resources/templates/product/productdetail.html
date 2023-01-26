@@ -35,8 +35,23 @@
     text-align: center;
     vertical-align: middle;
 	}	
-	
 </style>
+<script>
+	function deleteproduct(){
+		$('#delete_btn').click(function(){
+			var c = confirm('삭제 하시겠습니까 ?');
+			if(c == true){
+				var id = $('input[name = p_id]').val();
+				location.href="[[@{/product/delete(p_id=${p.p_id})}]]";
+			};
+		});
+	};
+	
+	window.onload = function() {
+		deleteproduct();
+	};
+
+</script>
 <section class="single-product">
 	<div class="container">
 		<div class="row">
@@ -120,7 +135,8 @@
 						</span>
 					</div>
 					<a href="#" class="btn btn-main mt-20">구매하기</a>
-					<a th:href="@{/admin/updateproduct(p_id=${p.p_id})}" th:value="${p.p_id}" class="btn btn-main mt-20">수정하기</a>
+					<a th:if="${session.admin != null}" th:href="@{/admin/updateproduct(p_id=${p.p_id})}" th:value="${p.p_id}" class="btn btn-main mt-20">수정하기</a>
+					<a th:if="${session.admin != null}" href="#" class="btn btn-main mt-20" id="delete_btn">삭제하기</a>
 				</div>
 			</div>
 		</div>
@@ -172,6 +188,7 @@
 			        </div>
 		    	</div>
 		  	</div>
-		</div><!-- /.modal -->
+		</div>
+		<!-- /.modal -->
 	</div>
 </section>

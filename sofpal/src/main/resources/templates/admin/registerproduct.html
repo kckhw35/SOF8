@@ -8,7 +8,7 @@
 	}
 </style>
 <script>
-	/* function checkboxcnf(checkbox){
+	function checkboxcnf(checkbox){
 		var discount = document.getElementById('discount');
 		
 		discount.disabled = checkbox.checked ? false : true;
@@ -18,7 +18,7 @@
 		}else{
 			discount.focus();
 		}
-	}; */
+	};
 	
 	function registerproduct(){
 		$('#register_form a[name="register_product"]').click(function(){
@@ -35,9 +35,9 @@
 	};
 
 	window.onload = function() {
-		/* checkboxcnf(checkbox); */
 		registerproduct();
 	};
+	
 </script>
 <section class="single-product">
 	<div class="container">
@@ -77,8 +77,8 @@
 						</div>
 	                    <div class="form-group">
 	                        <label>할인</label>
-	                        <!-- <input type='checkbox' id="sale-check" onclick='checkboxcnf(this)'/> -->
-	                       	<input type="text" class="form-control" id="discount" name="discount"/>
+	                        <input type='checkbox' id="sale-check" onclick='checkboxcnf(this)'/>
+	                       	<input type="text" class="form-control" id="discount" name="discount" disabled/>
 	                    </div>
 	                    <div class="form-group">
 							<label>크기</label><br/>
@@ -92,7 +92,7 @@
 						<div class="form-group">
 							<label>색상</label>&nbsp;
 							<select id="color" name="color">
-							    <option value="pale_dogwood" data-image="images/shop/color/pale_dogwood.png">pale_dogwood</option>
+							    <option value="pale_dogwood">pale_dogwood</option>
 							    <option value="gray_sand">gray_sand</option>
 							    <option value="gray_lilac">gray_lilac</option>
 							    <option value="plein_air">plein_air</option>
