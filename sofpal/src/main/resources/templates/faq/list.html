@@ -36,8 +36,8 @@
 		//오른쪽 가기 버튼
 		$('ul.pagination').append('<li id="last" class="page-item"><a class="page-link" href="#" aria-label="Next">Next</a></li>');
 		
-		$('#notice_data tbody tr').hide();
-		$('#notice_data tbody tr').slice(startItem, lastItem).show();
+		$('#faq_data tbody tr').hide();
+		$('#faq_data tbody tr').slice(startItem, lastItem).show();
 		
 		$('ul.pagination li').removeClass('active');
 		$('#'+curPage).addClass('active');
@@ -68,7 +68,7 @@
 	}
 
 	$(document).ready(function(){
-		renderPagination(10, [[${#lists.size(notices)}]], 5, [[${page}]]);
+		renderPagination(10, [[${#lists.size(faqs)}]], 5, [[${page}]]);
 	});
 	
 </script>
@@ -81,8 +81,8 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div style="padding:80px" class="content">
-						<h1 class="text-center">NOTICE</h1>
-						<h3 style="display:block" class="text-center"><b>공지사항</b></h3>
+						<h1 class="text-center">FAQ</h1>
+						<h3 style="display:block" class="text-center"><b>자주하는 문의</b></h3>
 					</div>
 				</div>
 			</div>
@@ -90,29 +90,22 @@
 	</section>
 	<!-- ========================== page-wrapper========================== -->
 	<div class="container">
-		<h2>공지사항</h2>
-		<button type="button" class="btn btn-default pull-right"><a th:href="@{/notice/write}">등록</a></button>
-		<br><br>
-		<table id="notice_data" class="table table-hover">
+		<h2>자주하는 문의</h2>
+		<button type="button" class="btn btn-default pull-right"><a th:href="@{/faq/write}">등록</a></button>
+		<table id="faq_data" class="table table-hover">
 			<thead>
 				<tr>
 					<th class="col-md-1">번호</th>
-					<th class="col-md-7">제목</th>
-					<th class="col-md-2">날짜</th>
-					<th class="col-md-1">작성자</th>
-					<th class="col-md-1">조회수</th>
+					<th class="col-md-5">문의</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="notice: ${notices}">
-					<td th:text="${noticeStat.size - noticeStat.index}"></td>
+				<tr th:each="faq: ${faqs}">
+					<td th:text="${faqStat.size - faqStat.index}"></td>
 					<td>
-						<a th:if="!${keyword}" th:href="@{|/notice/${notice.b_id}?page=${noticeStat.index/10 + 1}|}" th:text="${notice.title}"></a>
-						<a th:unless="!${keyword}" th:href="@{|/notice/${notice.b_id}?page=${noticeStat.index/10 + 1}&searchOption=${searchOption}&keyword=${keyword}|}" th:text="${notice.title}"></a>
+						<a th:if="!${keyword}" th:href="@{|/faq/${faq.b_id}?page=${faqStat.index/10 + 1}|}" th:text="${faq.title}"></a>
+						<a th:unless="!${keyword}" th:href="@{|/faq/${faq.b_id}?page=${faqStat.index/10 + 1}&searchOption=${searchOption}&keyword=${keyword}|}" th:text="${faq.title}"></a>
 					</td>
-					<td th:text="${notice.rdate}"></td>
-					<td th:text="${notice.admin_id}"></td>
-					<td th:text="${notice.hit}"></td>
 				</tr>
 			</tbody>
 		</table>
@@ -128,8 +121,8 @@
 			</ul>
 		</nav>
 		
-		<form id="searching_notice" class="form-inline" method="get"
-			th:action="@{/notice}">
+		<form id="searching_faq" class="form-inline" method="get"
+			th:action="@{/faq}">
 			<div class="row">
 				<select name="searchOption" class="form-control col-md-offset-8">
 					<option value="title" th:selected="${searchOption}=='title'">제목</option>
@@ -138,6 +131,7 @@
 				</select> 
 				<input name="keyword" th:value=${keyword} class="form-control" type="search"> 
 				<input class="btn btn-default" type="submit" value="검색">
+				
 			</div>
 		</form>
 	</div>

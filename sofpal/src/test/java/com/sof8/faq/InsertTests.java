@@ -1,29 +1,23 @@
-package com.sof8.notice;
-
-import java.util.ArrayList;
-import java.util.List;
+package com.sof8.faq;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.sof8.dto.Notice;
-import com.sof8.service.NoticeService;
+import com.sof8.dto.Faq;
+import com.sof8.service.FaqService;
 
 @SpringBootTest
-class SelectAllTests {
-	 
+class InsertTests {
 	@Autowired
-	NoticeService service;
+	FaqService service;
 
 	@Test
 	void contextLoads() {
-		List<Notice> notices = new ArrayList<Notice>();
+		Faq faq = new Faq("jonghoon", "자주하는 질문 TEST"," TEST 자주하는 질문 내용");
+		
 		try {
-			notices = service.get();
-			for (Notice notice : notices) {
-				System.out.println(notice);
-			}
+			service.register(faq);
 			System.out.println("OK");
 		} catch (Exception e) {
 			System.out.println("Fail");

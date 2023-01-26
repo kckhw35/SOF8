@@ -1,4 +1,4 @@
-package com.sof8.notice;
+package com.sof8.faq;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,22 +7,22 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.sof8.dto.Notice;
-import com.sof8.service.NoticeService;
+import com.sof8.dto.Faq;
+import com.sof8.service.FaqService;
 
 @SpringBootTest
 class SelectAllTests {
 	 
 	@Autowired
-	NoticeService service;
+	FaqService service;
 
 	@Test
 	void contextLoads() {
-		List<Notice> notices = new ArrayList<Notice>();
+		List<Faq> faqs = new ArrayList<Faq>();
 		try {
-			notices = service.get();
-			for (Notice notice : notices) {
-				System.out.println(notice);
+			faqs = service.get();
+			for (Faq faq : faqs) {
+				System.out.println(faq);
 			}
 			System.out.println("OK");
 		} catch (Exception e) {
