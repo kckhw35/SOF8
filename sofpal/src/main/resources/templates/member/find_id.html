@@ -1,0 +1,49 @@
+<section class="none">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+				<div class="block text-center">
+					<h2>아이디 찾기</h2>	
+					<form id="form_findid" th:object="${member}">
+						<!-- 이름과 이메일이 일치한 회원이 없을시 -->
+						<div class="form-group text-left" th:if="${member.user_id == null}">
+							<div class="text-center clearfix">
+								<iconify-icon icon="ic:baseline-person-search" width="120"></iconify-icon>
+								<p style="display: block;">가입시 입력한 정보를 정확히 입력해 주세요.</p>
+							</div>
+							<div id="form_name" class="form-group clearfix">
+								<input type="text" th:field="*{name}" class="form-control" placeholder="이름 입력">
+								<span id="error_name" class="control-label"></span>
+							</div>
+							<div id="form_email" class="form-group">
+								<div class="edit-email">				
+									<input type="text" th:field="*{email}" class="form-control" placeholder="이메일 입력">
+									<select id="slt_email" class="form-control input-lg">
+										<option value="">직접입력</option>
+										<option value="naver">naver.com</option>
+										<option value="hanmail">hanmail.net</option>
+										<option value="daum">daum.net</option>
+										<option value="nate">nate.com</option>
+										<option value="hotmail">hotmail.com</option>
+										<option value="gmail">gmail.com</option>
+									</select>
+								</div>
+								<span id="error_email" class="control-label text-danger" th:text="${error}"></span>
+							</div>
+							<a th:onclick="return find_id()" class="btn btn-lg btn-main btn-block large">아이디 찾기</a>
+						</div>
+						<!-- 이름과 이메일이 일치한 회원이 있을시 -->
+						<div class="form-group clearfix" th:if="${member.user_id != null}">
+							<iconify-icon icon="ic:baseline-person-search" width="120"></iconify-icon>
+							<p class="complete" style="display: block;">
+								<span>[[${member.name}]]</span> 회원님의 아이디는 <strong>[[${member.user_id}]]</strong> 입니다.
+							</p>
+							<a th:href="@{/member/login}" class="btn btn-lg btn-main btn-block large ">확인</a>
+						</div>
+					</form>
+					<p class="mt-20 ">비밀번호를 잊으셨나요?<a th:href="@{/member/find_password}"> 비밀번호 찾기</a></p><br>								
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

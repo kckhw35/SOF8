@@ -1,0 +1,20 @@
+<section class="none">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+				<div class="block text-center">
+					<h2>비밀번호 찾기</h2>
+					<div class="clearfix">
+						<iconify-icon icon="ic:baseline-person-search" width="120"></iconify-icon>
+						<p style="display: block;">이메일 본인인증입니다.<br>아래의 이메일 주소를 확인해 주세요.</p>
+						<div id="form_id" class="form-group clearfix">
+							<p class="complete"> [ <strong>[[${name}]]</strong> ] </p> 
+							<p style="display: block;"><small>가입시 등록한 이메일로 메일이 발송됩니다.</small></p>
+						</div>
+						<a th:href="@{/member/user_certification_confirm}" class="btn btn-lg btn-main btn-block large">다음으로</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

@@ -1,0 +1,21 @@
+<section class="none">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+				<div class="block text-center">
+					<h2>비밀번호 찾기</h2>
+					<div class="form-group clearfix">
+						<iconify-icon icon="ic:baseline-person-search" width="120"></iconify-icon>
+						<p style="display: block;">수신된 이메일의 인증번호를 입력해 주세요.</p>
+						<div class="form-group clearfix">
+							<input type="text" class="form-control" placeholder="인증번호 입력">
+							<span  id="" class="control-label"></span>
+						</div>
+						<p class=""> 인증메일이 도착하지 않았나요? <a href="#"> 인증번호 다시받기 </a></p><br>											
+					</div>
+					<a th:href="@{/member/reset_password}" class="btn btn-lg btn-main btn-block large">다음으로</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
