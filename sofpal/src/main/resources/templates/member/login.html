@@ -4,25 +4,28 @@
 			<div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
 				<div class="block text-center">
 					<h2>회원 로그인</h2>
-					<form id="form_login" class="text-left" th:action="@{/member/loginok}" th:object="${member}" method="post" >
+					<form id="form_member_login" class="text-left" th:onsubmit="return save_member_id()" th:object="${member}" method="post" >
 						<div class="form-group">
-							<input type="text" th:field="*{user_id}" class="form-control" placeholder="ID">
+							<input type="text" id="member_login_id" th:field="*{user_id}" class="form-control" placeholder="ID">
 						</div>
 						<div class="form-group has-feedback">
 							<input type="password" th:field="*{pwd}" class="form-control" placeholder="Password">
 							<span class="glyphicon glyphicon-eye-open form-control-feedback eye"></span>						
-							<span class="control-label text-danger"	th:text="${error_login}"></span>
+							<span id="error" class="control-label text-danger"></span>
+						</div>
+						<div class="form-group">		
+							<label for="save_id1">
+								<input type="checkbox" id="save_id1" th:field="*{save_id}">
+								<label for="save_id1"></label> 아이디 저장 
+							</label> 
+						
 						</div>
 						<div class="form-group">
-							<input type="checkbox" id="saveId" name="checkId">
-							<label for="saveId">아이디 저장(구현 예정)</label>
-						</div>
-						<div class="form-group">
-							<button type="submit" class="btn btn-main btn-block large">Login</button>
+							<button type="submit" class="large btn btn-main btn-block">Login</button>
 						</div>
 					</form>
-					<p class="mt-20">사이트 방문이 처음이신가요 ?<a th:href="@{/member/account}"> 회원가입</a></p><br>
-					<p class="mt-20">아이디/비밀번호를 잊으셨나요? <span style="display: inline-block;"><a th:href="@{/member/find_id}"> 아이디 찾기</a>/<a th:href="@{/member/find_password}">비밀번호 찾기</a></span></p> 
+					<p>사이트 방문이 처음이신가요? <span class="ib"><a th:href="@{/member/account}"> 회원가입</a></span></p>
+					<p>아이디/비밀번호를 잊으셨나요? <span class="ib"><a th:href="@{/member/find_id}"> 아이디 찾기</a>/<a th:href="@{/member/find_password}">비밀번호 찾기</a></span></p> 
 				</div>
 			</div>
 		</div>

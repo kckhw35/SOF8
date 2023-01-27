@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.sof8.dto.Category;
 import com.sof8.dto.Product;
 import com.sof8.frame.ImgUtil;
 import com.sof8.service.CategoryService;
