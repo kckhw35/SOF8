@@ -1,3 +1,22 @@
+<style>
+	.check-visiable{
+		position: absolute;
+	  top: 12px;
+	  right: 12px;
+	  background: #BE3455;
+	  color: white;
+	  font-size: 12px;
+	  padding: 4px 12px;
+	  font-weight: 300;
+	  display: inline-block;
+	}
+	
+	#product-list{
+		width: 380px;
+		height: 350px;
+	}
+</style>
+
 <section th:fragment="page-header" class="page-header">
 	<div class="container">
 		<div class="row">
@@ -22,8 +41,9 @@
 	<div class="container">
 		<div class="row">
 			<tr th:each="p : ${plist}">
-				<div class="col-md-4">
-				<div class="product-item">
+				<!-- 사용자가 보는 상품보기 -->
+				<div class="col-md-4" id="product-list" th:if="${p.visiable} == true and ${session.admin == null}" >
+					<div class="product-item">
 						<div class="product-thumb" th:OnClick="|location.href ='@{/product/productdetail(p_id=${p.p_id})}'|" th:value="${p.p_id}" style="cursor:pointer;" >
 							<td><img class="img-responsive" th:src="@{/images/shop/products/}+${p.p_img}"/></td>
 							<input type="hidden" name="p_img" th:value="${p.p_img}">
@@ -32,8 +52,22 @@
 							<td><h4><a th:href="@{/product/productdetail(p_id=${p.p_id})}" th:value="${p.p_id}" th:text="${p.p_name}"></a></h4></td>
 							<p class="price"><td th:text="${p.price}"></td></p>
 						</div>
+					</div>
 				</div>
-			</div>
+				<!-- 관리자가 보는 상품 보기 -->
+				<div class="col-md-4" id="product-list" th:if="${session.admin != null}" >
+					<div class="product-item">	
+						<div class="product-thumb" th:OnClick="|location.href ='@{/product/productdetail(p_id=${p.p_id})}'|" th:value="${p.p_id}" style="cursor:pointer;" >
+							<span class="check-visiable" th:if="${p.visiable} == false">상품 안 보임</span>
+							<td><img class="img-responsive" th:src="@{/images/shop/products/}+${p.p_img}"/></td>
+							<input type="hidden" name="p_img" th:value="${p.p_img}">
+						</div>
+						<div class="product-content">
+							<td><h4><a th:href="@{/product/productdetail(p_id=${p.p_id})}" th:value="${p.p_id}" th:text="${p.p_name}"></a></h4></td>
+							<p class="price"><td th:text="${p.price}"></td></p>
+						</div>
+					</div>
+				</div>
 			</tr>	
 		</div>
 	</div>

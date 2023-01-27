@@ -988,6 +988,7 @@ input[type=email]:focus, input[type=password]:focus, input[type=text]:focus, inp
   font-weight: 300;
   display: inline-block;
 }
+
 .product-item .product-thumb:before {
   transition: 0.3s all;
   opacity: 0;

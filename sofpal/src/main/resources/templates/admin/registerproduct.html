@@ -20,6 +20,25 @@
 		}
 	};
 	
+	function showsize(){
+		$('#cat_id').change(function(){
+			var result = $('#cat_id option:selected').val();
+			if(result == 1){
+				$('#size1').show();
+				$('#size2').hide();
+				$('#size3').hide();
+			}else if(result == 2){
+				$('#size1').hide();
+				$('#size2').show();
+				$('#size3').hide();
+			}else if(result == 3){
+				$('#size1').hide();
+				$('#size2').hide();
+				$('#size3').show();
+			}
+		});
+	};
+	
 	function registerproduct(){
 		$('#register_form a[name="register_product"]').click(function(){
 			var c = confirm('등록 하시겠습니까?');
@@ -82,12 +101,22 @@
 	                    </div>
 	                    <div class="form-group">
 							<label>크기</label><br/>
-	                        <input type="radio" name="size" id="size" value="1"/> 1인용&emsp;
-	                        <input type="radio" name="size" id="size" value="2"/> 2인용&emsp;
-	                        <input type="radio" name="size" id="size" value="3"/> 3인용&emsp;
-	                        <input type="radio" name="size" id="size" value="4"/> 4인용&emsp;
-	                        <input type="radio" name="size" id="size" value="5"/> 5인용&emsp;
-	                        <input type="radio" name="size" id="size" value="6"/> 6인용
+								<div id="size1">
+									<input type="radio" name="size" value="1"/> 1인용&emsp;
+			                        <input type="radio" name="size" value="2"/> 2인용&emsp;
+			                        <input type="radio" name="size" value="3"/> 3인용&emsp;
+			                        <input type="radio" name="size" value="4"/> 4인용&emsp;
+			                        <input type="radio" name="size" value="5"/> 5인용&emsp;
+			                        <input type="radio" name="size" value="6"/> 6인용&emsp;
+								</div>
+								<div id="size2">
+									<input type="radio" name="size" value="7"/> 펫쇼파&emsp;
+		                       		<input type="radio" name="size" value="8"/> 펫스텝&emsp;
+								</div>
+								<div id="size3">
+									<input type="radio" name="size" value="9"/> 쿠션&emsp;
+		                        	<input type="radio" name="size" value="10"/> 러그&emsp;
+	                        	</div>         
 						</div>
 						<div class="form-group">
 							<label>색상</label>&nbsp;

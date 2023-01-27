@@ -35,26 +35,92 @@
 	};
 
 	function checksize(){
-		var frm = document.update_form;
-		var size = '${p.size}';
+		var frm = document.querySelectorAll('input[name="size"]');
+		var size = '[[${p.size}]]';
 		
 		if(size == 1){
-			frm.size(0).checked = true;
+			frm[0].checked = true;
 		}else if(size == 2){
-			frm.size(1).checked = true;
+			frm[1].checked = true;
 		}else if(size == 3){
-			frm.size(2).checked = true;
+			frm[2].checked = true;
 		}else if(size == 4){
-			frm.size(3).checked = true;
+			frm[3].checked = true;
 		}else if(size == 5){
-			frm.size(4).checked = true;
+			frm[4].checked = true;
 		}else if(size == 6){
-			frm.size(5).checked = true;
+			frm[5].checked = true;
+		}
+	};
+	
+	function checkcat(){
+		var frm = document.querySelector('select[name="cat_id"]');
+		var category = '[[${p.cat_id}]]';
+		
+		if(category == 1){
+			frm.options[0].selected = true;
+		}else if(category == 2){
+			frm.options[1].selected = true;
+		}else if(category == 3){
+			frm.options[2].selected = true;
+		}else if(category == 4){
+			frm.options[3].selected = true;
+		}
+	};
+	
+	function checkcolor(){
+		var frm = document.querySelector('select[name="color"]');
+		var color = '[[${p.color}]]';
+	    
+		if(color == 'pale_dogwood'){
+			frm.options[0].selected = true;
+		}else if(color == 'gray_sand'){
+			frm.options[1].selected = true;
+		}else if(color == 'gray_lilac'){
+			frm.options[2].selected = true;
+		}else if(color == 'plein_air'){
+			frm.options[3].selected = true;
+		}else if(color == 'pale_khaki'){
+			frm.options[4].selected = true;
+		}else if(color == 'fields_of_rye'){
+			frm.options[5].selected = true;
+		}else if(color == "agate_gray"){
+			frm.options[6].selected = true;
+		}else if(color == "viva_magenta"){
+			frm.options[7].selected = true;
+		}else if(color == "biscary_bay"){
+			frm.options[8].selected = true;
+		}else if(color == "fir_green"){
+			frm.options[9].selected = true;
+		}else if(color == "rose_taupe"){
+			frm.options[10].selected = true;
+		}else if(color == "polar_night"){
+			frm.options[11].selected = true;
+		}else if(color == "tawny_port"){
+			frm.options[12].selected = true;
+		}else if(color == "gloxinia"){
+			frm.options[13].selected = true;
+		}else if(color == "silver_pine"){
+			frm.options[14].selected = true;
+		}
+	};	
+	
+	function checkvisiable(){
+		var frm = document.querySelectorAll('input[name="visiable"]');
+		var visiable = '[[${p.visiable}]]';
+		
+		if(visiable == 'true'){
+			frm[0].checked = true;
+		}else if(visiable == 'false'){
+			frm[1].checked = true;
 		}
 	};
 	
 	window.onload = function() {
 		checksize();
+		checkcat();
+		checkcolor();
+		checkvisiable();
 		updateproduct();
 	};
 </script>
@@ -62,6 +128,7 @@
 	<div class="container">
 		<div class="row mt-20">
 			<form id="update_form">
+				<input type="hidden" th:value="${p.p_id}" name="p_id"/>
 				<div class="col-md-5">
 					<input type="file" id="p_img" name="img" accept="images/shop/products/*" required multiple>
 				</div>
@@ -106,13 +173,13 @@
 							</span>
 	                    </div>
 	                    <div class="form-group">
-							<label>크기</label><br/>
-								 <input type="radio" name="size" id="size" value="1"/> 1인용&emsp;
-								 <input type="radio" name="size" id="size" value="2"/> 2인용&emsp;
-								 <input type="radio" name="size" id="size" value="3"/> 3인용&emsp;
-								 <input type="radio" name="size" id="size" value="4"/> 4인용&emsp;
-								 <input type="radio" name="size" id="size" value="5"/> 5인용&emsp;
-								 <input type="radio" name="size" id="size" value="6"/> 6인용
+							<label id="product_size">크기</label><br/>
+								 <input type="radio" name="size" value="1"/> 1인용&emsp;
+								 <input type="radio" name="size" value="2"/> 2인용&emsp;
+								 <input type="radio" name="size" value="3"/> 3인용&emsp;
+								 <input type="radio" name="size" value="4"/> 4인용&emsp;
+								 <input type="radio" name="size" value="5"/> 5인용&emsp;
+								 <input type="radio" name="size" value="6"/> 6인용
 						</div>
 						<div class="form-group">
 							<label>색상</label>&nbsp;
@@ -136,8 +203,8 @@
 						</div>
 	                    <div class="form-group">
 	                        <label>보이기</label><br/>
-	                        <input type="radio" id="visiable" name="visiable" value="true" checked> 네&emsp;
-	                        <input type="radio" id="visiable" name="visiable" value="false"> 아니오
+	                        <input type="radio" name="visiable" value="true"> 네&emsp;
+	                        <input type="radio" name="visiable" value="false"> 아니오
 	                    </div>					
 					</div>
 				</div>
@@ -150,7 +217,7 @@
 							</ul>
 							<div class="tab-content patternbg">
 								<div id="details" class="tab-pane fade active in">
-									<textarea id="p_content" name="p_content" rows="10" cols="100" style="width: 100%;"></textarea>
+									<textarea id="p_content" name="p_content" th:text="${p.p_content}" rows="10" cols="100" style="width: 100%;"></textarea>
 								</div>
 							</div>
 						</div>

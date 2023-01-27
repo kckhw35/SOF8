@@ -122,7 +122,7 @@ public class ProductController {
 			}
 		}
 		
-		return "redirect:/productdetail?p_id="+product.getP_id();
+		return "redirect:productdetail?p_id="+product.getP_id();
 	}
 	
 	// 상품 삭제하기
