@@ -1,17 +1,6 @@
 <section th:fragment="main-menu" class="menu">
 	<nav class="navbar navigation">
 		<div class="container">
-			<div class="navbar-header">
-				<h2 class="menu-title">메뉴</h2>
-				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
-					aria-expanded="false" aria-controls="navbar">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-			</div><!-- / .navbar-header -->
-			
 			<!-- Navbar Links -->
 			<div id="navbar" class="navbar-collapse collapse text-center">
 				<ul class="nav navbar-nav">
@@ -98,8 +87,8 @@
 							role="button" aria-haspopup="true" aria-expanded="false">커뮤니티 <span
 								class="tf-ion-ios-arrow-down"></span></a>
 						<ul class="dropdown-menu">
-							<li><a href="#">공지사항</a></li>
-							<li><a href="#">자주하는 문의</a></li>
+							<li><a href="#" th:href="@{/notice}">공지사항</a></li>
+							<li><a href="#" th:href="@{/faq}">자주하는 문의</a></li>
 						</ul>
 					</li><!-- / Blog -->
 

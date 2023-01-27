@@ -26,9 +26,7 @@ public class Member {
 	private Boolean enable;
 	
 	private String edit_pwd; 
+	private Boolean save_id; 
+	private String auth;
 	
-	public Member(String name, String email) {
-		this.name = name;
-		this.email = email;
-	}
 }

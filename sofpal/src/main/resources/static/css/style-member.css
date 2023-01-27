@@ -16,9 +16,92 @@
 
 4. Order
 	4.1 cart		: 장바구니	
+	
+5. Mail-templates
 
 *******************************************/
 /*=== [ 1. Common ] ===*/
+.pointer {
+	cursor: pointer;
+}
+
+/*input 은 숨겨주기*/
+input[type="checkbox"] {
+	display: none;
+}
+
+/* 장바구니, 찜목록 */
+/*input 바로 다음의 label*/
+input[type="checkbox"]+label {
+	cursor: pointer;
+}
+
+/*input 바로 다음의 label:before 에 체크하기 전 CSS 설정*/
+input[type="checkbox"]+label:before {
+	content: "";
+	display: inline-block;
+	width: 17px;
+	height: 17px;
+	line-height: 17px;
+	border: 1px solid #cbcbcb;
+	vertical-align: middle; /*체크 전과 체크 후 높이 차이 때문에 설정*/
+}
+
+/*checked된 input 바로 다음의 label:before 에 체크 후 CSS 설정*/
+input[type="checkbox"]:checked+label:before {
+	content: "\f00c"; /*폰트어썸 유니코드*/
+	font-family: "Font Awesome 5 free"; /*폰트어썸 아이콘 사용*/
+	font-weight: 900; /*폰트어썸 설정*/
+	color: #fff;
+	background-color: #000;
+	border-color: #000;
+	font-size: 13px;
+	text-align: center;
+}
+
+/* 로그인 */
+/*input 바로 다음의 label*/
+input[type="checkbox"]+input+label {
+	cursor: pointer;
+}
+
+/*input 바로 다음의 label:before 에 체크하기 전 CSS 설정*/
+input[type="checkbox"]+input+label:before {
+	content: "";
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	line-height: 20px;
+	border: 1px solid #cbcbcb;
+	text-align: center;
+	vertical-align: middle; /*체크 전과 체크 후 높이 차이 때문에 설정*/
+}
+
+/*checked된 input 바로 다음의 label:before 에 체크 후 CSS 설정*/
+input[type="checkbox"]:checked+input+label:before {
+	content: "\f00c"; /*폰트어썸 유니코드*/
+	font-family: "Font Awesome 5 free"; /*폰트어썸 아이콘 사용*/
+	font-weight: 900; /*폰트어썸 설정*/
+	color: #fff;
+	background-color: #000;
+	border-color: #000;
+	font-size: 13px;
+	text-align: center;
+}
+
+.ib {
+	display: inline-block;
+}
+
+.mt-8 {
+	margin-top: 8px;
+}
+
+.none p {
+	display: block;
+	margin: 0;
+}
+
 .none .block {
 	background-color: #fff;
 	border: 1px solid #dedede;
@@ -64,6 +147,10 @@
 
 /*=== [ 2. Member ] ===*/
 /*== [ 2.1 account ] ==*/
+.account p {
+	display: block;
+	margin: 0;
+}
 /*== [ 2.2 accountok ] ==*/
 /*== [ 2.3 accountfail ] ==*/
 /*== [ 2.4 login ] ==*/
@@ -82,15 +169,60 @@
 }
 
 /*== [ 3.2 info ] ==*/
+.info p {
+	display: block;
+	margin: 0;
+}
+
 .info .form-control {
 	border: 0px;
 }
 
 /*== [ 3.3 edit ] ==*/
-/*== [ 3.4 edit ] ==*/
-.center {
-	text-align: center;	
+.edit p {
+	display: block;
+	margin: 0;
 }
+
+/*== [ 3.4 wish ] ==*/
+.wish p {
+	display: block;
+	margin: 0;
+}
+
+.post-pagination {
+	margin-top: 70px;
+}
+
+.post-pagination>li {
+	margin: 0 2px;
+	display: inline-block;
+	font-size: 12px;
+}
+
+.post-pagination>li>a {
+	color: #000;
+}
+
+.post-pagination>li>a:hover {
+	color: #fff;
+	background: #000;
+	border: 1px solid #000;
+}
+
+.post-pagination>li.active>a {
+	background: #000;
+	border: 1px solid #000;
+}
+
+.post-pagination>li:first-child>a, .post-pagination>li:last-child>a {
+	border-radius: 0;
+}
+
+.center {
+	text-align: center;
+}
+
 dl {
 	list-style: none;
 }
@@ -107,14 +239,21 @@ dl {
 /*== [ 4.1 cart ] ==*/
 
 /* 장바구니 테이블 */
+.cart p {
+	display: block;
+	margin: 0;
+}
+
 .cart .product-list .table th {
 	border: 0;
 }
+
 .cart .product-list .table td {
 	border: 1px solid #ddd;
 }
+
 .cart th {
-    text-align: center;
+	text-align: center;
 }
 
 /* 상품명을 제외한 나머지 컬럼 중앙정렬 */
@@ -128,7 +267,7 @@ dl {
 
 @media screen and (max-width: 768px) {
 	.widthDisplayNone {
-    	display: none !important;
+		display: none !important;
 	}
 }
 
@@ -170,36 +309,30 @@ dl {
 	.price-box {
 		padding: 15px 20px 15px 20px;
 	}
-	
 	.price-content {
 		float: none;
 		clear: both;
 		text-align: left;
 		width: 100%;
 	}
-	
 	.price-list dl {
 		display: block;
 		clear: both;
 		font-size: 14px;
 	}
-	
 	.price-list dt {
 		float: left;
 		width: 50%;
 		text-align: left;
 	}
-	
 	.price-list dd {
 		float: right;
 		width: 50%;
 		text-align: right;
 	}
-	
 	.price-list span {
 		display: none;
 	}
-	
 	.price-total {
 		padding-right: 10px;
 	}
@@ -207,43 +340,41 @@ dl {
 
 /* 장바구니 주문 버튼 */
 .btn-order-box {
-    padding: 20px 0 0 0;
-    text-align: right;
+	padding: 20px 0 0 0;
+	text-align: right;
 }
 
 .btn-order-box .btn-left-box {
-    float: left;
+	float: left;
 }
 
 .btn-left-box {
-    text-align: left;
+	text-align: left;
 }
 
 .btn-order-box .btn-right-box {
-    float: right;
+	float: right;
 }
 
 .btn-right-box {
-    text-align: right;
+	text-align: right;
 }
 
-@media screen and (max-width: 768px){
+@media screen and (max-width: 768px) {
 	.btn-order-box {
-	    padding-top: 20px;
+		padding-top: 20px;
 	}
-	
 	.btn-order-box .btn-left-box {
-	    float: none;
-	    display: block;
-	    clear: both;
-	    text-align: center;
-	}	
-	
+		float: none;
+		display: block;
+		clear: both;
+		text-align: center;
+	}
 	.btn-order-box .btn-right-box {
-	    float: none;
-	    display: block;
-	    clear: both;
-	    text-align: center;
-	    margin-top: 10px;
+		float: none;
+		display: block;
+		clear: both;
+		text-align: center;
+		margin-top: 10px;
 	}
 }

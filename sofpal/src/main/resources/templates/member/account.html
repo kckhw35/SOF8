@@ -4,7 +4,7 @@
 			<div class="col-md-8 col-md-offset-2">
 				<div class="block text-center">
 					<h2>회원가입 정보입력</h2>
-					<form id="form_account" class="text-left" th:action="@{/member/accountok}" th:onsubmit="return check_account()" th:object="${member}" method="post">
+					<form class="text-left" th:action="@{/member/accountok}" th:onsubmit="return check_member_account" th:object="${member}" method="post">
 						<div class="text-right text-danger">
 							<small>* 표시는 필수입력 항목입니다.</small>
 						</div>
@@ -72,10 +72,10 @@
 							<span id="error_detailaddr" class="control-label"></span>
 						</div>
 						<div class="form-group">
-							<button type="submit" class="btn btn-main btn-block large">회원가입</button>
+							<button type="submit" class="large btn btn-main btn-block">회원가입</button>
 						</div>
 					</form>
-					<p class="mt-20">이미 계정이 있으신가요 ?<a th:href="@{/member/login}"> 로그인</a></p>
+					<p>이미 계정이 있으신가요 ?<a th:href="@{/member/login}"> 로그인</a></p>
 				</div>
 			</div>
 		</div>
