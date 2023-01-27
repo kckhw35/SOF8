@@ -4,7 +4,7 @@
 			<div class="col-md-6 col-md-offset-3">
 				<div class="block text-center">
 					<h2>관리자 로그인</h2>
-					<form id="form_admin_login" class="text-left clearfix" th:onsubmit="return save_admin_id()" th:action="@{/admin/loginok}" th:object="${admin}" method="post">
+					<form id="form_admin_login" class="text-left clearfix" th:onsubmit="return save_admin_id()" th:object="${admin}" method="post">
 						<div class="form-group">
 							<input type="text" id="admin_login_id" th:field="*{admin_id}" class="form-control" placeholder="ID">
 						</div>

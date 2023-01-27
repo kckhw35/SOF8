@@ -223,10 +223,10 @@ function save_member_id() {
 
 // 관리자 로그인
 function save_admin_id() {
-	var member = $('#form_admin_login').serializeArray();
-	console.log(member);
-	var admin_id = member[0].value;
-	var save_id = member[2].name == 'save_id' ? member[2].value : false;
+	var admin = $('#form_admin_login').serializeArray();
+	console.log(admin);
+	var admin_id = admin[0].value;
+	var save_id = admin[2].name == 'save_id' ? admin[2].value : false;
 
 	if (save_id) {
 		localStorage.setItem('admin_id', admin_id);
@@ -237,7 +237,7 @@ function save_admin_id() {
 	var option = {
 		type: 'post',
 		url: '/admin/loginok',
-		data: member
+		data: admin
 	};
 
 	$.ajax(option).done(function(data) {

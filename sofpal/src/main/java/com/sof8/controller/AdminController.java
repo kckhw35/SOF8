@@ -89,12 +89,15 @@ public class AdminController {
 
 	// 127.0.0.1/admin/loginok
 	@ResponseBody
-	@RequestMapping("/admin/loginok")
-	public String loginok(HttpSession session, Model model, Admin admin) {
-		String result = null;
+	@RequestMapping("/loginok")
+	public String loginok(HttpSession session, Admin admin) {
+		String result = "1";
+		System.out.println("Admin: " + admin);
 		try {
 			// 가입된 아이디 조회
 			Admin a = aservice.get(admin.getAdmin_id());
+			System.out.println("a: " + a);
+
 			// 가입된 아이디라면
 			if (a != null) {
 				// 가입된 아이디의 비밀번호가 일치한다면
