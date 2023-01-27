@@ -1,6 +1,23 @@
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
 <script>
+	$(".print-content").click(function(){
+		alert($(this).attr("data-id"));
+/* 		 $.ajax({
+             type : "GET",            // HTTP method type(GET, POST) 형식이다.
+             url : "/test/ajax",                                                                                                   // 컨트롤러에서 대기중인 URL 주소이다.
+             data : params,            // Json 형식의 데이터이다.
+             success : function(res){ // 비동기통신의 성공일경우 success콜백으로 들어옵니다. 'res'는 응답받은 데이터이다.
+                 // 응답코드 > 0000
+                 alert(res.code);
+             },
+             error : function(XMLHttpRequest, textStatus, errorThrown){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
+                 alert("통신 실패.")
+             }
+         }); */
+	});
+	
+	
 	function renderPagination(rowsShown, rowsTotal, pageShown, curPage) {
 		
 		//만약 이전에 페이지 네이션이 있다면, 제거
@@ -66,6 +83,8 @@
 			renderPagination(rowsShown, rowsTotal, pageShown, nextPageNum);
 		});
 	}
+	
+	
 
 	$(document).ready(function(){
 		renderPagination(10, [[${#lists.size(faqs)}]], 5, [[${page}]]);
@@ -90,50 +109,47 @@
 	</section>
 	<!-- ========================== page-wrapper========================== -->
 	<div class="container">
-		<h2>자주하는 문의</h2>
-		<button type="button" class="btn btn-default pull-right"><a th:href="@{/faq/write}">등록</a></button>
-		<table id="faq_data" class="table table-hover">
-			<thead>
-				<tr>
-					<th class="col-md-1">번호</th>
-					<th class="col-md-5">문의</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="faq: ${faqs}">
-					<td th:text="${faqStat.size - faqStat.index}"></td>
-					<td>
-						<a th:if="!${keyword}" th:href="@{|/faq/${faq.b_id}?page=${faqStat.index/10 + 1}|}" th:text="${faq.title}"></a>
-						<a th:unless="!${keyword}" th:href="@{|/faq/${faq.b_id}?page=${faqStat.index/10 + 1}&searchOption=${searchOption}&keyword=${keyword}|}" th:text="${faq.title}"></a>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-		
-		<nav class="text-center">
-			<ul class="pagination post-pagination">
-				<li id="first" class="page-item">
-				<a class="page-link" href="#" aria-label="Previous">Prev</a>
-				</li>
-				<li id="last" class="page-item"><a class="page-link" href="#"
-					aria-label="Next">Next
-				</a></li>
-			</ul>
-		</nav>
-		
-		<form id="searching_faq" class="form-inline" method="get"
-			th:action="@{/faq}">
-			<div class="row">
-				<select name="searchOption" class="form-control col-md-offset-8">
-					<option value="title" th:selected="${searchOption}=='title'">제목</option>
-					<option value="content" th:selected="${searchOption}=='content'">내용</option>
-					<option value="admin_id" th:selected="${searchOption}=='admin_id'">작성자</option>
-				</select> 
-				<input name="keyword" th:value=${keyword} class="form-control" type="search"> 
-				<input class="btn btn-default" type="submit" value="검색">
-				
-			</div>
-		</form>
+		<div class="col-md-8 col-md-offset-2">
+			<h2>자주하는 문의</h2><br>
+			<form id="searching_faq" class="form-inline" method="get" th:action="@{/faq}">
+				<div class="row">
+					<select name="searchOption" class="form-control">
+						<option value="title" th:selected="${searchOption}=='title'">제목</option>
+						<option value="content" th:selected="${searchOption}=='content'">내용</option>
+						<option value="admin_id" th:selected="${searchOption}=='admin_id'">작성자</option>
+					</select> 
+					<input name="keyword" th:value=${keyword} class="form-control" type="search"> 
+					<input class="btn btn-default" type="submit" value="검색">
+					<button type="button" class="btn btn-default pull-right"><a th:href="@{/faq/write}">등록</a></button>
+				</div>
+			</form>
+			<br><br>
+			<table id="faq_data" class="table table-hover">
+				<thead>
+					<tr>
+						<th class="col-md-1">번호</th>
+						<th class="col-md-7">문의</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="faq: ${faqs}">
+						<td th:text="${faqStat.size - faqStat.index}"></td>
+						<td class="print-content" data-pressed="false" data-id="${faq.b_id}" style="cursor:pointer;" th:text="${faq.title}"></td>
+					</tr>
+				</tbody>
+			</table>
+			
+			<nav class="text-center">
+				<ul class="pagination post-pagination">
+					<li id="first" class="page-item">
+					<a class="page-link" href="#" aria-label="Previous">Prev</a>
+					</li>
+					<li id="last" class="page-item"><a class="page-link" href="#"
+						aria-label="Next">Next
+					</a></li>
+				</ul>
+			</nav>
+		</div>
 	</div>
 </body>
 </html>
