@@ -5,14 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sof8.dto.Faq;
-import com.sof8.dto.Notice;
 import com.sof8.service.FaqService;
 
 @Controller
@@ -59,9 +56,6 @@ public class FaqController {
 		return "index";
 	}
 	
-	@ResponseBody
-	@GetMapping
-	public Json
 	
 	//게시글 클릭
 	@RequestMapping("/{b_id}")
