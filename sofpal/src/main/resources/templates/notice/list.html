@@ -7,7 +7,6 @@
 		if ($('ul.pagination').find('.page-item').length > 0) {
 			$('.page-item').remove();
 		}
-		console.log("==========");
 		var totalPages = parseInt((rowsTotal - 1) / rowsShown) + 1;		//전체페이지 수
 		var leftPage =  1 + 5 * parseInt((curPage - 1) / pageShown);	//왼쪽 페이지 숫자
 		var rightPage = leftPage + pageShown - 1;		//오른쪽 페이지 숫자

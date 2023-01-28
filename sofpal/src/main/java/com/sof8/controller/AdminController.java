@@ -8,7 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.sof8.dto.Admin;
-import com.sof8.dto.Member;
 import com.sof8.dto.Product;
 import com.sof8.service.AdminService;
 import com.sof8.service.ProductService;
