@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sof8.mapper.OrderMapper">
+
+	<select id="select" parameterType="int" resultType="Order">
+		SELECT * FROM ordertbl WHERE cat_id = ${cat_id}
+	</select>
+	<select id="selectall" resultType="Order">
+		SELECT * FROM ordertbl
+	</select>
+	<insert id="insert" parameterType="Order">
+		INSERT INTO ordertbl VALUES (cat_id, #{cat_name}, cat_id2)
+	</insert>
+	<update id="update" parameterType="Order">
+		UPDATE ordertbl SET cat_name = #{cat_name}, cat_id2 = ${cat_id2} where cat_id = ${cat_id}
+	</update>
+	<delete id="delete" parameterType="int">
+		DELETE FROM ordertbl WHERE cat_id = ${cat_id}
+	</delete>
+	<select id="selectcategory"  parameterType="int" resultType="Order">
+		select c1.cat_name as cat_name, c2.cat_name size from category as c1, (select * from category where cat_id = ${cat_id}) as c2 where c1.cat_id=c2.cat_id2;
+	</select>	
+</mapper>

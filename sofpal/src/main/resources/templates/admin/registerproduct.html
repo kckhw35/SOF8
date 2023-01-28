@@ -6,6 +6,9 @@
 	#register_btn > a{
 		font-size: 16px;
 	}
+	#sale-check +label{
+		padding: 5px;
+	}
 </style>
 <script>
 	function checkboxcnf(checkbox){
@@ -96,7 +99,7 @@
 						</div>
 	                    <div class="form-group">
 	                        <label>할인</label>
-	                        <input type='checkbox' id="sale-check" onclick='checkboxcnf(this)'/>
+	                        <input type="checkbox" id="sale-check" onclick='checkboxcnf(this)'/><label for="sale-check"></label>
 	                       	<input type="text" class="form-control" id="discount" name="discount" disabled/>
 	                    </div>
 	                    <div class="form-group">

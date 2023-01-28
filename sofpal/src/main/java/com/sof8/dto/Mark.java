@@ -27,6 +27,4 @@ public class Mark {
 	private int price;			// 가격
 	private int del_cost;		// 배송비
 	private int discount;		// 할인
-	
-	
 }

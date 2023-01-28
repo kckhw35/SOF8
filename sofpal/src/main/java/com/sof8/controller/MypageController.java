@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.sof8.dto.Mark;
 import com.sof8.dto.Member;
 import com.sof8.service.MemberService;
 
@@ -145,5 +146,16 @@ public class MypageController {
 			model.addAttribute("content", dir + "mark");
 		}
 		return "index";
+	}
+	
+	@RequestMapping("/addmark")
+	public String addmark(HttpSession session, Model model, Mark mark) {
+		
+		// 로그인이 안 되어 있을 경우 로그인 페이지로 이동
+		if(session == null) {
+			model.addAttribute("content", "/member/login");
+		}
+		
+		return "";
 	}
 }
