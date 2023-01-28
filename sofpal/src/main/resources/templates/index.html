@@ -35,20 +35,16 @@
 	<!-- Slick Carousel -->
 	<link rel="stylesheet" th:href="@{/plugins/slick/slick.css}">
 	<link rel="stylesheet" th:href="@{/plugins/slick/slick-theme.css}">
-
 	<!-- Main Stylesheet -->
 	<link rel="stylesheet" th:href="@{/css/style.css}">
+	
+	<!-- Custom Stylesheet -->
 	<link rel="stylesheet" th:href="@{/css/style-member.css}">
 	<!-- Password Eyes Icon -->
 	<link rel="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 	<!--폰트어썸 최신 CDN-->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">	
-	
-	<!-- 아이콘 -->
-	<script src="https://code.iconify.design/iconify-icon/1.0.2/iconify-icon.min.js"></script>
-	
-	<script th:src="@{/js/script-member.js}"></script>
-	</head>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
+</head>
 
 <body id="body">
 	<div th:replace="inc/top-header :: top-header"></div>
@@ -88,20 +84,25 @@
 	<script th:src="@{/plugins/bootstrap/js/bootstrap.min.js}"></script>
 	<!-- Bootstrap Touchpin -->
 	<script	th:src="@{/plugins/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js}"></script>
-	<!-- Video Lightbox Plugin -->
+	<!-- Video Lightbox Plugin
 	<script th:src="@{/plugins/ekko-lightbox/dist/ekko-lightbox.min.js}"></script>
+	 -->
 	<!-- Count Down Js -->
 	<script th:src="@{/plugins/syo-timer/build/jquery.syotimer.min.js}"></script>
 	<!-- slick Carousel -->
 	<script th:src="@{/plugins/slick/slick.min.js}"></script>
 	<script th:src="@{/plugins/slick/slick-animation.min.js}"></script>
-	<!-- Google Mapl -->
+	<!-- Google Mapl 
 	<script	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCC72vZw-6tGqFyRhhg5CkF2fqfILn2Tsw"></script>
 	<script type="text/javascript" th:src="@{/plugins/google-map/gmap.js}"></script>
+	-->
 	<!-- Main Js File -->
 	<script th:src="@{/js/script.js}"></script>
 	<!-- kakao postcode api -->
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-	
+	<!-- 아이콘 -->
+	<script src="https://code.iconify.design/iconify-icon/1.0.2/iconify-icon.min.js"></script>
+	<!-- Custom JS -->
+	<script th:src="@{/js/script-member.js}"></script>
 </body>
 </html>

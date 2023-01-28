@@ -21,10 +21,12 @@
 
 *******************************************/
 /*=== [ 1. Common ] ===*/
-.dropdown-menu>.active>a, .dropdown-menu>.active>a:focus, .dropdown-menu>.active>a:hover {
-    color: #fff;
+.dropdown-menu>.active>a, 
+.dropdown-menu>.active>a:focus, 
+.dropdown-menu>.active>a:hover {
+	color: #fff;
+	background-color: #fff;
     text-decoration: none;
-    background-color: #337ab7;
     outline: 0;
 }
 
@@ -169,8 +171,9 @@ input[type="checkbox"]:checked+input+label:before {
 	margin: 20px 0;
 }
 
-.sidenav .nav-pills>li.active>a, .sidenav .nav-pills>li.active>a:focus,
-	.sidenav .nav-pills>li.active>a:hover {
+.sidenav .nav-pills>li.active>a,
+.sidenav .nav-pills>li.active>a:focus,
+.sidenav .nav-pills>li.active>a:hover {
 	color: #FFF;
 	background-color: #000;
 }
@@ -222,7 +225,8 @@ input[type="checkbox"]:checked+input+label:before {
 	border: 1px solid #000;
 }
 
-.post-pagination>li:first-child>a, .post-pagination>li:last-child>a {
+.post-pagination>li:first-child>a, 
+.post-pagination>li:last-child>a {
 	border-radius: 0;
 }
 

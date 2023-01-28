@@ -24,7 +24,7 @@ public class MypageController {
 	@RequestMapping("/info")
 	public String info(HttpSession session, Model model) {
 		// 세션이 있다면(로그인 중이라면)
-		if (session != null) {
+		if (session.getAttribute("member") != null) {
 			// 세션 아이디를 다운캐스팅하여 Member 변수에 초기화
 			Member member = (Member) session.getAttribute("member");
 			try {
@@ -34,11 +34,11 @@ public class MypageController {
 
 				model.addAttribute("member", member);
 				model.addAttribute("content", dir + "info");
-				System.out.println("[SUCCESS] : MemberController/mypage - 회원정보 로딩 성공");
+				System.out.println("[SUCCESS] : MypageController/info - 회원정보 로딩 성공");
 				return "index";
 
 			} catch (Exception e) {
-				System.out.println("[ERROR] : MemberController/mypage - 회원정보 로딩 실패");
+				System.out.println("[ERROR] : MypageController/info - 회원정보 로딩 실패");
 				e.printStackTrace();
 			}
 		}
@@ -49,7 +49,7 @@ public class MypageController {
 	@RequestMapping("/edit")
 	public String edit(HttpSession session, Model model, Member member) {
 		// 세션이 있다면(로그인 중이라면)
-		if (session != null) {
+		if (session.getAttribute("member") != null) {
 			// 세션 아이디를 다운캐스팅하여 Member 변수에 초기화
 			Member m = (Member) session.getAttribute("member");
 			try {
@@ -60,11 +60,11 @@ public class MypageController {
 				model.addAttribute("member", m);
 				model.addAttribute("content", dir + "edit");
 
-				System.out.println("[SUCCESS] : MemberController/edit - 회원정보 수정 로딩 성공");
+				System.out.println("[SUCCESS] : MypageController/edit - 회원정보 수정 로딩 성공");
 				return "index";
 
 			} catch (Exception e) {
-				System.out.println("[ERROR] : MemberController/edit - 회원정보 수정 로딩 실패");
+				System.out.println("[ERROR] : MypageController/edit - 회원정보 수정 로딩 실패");
 				e.printStackTrace();
 			}
 		}
@@ -75,17 +75,17 @@ public class MypageController {
 	@RequestMapping("/editok")
 	public String editok(HttpSession session, Member member, Model model) {
 		// 세션이 있다면(로그인 중이라면)
-		if (session != null) {
+		if (session.getAttribute("member") != null) {
 			try {
 				// 회원정보 수정
 				service.modify(member);
-				System.out.println("[SUCCESS] : MemberController/editok - 회원정보 수정 성공");
+				System.out.println("[SUCCESS] : MypageController/editok - 회원정보 수정 성공");
 
 				session.setAttribute("login_user", member);
 
 				return "redirect:/mypage/info";
 			} catch (Exception e) {
-				System.out.println("[ERROR] : MemberController/editok - 회원정보 수정 실패");
+				System.out.println("[ERROR] : MypageController/editok - 회원정보 수정 실패");
 				e.printStackTrace();
 			}
 		}
@@ -96,14 +96,14 @@ public class MypageController {
 	@RequestMapping("/cancel")
 	public String cancel(HttpSession session, Member member, Model model) {
 		// 세션이 있다면(로그인 중이라면)
-		if (session != null) {
+		if (session.getAttribute("member") != null) {
 			try {
 				model.addAttribute("content", dir + "cancel");
-				System.out.println("[SUCCESS] : MemberController/cancel - 회원탈퇴 로딩 성공");
+				System.out.println("[SUCCESS] : MypageController/cancel - 회원탈퇴 로딩 성공");
 
 				return "index";
 			} catch (Exception e) {
-				System.out.println("[ERROR] : MemberController/cancel - 회원탈퇴 로딩 실패");
+				System.out.println("[ERROR] : MypageController/cancel - 회원탈퇴 로딩 실패");
 				e.printStackTrace();
 			}
 		}
@@ -116,7 +116,7 @@ public class MypageController {
 	public Boolean cancelok(HttpSession session, Model model, Member member) {
 		Boolean result = false;
 		// 세션이 있다면(로그인 중이라면)
-		if (session != null) {
+		if (session.getAttribute("member") != null) {
 			try {
 				Member m = (Member) session.getAttribute("member");
 				System.out.println("member: " + member);
@@ -125,24 +125,37 @@ public class MypageController {
 
 					service.modifyEnable(m.getUser_id());
 					session.invalidate();
-					System.out.println("[SUCCESS] : MemberController/cancelok - 회원탈퇴 성공");
+					System.out.println("[SUCCESS] : MypageController/cancelok - 회원탈퇴 성공");
 					result = true;
 				}
 			} catch (Exception e) {
-				System.out.println("[ERROR] : MemberController/cancelok - 회원탈퇴 실패");
+				System.out.println("[ERROR] : MypageController/cancelok - 회원탈퇴 실패");
 				e.printStackTrace();
 			}
 		}
 		return result;
 	}
 
+	// 127.0.0.1/mypage/orderlist
+	@RequestMapping("/orderlist")
+	public String orderlist(HttpSession session, Model model, Member member) {
+		// 세션이 있다면(로그인 중이라면)
+		if (session.getAttribute("member") != null) {
+			// 찜목록 화면이동
+			model.addAttribute("content", dir + "orderlist");
+			System.out.println("[SUCCESS] : MypageController/orderlist - 주문목록 화면 출력");
+		}
+		return "index";
+	}
+	
 	// 127.0.0.1/mypage/mark
 	@RequestMapping("/mark")
 	public String mark(HttpSession session, Model model, Member member) {
 		// 세션이 있다면(로그인 중이라면)
-		if (session != null) {
+		if (session.getAttribute("member") != null) {
 			// 찜목록 화면이동
 			model.addAttribute("content", dir + "mark");
+			System.out.println("[SUCCESS] : MypageController/mark - 찜목록 화면 출력");
 		}
 		return "index";
 	}

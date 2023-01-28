@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sof8.dto.Admin;
+import com.sof8.dto.Member;
 import com.sof8.dto.Product;
 import com.sof8.service.AdminService;
 import com.sof8.service.ProductService;
@@ -139,6 +140,16 @@ public class AdminController {
 		return "redirect:/";
 	}
 
+	// 관리자 로그인
+	// 127.0.0.1/admin/management
+	@RequestMapping("/management")
+	public String management(Model model, Member Member) {
+		model.addAttribute("content", dir + "management");
+		System.out.println("[SUCCESS] : AdminController/management - 회원관리 폼");
+		return "index";
+	}
+	
+	
 	// 상품등록
 	@RequestMapping("/registerproduct")
 	public String registerproduct(Model model) {
