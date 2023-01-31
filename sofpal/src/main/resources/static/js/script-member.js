@@ -28,6 +28,13 @@ function selectAll(selectAll) {
 	}
 };
 
+// 체크박스 전체 체크
+function allChecked() {
+	document.querySelectorAll("").forEach(function(v, i) {
+            v.checked = true;
+        });
+};
+
 // 비밀번호 보이기/숨기기 토글 버튼
 function pwd_toggle() {
 	$('.eye').on('click', function() {
