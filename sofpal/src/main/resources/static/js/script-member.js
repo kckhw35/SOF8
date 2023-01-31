@@ -10,6 +10,31 @@
 
 /*=== [ 1. Button Fuction ] ===*/
 
+// 체크 박스 전체 선택 
+function selectAll(selectAll) {
+	// 전체 체크박스 버튼
+	var checkbox = document.getElementsById("checkAll");
+
+	// 전체 체크박스 버튼 체크 여부
+	var is_checked = checkbox.checked;
+	
+	// 전체 체크박스 제외한 모든 체크박스
+	if(is_checked) {
+		// 체크박스 전체 체크
+		allChecked
+	} else {
+		// 체크박스 전체 해제
+		allUnchecked
+	}
+};
+
+// 체크박스 전체 체크
+function allChecked() {
+	document.querySelectorAll("").forEach(function(v, i) {
+            v.checked = true;
+        });
+};
+
 // 비밀번호 보이기/숨기기 토글 버튼
 function pwd_toggle() {
 	$('.eye').on('click', function() {
@@ -22,28 +47,28 @@ function pwd_toggle() {
 	});
 };
 
-// 이메일 셀렉트 버튼
+// 이메일 셀렉트
 function select_email() {
 	$('#slt_email').change(function() {
-		if($(this).val() == '') {
+		if ($(this).val() == '') {
 			$('#email').val('');
-		} else if($(this).val() == 'naver') {
+		} else if ($(this).val() == 'naver') {
 			$('#email').val('@naver.com');
-		} else if($(this).val() == 'hanmail') {
+		} else if ($(this).val() == 'hanmail') {
 			$('#email').val('@hanmail.net');
-		} else if($(this).val() == 'daum') {
+		} else if ($(this).val() == 'daum') {
 			$('#email').val('@daum.net');
-		} else if($(this).val() == 'nate') {
+		} else if ($(this).val() == 'nate') {
 			$('#email').val('@nate.com');
-		} else if($(this).val() == 'hotmail') {
+		} else if ($(this).val() == 'hotmail') {
 			$('#email').val('@hotmail.com');
-		} else if($(this).val() == 'gmail') {
+		} else if ($(this).val() == 'gmail') {
 			$('#email').val('@gmail.com');
 		}
 	});
 };
 
-// 우편번호검색 버튼
+// 우편번호검색
 function search_postcode() {
 	$('#form_postcode').removeClass('has-error');
 	$('#error_postcode').text('');
@@ -96,92 +121,236 @@ function search_postcode() {
 };
 
 // 회원가입 확인 
-function check_account() {
+function check_member_account() {
 	var c = confirm('가입 하시겠습니까?');
 	if (c == true) {
-		if ((check_userid() & check_pwd() & check_chkpwd() 
-			& check_name() & check_email() & check_tel() 
+		if ((check_userid() & check_pwd() & check_chkpwd()
+			& check_name() & check_email() & check_tel()
 			& check_postcode() & check_addr() & check_detailaddr()) == 0) {
-			
+
 			return false;
 		}
 	}
 };
 
-// 사용자 아이디 찾기 버튼
+// 관리자 회원가입 확인 
+function check_admin_account() {
+	var c = confirm('가입 하시겠습니까?');
+	if (c == true) {
+		if ((check_adminid() & check_pwd() & check_chkpwd()
+			& check_name()) == 0) {
+
+			return false;
+		}
+	}
+};
+
+// 사용자 아이디 찾기
 function find_id() {
 	var member = $('#form_findid').serialize();
-	if((check_name() & check_email()) == 0) {
+	if ((check_name() & check_email()) == 0) {
 		$('#error_email').text('이름 혹은 이메일을 입력해주세요.');
 		return false;
 	}
-	$.ajax({
+	var option = {
 		type: 'POST',
 		url: '/member/found_id',
 		cache: false,
 		data: member
-	}).done(function(fragment) {
+	};
+	$.ajax(option).done(function(fragment) {
 		$('#form_findid').replaceWith(fragment);
 	});
 };
 
-// 회원정보수정 버튼
+// 본인인증 이메일 보내기
+function send_authemail(name, email) {
+	console.log(name);
+	console.log(email);
+	if (name != null && email != null) {
+		var member = {
+			'name': name,
+			'email': email
+		}
+	} else {
+		var member = $('#form_auth').serialize();
+		console.log(member);
+		var option = {
+			type: 'POST',
+			url: '/member/send_authemail',
+			data: member,
+			success: function(data) {
+				console.log(data);
+				if (data != null) {
+					alert('인증번호가 전송되었습니다.');
+					location.href = '/member/user_authok';
+				} else {
+					alert('인증번호 전송이 실패하였습니다.');
+				}
+			}
+		};
+	}
+	$.ajax(option);
+	return false;
+}
+
+
+// 아이디 기억하기
+function show_id() {
+	var user_id = localStorage.getItem('user_id');
+	var admin_id = localStorage.getItem('admin_id');
+
+	if (user_id != null) {
+		$('#member_login_id').val(user_id);
+		$('#save_id1').prop('checked', true);
+	} else {
+		$('#member_login_id').val('');
+		$('#save_id1').prop('checked', false);
+	}
+
+	if (admin_id != null) {
+		$('#admin_login_id').val(admin_id);
+		$('#save_id1').prop('checked', true);
+	} else {
+		$('#admin_login_id').val('');
+		$('#save_id1').prop('checked', false);
+	}
+};
+
+// 회원 로그인
+function save_member_id() {
+	var member = $('#form_member_login').serializeArray();
+	console.log(member);
+	var user_id = member[0].value;
+	var save_id = member[2].name == 'save_id' ? member[2].value : false;
+
+	if (save_id) {
+		localStorage.setItem('user_id', user_id);
+	} else {
+		localStorage.removeItem('user_id');
+	}
+
+	var option = {
+		type: 'post',
+		url: '/member/loginok',
+		data: member
+	};
+
+	$.ajax(option).done(function(data) {
+		console.log(data);
+		if (data == '-1') $('#error').text('탈퇴 등의 사유로 활동이 정지된 계정입니다.');
+		else if (data == '0') $('#error').text('아이디 또는 비밀번호가 일치하지 않습니다.');
+		else location.href = '/'
+	});
+
+	return false;
+};
+
+// 관리자 로그인
+function save_admin_id() {
+	var admin = $('#form_admin_login').serializeArray();
+	console.log(admin);
+	var admin_id = admin[0].value;
+	var save_id = admin[2].name == 'save_id' ? admin[2].value : false;
+
+	if (save_id) {
+		localStorage.setItem('admin_id', admin_id);
+	} else {
+		localStorage.removeItem('admin_id');
+	}
+
+	var option = {
+		type: 'post',
+		url: '/admin/loginok',
+		data: admin
+	};
+
+	$.ajax(option).done(function(data) {
+		console.log(data);
+		if (data == '-1') $('#error').text('탈퇴 등의 사유로 활동이 정지된 계정입니다.');
+		else if (data == '0') $('#error').text('아이디 또는 비밀번호가 일치하지 않습니다.');
+		else location.href = '/';
+	});
+
+	return false;
+};
+
+// 회원정보수정
 function check_edit() {
 	var c = confirm('수정 하시겠습니까?');
 	if (c == true) {
 
-		if (check_nowpwd() == 1) {
-			if (check_pwd() & check_chkpwd() == 0) {
+		if (check_nowpwd() == 1)
+			if (check_pwd() & check_chkpwd() == 0)
 				return false;
-			}
-		}
 
-		if ((check_name() & check_email() & check_tel() 
-			& check_postcode() & check_addr() & check_detailaddr()) == 0) {
-			
+		if ((check_name() & check_email() & check_tel() & check_postcode() & check_addr() & check_detailaddr()) == 0)
 			return false;
-		}
 	}
 };
+
+// 회원탈퇴
+function member_cancel() {
+	var result = confirm('탈퇴하시겠습니까?')
+	if (result == true) {
+		var member = $('#form_cancel').serialize();
+
+		var option = {
+			type: 'post',
+			url: '/mypage/cancelok',
+			data: member
+		};
+		$.ajax(option).done(function(data) {
+			if (data == true) {
+				alert('SOF8를 탈퇴하셨습니다.');
+				location.href = '/';
+			}
+			else $('#error').text('비밀번호가 일치하지 않습니다.')
+		});
+	}
+	return false;
+}
+
+
 
 /*=== [ 2. Validation Function ] ===*/
 
 // 비밀번호 일치 확인
 function getMatchedPwd(pwd) {
 	var result = 0;
-	$.ajax({
+	var option = {
 		url: '/member/checkpwd',
 		data: {
 			'pwd': pwd
 		},
-		async: false,	// ajax 동기식 속성 부여해야 ajax 성공시 result 값이 1로 반환이 됨.
-		success: function(data) {
-			if (data == 1) 	result = 1;
-		}
+		async: false	// ajax 동기식 속성 부여해야 ajax 성공시 result 값이 1로 반환이 됨.
+	}
+	$.ajax(option).done(function(data) {
+		if (data == 1) result = 1;
 	});
-	return result;	
+	return result;
 }
 
 // 사용자 아이디 중복 확인 
 function getMatchedId(user_id) {
 	var result = 0;
-	$.ajax({
-		url: '/checkid',
+	var option = {
+		url: '/member/checkid',
 		data: {
 			'user_id': user_id
 		},
-		async: false,	// ajax 동기식 속성 부여해야 ajax 성공시 result 값이 1로 반환이 됨.
-		success: function(data) {
-			if (data == 0) {
-				$('#form_id').removeClass('has-error');
-				$('#form_id').addClass('has-success');
-				$('#error_id').text('사용가능한 아이디입니다.');
-				result = 1;
-			} else {
-				$('#form_id').removeClass('has-success');
-				$('#form_id').addClass('has-error');
-				$('#error_id').text('중복된 아이디입니다.');
-			}
+		async: false	// ajax 동기식 속성 부여해야 ajax 성공시 result 값이 1로 반환이 됨.
+	};
+	$.ajax(option).done(function(data) {
+		if (data == 0) {
+			$('#form_id').removeClass('has-error');
+			$('#form_id').addClass('has-success');
+			$('#error_id').text('사용가능한 아이디입니다.');
+			result = 1;
+		} else {
+			$('#form_id').removeClass('has-success');
+			$('#form_id').addClass('has-error');
+			$('#error_id').text('중복된 아이디입니다.');
 		}
 	});
 	return result;
@@ -190,23 +359,23 @@ function getMatchedId(user_id) {
 // 관리자 아이디 중복 확인 
 function getMatchedAdminId(admin_id) {
 	var result = 0;
-	$.ajax({
-		url: '/check_adminid',
+	var option = {
+		url: '/admin/check_adminid',
 		data: {
 			'admin_id': admin_id
 		},
-		async: false,	// ajax 동기식 속성 부여해야 ajax 성공시 result 값이 1로 반환이 됨.
-		success: function(data) {
-			if (data == 0) {
-				$('#form_id').removeClass('has-error');
-				$('#form_id').addClass('has-success');
-				$('#error_id').text('사용가능한 아이디입니다.');
-				result = 1;
-			} else {
-				$('#form_id').removeClass('has-success');
-				$('#form_id').addClass('has-error');
-				$('#error_id').text('중복된 아이디입니다.');
-			}
+		async: false	// ajax 동기식 속성 부여해야 ajax 성공시 result 값이 1로 반환이 됨.
+	}
+	$.ajax(option).done(function(data) {
+		if (data == 0) {
+			$('#form_id').removeClass('has-error');
+			$('#form_id').addClass('has-success');
+			$('#error_id').text('사용가능한 아이디입니다.');
+			result = 1;
+		} else {
+			$('#form_id').removeClass('has-success');
+			$('#form_id').addClass('has-error');
+			$('#error_id').text('중복된 아이디입니다.');
 		}
 	});
 	return result;
@@ -363,7 +532,7 @@ function check_email() {
 	// 이메일 글자 앞 중간 뒤에 영문+숫자 포함하여 
 	// 특수문자 중 점( . ) 하이픈( - ) 언더바( _ ) 만 사용 가능하도록 하는 정규식
 	var reg = /^([\w\.\_\-])*[a-zA-Z0-9]+([\w\.\_\-])*([a-zA-Z0-9])+([\w\.\_\-])+@([a-zA-Z0-9]+\.)+[a-zA-Z0-9]{2,8}$/;
-	
+
 	if (email == null || email == "") {
 		$('#form_email').addClass('has-error');
 		$('#error_email').text('이메일을 입력해 주세요.');
@@ -512,11 +681,11 @@ function check_valid() {
 	});
 
 	$('#addr').focusout(function() {
-		 check_addr()
+		check_addr()
 	});
 
 	$('#de_addr').focusout(function() {
-		 check_detailaddr()
+		check_detailaddr()
 	});
 };
 
@@ -526,8 +695,8 @@ function check_valid() {
 
 // 현재 페이지 네비게이션 메뉴 활성화 기능
 function mypage_nav() {
-  $('li.active').removeClass('active').removeAttr('aria-current');
-  $('a[href="' + location.pathname + '"]').closest('li').addClass('active').attr('aria-current', 'page'); 
+	$('.sidenav li.active').removeClass('active').removeAttr('aria-current');
+	$('a[href="' + location.pathname + '"]').closest('li').addClass('active').attr('aria-current', 'page');
 };
 
 
@@ -536,7 +705,8 @@ function mypage_nav() {
 
 window.onload = function() {
 	pwd_toggle();
-	select_email()
+	select_email();
 	check_valid();
+	show_id();
 	mypage_nav();
 };

@@ -1,37 +1,42 @@
-<section class="info">
+<section class="wish">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-3" th:include="@{/mypage/sidenav}"></div>
 			<div class="col-md-9">
 				<div class="page-wrapper shopping cart">
-					<div class="page-header" style="margin-top: 0px;">
+					<div class="page-header">
 						<div class="container">
 							<h1>찜목록</h1>
 							<ol class="breadcrumb">
 								<li><a th:href="@{/}">Home</a></li>
+								<li>쇼핑정보</li>
 								<li class="active">찜목록</li>
 							</ol>
 						</div>
 					</div>
 					
 					<!-- 장바구니에 아이템이 없을시 -->
-					<!-- 
 					<div class="empty-cart page-wrapper text-center">
 						<iconify-icon icon="mdi:heart" width="120"></iconify-icon>
 						<h2 class="text-center">찜목록에 담겨있는 상품이 없습니다.</h2>
-	          			<p style="display: block;">Your wish list is currently empty.</p>
-	          			<a th:href="@{/product/productall}" class="btn btn-main mt-20 large">쇼핑 계속하기</a>
+	          			<p>Your wish list is currently empty.</p>
+	          			<a th:href="@{/product/productall}" class="large btn btn-main mt-20">쇼핑 계속하기</a>
 					</div>
-					 -->
 					
 					<!-- 장바구니에 아이템이 있을시 -->
 					<div class="product-list">
 						<form method="post">
-				            <a href="#" class="btn btn-small btn-solid-border large" style="margin-bottom: 10px;">선택 상품 삭제</a>
+							<div class="form-group">
+								<a href="#" class="large btn btn-small btn-solid-border">선택 상품 삭제</a>
+							</div>
 							<table class="table line">
 								<thead>
 									<tr class="cart-amount">
-										<th width="1" class="text-center"><input type="checkbox"></th>
+<<<<<<< HEAD
+										<th width="1" class="text-center"><input type="checkbox" id="check" class="check"> <label for="check"></label></th>
+=======
+										<th width="1" class="text-center"><input type="checkbox" id="check" class="check"> <label for="check"></th>
+>>>>>>> temp
 										<th class="">상품 정보</th>
 										<th class="">상품금액</th>
 										<th width="1"></th>
@@ -39,7 +44,7 @@
 								</thead>
 								<tbody>
 									<tr class="">
-										<td class=""><input type="checkbox"></td>
+										<td class=""><input type="checkbox" id="check1" class="check"> <label for="check1"></label></td>
 										<td class="">
 											<div class="product-info">
 												<img width="80" th:src="@{/images/shop/cart/cart-1.jpg}" alt="" />
@@ -48,11 +53,15 @@
 										</td>
 										<td class="">$200.00</td>
 										<td class="">
-											<a href="#" onclick=""><iconify-icon icon="ph:x-square" width="25"></iconify-icon></a>
+											<a href="#" onclick=""><iconify-icon icon="ph:x-square-thin" width="25"></iconify-icon></a>
 										</td>
 									</tr>
 									<tr class="">
-										<td class=""><input type="checkbox"></td>
+<<<<<<< HEAD
+										<td class=""><input type="checkbox" id="check2" class="check"> <label for="check2"></label></td>
+=======
+										<td class=""><input type="checkbox" id="check2" class="check"> <label for="check2"></td>
+>>>>>>> temp
 										<td class="">
 											<div class="product-info">
 												<img width="80" th:src="@{/images/shop/cart/cart-1.jpg}" alt="" />
@@ -61,7 +70,7 @@
 										</td>
 										<td class="">$200.00</td>
 										<td class="">
-											<a href="#" onclick=""><iconify-icon icon="ph:x-square" width="25"></iconify-icon></a>
+											<a href="#" onclick=""><iconify-icon icon="ph:x-square-thin" width="25"></iconify-icon></a>
 										</td>
 									</tr>
 								</tbody>

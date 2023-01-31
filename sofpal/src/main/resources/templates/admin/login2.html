@@ -47,34 +47,38 @@
 </head>
 
 <body id="body">
-	<div th:replace="inc/top-header :: top-header"></div>
-	<div th:replace="inc/main-menu :: main-menu"></div>
-	
-	<section>
-		<div th:include="${content} ? ${content} : content"></div>
-	</section>
-	
 
-	<footer class="footer section text-center">
+	<section class="account clearfix">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-12">
-					<ul class="footer-menu text-uppercase">
-						<li><a href="contact.html">CONTACT</a></li>
-						<li><a href="shop.html">SHOP</a></li>
-						<li><a href="pricing.html">Pricing</a></li>
-						<li><a href="contact.html">PRIVACY POLICY</a></li>
-					</ul>
-					<p class="copyright-text">
-						Copyright &copy;2023, Designed &amp; Developed by
-						<a href="https://github.com/kckhw35/SOF8">SOF8</a>
-					</p>
+				<div class="col-md-6 col-md-offset-3">
+					<div class="block text-center">
+						<h2>관리자 로그인</h2>
+						<form id="form_admin_login" class="text-left clearfix" th:onsubmit="return save_admin_id()" th:object="${admin}" method="post">
+							<div class="form-group">
+								<input type="text" id="admin_login_id" th:field="*{admin_id}" class="form-control" placeholder="ID">
+							</div>
+							<div class="form-group has-feedback">
+								<input type="password" th:field="*{admin_pwd}" class="form-control" placeholder="Password">
+								<span class="glyphicon glyphicon-eye-open form-control-feedback eye"></span>						
+								<span id="error" class="control-label text-danger"></span>
+							</div>
+							<div class="form-group">
+								<input type="checkbox" id="save_id1" th:field="*{save_id}">
+								<label for="save_id1"> 아이디 저장 </label>  
+							</div>
+							<div class="form-group">
+								<button type="submit" class="large btn btn-main btn-block text-center">Login</button>
+							</div>
+						</form>
+						<p>사이트 방문이 처음이신가요 ?<a th:href="@{/admin/account}"> 관리자 회원가입</a></p>
+						<!-- <p>아이디/비밀번호를 잊으셨나요?<a th:href="@{/member/find_id}"> 아이디 찾기</a>/<a th:href="@{/member/find_password}">비밀번호 찾기</a></p> --> 
+					</div>
 				</div>
 			</div>
 		</div>
-	</footer>
-
-	<!-- 
+	</section>
+ 	<!-- 
     Essential Scripts
     =====================================-->
 

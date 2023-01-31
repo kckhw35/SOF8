@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="common">
+	<!-- 페이징 -->
+	<sql id="paging">
+		LIMIT #{rowCount} OFFSET #{offset}
+	</sql>
+	
+	<!-- 검색 -->
+	<sql id="search">
+		<!-- 검색 키워드 있을 때 -->
+		<if test="keyword != null and keyword != ''">
+			<choose>
+				<!-- 검색 유형이 있을 때 -->
+				<when test="type != null and type!= ''">
+					WHERE
+					<choose>
+						<when test="'user_id'.equals(type)">
+							user_id LIKE CONCAT('%', #{keyword}, '%')
+						</when>
+						<when test="'name'.equals(type)">
+							name LIKE CONCAT('%', #{keyword}, '%')
+						</when>
+					</choose>
+				</when>
+			</choose>
+		</if>
+	</sql>
+</mapper>

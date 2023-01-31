@@ -1,0 +1,100 @@
+<section class="orderlist">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-3" th:include="@{/mypage/sidenav}"></div>
+			<div class="col-md-9">
+				<div class="page-wrapper shopping cart">
+					<div class="page-header">
+						<div class="container">
+							<h1>주문목록</h1>
+							<ol class="breadcrumb">
+								<li><a th:href="@{/}">Home</a></li>
+								<li>쇼핑정보</li>
+								<li class="active">주문목록</li>
+							</ol>
+						</div>
+					</div>
+
+					<!-- 장바구니에 아이템이 있을시 -->
+					<div class="product-list">
+						<form method="post">
+							<div class="form-group  mt-20">
+								<h3><small>주문목록 조회</small></h3>
+								<div class="line">
+									<b>조회기간</b>
+									<div class="btn-group" role="group">
+										<button type="button" class="btn btn-secondary">오늘</button>
+										<button type="button" class="btn btn-secondary">1개월</button>
+										<button type="button" class="btn btn-secondary">3개월</button>
+										<button type="button" class="btn btn-secondary">1년</button>
+									</div>
+									<input type="text" class="form-control" id="d1" style="padding: 5px;vertical-align:middle;height:30px;display: inline;width: 100px"> ~
+									<input type="text" class="form-control" id="d2" style="padding: 5px;vertical-align:middle;height:30px;display: inline;width: 100px">
+
+									<button type="button" class="btn">검색</button>
+								</div>
+							</div>
+							<div class="form-group clearfix">
+								<h5>주문목록 내역 총 <span> 0 </span> 건</h5>
+								<table class="table line">
+									<thead>
+										<tr class="cart-amount">
+											<th class="">날짜/주문번호</th>
+											<th class="">상품명/옵션</th>
+											<th class="widthDisplayNone">상품금액/수량</th>
+											<th class="widthDisplayNone">주문상태</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr class="">
+											<td class="text-center">
+												<p>2023-01-27<br>no.1</p>
+											</td>
+											<td class="">
+												<div class="product-info">
+													<img width="80" th:src="@{/images/shop/cart/cart-1.jpg}" alt="" />
+													<a href="#!">Sunglass</a>
+												</div>
+											</td>
+											<td class="widthDisplayNone">
+												<p>$200.00<br>1개</p>
+											</td>
+											<td class="widthDisplayNone">결제대기</td>
+										</tr>
+										<tr class="">
+											<td class="text-center">
+												<p>2023-01-27<br>no.2</p>
+											</td>
+											<td class="">
+												<div class="product-info">
+													<img width="80" th:src="@{/images/shop/cart/cart-1.jpg}" alt="" />
+													<a href="#!">Sunglass</a>
+												</div>
+											</td>
+											<td class="widthDisplayNone">
+												<p>$200.00<br>1개</p>
+											</td>	
+											<td class="widthDisplayNone">배송완료</td>
+										</tr>
+									</tbody>
+								</table>							
+							</div>
+							
+							<div class="text-center">
+								<ul class="pagination post-pagination">
+									<li><a href="#!">Prev</a></li>
+									<li class="active"><a href="#!">1</a></li>
+									<li><a href="#!">2</a></li>
+									<li><a href="#!">3</a></li>
+									<li><a href="#!">4</a></li>
+									<li><a href="#!">5</a></li>
+									<li><a href="#!">Next</a></li>
+								</ul>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

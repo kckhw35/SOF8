@@ -4,7 +4,7 @@
 			<div class="col-md-3" th:include="@{/mypage/sidenav}"></div>
 			<div class="col-md-9">
 				<div class="page-wrapper">
-					<div class="page-header" style="margin-top: 0px;">
+					<div class="page-header">
 						<div class="container">
 							<h1>회원탈퇴</h1>
 							<ol class="breadcrumb">
@@ -14,7 +14,7 @@
 							</ol>
 						</div>
 					</div>
-					<form class="form-horizontal line" th:action="@{/mypage/cancelok}" th:onsubmit="return confirm('탈퇴하시겠습니까?')" th:object="${member}" method="post">
+					<form id="form_cancel" class="form-horizontal line" th:onsubmit="return member_cancel()"  th:object="${member}" method="post">
 						<h2><small>01. 회원탈퇴 안내</small></h2>
 						<pre>
 SOF8 탈퇴안내
@@ -32,18 +32,18 @@ SOF8 탈퇴안내
 							<div id="form_pwd" class="form-group has-feedback">
 								<label class="col-md-2 control-label">비밀번호:</label>
 								<div class="col-md-10">
-									<input type="password" id="pwd" th:field="*{pwd}" class="form-control">
+									<input type="password" id="cancel_pwd" th:field="*{pwd}" class="form-control">
 									<span class="glyphicon glyphicon-eye-open form-control-feedback eye"></span>
-									<span class="control-label" id="error_pwd"></span>
+									<span class="control-label text-danger" id="error"></span>
 								</div>
 							</div>
 						</div>
-						<div class="form-group" style="margin-top: 20px;">
+						<div class="form-group mt-20">
 							<div class="col-xs-6 col-sm-6 col-md-6">
-							<a th:href="@{/mypage/info}" class="btn btn-solid-border btn-block large">취소</a>
+							<a th:href="@{/mypage/info}" class="large btn btn-solid-border btn-block">취소</a>
 							</div>
 							<div class="col-xs-6 col-sm-6 col-md-6">
-								<button type="submit" class="btn btn-lg btn-main btn-block large">회원탈퇴</button>
+								<button type="submit" class="large btn btn-main btn-block">회원탈퇴</button>
 							</div>				
 						</div>
 					</form>
