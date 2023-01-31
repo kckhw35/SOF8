@@ -1,21 +1,17 @@
-<script>
-
-</script>
-
 <section th:fragment="page-header" class="page-header">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
 				<div class="content">
-					<h1 class="page-name">페브릭소파</h1>
+					<h1 class="page-name">전체보기</h1>
 					<ol class="breadcrumb">
 						<li><a th:href="@{/product/productall}">전체보기</a></li>
-						<li><a th:href="@{/product/fabric}">페브릭소파</a></li>
+						<li id="now_category">페브릭소파</li>
 						<li><a th:href="@{/product/leather}">가죽소파</a></li>
 						<li><a th:href="@{/product/pet}">펫소파</a></li>
 						<li><a th:href="@{/product/livingroom}">리빙룸</a></li>
-						
 					</ol>
+					<li><a th:href="@{/admin/registerproduct}">상품등록</a></li>
 				</div>
 			</div>
 		</div>
@@ -25,60 +21,20 @@
 <section class="products section">
 	<div class="container">
 		<div class="row">
-			<div class="col-md-4">
+			<tr th:each="p : ${plist}">
+				<div class="col-md-4">
 				<div class="product-item">
-					<div class="product-thumb">
-						<span class="bage">Sale</span>
-						<a th:href="@{/}"><img class="img-responsive" th:src="@{/images/shop/products/product-1.jpg}"  alt="product-img" /></a>
-						<div class="preview-meta">
-							<ul>
-								<li>
-			                        <a href="#!" ><i class="tf-ion-ios-heart"></i></a>
-								</li>
-								<li>
-									<a href="#!"><i class="tf-ion-android-cart"></i></a>
-								</li>
-							</ul>
-                      	</div>
-					</div>
-					<div class="product-content">
-						<h4><a href="product-single.html">Reef Boardsport</a></h4>
-						<p class="price">$200</p>
-					</div>
+						<div class="product-thumb" th:OnClick="|location.href ='@{/product/productdetail(p_id=${p.p_id})}'|" th:value="${p.p_id}" style="cursor:pointer;" >
+							<td><img class="img-responsive" th:src="@{/images/shop/products/}+${p.p_img}"/></td>
+							<input type="hidden" name="p_img" th:value="${p.p_img}">
+						</div>
+						<div class="product-content">
+							<td><h4><a th:href="@{/product/productdetail(p_id=${p.p_id})}" th:value="${p.p_id}" th:text="${p.p_name}"></a></h4></td>
+							<p class="price"><td th:text="${p.price}"></td></p>
+						</div>
 				</div>
 			</div>
-			
-		<!-- Modal -->
-		<div class="modal product-modal fade" id="product-modal">
-			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-				<i class="tf-ion-close"></i>
-			</button>
-		  	<div class="modal-dialog " role="document">
-		    	<div class="modal-content">
-			      	<div class="modal-body">
-			        	<div class="row">
-			        		<div class="col-md-8 col-sm-6 col-xs-12">
-			        			<div class="modal-image">
-				        			<img class="img-responsive" src="images/shop/products/modal-product.jpg" alt="product-img" />
-			        			</div>
-			        		</div>
-			        		<div class="col-md-4 col-sm-6 col-xs-12">
-			        			<div class="product-short-details">
-			        				<h2 class="product-title">GM Pendant, Basalt Grey</h2>
-			        				<p class="product-price">$200</p>
-			        				<p class="product-short-description">
-			        					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem iusto nihil cum. Illo laborum numquam rem aut officia dicta cumque.
-			        				</p>
-			        				<a href="cart.html" class="btn btn-main">Add To Cart</a>
-			        				<a href="product-single.html" class="btn btn-transparent">View Product Details</a>
-			        			</div>
-			        		</div>
-			        	</div>
-			        </div>
-		    	</div>
-		  	</div>
-		</div><!-- /.modal -->
-
+			</tr>	
 		</div>
 	</div>
 </section>

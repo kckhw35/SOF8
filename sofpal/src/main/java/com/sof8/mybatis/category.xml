@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sof8.mapper.CategoryMapper">
+
+	<select id="select" parameterType="int" resultType="Category">
+		SELECT * FROM category WHERE cat_id = ${cat_id}
+	</select>
+	<select id="selectall" resultType="Category">
+		SELECT * FROM product
+	</select>
+	<insert id="insert" parameterType="Category">
+		INSERT INTO product VALUES (cat_id, #{cat_name}, cat_id2)
+	</insert>
+	<update id="update" parameterType="Category">
+		UPDATE product SET cat_name = #{cat_name}, cat_id2 = ${cat_id2} where cat_id = ${cat_id}
+	</update>
+	<delete id="delete" parameterType="int">
+		DELETE FROM product WHERE cat_id = ${cat_id}
+	</delete>
+	<select id="selectcategory"  parameterType="int" resultType="Category">
+		select c1.cat_name as cat_name, c2.cat_name size from category as c1, (select * from category where cat_id = ${cat_id}) as c2 where c1.cat_id=c2.cat_id2;
+	</select>	
+</mapper>

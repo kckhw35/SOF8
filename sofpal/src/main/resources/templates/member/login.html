@@ -1,29 +1,31 @@
-<style>
-.space-bottom {
-	margin-bottom: 14px;
-}
-</style>
-<section class="signin-page account">
+<section class="account">
 	<div class="container">
 		<div class="row">
-			<div class="col-md-6 col-md-offset-3">
+			<div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
 				<div class="block text-center">
-					<h2 class="text-center">회원 로그인</h2>
-					<form class="text-left clearfix" action="#">
+					<h2>회원 로그인</h2>
+					<form id="form_member_login" class="text-left" th:onsubmit="return save_member_id()" th:object="${member}" method="post" >
 						<div class="form-group">
-							<input type="text" class="form-control" placeholder="ID">
+							<input type="text" id="member_login_id" th:field="*{user_id}" class="form-control" placeholder="ID">
+						</div>
+						<div class="form-group has-feedback">
+							<input type="password" th:field="*{pwd}" class="form-control" placeholder="Password">
+							<span class="glyphicon glyphicon-eye-open form-control-feedback eye"></span>						
+							<span id="error" class="control-label text-danger"></span>
+						</div>
+						<div class="form-group">		
+							<input type="checkbox" id="save_id1" th:field="*{save_id}">
+							<label for="save_id1"> 아이디 저장 </label> 
 						</div>
 						<div class="form-group">
-							<input type="password" class="form-control"
-								placeholder="Password">
-						</div>
-						<div class="text-center">
-							<button type="submit" class="btn btn-main btn-block text-center space-bottom">Login</button>
+							<button type="submit" class="large btn btn-main btn-block">Login</button>
 						</div>
 					</form>
-					<p class="mt-20">처음이신가요 ?<a th:href="@{/member/join}"> 회원가입</a></p>
+					<p>사이트 방문이 처음이신가요? <span class="ib"><a th:href="@{/member/account}"> 회원가입</a></span></p>
+					<p>아이디/비밀번호를 잊으셨나요? <span class="ib"><a th:href="@{/member/find_id}"> 아이디 찾기</a>/<a th:href="@{/member/find_password}">비밀번호 찾기</a></span></p> 
 				</div>
 			</div>
 		</div>
 	</div>
 </section>
+ 

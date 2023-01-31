@@ -17,10 +17,16 @@ public class Member {
 	private String user_id;
 	private String pwd;
 	private String name;
+	private String email;
 	private String tel;
-	private String zipcode;
+	private String postcode;
 	private String addr;
 	private String de_addr;
 	private Date joindate;
 	private Boolean enable;
+	
+	private String edit_pwd; 
+	private Boolean save_id; 
+	private String auth;
+	
 }

@@ -1,0 +1,435 @@
+@charset "UTF-8";
+
+/*******************************************
+[Table of Content]
+1. Common			: 공통 
+2. Admin			
+	2.1 login		: 로그인
+	2.2 memberlist	: 회원 리스트 
+3. Member 			: 
+	3.1 account		: 회원가입
+	3.2 accountok	: 회원가입 성공
+	3.3 accountfail	: 회원가입 실패
+	3.4 login		: 로그인
+	3.5 loginfail	: 로그인 실패
+4. Mypage
+	4.1 sidenav		: 마이페이지 메뉴 	
+	4.2 info		: 회원정보
+	4.3 edit		: 회원정보 수정
+5. Order
+	4.1 cart		: 장바구니		
+
+*******************************************/
+/*=== [ 1. Common ] ===*/
+.memberlist .none {
+	display: none;
+}
+
+.dropdown-menu>.active>a, 
+.dropdown-menu>.active>a:focus, 
+.dropdown-menu>.active>a:hover {
+	color: #fff;
+	background-color: #fff;
+    text-decoration: none;
+    outline: 0;
+}
+
+.pointer {
+	cursor: pointer;
+}
+
+/*input 은 숨겨주기*/
+input[type="checkbox"] {
+	display: none;
+}
+
+/* 장바구니, 찜목록 */
+/*input 바로 다음의 label*/
+input[type="checkbox"]+label {
+	cursor: pointer;
+}
+
+/*input 바로 다음의 label:before 에 체크하기 전 CSS 설정*/
+input[type="checkbox"]+label:before {
+	content: "";
+	display: inline-block;
+	width: 17px;
+	height: 17px;
+	line-height: 17px;
+	border: 1px solid #cbcbcb;
+	vertical-align: middle; /*체크 전과 체크 후 높이 차이 때문에 설정*/
+}
+
+/*checked된 input 바로 다음의 label:before 에 체크 후 CSS 설정*/
+input[type="checkbox"]:checked+label:before {
+	content: "\f00c"; /*폰트어썸 유니코드*/
+	font-family: "Font Awesome 5 free"; /*폰트어썸 아이콘 사용*/
+	font-weight: 900; /*폰트어썸 설정*/
+	color: #fff;
+	background-color: #000;
+	border-color: #000;
+	font-size: 13px;
+	text-align: center;
+}
+
+/* 로그인 */
+/*input 바로 다음의 label*/
+input[type="checkbox"]+input+label {
+	cursor: pointer;
+}
+
+/*input 바로 다음의 label:before 에 체크하기 전 CSS 설정*/
+input[type="checkbox"]+input+label:before {
+	content: "";
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	line-height: 20px;
+	border: 1px solid #cbcbcb;
+	text-align: center;
+	vertical-align: middle; /*체크 전과 체크 후 높이 차이 때문에 설정*/
+}
+
+/*checked된 input 바로 다음의 label:before 에 체크 후 CSS 설정*/
+input[type="checkbox"]:checked+input+label:before {
+	content: "\f00c"; /*폰트어썸 유니코드*/
+	font-family: "Font Awesome 5 free"; /*폰트어썸 아이콘 사용*/
+	font-weight: 900; /*폰트어썸 설정*/
+	color: #fff;
+	background-color: #000;
+	border-color: #000;
+	font-size: 13px;
+	text-align: center;
+}
+
+.ib {
+	display: inline-block;
+}
+
+.mt-8 {
+	margin-top: 8px;
+}
+
+.none p {
+	display: block;
+	margin: 0;
+}
+
+.none .block {
+	background-color: #fff;
+	border: 1px solid #dedede;
+	padding: 30px;
+	margin: 100px 0;
+}
+
+.large {
+	font-size: 14px;
+} /* account, accountok, accountfail, loginfail */
+
+.clearfix {
+	margin-top: 40px;
+} /* accountfail, loginfail */
+
+.eye {
+	line-height: 45px;
+	font-size: 22px;
+} /* account, edit */
+
+.form-control-feedback {
+	pointer-events: auto;
+} /* account, edit */
+
+.line {
+	padding: 10px;
+	border: 1px solid #dedede;
+} /* info, edit */
+
+.edit-email {
+	overflow: hidden;
+	position: relative;
+}
+
+.edit-email .form-control {
+	float: left;
+}
+
+.edit-email #email {
+	width: calc(70% - 2px);
+	margin-right: 4px;
+}
+
+.edit-email #slt_email {
+	width: calc(30% - 2px);
+	font-size: 12px;
+}
+
+/*=== [ 2. Admin ] ===*/
+/*== [ 2.1 login ] ==*/
+/*== [ 2.2 memberlist ] ==*/
+.memberlist .form-inline .form-group {
+	width: 100%;
+	margin-bottom: 20px;
+}
+
+.memberlist .form-inline .col-md-6 {
+	padding: 0;
+}
+
+.memberlist .empty {
+	height: 100px;
+}
+
+.memberlist .cart .product-list .table td {
+	border: 0;
+	border-top: 1px solid #ddd;
+}
+/*=== [ 3. Member ] ===*/
+/*== [ 3.1 account ] ==*/
+.account p {
+	display: block;
+	margin: 0;
+}
+
+/*== [ 3.2 accountok ] ==*/
+/*== [ 3.3 accountfail ] ==*/
+/*== [ 3.4 login ] ==*/
+/*== [ 3.5 loginfail ] ==*/
+
+/*=== [ 4. Mypage ] ===*/
+/*== [ 4.1 sidenav ] ==*/
+.ud-space {
+	margin: 20px 0;
+}
+
+.sidenav .nav-pills>li.active>a,
+.sidenav .nav-pills>li.active>a:focus,
+.sidenav .nav-pills>li.active>a:hover {
+	color: #FFF;
+	background-color: #000;
+}
+
+/*== [ 4.2 info ] ==*/
+.info p {
+	display: block;
+	margin: 0;
+}
+
+.info .form-control {
+	border: 0px;
+}
+
+/*== [ 4.3 edit ] ==*/
+.edit p {
+	display: block;
+	margin: 0;
+}
+
+/*== [ 4.4 wish ] ==*/
+.wish p {
+	display: block;
+	margin: 0;
+}
+
+.post-pagination {
+	margin-top: 70px;
+}
+
+.post-pagination>li {
+	margin: 0 2px;
+	display: inline-block;
+	font-size: 12px;
+}
+
+.post-pagination>li>a {
+	color: #000;
+}
+
+.post-pagination>li>a:hover {
+	color: #fff;
+	background: #000;
+	border: 1px solid #000;
+}
+
+.post-pagination>li.active>a {
+	background: #000;
+	border: 1px solid #000;
+}
+
+.post-pagination>li:first-child>a, 
+.post-pagination>li:last-child>a {
+	border-radius: 0;
+}
+
+.pagination>.active>a, 
+.pagination>.active>a:focus, 
+.pagination>.active>a:hover, 
+.pagination>.active>span, 
+.pagination>.active>span:focus, 
+.pagination>.active>span:hover {
+    z-index: 3;
+    color: #fff;
+    cursor: default;
+    background-color: #000;
+    border-color: #000;
+}
+
+.center {
+	text-align: center;
+}
+
+dl {
+	list-style: none;
+}
+
+.cancel pre {
+	font-size: 0.8em;
+}
+
+.cancel #form_pwd {
+	margin-top: 14px;
+}
+
+/*=== [ 5. Order ] ===*/
+/*== [ 5.1 cart ] ==*/
+
+/* 장바구니 테이블 */
+.cart p {
+	display: block;
+	margin: 0;
+}
+
+.cart .product-list .table th {
+	border: 0;
+}
+
+.cart .product-list .table td {
+	border: 1px solid #ddd;
+}
+
+.cart th {
+	text-align: center;
+	vertical-align: middle;
+}
+
+/* 상품명을 제외한 나머지 컬럼 중앙정렬 */
+.cart td:not(:nth-child(2)) {
+	text-align: center;
+}
+
+.page-wrapper {
+	padding-top: 0;
+}
+
+@media screen and (max-width: 768px) {
+	.widthDisplayNone {
+		display: none !important;
+	}
+}
+
+/* 합계금액 영역 */
+.price-box {
+	padding: 20px 40px 25px 40px;
+	border: 1px solid #dedede;
+}
+
+.price-content {
+	display: table;
+	float: right;
+	text-align: right;
+}
+
+.price-list {
+	position: relative;
+}
+
+.price-list dl {
+	display: table-cell;
+	padding: 5px 10px 5px 10px;
+	font-size: 15px;
+	text-align: right;
+}
+
+.price-list dd {
+	color: #000;
+}
+
+.price-list span {
+	display: table-cell;
+	padding: 0 15px 0 15px;
+	text-align: center;
+	vertical-align: middle;
+}
+
+@media screen and (max-width: 768px) {
+	.price-box {
+		padding: 15px 20px 15px 20px;
+	}
+	.price-content {
+		float: none;
+		clear: both;
+		text-align: left;
+		width: 100%;
+	}
+	.price-list dl {
+		display: block;
+		clear: both;
+		font-size: 14px;
+	}
+	.price-list dt {
+		float: left;
+		width: 50%;
+		text-align: left;
+	}
+	.price-list dd {
+		float: right;
+		width: 50%;
+		text-align: right;
+	}
+	.price-list span {
+		display: none;
+	}
+	.price-total {
+		padding-right: 10px;
+	}
+}
+
+/* 장바구니 주문 버튼 */
+.btn-order-box {
+	padding: 20px 0 0 0;
+	text-align: right;
+}
+
+.btn-order-box .btn-left-box {
+	float: left;
+}
+
+.btn-left-box {
+	text-align: left;
+}
+
+.btn-order-box .btn-right-box {
+	float: right;
+}
+
+.btn-right-box {
+	text-align: right;
+}
+
+@media screen and (max-width: 768px) {
+	.btn-order-box {
+		padding-top: 20px;
+	}
+	.btn-order-box .btn-left-box {
+		float: none;
+		display: block;
+		clear: both;
+		text-align: center;
+	}
+	.btn-order-box .btn-right-box {
+		float: none;
+		display: block;
+		clear: both;
+		text-align: center;
+		margin-top: 10px;
+	}
+}

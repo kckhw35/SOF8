@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sof8.mapper.AdminMapper">
+	<!-- 회원가입 -->
+	<insert id="insert" parameterType="Admin">
+		INSERT INTO admin (admin_id, admin_pwd, admin_name) 
+		VALUES (#{admin_id}, #{admin_pwd}, #{admin_name})
+	</insert>
+	<select id="select" parameterType="String" resultType="Admin">
+		SELECT * FROM admin WHERE admin_id = #{admin_id}
+	</select>
+	<select id="selectall" resultType="Admin">
+		SELECT * FROM admin
+	</select>
+	<!-- 회원정보 수정 -->
+	<update id="update" parameterType="Admin">
+		UPDATE admin 
+		SET admin_pwd = #{edit_pwd}, admin_name = #{admin_name}
+		WHERE admin_id = #{admin_id}
+	</update>
+	<delete id="delete" parameterType="String">
+		DELETE FROM admin WHERE admin_id = #{admin_id}
+	</delete>
+</mapper>

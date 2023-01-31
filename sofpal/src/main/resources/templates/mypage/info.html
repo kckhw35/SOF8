@@ -1,0 +1,70 @@
+<section class="info">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-3" th:include="@{/mypage/sidenav}"></div>
+			<div class="col-md-9">
+				<div class="page-wrapper">
+					<div class="page-header">
+						<div class="container">
+							<h1>회원정보</h1>
+							<ol class="breadcrumb">
+								<li><a th:href="@{/}">Home</a></li>
+								<li class="active">회원정보</li>
+							</ol>
+						</div>
+					</div>
+					<div class="form-horizontal line">
+						<div class="form-group" style="margin-top: 8px;">						
+							<label class="col-md-2 control-label">아이디:</label>
+							<div class="col-md-10 ">
+								<span class="form-control">[[${member.user_id}]]</span>
+							</div>
+						</div>
+						<hr>
+						<div class="form-group">
+							<label class="col-md-2 control-label">이름:</label>
+							<div class="col-md-10">
+								<span class="form-control">[[${member.name}]]</span>
+							</div>
+						</div>
+						<hr>
+						<div class="form-group">
+							<label class="col-md-2 control-label">이메일:</label>
+							<div class="col-md-10">
+								<span class="form-control">[[${member.email}]]</span>
+							</div>
+						</div>						
+						<hr>
+						<div class="form-group">
+							<label class="col-md-2 control-label">휴대전화:</label>
+							<div class="col-md-10">
+								<span class="form-control">[[${member.tel}]]</span>
+							</div>
+						</div>
+						<hr>
+						<div class="form-group">
+							<label class="col-md-2 control-label">우편번호:</label>
+							<div class="col-md-10">
+								<span class="form-control">[[${member.postcode}]]</span>
+							</div>
+						</div>
+						<hr>
+						<div class="form-group">
+							<label class="col-md-2 control-label">주소:</label>
+							<div class="col-md-10">
+								<span class="form-control">[[${member.addr}]]</span>
+							</div>
+						</div>
+						<hr>
+						<div class="form-group">
+							<label class="col-md-2 control-label">상세주소:</label>
+							<div class="col-md-10">
+								<span class="form-control">[[${member.de_addr}]]</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

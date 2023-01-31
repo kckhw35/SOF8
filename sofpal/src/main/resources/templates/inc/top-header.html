@@ -1,36 +1,55 @@
-<section th:fragment="top-header" class="top-header">
+<section th:fragment="top-header" class="top-header ">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-4 col-xs-12 col-sm-4">
 				<!-- Site Logo -->
-				<div class="logo">
+				<div class="logo contact-number">
 					<a th:href="@{/}"><img th:src="@{/images/logo.png}"/></a>
 				</div>
 			</div>
-			<div>
+			<div class="col-md-8 col-xs-12 col-sm-8">
 				<ul class="top-menu text-right list-inline">
 					<!-- Search -->
 					<li class="dropdown search dropdown-slide">
-							<a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><i class="tf-ion-ios-search-strong"></i></a>
-							<ul class="dropdown-menu search-dropdown">
-								<li>
-									<form action="post"><input type="search" class="form-control" placeholder="Search..."></form>
-								</li>
-							</ul>
+						<a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><i class="tf-ion-ios-search-strong"></i></a>
+						<ul class="dropdown-menu search-dropdown">
+							<li>
+								<form action="post"><input type="search" class="form-control" placeholder="Search..."></form>
+							</li>
+						</ul>
 					</li><!-- / Search -->
-					<!-- Join -->
-					<li class="join-site">
-							<a th:href="@{/member/join}" class="join"><iconify-icon inline icon="ion:person-add"></iconify-icon> 회원가입</a>
-					</li><!-- / Join -->
+					<!-- Admin -->
+					<li th:if="${session.admin != null}"><span style="color:red; font-weight: border; border: 2px solid red;">[[${session.admin.admin_name}]] 관리자</span></li>
+					<!-- Management -->
+					<li th:if="${session.admin != null}">
+						<a th:href="@{/admin/memberlist}" class="account"><iconify-icon icon="carbon:id-management"></iconify-icon> 회원관리</a>
+					</li>
 					<!-- Login -->
-					<li class="login-site">
-							<a th:href="@{/member/login}" class="join"><iconify-icon inline icon="ion:person-circle"></iconify-icon> 로그인</a>
+					<li class="login-site" th:if="${session.admin == null && session.member == null}">
+						<a th:href="@{/member/login}" class="account"><iconify-icon icon="ri:login-box-fill"></iconify-icon> 로그인</a>
 					</li><!-- / Login -->
+					<!-- Logout -->
+					<!-- Join -->
+					<li class="account-site" th:if="${session.admin == null && session.member == null}">
+						<a th:href="@{/member/account}" class="account"><iconify-icon inline icon="ion:person-add"></iconify-icon> 회원가입</a>
+					</li><!-- / Join -->
+					<li class="login-site" th:if="${session.admin == null && session.member != null}">
+						<a th:href="@{/member/logout}" class="account"><iconify-icon inline icon="ri:logout-box-r-fill"></iconify-icon> 로그아웃</a>
+					</li><!-- / Logout -->
+					<!-- Admin Logout -->
+					<li class="login-site" th:if="${session.admin != null}">
+						<a th:href="@{/admin/logout}" class="account"><iconify-icon inline icon="ri:logout-box-r-fill"></iconify-icon> 로그아웃</a>
+					</li><!-- / Admin Logout -->				
 					<!-- Cart -->
-					<li class="dropdown cart-nav dropdown-slide">
-						<a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><iconify-icon inline icon="ion:bag"></iconify-icon> 장바구니</a>
+					<!-- MyPage -->
+					<li class="account-site" th:if="${session.admin == null && session.member != null}">
+						<a th:href="@{/mypage/info}" class="account"><iconify-icon inline icon="ion:person"></iconify-icon> 마이페이지</a>
+					</li><!-- / MyPage -->
+					<li class="dropdown cart-nav dropdown-slide" th:if="${session.admin == null && session.member != null}">
+						<a th:href="@{/order/cart}" class="dropdown-toggle" data-hover="dropdown"><iconify-icon inline icon="ion:bag"></iconify-icon> 장바구니</a>
+						<!-- 
 						<div class="dropdown-menu cart-dropdown">
-							<!-- Cart Item -->
+							Cart Item
 							<div class="media">
 								<a class="pull-left" href="#!">
 									<img class="media-object" th:src="@{/images/shop/cart/cart-1.jpg}" alt="image" />
@@ -44,8 +63,8 @@
 									<h5><strong>$1200</strong></h5>
 								</div>
 								<a href="#!" class="remove"><i class="tf-ion-close"></i></a>
-							</div><!-- / Cart Item -->
-							<!-- Cart Item -->
+							</div>/ Cart Item
+							Cart Item
 							<div class="media">
 								<a class="pull-left" href="#!">
 									<img class="media-object" th:src="@{/images/shop/cart/cart-2.jpg}" alt="image" />
@@ -59,7 +78,7 @@
 									<h5><strong>$1200</strong></h5>
 								</div>
 								<a href="#!" class="remove"><i class="tf-ion-close"></i></a>
-							</div><!-- / Cart Item -->
+							</div>/ Cart Item
 
 							<div class="cart-summary">
 								<span>Total</span>
@@ -70,9 +89,8 @@
 								<li><a href="checkout.html" class="btn btn-small btn-solid-border">Checkout</a></li>
 							</ul>
 						</div>
+						 -->
 					</li><!-- / Cart -->
-
-					<!-- Search -->
 				</ul><!-- / .nav .navbar-nav .navbar-right -->
 			</div>
 		</div>

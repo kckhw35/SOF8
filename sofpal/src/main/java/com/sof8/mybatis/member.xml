@@ -3,19 +3,86 @@
 PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sof8.mapper.MemberMapper">
+	<!-- 회원가입 -->
 	<insert id="insert" parameterType="Member">
-		INSERT INTO member VALUES (#{user_id}, #{pwd}, #{name}, #{tel}, #{zipcode}, #{addr}, #{de_addr})
+		INSERT INTO member (
+			user_id, pwd, name, email, 
+			tel, postcode, addr, de_addr
+		) 
+		VALUES (
+			#{user_id}, #{pwd}, #{name}, #{email}, 
+			#{tel}, #{postcode}, #{addr}, #{de_addr}
+		)
 	</insert>
 	<select id="select" parameterType="String" resultType="Member">
-		SELECT * FROM member WHERE id = #{id}
+		SELECT * 
+		FROM member 
+		WHERE user_id = #{user_id}
 	</select>
 	<select id="selectall" resultType="Member">
-		SELECT * FROM member
+		SELECT * 
+		FROM member
 	</select>
+	<!-- 아이디 찾기 -->
+	<select id="selectMemberId" parameterType="Member" resultType="Member">
+		SELECT * 
+		FROM member 
+		WHERE name = #{name} AND email=#{email}
+	</select>
+	<!-- 총 회원수 구하기 -->	
+	<select id="getTotal" parameterType="Map" resultType="int">
+		SELECT count(*) 
+		FROM member
+		<include refid="common.search"></include>
+	</select>
+	<!-- 회원 리스트 페이징 -->
+	<select id="selectList" parameterType="Paging" resultType="Member">
+		SELECT * 
+		FROM member
+		<include refid="common.search"></include>
+		<include refid="common.paging"></include> 
+	</select>
+	<!-- 회원정보 수정 -->
 	<update id="update" parameterType="Member">
-		UPDATE member SET pwd = #{pwd}, name = #{name} WHERE id = #{id}
+		UPDATE member 
+		SET pwd = #{pwd}, name = #{name}, email = #{email}, tel = #{tel},
+		 	postcode = #{postcode}, addr = #{addr}, de_addr = #{de_addr} 
+		WHERE user_id = #{user_id}
 	</update>
+	<!-- 회원탈퇴 시 휴면상태로 변경 -->
+	<update id="updateEnable" parameterType="String">
+		UPDATE member 
+		SET enable = 0 
+		WHERE user_id = #{user_id}
+	</update>	
 	<delete id="delete" parameterType="String">
-		DELETE FROM member WHERE ID = #{id}
+		DELETE FROM member 
+		WHERE user_id = #{user_id}
 	</delete>
+	<!-- 검색 -->
+	<sql id="search">
+		<!-- 검색 키워드 있을 때 -->
+		<if test="keyword != null and keyword != ''">
+			<choose>
+				<!-- 검색 유형이 있을 때 -->
+				<when test="type != null and type!= ''">
+					<choose>
+						<when test="'user_id'.equals(type)">
+							AND user_id LIKE CONCAT('%', #{keyword}, '%')
+						</when>
+						<when test="'name'.equals(type)">
+							AND user_id LIKE CONCAT('%', #{keyword}, '%')
+						</when>
+					</choose>
+				</when>
+				<!-- 전체 유형이 없을 때 -->
+				<otherwise>
+					AND	(
+						user_id LIKE CONCAT('%', #{keyword}, '%') OR			
+						name LIKE CONCAT('%', #{keyword}, '%')			
+					)
+				</otherwise>
+			</choose>
+		</if>
+	</sql>
 </mapper>

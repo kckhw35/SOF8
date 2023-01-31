@@ -1,5 +1,7 @@
 package com.sof8.dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,15 +14,18 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Product {
-	int p_id;
-	int cat_id;
-	String p_name;
-	String p_content;
-	String p_img;
-	int price;
-	int del_cost;
-	int cnt;
-	int discount;
-	int size;
-	boolean visiable;
+	private int p_id;
+	private int cat_id;
+	private String p_name;
+	private String p_content;
+	private String p_img;
+	private int price;
+	private int del_cost;
+	private int cnt;
+	private int discount;
+	private int size;
+	private String color;
+	private boolean visiable;
+	
+	private MultipartFile img;
 }
