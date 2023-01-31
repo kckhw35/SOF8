@@ -3,6 +3,7 @@
 /*******************************************
 [Table of Content]
 1. Common			: 공통 
+<<<<<<< HEAD
 2. Admin			
 	2.1 login		: 로그인
 	2.2 memberlist	: 회원 리스트 
@@ -25,6 +26,26 @@
 	display: none;
 }
 
+=======
+2. Member 			: 
+	2.1 account		: 회원가입
+	2.2 accountok	: 회원가입 성공
+	2.3 accountfail	: 회원가입 실패
+	2.4 login		: 로그인
+	2.5 loginfail	: 로그인 실패
+3. Mypage
+	3.1 sidenav		: 마이페이지 메뉴 	
+	3.2 info		: 회원정보
+	3.3 edit		: 회원정보 수정
+
+4. Order
+	4.1 cart		: 장바구니	
+	
+5. Mail-templates
+
+*******************************************/
+/*=== [ 1. Common ] ===*/
+>>>>>>> temp
 .dropdown-menu>.active>a, 
 .dropdown-menu>.active>a:focus, 
 .dropdown-menu>.active>a:hover {
