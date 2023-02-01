@@ -1,0 +1,105 @@
+<section class="memberlist">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="page-wrapper shopping cart">
+					<div class="page-header">
+						<div class="container">
+							<h1>1:1 문의 목록</h1>
+							<ol class="breadcrumb">
+								<li><a th:href="@{/}">Home</a></li>
+								<li>커뮤니티</li>
+								<li class="active">1:1 문의 목록</li>
+							</ol>
+						</div>
+					</div>
+					<div class="product-list">
+						<form id="form_qnalist" class="form-inline" th:action="@{/qna/qnalist}" method="get">
+							<div class="form-group">
+								<div class="col-md-offset-6 col-md-6">
+									<div class="pull-right">
+										<select th:name="type" class="form-control">
+											<option th:value="user_id" th:text="아이디" th:selected="${type}=='user_id'"></option>
+											<option th:value="title" th:text="제목" th:selected="${type}=='title'"></option>
+											<option th:value="content" th:text="내용" th:selected="${type}=='content'"></option>
+										</select> 
+										<input type="search" th:name="keyword" class="form-control" th:value=${keyword}>
+										<button type="submit" class="btn btn-default" th:text="검색"></button>
+									</div>
+								</div>
+							</div>
+							<table class="table line">
+								<colgroup>
+									<col width="5%"/>
+									<col width="25%"/>
+									<col width="10%"/>
+									<col width="10%"/>
+								</colgroup>
+								<thead>
+									<tr class="cart-amount" >
+										<th class="text-center">번호</th>
+										<th class="text-center">문의사항</th>
+										<th class="text-center">작성자</th>
+										<th class="text-center">작성일</th>
+										
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:if="${paging.totalRow == 0}">
+										<td class="text-class empty" colspan="7">1:1 문의가 없습니다.</td>
+									</tr>	
+									<tr th:if="${qnas != null}" th:each="qna : ${qnas}">
+										<td class="text-center" th:text="${paging.totalRow - (qnaStat.index + paging.offset)}"></td>
+										<td class="text-center" th:text="${qna.title}"></td>
+										<td class="" th:text="${qna.user_id}"></td>
+										<td class="" th:text="${#dates.format(qna.rdate,'yyyy.MM.dd')}"></td>
+									</tr>
+								</tbody>
+							</table>
+							
+							<div class="text-center">
+								<ul class="pagination post-pagination" th:if="${paging.totalRow > 0}">
+									<!-- 맨 처음 페이지 이동 -->
+									<li th:if="${paging.startPage > 1}">
+										<a th:href="@{'qnalist?page=1'}" th:text="First"></a>
+									</li>
+									<!-- 이전 블록 이동 -->
+									<li th:if="${paging.prev}">
+										<a th:if="${paging.keyword == null}" 
+											th:href="@{'qnalist?page='+${paging.startPage-1}}" 
+											th:text="prev"></a>
+										<a th:if="${paging.keyword != null}" 
+										th:href="@{'qnalist?page='+${paging.startPage-1}+'&type='+${paging.type}+'&keyword='+${paging.keyword}}" 
+										th:text="prev"></a>
+									</li>
+									<!-- 시퀀스 보여주는 값 변경 -->
+									<li th:each="pageNum : ${#numbers.sequence(paging.startPage, paging.endPage)}" th:class="${pageNum == paging.page} ? 'active'" >
+										<a th:if="${paging.keyword == null}" 
+											th:href="@{'qnalist?page='+${pageNum}}" 
+											th:text="${pageNum}"></a>
+										<a th:if="${paging.keyword != null}" 
+											th:href="@{'qnalist?page='+${pageNum}+'&type='+${paging.type}+'&keyword='+${paging.keyword}}" 
+											th:text="${pageNum}"></a>
+									</li>
+									<!-- 다음 블록으로 이동 -->
+									<li th:if="${paging.next}">
+										<a th:if="${paging.keyword == null}" 
+											th:href="@{'qnalist?page='+|${paging.endPage + 1}|}" 
+											th:text="Next"></a>
+										<a th:if="${paging.keyword != null}" 
+											th:href="@{'qnalist?page='+|${paging.endPage + 1}|+'&type='+${paging.type}+'&keyword='+${paging.keyword}}" 
+											th:text="Next"></a>
+									</li>
+									<!-- 맨 뒷 페이지로 이동 -->
+									<li th:if="${paging.endPage < paging.totalPage}">
+										<a th:href="@{'qnalist?page='+${paging.totalPage}}" th:text="Last"></a>
+									</li>
+								</ul>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

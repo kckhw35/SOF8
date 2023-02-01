@@ -1,5 +1,7 @@
 package com.sof8.dto;
 
+import java.util.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,5 +24,5 @@ public class Qna {
 	private String r_img;
 	private Integer grade;
 	private Integer up;
-	private String rdate;
+	private Date rdate;
 }

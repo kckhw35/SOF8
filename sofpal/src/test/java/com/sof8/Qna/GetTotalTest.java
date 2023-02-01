@@ -16,7 +16,7 @@ class GetTotalTest {
 	void contextLoads() {
 		int count = 0;
 		try {
-			count = service.getTotal("테스트", "title");
+			count = service.getTotal(null, null);
 			System.out.println(count);
 			System.out.println("OK");
 		} catch (Exception e) {
