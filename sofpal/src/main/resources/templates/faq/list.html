@@ -114,7 +114,6 @@
 				var html = "";
 				console.log(id);
 				
-				//$('td[data-id='+ id +']').after('<p>fdsaa</P>');
 				
 				$.ajax({
 					type : "GET",
@@ -176,7 +175,7 @@
 					<input name="keyword" th:value=${keyword} class="form-control" type="search"> 
 					<input class="btn btn-default" type="submit" value="검색">
 					<div class="btn-group pull-right" role="group">
-						<button type="button" class="btn btn-default"><a href="#">등록</a></button>
+						<button type="button" class="btn btn-default"><a href="/faq/write">등록</a></button>
 						<button type="button" class="btn btn-default" onclick='updateFaq()'>수정</button>
 						<button type="button" class="btn btn-default" onclick='deleteFaq()'>삭제</button>
 					</div>

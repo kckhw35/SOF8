@@ -1,22 +1,25 @@
-package com.sof8.faq;
+package com.sof8.Qna;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.sof8.service.FaqService;
+import com.sof8.dto.Qna;
+import com.sof8.service.QnaService;
 
 @SpringBootTest
-class DeleteTests {
+class SelectTests {
 	 
 	@Autowired
-	FaqService service;
+	QnaService service;
 
 	@Test
 	void contextLoads() {
+		Qna qna = null;
 		
 		try {
-			service.remove(57);
+			qna = service.get(57);
+			System.out.println(qna);
 			System.out.println("OK");
 		} catch (Exception e) {
 			System.out.println("Fail");

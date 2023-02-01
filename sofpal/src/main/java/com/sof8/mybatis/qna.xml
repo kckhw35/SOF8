@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sof8.mapper.QnaMapper">
+
+	<sql id="search">
+		<!-- 검색 키워드 있을 때 -->
+		<if test="keyword != null and keyword != ''">
+			<choose>
+				<!-- 검색 유형이 있을 때 -->
+				<when test="type != null and type!= ''">
+					<choose>
+						<when test="'user_id'.equals(type)">
+							AND user_id LIKE CONCAT('%', #{keyword}, '%')
+						</when>
+						<when test="'title'.equals(type)">
+							AND title LIKE CONCAT('%', #{keyword}, '%')
+						</when>
+						<when test="'content'.equals(type)">
+							AND content LIKE CONCAT('%', #{keyword}, '%')
+						</when>
+					</choose>
+				</when>
+			</choose>
+		</if>
+	</sql>
+	
+	<insert id="insert" parameterType="Qna">
+		INSERT INTO `reviewqna`
+		(
+		`user_id`,
+		`re_pwd`,
+		`title`,
+		`content`,
+		`rdate`)
+		VALUES
+		(
+		#{user_id},
+		#{re_pwd},
+		#{title},
+		#{content},
+		CURRENT_TIMESTAMP)
+	</insert>
+	
+	<update id="update" parameterType="Qna">
+		UPDATE `reviewqna`
+		SET
+		`re_pwd` = #{re_pwd},
+		`title` = #{title},
+		`content` = #{content}
+		WHERE `r_id` = #{r_id}
+	</update>
+	
+	<delete id="delete" parameterType="Integer">
+		DELETE FROM `reviewqna`
+		WHERE `r_id` = #{r_id}
+	</delete>
+	
+	<!-- 문의 조회 -->
+	<select id="select" parameterType="Integer" resultType="Qna">
+		SELECT *
+		FROM
+		reviewqna WHERE r_id = #{r_id}
+	</select>
+	
+	<select id="selectall" resultType="Qna">
+		SELECT * FROM reviewqna WHERE o_id IS NULL
+	</select>
+	
+	<!-- 문의 리스트 페이징 -->
+	<select id="selectList" parameterType="Paging" resultType="Qna">
+		SELECT * 
+		FROM reviewqna WHERE o_id IS NULL
+		<include refid="search"></include>
+		ORDER BY r_id DESC 
+		<include refid="common.paging"></include> 
+	</select>
+	
+	<!-- 총 문의 수 구하기 -->
+	<select id="getTotal" parameterType="Map" resultType="int">
+		SELECT count(*) 
+		FROM reviewqna WHERE o_id IS NULL
+		<include refid="search"></include>
+	</select>
+</mapper>
