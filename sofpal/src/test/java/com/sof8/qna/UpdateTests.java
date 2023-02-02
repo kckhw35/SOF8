@@ -1,22 +1,27 @@
-package com.sof8.Qna;
+package com.sof8.qna;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.sof8.dto.Qna;
 import com.sof8.service.QnaService;
 
 @SpringBootTest
-class DeleteTests {
+class UpdateTests {
 	 
 	@Autowired
 	QnaService service;
 
 	@Test
 	void contextLoads() {
-		
+		Qna qna = new Qna();
+		qna.setRe_pwd("password-changed");
+		qna.setTitle("문의 제목 변경요~");
+		qna.setContent("내용도 변경요~ ㄹ어나밀디ㅏ머딞ㅈㄹㅈㅁ");
+		qna.setR_id(57);
 		try {
-			service.remove(57);
+			service.modify(qna);
 			System.out.println("OK");
 		} catch (Exception e) {
 			System.out.println("Fail");

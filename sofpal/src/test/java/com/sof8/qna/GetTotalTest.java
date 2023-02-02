@@ -1,27 +1,23 @@
-package com.sof8.Qna;
+package com.sof8.qna;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.sof8.dto.Qna;
 import com.sof8.service.QnaService;
 
 @SpringBootTest
-class InsertTests {
+class GetTotalTest {
+	 
 	@Autowired
 	QnaService service;
 
 	@Test
 	void contextLoads() {
-		Qna qna = new Qna();
-		qna.setUser_id("whdgnsdl35");
-		qna.setRe_pwd("6543");
-		qna.setTitle("1:1 문의내역 java에서 insert Test");
-		qna.setContent("문의 내용 입니다.");
-		
+		int count = 0;
 		try {
-			service.register(qna);
+			count = service.getTotal(null, null);
+			System.out.println(count);
 			System.out.println("OK");
 		} catch (Exception e) {
 			System.out.println("Fail");

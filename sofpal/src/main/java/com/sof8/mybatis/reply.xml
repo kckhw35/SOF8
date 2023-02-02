@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sof8.mapper.ReplyMapper">
+
+	<insert id="insert" parameterType="Reply">
+		INSERT INTO reply (r_id, admin_id, reply) 
+			VALUES (#{r_id}, #{admin_id}, #{reply})
+	</insert>
+	
+	<update id="update" parameterType="Reply">
+		UPDATE reply SET reply = #{reply} WHERE re_id = #{re_id}
+	</update>
+	
+	<delete id="delete" parameterType="Integer">
+		DELETE FROM reply WHERE re_id=#{re_id}
+	</delete>
+	
+	<!-- 답변 내용 조회 [reply의 PK 칼럼으로 값을 조회] -->
+	<select id="select" parameterType="Integer" resultType="Reply">
+		SELECT * FROM reply WHERE re_id=#{re_id}
+	</select>
+	
+	<!-- 질문의 PK를 가지고 답변 내용 조회 [Qna의 PK 칼럼으로 값을 조회] -->
+	<!-- 주로 이러한 방식을 사용 -->
+	<select id="selectReply" parameterType="Integer" resultType="Reply">
+		SELECT * FROM reply WHERE r_id=#{r_id}
+	</select>
+	
+	<!-- 질문의 PK를 가지고 답변 내용 조회 [Qna의 PK 칼럼으로 값을 조회] -->
+	<!-- 주로 이러한 방식을 사용 -->
+	<select id="selectall" resultType="Reply">
+		SELECT * FROM reply WHERE r_id=#{r_id}
+	</select>
+	
+</mapper>

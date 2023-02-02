@@ -1,29 +1,27 @@
-package com.sof8.Qna;
-
-import java.util.ArrayList;
-import java.util.List;
+package com.sof8.reply;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.sof8.dto.Qna;
-import com.sof8.service.QnaService;
+import com.sof8.dto.Reply;
+import com.sof8.service.ReplyService;
 
 @SpringBootTest
-class SelectAllTests {
+class InsertTests {
 	 
 	@Autowired
-	QnaService service;
+	ReplyService service;
 
 	@Test
 	void contextLoads() {
-		List<Qna> qnas = new ArrayList<Qna>();
+		Reply reply = new Reply();
+		reply.setR_id(5);
+		reply.setAdmin_id("jonghoon");
+		reply.setReply("Java JUnit Test 문의 작성");
+		
 		try {
-			qnas = service.get();
-			for (Qna qna : qnas) {
-				System.out.println(qna);
-			}
+			service.register(reply);
 			System.out.println("OK");
 		} catch (Exception e) {
 			System.out.println("Fail");

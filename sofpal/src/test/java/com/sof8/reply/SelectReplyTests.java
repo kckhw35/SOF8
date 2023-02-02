@@ -1,25 +1,29 @@
-package com.sof8.Qna;
+package com.sof8.reply;
+
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.sof8.dto.Qna;
-import com.sof8.service.QnaService;
+import com.sof8.dto.Reply;
+import com.sof8.service.ReplyService;
 
 @SpringBootTest
-class SelectTests {
+class SelectReplyTests {
 	 
 	@Autowired
-	QnaService service;
+	ReplyService service;
 
 	@Test
 	void contextLoads() {
-		Qna qna = null;
+		List<Reply> reply = null;
 		
 		try {
-			qna = service.get(57);
-			System.out.println(qna);
+			reply = service.getReply(55);
+			for (Reply re : reply) {
+				System.out.println(re);
+			}
 			System.out.println("OK");
 		} catch (Exception e) {
 			System.out.println("Fail");

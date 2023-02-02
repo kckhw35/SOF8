@@ -19,11 +19,11 @@
 								<div class="col-md-offset-6 col-md-6">
 									<div class="pull-right">
 										<select th:name="type" class="form-control">
-											<option th:value="user_id" th:text="아이디" th:selected="${type}=='user_id'"></option>
-											<option th:value="title" th:text="제목" th:selected="${type}=='title'"></option>
-											<option th:value="content" th:text="내용" th:selected="${type}=='content'"></option>
+											<option th:value="user_id" th:text="아이디" th:selected="${paging.type}=='user_id'"></option>
+											<option th:value="title" th:text="제목" th:selected="${paging.type}=='title'"></option>
+											<option th:value="content" th:text="내용" th:selected="${paging.type}=='content'"></option>
 										</select> 
-										<input type="search" th:name="keyword" class="form-control" th:value=${keyword}>
+										<input type="search" th:name="keyword" class="form-control" th:value=${paging.keyword}>
 										<button type="submit" class="btn btn-default" th:text="검색"></button>
 									</div>
 								</div>
