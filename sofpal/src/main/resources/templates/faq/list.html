@@ -149,22 +149,30 @@
 
 <body id="body">
 	<!-- ========================page-header ============================ -->
-	<section class="page-header" style="background-image: url(../images/slider/slider-2.png);">
+	<section class="memberlist">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-12">
-					<div style="padding:80px" class="content">
-						<h1 class="text-center">FAQ</h1>
-						<h3 style="display:block" class="text-center"><b>자주하는 문의</b></h3>
+				<div class="col-md-10 col-md-offset-1">
+					<div class="page-wrapper shopping cart">
+						<div class="page-header">
+							<div class="container">
+								<h1>자주하는 문의</h1>
+								<ol class="breadcrumb">
+									<li><a th:href="@{/}">Home</a></li>
+									<li>커뮤니티</li>
+									<li class="active">자주하는 문의</li>
+								</ol>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
+	
 	<!-- ========================== page-wrapper========================== -->
 	<div class="container">
-		<div class="col-md-8 col-md-offset-2">
-			<h2>자주하는 문의</h2><br>
+		<div class="col-md-10 col-md-offset-1">
 			<form id="searching_faq" class="form-inline" method="get" th:action="@{/faq}">
 				<div class="row">
 					<select name="searchOption" class="form-control">
@@ -211,5 +219,3 @@
 	</div>
 </body>
 </html>
-
-
