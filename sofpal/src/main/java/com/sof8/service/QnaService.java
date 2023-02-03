@@ -7,7 +7,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sof8.dto.Member;
 import com.sof8.dto.Paging;
 import com.sof8.dto.Qna;
 import com.sof8.frame.Sof8Service;

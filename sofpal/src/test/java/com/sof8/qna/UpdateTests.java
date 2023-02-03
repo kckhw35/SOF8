@@ -19,7 +19,7 @@ class UpdateTests {
 		qna.setRe_pwd("password-changed");
 		qna.setTitle("문의 제목 변경요~");
 		qna.setContent("내용도 변경요~ ㄹ어나밀디ㅏ머딞ㅈㄹㅈㅁ");
-		qna.setR_id(57);
+		qna.setR_id(37);
 		try {
 			service.modify(qna);
 			System.out.println("OK");
