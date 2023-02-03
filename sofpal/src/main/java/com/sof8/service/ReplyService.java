@@ -40,7 +40,7 @@ public class ReplyService implements Sof8Service<Integer, Reply>{
 		return mapper.selectall();
 	}
 	
-	public List<Reply> getReply(Integer k) throws Exception {
+	public Reply getReply(Integer k) throws Exception {
 		return mapper.selectReply(k);
 	}
 }

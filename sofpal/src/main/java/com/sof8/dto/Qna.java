@@ -25,4 +25,7 @@ public class Qna {
 	private Integer grade;
 	private Integer up;
 	private Date rdate;
+	
+	/* 1:1 문의에 대한 답변 */
+	private Reply reply;
 }

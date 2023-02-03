@@ -1,7 +1,5 @@
 package com.sof8.mapper;
 
-import java.util.List;
-
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -12,5 +10,5 @@ import com.sof8.frame.Sof8Mapper;
 @Mapper
 public interface ReplyMapper extends Sof8Mapper<Integer, Reply>{
 	
-	public List<Reply> selectReply(Integer k) throws Exception;
+	public Reply selectReply(Integer k) throws Exception;
 }

@@ -1,7 +1,5 @@
 package com.sof8.reply;
 
-import java.util.List;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,13 +15,11 @@ class SelectReplyTests {
 
 	@Test
 	void contextLoads() {
-		List<Reply> reply = null;
+		Reply reply = null;
 		
 		try {
-			reply = service.getReply(55);
-			for (Reply re : reply) {
-				System.out.println(re);
-			}
+			reply = service.getReply(5);
+			System.out.println(reply);
 			System.out.println("OK");
 		} catch (Exception e) {
 			System.out.println("Fail");
