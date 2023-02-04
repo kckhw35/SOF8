@@ -2,7 +2,7 @@
 
 	function writeReply(){
 		$('#reply-table').children('tr').remove();
-		var r_id = [[${qna.r_id}]];
+		var r_id = '[[${qna.r_id}]]';
 		
 		var html = `
 				<tr>
@@ -36,7 +36,7 @@
 		/* 기존 내용 제거 - 텍스트 입력창 생성을 위해 */
  		$('#reply-table').children('tr').remove();
 		
-		var r_id = [[${qna.r_id}]];
+		var r_id = '[[${qna.r_id}]]';
 
 		var html = `
 			<tr>

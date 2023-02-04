@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.sof8.dto.Cart;
 import com.sof8.dto.Member;
 import com.sof8.dto.OrderForm;
+import com.sof8.dto.Schedule;
 import com.sof8.service.CartService;
 import com.sof8.service.DeliveryService;
 import com.sof8.service.DetailOrderService;
@@ -136,7 +137,7 @@ public class OrderController {
 		// 배달 일정 확인
 		@PostMapping("/checkschedule")
 		public String checkschedule(Model model, @RequestParam(value="r_date") String r_date) {
-			/* List<Schedule> slist = sservice.checktime(r_date); */
+			List<Schedule> slist = new ArrayList<>();
 			List<Integer> enable_time = new ArrayList<Integer>();
 			int dmancnt = 0;
 			int schedulecnt = 0;
@@ -147,8 +148,9 @@ public class OrderController {
 			// 배달기사 정보
 			try {
 				dmancnt = deservice.deliverymancnt();	// 총 배달기사 수
+				slist = sservice.checktime(r_date);
+				System.out.println(slist);
 				
-					
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

@@ -20,7 +20,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		DELETE FROM delivery WHERE d_id = ${d_id}
 	</delete>
 	<!-- 총 배달기사 수 -->
-	<select id="deliverymancnt" parameterType="int">
+	<select id="deliverymancnt" resultType="int">
 		SELECT COUNT(d_id) FROM delivery
 	</select>
 </mapper>
