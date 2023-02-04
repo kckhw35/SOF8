@@ -3,6 +3,30 @@
 /*******************************************
 [Table of Content]
 1. Common			: 공통 
+<<<<<<< HEAD
+2. Admin			
+	2.1 login		: 로그인
+	2.2 memberlist	: 회원 리스트 
+3. Member 			: 
+	3.1 account		: 회원가입
+	3.2 accountok	: 회원가입 성공
+	3.3 accountfail	: 회원가입 실패
+	3.4 login		: 로그인
+	3.5 loginfail	: 로그인 실패
+4. Mypage
+	4.1 sidenav		: 마이페이지 메뉴 	
+	4.2 info		: 회원정보
+	4.3 edit		: 회원정보 수정
+5. Order
+	4.1 cart		: 장바구니		
+
+*******************************************/
+/*=== [ 1. Common ] ===*/
+.memberlist .none {
+	display: none;
+}
+
+=======
 2. Member 			: 
 	2.1 account		: 회원가입
 	2.2 accountok	: 회원가입 성공
@@ -21,6 +45,7 @@
 
 *******************************************/
 /*=== [ 1. Common ] ===*/
+>>>>>>> temp
 .dropdown-menu>.active>a, 
 .dropdown-menu>.active>a:focus, 
 .dropdown-menu>.active>a:hover {
@@ -121,20 +146,25 @@ input[type="checkbox"]:checked+input+label:before {
 .large {
 	font-size: 14px;
 } /* account, accountok, accountfail, loginfail */
+
 .clearfix {
 	margin-top: 40px;
 } /* accountfail, loginfail */
+
 .eye {
 	line-height: 45px;
 	font-size: 22px;
 } /* account, edit */
+
 .form-control-feedback {
 	pointer-events: auto;
 } /* account, edit */
+
 .line {
 	padding: 10px;
 	border: 1px solid #dedede;
 } /* info, edit */
+
 .edit-email {
 	overflow: hidden;
 	position: relative;
@@ -154,19 +184,40 @@ input[type="checkbox"]:checked+input+label:before {
 	font-size: 12px;
 }
 
-/*=== [ 2. Member ] ===*/
-/*== [ 2.1 account ] ==*/
+/*=== [ 2. Admin ] ===*/
+/*== [ 2.1 login ] ==*/
+/*== [ 2.2 memberlist ] ==*/
+.memberlist .form-inline .form-group {
+	width: 100%;
+	margin-bottom: 20px;
+}
+
+.memberlist .form-inline .col-md-6 {
+	padding: 0;
+}
+
+.memberlist .empty {
+	height: 100px;
+}
+
+.memberlist .cart .product-list .table td {
+	border: 0;
+	border-top: 1px solid #ddd;
+}
+/*=== [ 3. Member ] ===*/
+/*== [ 3.1 account ] ==*/
 .account p {
 	display: block;
 	margin: 0;
 }
-/*== [ 2.2 accountok ] ==*/
-/*== [ 2.3 accountfail ] ==*/
-/*== [ 2.4 login ] ==*/
-/*== [ 2.5 loginfail ] ==*/
 
-/*=== [ 3. Mypage ] ===*/
-/*== [ 3.1 sidenav ] ==*/
+/*== [ 3.2 accountok ] ==*/
+/*== [ 3.3 accountfail ] ==*/
+/*== [ 3.4 login ] ==*/
+/*== [ 3.5 loginfail ] ==*/
+
+/*=== [ 4. Mypage ] ===*/
+/*== [ 4.1 sidenav ] ==*/
 .ud-space {
 	margin: 20px 0;
 }
@@ -178,7 +229,7 @@ input[type="checkbox"]:checked+input+label:before {
 	background-color: #000;
 }
 
-/*== [ 3.2 info ] ==*/
+/*== [ 4.2 info ] ==*/
 .info p {
 	display: block;
 	margin: 0;
@@ -188,13 +239,13 @@ input[type="checkbox"]:checked+input+label:before {
 	border: 0px;
 }
 
-/*== [ 3.3 edit ] ==*/
+/*== [ 4.3 edit ] ==*/
 .edit p {
 	display: block;
 	margin: 0;
 }
 
-/*== [ 3.4 wish ] ==*/
+/*== [ 4.4 wish ] ==*/
 .wish p {
 	display: block;
 	margin: 0;
@@ -230,6 +281,19 @@ input[type="checkbox"]:checked+input+label:before {
 	border-radius: 0;
 }
 
+.pagination>.active>a, 
+.pagination>.active>a:focus, 
+.pagination>.active>a:hover, 
+.pagination>.active>span, 
+.pagination>.active>span:focus, 
+.pagination>.active>span:hover {
+    z-index: 3;
+    color: #fff;
+    cursor: default;
+    background-color: #000;
+    border-color: #000;
+}
+
 .center {
 	text-align: center;
 }
@@ -246,8 +310,8 @@ dl {
 	margin-top: 14px;
 }
 
-/*=== [ 4. Order ] ===*/
-/*== [ 4.1 cart ] ==*/
+/*=== [ 5. Order ] ===*/
+/*== [ 5.1 cart ] ==*/
 
 /* 장바구니 테이블 */
 .cart p {
@@ -265,6 +329,7 @@ dl {
 
 .cart th {
 	text-align: center;
+	vertical-align: middle;
 }
 
 /* 상품명을 제외한 나머지 컬럼 중앙정렬 */

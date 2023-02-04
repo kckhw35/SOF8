@@ -1,0 +1,24 @@
+@charset "UTF-8";
+
+/*******************************************
+[Table of Content]
+1. Common			: 공통 
+2. Member 			: 
+	2.1 account		: 회원가입
+	2.2 accountok	: 회원가입 성공
+	2.3 accountfail	: 회원가입 실패
+	2.4 login		: 로그인
+	2.5 loginfail	: 로그인 실패
+3. Mypage
+	3.1 sidenav		: 마이페이지 메뉴 	
+	3.2 info		: 회원정보
+	3.3 edit		: 회원정보 수정
+
+4. Order
+	4.1 cart		: 장바구니	
+
+*******************************************/
+/*=== [ 1. Common ] ===*/
+.table-content {
+	background-color:#f7f7f7;
+}

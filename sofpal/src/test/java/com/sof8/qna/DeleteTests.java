@@ -1,16 +1,16 @@
-package com.sof8.faq;
+package com.sof8.qna;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.sof8.service.FaqService;
+import com.sof8.service.QnaService;
 
 @SpringBootTest
 class DeleteTests {
 	 
 	@Autowired
-	FaqService service;
+	QnaService service;
 
 	@Test
 	void contextLoads() {

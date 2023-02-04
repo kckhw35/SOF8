@@ -5,9 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sof8.dto.Faq;
 import com.sof8.service.FaqService;
@@ -20,6 +22,19 @@ public class FaqController {
 	FaqService service;
 	
 	String dir ="faq/";
+	
+	@ResponseBody
+	@GetMapping("/content")
+	public String getFaqContent(@RequestParam int b_id) {
+		Faq faq = new Faq();
+		try {
+			faq = service.get(b_id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return faq.getContent();
+	}
+	
 	
 	@RequestMapping("")
 	public String getFaqList(Model model, 
@@ -58,7 +73,7 @@ public class FaqController {
 	
 	
 	//게시글 클릭
-	@RequestMapping("/{b_id}")
+	//@RequestMapping("/{b_id}")
 	public String getFaqContent(Model model, 
 			@PathVariable("b_id") int b_id,
 			@RequestParam(required = false) String searchOption,
@@ -134,7 +149,22 @@ public class FaqController {
 			e.printStackTrace();
 		}
 		
-		return "redirect:/faq/" + b_id;
+		return "redirect:/faq";
+	}
+	
+	@RequestMapping("/delete")
+	public String deleteFaq(Model model,
+			@RequestParam int b_id) {
+		
+		try {
+			service.remove(b_id);
+		} catch (Exception e) {
+			System.out.println("Fail");
+			e.printStackTrace();
+		} 
+
+		model.addAttribute("content", dir + "list");
+		return "redirect:/faq";
 	}
 	
 }

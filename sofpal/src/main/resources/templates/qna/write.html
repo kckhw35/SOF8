@@ -19,32 +19,29 @@
 		}
 	};
 </script>
-
 <body id="body">
 	<!-- ========================page-header ============================ -->
-	<section class="memberlist">
+	<section class="page-header"
+		style="background-image: url(../images/slider/slider-2.png);">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
-					<div class="page-wrapper shopping cart">
-						<div class="page-header">
-							<div class="container">
-								<h1>공지사항</h1>
-								<ol class="breadcrumb">
-									<li><a th:href="@{/}">Home</a></li>
-									<li>커뮤니티</li>
-									<li class="active">공지사항</li>
-								</ol>
-							</div>
-						</div>
+					<div style="padding: 80px" class="content">
+						<h1 class="text-center">NOTICE</h1>
+						<h3 style="display: block" class="text-center">
+							<b>공지사항</b>
+						</h3>
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
+
 	<!-- ========================== page-wrapper========================== -->
 
 	<div class="container">
+		<h2>공지사항</h2>
+		<br><br>
 		<div class="col-md-10">
 			<form id="saveForm" style="border-top:solid; padding: 40px 20px 50px 20px;" method="post">
 				<!-- 만약 게시글 수정이라면, 게시글 b_id를 같이 보내기 위함 -->
@@ -68,3 +65,4 @@
 		</div>
 	</div>
 </body>
+</html>

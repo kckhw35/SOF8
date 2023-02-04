@@ -12,55 +12,59 @@
 			return false;
 		}
 		$("#saveButton").attr("disabled", true);
-		if ([[ ${notice == null} ]]) {
-			$("#saveForm").attr("action", "/notice/save").submit();
+		if ([[ ${faq == null} ]]) {
+			$("#saveForm").attr("action", "/faq/save").submit();
 		}else{
-			$("#saveForm").attr("action", "/notice/update").submit();
+			$("#saveForm").attr("action", "/faq/update").submit();
 		}
 	};
 </script>
+
 <body id="body">
 	<!-- ========================page-header ============================ -->
-	<section class="page-header"
-		style="background-image: url(../images/slider/slider-2.png);">
+	<section class="memberlist">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-12">
-					<div style="padding: 80px" class="content">
-						<h1 class="text-center">NOTICE</h1>
-						<h3 style="display: block" class="text-center">
-							<b>공지사항</b>
-						</h3>
+				<div class="col-md-10 col-md-offset-1">
+					<div class="page-wrapper shopping cart">
+						<div class="page-header">
+							<div class="container">
+								<h1>자주하는 문의</h1>
+								<ol class="breadcrumb">
+									<li><a th:href="@{/}">Home</a></li>
+									<li>커뮤니티</li>
+									<li class="active">자주하는 문의</li>
+								</ol>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
-
+	
 	<!-- ========================== page-wrapper========================== -->
-
+	
 	<div class="container">
-		<h2>공지사항</h2>
-		<br><br>
-		<div class="col-md-10">
+		<div class="col-md-10 col-md-offset-1">
 			<form id="saveForm" style="border-top:solid; padding: 40px 20px 50px 20px;" method="post">
 				<!-- 만약 게시글 수정이라면, 게시글 b_id를 같이 보내기 위함 -->
-				<input type="hidden" id="b_id" name="b_id" th:if="${notice != null}" th:value="${notice.b_id}"/>
+				<input type="hidden" id="b_id" name="b_id" th:if="${faq != null}" th:value="${faq.b_id}"/>
 				<div class="form-group" style="padding:10px 0 10px 0">
 					<label>제목</label>
-					<input th:if="${notice != null}" type="text" class="form-control" id="title" name="title" th:value="${notice.title}">
-					<input th:unless="${notice != null}" type="text" class="form-control" id="title" name="title" placeholder="제목을 입력해주세요">
+					<input th:if="${faq != null}" type="text" class="form-control" id="title" name="title" th:value="${faq.title}">
+					<input th:unless="${faq != null}" type="text" class="form-control" id="title" name="title" placeholder="제목을 입력해주세요">
 				</div>
 				
 				<div class="form-group">
 					<label>내용</label>
-					<textarea th:if="${notice != null}" class="form-control" rows="5" id="content" name="content" th:text="${notice.content}"></textarea>
-					<textarea th:unless="${notice != null}" class="form-control" rows="5" id="content" name="content" placeholder="내용을 입력해주세요"></textarea>
+					<textarea th:if="${faq != null}" class="form-control" rows="5" id="content" name="content" th:text="${faq.content}"></textarea>
+					<textarea th:unless="${faq != null}" class="form-control" rows="5" id="content" name="content" placeholder="내용을 입력해주세요"></textarea>
 				</div>
-				
-				<a th:if="${notice != null}" th:href="@{/notice/{b_id}(b_id=${notice.b_id})}" class="btn btn-default pull-right">취소</a>
-				<a th:unless="${notice != null}" th:href="@{/notice}" class="btn btn-default pull-right">취소</a>
-				<button type="button" id="saveButton" onclick="savePost();"class="btn btn-default pull-right">저장</button>
+				<div class="btn-group pull-right" role="group">
+					<button type="button" class="btn btn-default" onclick='savePost()'>저장</button>
+					<button type="button" class="btn btn-default" onclick='return location.href="/faq";'>취소</button>
+				</div>
 			</form>
 		</div>
 	</div>

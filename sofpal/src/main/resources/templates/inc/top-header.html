@@ -22,7 +22,7 @@
 					<li th:if="${session.admin != null}"><span style="color:red; font-weight: border; border: 2px solid red;">[[${session.admin.admin_name}]] 관리자</span></li>
 					<!-- Management -->
 					<li th:if="${session.admin != null}">
-						<a th:href="@{/admin/management}" class="account"><iconify-icon icon="carbon:id-management"></iconify-icon> 회원관리</a>
+						<a th:href="@{/admin/memberlist}" class="account"><iconify-icon icon="carbon:id-management"></iconify-icon> 회원관리</a>
 					</li>
 					<!-- Login -->
 					<li class="login-site" th:if="${session.admin == null && session.member == null}">

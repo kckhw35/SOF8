@@ -1,23 +1,37 @@
+<script>
+	function deleteFaq(){
+		if(!confirm("정말 삭제하시겠습니까?")){
+			return
+		}
+		location.href="/notice/[[${notice.b_id}]]/delete";
+	}
+</script>
 
 <body id="body">
 	<!-- ========================page-header ============================ -->
-	<section class="page-header" style="background-image: url(../images/slider/slider-2.png);">
+	<section class="memberlist">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
-					<div style="padding:80px" class="content">
-						<h1 class="text-center">NOTICE</h1>
-						<h3 style="display:block" class="text-center"><b>공지사항</b></h3>
+					<div class="page-wrapper shopping cart">
+						<div class="page-header">
+							<div class="container">
+								<h1>공지사항</h1>
+								<ol class="breadcrumb">
+									<li><a th:href="@{/}">Home</a></li>
+									<li>커뮤니티</li>
+									<li class="active">공지사항</li>
+								</ol>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
-
+	
 	<!-- ========================== page-wrapper========================== -->
 	<div class="container">
-		<h2>공지사항</h2>
-		<br> <br>
 		<div class="row"
 			style="background-color: #F7F7F7; padding: 20px 20px 20px 5px; margin: 5px; border-top: solid 2px; border-bottom: solid 2px">
 			<h3 style="font-weight: bold;" class="col" th:text=${notice.title}>
@@ -45,7 +59,8 @@
 				<button th:unless="!${keyword} or ${keyword} =='null'" type="button" class="btn btn-default"><a th:href="@{|/notice?page=${page}&searchOption=${searchOption}&keyword=${keyword}|}">목록</a></button>
 				
 				<button type="button" class="btn btn-default"><a th:href="@{|/notice/write?b_id=${notice.b_id}|}">수정</a></button>
-				<button type="button" class="btn btn-default"><a th:href="@{|/admin/notice/${notice.b_id}/delete|}">삭제</a></button>
+				<!-- <button type="button" class="btn btn-default"><a th:href="@{|/notice/${notice.b_id}/delete|}">삭제</a></button> -->
+				<button type="button" class="btn btn-default" onclick="deleteFaq()">삭제</button>
 			</div>
 		</div>
 	</div>

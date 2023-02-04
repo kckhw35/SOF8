@@ -7,43 +7,43 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sof8.dto.Member;
 import com.sof8.dto.Paging;
+import com.sof8.dto.Qna;
 import com.sof8.frame.Sof8Service;
-import com.sof8.mapper.MemberMapper;
+import com.sof8.mapper.QnaMapper;
 
 @Service
-public class MemberService implements Sof8Service<String, Member>{
+public class QnaService implements Sof8Service<Integer, Qna>{
 
 	@Autowired
-	MemberMapper mapper;
+	QnaMapper mapper;
 
 	@Override
-	public void register(Member v) throws Exception {
+	public void register(Qna v) throws Exception {
 		mapper.insert(v);
 	}
 
 	@Override
-	public void remove(String k) throws Exception {
+	public void remove(Integer k) throws Exception {
 		mapper.delete(k);
 	}
 
 	@Override
-	public void modify(Member v) throws Exception {
+	public void modify(Qna v) throws Exception {
 		mapper.update(v);
 	}
 
 	@Override
-	public Member get(String k) throws Exception {
+	public Qna get(Integer k) throws Exception {
 		return mapper.select(k);
 	}
-	
+
 	@Override
-	public List<Member> get() throws Exception {
+	public List<Qna> get() throws Exception {
 		return mapper.selectall();
 	}
-
-	public List<Member> getList(Paging paging) throws Exception {
+	
+	public List<Qna> getList(Paging paging) throws Exception {
 		return mapper.selectList(paging);
 	}
 	
@@ -54,13 +54,5 @@ public class MemberService implements Sof8Service<String, Member>{
 		return mapper.getTotal(map);
 	}
 
-	public void modifyEnable(String k) throws Exception {
-		mapper.updateEnable(k);
-	}
-
-	public Member getId(Member v) throws Exception {
-		return mapper.selectMemberId(v);
-	}
-
-
+	
 }

@@ -1,22 +1,29 @@
+<link rel="stylesheet" th:href="@{/css/style-notice.css}">
+
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
 <script>
-	$(".print-content").click(function(){
-		alert($(this).attr("data-id"));
-/* 		 $.ajax({
-             type : "GET",            // HTTP method type(GET, POST) 형식이다.
-             url : "/test/ajax",                                                                                                   // 컨트롤러에서 대기중인 URL 주소이다.
-             data : params,            // Json 형식의 데이터이다.
-             success : function(res){ // 비동기통신의 성공일경우 success콜백으로 들어옵니다. 'res'는 응답받은 데이터이다.
-                 // 응답코드 > 0000
-                 alert(res.code);
-             },
-             error : function(XMLHttpRequest, textStatus, errorThrown){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
-                 alert("통신 실패.")
-             }
-         }); */
-	});
+	function deleteFaq(){
+		if($('.table-content').length <= 0){
+			alert("문의 내용을 선택해주세요");
+			return
+		}
+		if(!confirm("정말 삭제하시겠습니까?")){
+			return
+		}
+		var id = $("td[aria-pressed='true']").attr('data-id');
+		location.href="/faq/delete?b_id="+id;
+	}
 	
+	function updateFaq(){
+		
+		if($('.table-content').length <= 0){
+			alert("문의 내용을 선택해주세요");
+			return
+		}
+		var id = $("td[aria-pressed='true']").attr('data-id');
+		location.href="/faq/write?b_id="+id;
+	}
 	
 	function renderPagination(rowsShown, rowsTotal, pageShown, curPage) {
 		
@@ -24,7 +31,7 @@
 		if ($('ul.pagination').find('.page-item').length > 0) {
 			$('.page-item').remove();
 		}
-		console.log("==========");
+
 		var totalPages = parseInt((rowsTotal - 1) / rowsShown) + 1;		//전체페이지 수
 		var leftPage =  1 + 5 * parseInt((curPage - 1) / pageShown);	//왼쪽 페이지 숫자
 		var rightPage = leftPage + pageShown - 1;		//오른쪽 페이지 숫자
@@ -88,6 +95,53 @@
 
 	$(document).ready(function(){
 		renderPagination(10, [[${#lists.size(faqs)}]], 5, [[${page}]]);
+		
+		/* 문의 클릭시, 문의 내용 ajax 통신으로 렌더링해준다. */
+		$("td[aria-pressed='false']").click(function(){
+			
+			if ($(this).attr('aria-pressed') == 'false'){
+				
+				/* 기존에 표시되어있던 content 제거 */
+				if($('.table-content').length > 0){
+					$('.table-content').remove();
+					/* 기존에 클릭되어있던 항목 다시 원상 복구 */
+					$("td[aria-pressed='true']").attr('aria-pressed', 'false');
+				}
+
+				$(this).attr('aria-pressed', 'true');
+				
+				var id = $(this).attr("data-id");
+				var html = "";
+				console.log(id);
+				
+				
+				$.ajax({
+					type : "GET",
+					url : "/faq/content",
+					data : "b_id=" + id,
+					success: function(content){
+						html = `<tr class="table-content">
+									<td></td>
+									<td>${content}</td>
+								</tr>`;
+						console.log(content);
+						$('td[data-id='+ id +']').closest('tr').after(html);
+					},
+					error: function(XMLHttpRequest, textStatus, errorThrown){
+						alert("통신 실패.")
+					}
+				});
+			}
+			
+			/* 클릭되어서 내용이 표시되어있는 항목 한번더 클릭 시 */
+			else{
+				$('.table-content').remove();
+				/* 기존에 클릭되어있던 항목 다시 원상 복구 */
+				$("td[aria-pressed='true']").attr('aria-pressed', 'false');
+			}
+			
+		});
+		
 	});
 	
 </script>
@@ -95,22 +149,30 @@
 
 <body id="body">
 	<!-- ========================page-header ============================ -->
-	<section class="page-header" style="background-image: url(../images/slider/slider-2.png);">
+	<section class="memberlist">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-12">
-					<div style="padding:80px" class="content">
-						<h1 class="text-center">FAQ</h1>
-						<h3 style="display:block" class="text-center"><b>자주하는 문의</b></h3>
+				<div class="col-md-10 col-md-offset-1">
+					<div class="page-wrapper shopping cart">
+						<div class="page-header">
+							<div class="container">
+								<h1>자주하는 문의</h1>
+								<ol class="breadcrumb">
+									<li><a th:href="@{/}">Home</a></li>
+									<li>커뮤니티</li>
+									<li class="active">자주하는 문의</li>
+								</ol>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
+	
 	<!-- ========================== page-wrapper========================== -->
 	<div class="container">
-		<div class="col-md-8 col-md-offset-2">
-			<h2>자주하는 문의</h2><br>
+		<div class="col-md-10 col-md-offset-1">
 			<form id="searching_faq" class="form-inline" method="get" th:action="@{/faq}">
 				<div class="row">
 					<select name="searchOption" class="form-control">
@@ -120,7 +182,11 @@
 					</select> 
 					<input name="keyword" th:value=${keyword} class="form-control" type="search"> 
 					<input class="btn btn-default" type="submit" value="검색">
-					<button type="button" class="btn btn-default pull-right"><a th:href="@{/faq/write}">등록</a></button>
+					<div class="btn-group pull-right" role="group">
+						<button type="button" class="btn btn-default"><a href="/faq/write">등록</a></button>
+						<button type="button" class="btn btn-default" onclick='updateFaq()'>수정</button>
+						<button type="button" class="btn btn-default" onclick='deleteFaq()'>삭제</button>
+					</div>
 				</div>
 			</form>
 			<br><br>
@@ -134,7 +200,7 @@
 				<tbody>
 					<tr th:each="faq: ${faqs}">
 						<td th:text="${faqStat.size - faqStat.index}"></td>
-						<td class="print-content" data-pressed="false" data-id="${faq.b_id}" style="cursor:pointer;" th:text="${faq.title}"></td>
+						<td style="cursor:pointer;" aria-pressed="false" th:data-id="${faq.b_id}" th:text="${faq.title}"></td>
 					</tr>
 				</tbody>
 			</table>
@@ -153,5 +219,3 @@
 	</div>
 </body>
 </html>
-
-

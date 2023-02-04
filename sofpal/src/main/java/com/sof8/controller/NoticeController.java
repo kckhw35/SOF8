@@ -141,4 +141,21 @@ public class NoticeController {
 		return "redirect:/notice/" + b_id;
 	}
 	
+	
+	// view를 통하지 않고 url 검색으로 게시판을 지워버릴 수 도 있다....
+	@RequestMapping("/{b_id}/delete")
+	public String NoticeDelete(Model model, @PathVariable("b_id") int b_id) {
+
+		// 관리자로 로그인이 안되어 있으면, redirect:/notice/{b_id} -> 나중에 추가해야한다.
+		
+		try {
+			service.remove(b_id);
+		} catch (Exception e) {
+			System.out.println("Fail");
+			e.printStackTrace();
+		} 
+
+		model.addAttribute("content", dir + "list");
+		return "redirect:/notice";
+	}
 }

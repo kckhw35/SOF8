@@ -10,6 +10,31 @@
 
 /*=== [ 1. Button Fuction ] ===*/
 
+// 체크 박스 전체 선택 
+function selectAll(selectAll) {
+	// 전체 체크박스 버튼
+	var checkbox = document.getElementsById("checkAll");
+
+	// 전체 체크박스 버튼 체크 여부
+	var is_checked = checkbox.checked;
+	
+	// 전체 체크박스 제외한 모든 체크박스
+	if(is_checked) {
+		// 체크박스 전체 체크
+		allChecked
+	} else {
+		// 체크박스 전체 해제
+		allUnchecked
+	}
+};
+
+// 체크박스 전체 체크
+function allChecked() {
+	document.querySelectorAll("").forEach(function(v, i) {
+            v.checked = true;
+        });
+};
+
 // 비밀번호 보이기/숨기기 토글 버튼
 function pwd_toggle() {
 	$('.eye').on('click', function() {
@@ -140,8 +165,8 @@ function find_id() {
 
 // 본인인증 이메일 보내기
 function send_authemail(name, email) {
-		console.log(name);
-		console.log(email);
+	console.log(name);
+	console.log(email);
 	if (name != null && email != null) {
 		var member = {
 			'name': name,
@@ -213,8 +238,8 @@ function save_member_id() {
 
 	$.ajax(option).done(function(data) {
 		console.log(data);
-		if (data == '-1')		$('#error').text('탈퇴 등의 사유로 활동이 정지된 계정입니다.');
-		else if (data == '0')	$('#error').text('아이디 또는 비밀번호가 일치하지 않습니다.');
+		if (data == '-1') $('#error').text('탈퇴 등의 사유로 활동이 정지된 계정입니다.');
+		else if (data == '0') $('#error').text('아이디 또는 비밀번호가 일치하지 않습니다.');
 		else location.href = '/'
 	});
 
@@ -244,7 +269,7 @@ function save_admin_id() {
 		console.log(data);
 		if (data == '-1') $('#error').text('탈퇴 등의 사유로 활동이 정지된 계정입니다.');
 		else if (data == '0') $('#error').text('아이디 또는 비밀번호가 일치하지 않습니다.');
-		else location.href='/';
+		else location.href = '/';
 	});
 
 	return false;
