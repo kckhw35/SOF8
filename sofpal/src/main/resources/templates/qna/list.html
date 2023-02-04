@@ -15,7 +15,7 @@
 						</div>
 					</div>
 					<div class="product-list">
-						<form id="form_qnalist" class="form-inline" th:action="@{/qna/list}" method="get">
+						<form id="form_qnalist" class="form-inline" th:action="@{/admin/qna/list}" method="get">
 							<div class="form-group">
 								<div class="col-md-offset-6 col-md-6">
 									<div class="pull-right">
@@ -52,7 +52,8 @@
 									</tr>	
 									<tr th:if="${qnas != null}" th:each="qna : ${qnas}">
 										<td class="text-center" th:text="${paging.totalRow - (qnaStat.index + paging.offset)}"></td>
-										<td class=""><a style="margin-left:5%;" th:text="${qna.title}" th:href="@{/qna/content(id=${qna.r_id})}"></a></td>
+										<td th:if="${paging.keyword == null}" class=""><a style="margin-left:5%;" th:text="${qna.title}" th:href="@{/admin/qna/content(id=${qna.r_id},page=${paging.page})}"></a></td>
+										<td th:if="${paging.keyword != null}" class=""><a style="margin-left:5%;" th:text="${qna.title}" th:href="@{/admin/qna/content(id=${qna.r_id},page=${paging.page},keyword=${paging.keyword},type=${paging.type})}"></a></td>
 										<td class="" th:text="${qna.user_id}"></td>
 										<td class="" th:text="${#dates.format(qna.rdate,'yyyy.MM.dd')}"></td>
 										<td class="" th:if="${#lists.isEmpty(qna.reply)}" th:text="대기중"></td>
