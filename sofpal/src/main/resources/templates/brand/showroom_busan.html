@@ -10,9 +10,10 @@
 			<h2>SHOWROOM</h2>
 			<p class="title_sub">쇼룸안내</p>
 			<ul class="aboutUs_tab">
-				<li class="here"><a href="#">Hannam</a></li>
+				<li class="here">
+				    <a th:href="@{/brand/showroom}">Hannam</a></li>
 				<li><a th:href="@{/brand/showroom_pangyo}">Pangyo</a></li>
-				<li><a th:href="@{/brand/showroom_busan}">Busan</a></li>
+				<li><a th:href="@{/brand/shworomm_busan}">Busan</a></li>
 			</ul>
 		</div>
 
@@ -21,33 +22,61 @@
 			<div class="img_showroom ">
 				<div class="slider-wrapper theme-default">
 					<div class="ribbon"></div>
-				
+					
 					<div id="nivoSlider5"  class="nivoSlider"
 					style="position: relative; overflow: hidden; width: 1600px; height: 900px;">
-					<img src='/images/showroom/Hannam.jpeg' style="width:72%;">
+					<img src='/images/showroom/busan.jpeg' style="width:72%;">
 						<a href="javascript:;" rel="28" class="nivohref"
 							style='display: block;'> 
 							
+					
 							</a> 
 							
 					</div>
 				</div>
 
 			</div>
+			
 
             <div id="map" style="width:100%;height:400px;"></div>
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=fb7155b02475010dd2cb648c5911438c"></script>
 	<script>
 		var container = document.getElementById('map');
 		var options = {
-			center: new kakao.maps.LatLng(37.5367744689854, 127.012585812001),  //지도의 중심 좌표 한남 
+			center: new kakao.maps.LatLng(35.19723387459043, 129.22826237240545), // 부산 
 			level: 3
 		};
 
 		var map = new kakao.maps.Map(container, options);
 		
-		
-		
+	/* 	
+		function displaymarker(data){
+		 	var imageSrc = "/images/mk.jpeg"; 
+	    var imageSize = new kakao.maps.Size(24, 35);   
+		    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);  
+			
+			for(var i=0; i<data.length; i++){
+				 var marker = new kakao.maps.Marker({
+			        map: map,
+			        position: new kakao.maps.LatLng(data[i].lat, data[i].lng),
+			        image: markerImage
+				 });
+				 
+				 var iwContent = '<h3>'+data[i].title+'</h3>';
+				 iwContent += '<img width="50px" src="/images/'+data[i].img+'">';
+			     var iwPosition = new kakao.maps.LatLng(data[i].lat, data[i].lng);
+
+				 var infowindow = new kakao.maps.InfoWindow({
+				     position : iwPosition, 
+				     content : iwContent
+				 });
+				 kakao.maps.event.addListener(marker, 'mouseover', mouseoverListener(marker, infowindow));
+				 kakao.maps.event.addListener(marker, 'mouseout', mouseoutListener(marker, infowindow));
+		    	 kakao.maps.event.addListener(marker, 'click', mouseclickListener(data[i].target)); 
+			};
+			
+	
+    		 */
 	</script>
             
           
@@ -65,7 +94,7 @@
 						<tbody>
 							<tr>
 								<th>주소</th>
-								<td>서울특별시 용산구 독서당로 122</td>
+								<td>부산 기장군 기장읍 기장해안로 268-32</td>
 							</tr>
 							<tr>
 								<th>운영시간</th>
@@ -73,7 +102,7 @@
 							</tr>
 							<tr>
 								<th>전화번호</th>
-								<td>02-797-2788</td>
+								<td>051-797-2788</td>
 							</tr>
 							<tr>
 								<th>주차안내</th>

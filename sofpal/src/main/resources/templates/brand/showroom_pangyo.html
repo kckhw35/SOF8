@@ -10,7 +10,7 @@
 			<h2>SHOWROOM</h2>
 			<p class="title_sub">쇼룸안내</p>
 			<ul class="aboutUs_tab">
-				<li class="here"><a href="#">Hannam</a></li>
+				<li class="here"><a th:href="@{/brand/showroom}">Hannam</a></li>
 				<li><a th:href="@{/brand/showroom_pangyo}">Pangyo</a></li>
 				<li><a th:href="@{/brand/showroom_busan}">Busan</a></li>
 			</ul>
@@ -21,10 +21,10 @@
 			<div class="img_showroom ">
 				<div class="slider-wrapper theme-default">
 					<div class="ribbon"></div>
-				
+					
 					<div id="nivoSlider5"  class="nivoSlider"
 					style="position: relative; overflow: hidden; width: 1600px; height: 900px;">
-					<img src='/images/showroom/Hannam.jpeg' style="width:72%;">
+					<img src='/images/showroom/pangyo.jpeg' style="width:72%;">
 						<a href="javascript:;" rel="28" class="nivohref"
 							style='display: block;'> 
 							
@@ -40,14 +40,11 @@
 	<script>
 		var container = document.getElementById('map');
 		var options = {
-			center: new kakao.maps.LatLng(37.5367744689854, 127.012585812001),  //지도의 중심 좌표 한남 
+			center: new kakao.maps.LatLng(37.39279369494, 127.112017130086),
 			level: 3
 		};
 
 		var map = new kakao.maps.Map(container, options);
-		
-		
-		
 	</script>
             
           
@@ -65,7 +62,7 @@
 						<tbody>
 							<tr>
 								<th>주소</th>
-								<td>서울특별시 용산구 독서당로 122</td>
+								<td>경기 성남시 분당구 판교역로 146번길 20</td>
 							</tr>
 							<tr>
 								<th>운영시간</th>
@@ -73,7 +70,7 @@
 							</tr>
 							<tr>
 								<th>전화번호</th>
-								<td>02-797-2788</td>
+								<td>031-711-2788</td>
 							</tr>
 							<tr>
 								<th>주차안내</th>

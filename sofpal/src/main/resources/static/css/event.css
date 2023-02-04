@@ -1,0 +1,177 @@
+td {
+	border-top: solid 1px #E0E0E0;
+	border-bottom: solid 1px #E0E0E0;
+}
+
+th {
+	border-top: solid 1px #aaa;
+	font-size: 13px;
+	color: #aaa;
+}
+
+#contents {
+	margin: 120px auto 0px;
+	width: 1180px;
+	overflow: hidden;
+	text-align: center;
+	position: relative;
+	display: block;
+}
+
+#detailcontents {
+	margin: 120px auto 0px;
+	overflow: hidden;
+	text-align: center;
+	position: relative;
+	display: block;
+}
+
+.title {
+	font-family: Arial;
+	display: block;
+	text-align: center;
+	font-size: 29px;
+	margin: auto;
+	
+}
+
+.product_info {
+	float: left;
+	margin-left: 30px;
+	font-size: 15px;
+}
+.eventBtn {
+	width: 240px;
+	height: 50px;
+	background-color: #ffffff;
+	outline: 0px;
+	font-size: 16px;
+	cursor: pointer;
+	border: solid 1px #aaaaaa;
+	color: #333333;
+}
+
+
+.eventBtn.selected {
+	border: solid 1px #c80a1e;
+	color: #c80a1e;
+}
+
+.eventBtn:hover {
+	cursor: pointer;
+	background-color: #c80a1e;
+	color: white;
+	border: solid 1px #c80a1e;
+}
+
+.eventBox {
+	height: 650px;
+	width: 370px;
+	margin-right: 20px;
+	display: inline-block;
+	cursor: pointer;
+	vertical-align:top;
+}
+
+.newsBox {
+	height: 450px;
+	width: 370px;
+	margin-right: 20px;
+	display: inline-block;
+	cursor: pointer;
+	vertical-align:top;
+}
+
+
+.eventBoxImg {
+	width: 373px;
+	height: 470px;
+}
+
+.newsBoxImg {
+	width: 373px;
+	height: 250px;
+}
+
+.eventBoxTitle, .eventBoxSubtitle {
+	font-family: NotoSansKR;
+	font-weight: 300;
+}
+
+.eventBoxTitle, .eventBoxSubtitle, .eventBoxDate {
+	display: block;
+	text-align: left;
+}
+
+.eventBoxSubtitle, .eventBoxDate {
+	font-size: 14px;
+	/* 	line-height: 2.86; */
+	/* 	letter-spacing: -0.4px; */
+	color: #aaaaaa;
+}
+
+.eventBoxTitle {
+	font-size: 17px;
+	/* line-height: 2.22; */
+	/* 	letter-spacing: -0.5px; */
+	color: #333333;
+	margin-top: 24px;
+}
+
+.eventBoxSubtitle {
+	margin-top: 13px;
+	line-height: 20px;
+}
+
+.eventBoxDate {
+	font-family: Arial;
+	margin-top: 29px;
+}
+
+#eventDetailTitle {
+	font-family: NotoSansKR;
+	font-size: 32px;
+	text-align: center;
+	color: #333333;
+	margin-top: 48px;
+}
+
+#eventDetailDate {
+	font-family: Arial;
+	font-size: 13.9px;
+	text-align: center;
+	color: #aaaaaa;
+	margin-top: 25px;
+}
+
+#eventDetailImg {
+	text-align: center;
+	margin: 55px auto 55px;
+}
+
+#moreListBtn:hover {
+	cursor: pointer;
+	background-color: #63666a;
+	color: white;
+	border: 1px solid #63666a;
+}
+
+
+.reViewPage.eventPgRvw{background-color: lightBlue; padding: 0; width: 100%; text-align: left;}
+.reViewPage.eventPgRvw * {font-family: 'Noto Sans KR',sans-serif, dotum, 'ë‹ì›€' !important;}
+.popupBox.pop_viewReview.rvPg * {font-family: 'Noto Sans KR',sans-serif, dotum, 'ë‹ì›€' !important;}
+.reViewPage.eventPgRvw .bstRvwBox{padding-bottom: 60px;}
+.reViewPage.eventPgRvw .bstRvwBox .slidBox .slidLst{height: 514px;}
+.reViewPage.eventPgRvw .bstRvwBox .slidBox .slidLst .slid{height: auto; border: 8px;}
+.reViewPage.eventPgRvw .dfCntntsBx.bstRv .bstRvwBox .slidBox .slidLst .slid .revwPrdct{margin: 0; padding: 16px 14px 20px 16px;}
+.reViewPage.eventPgRvw .dfCntntsBx.bstRv .revwPrdct figcaption .dfDl dt{margin: 0;}
+
+.reViewPage.eventPgRvw .goRvwPgBnnr{display: inline-flex; width: 100%; height: 72px; align-items: center; justify-content: center; background-color: #f0f0f0;}
+.reViewPage.eventPgRvw .goRvwPgBnnr .bnnrTxt{display: inline-flex; line-height: 28px; font-size: 22px; letter-spacing: -0.88px; color: #333333; margin-right: 20px;}
+.reViewPage.eventPgRvw .goRvwPgBnnr .bnnrTxt .bnnrLogo{display: inline-block; width: 133px; height: 28px; margin: 0 8px;
+	background-image: url("/img/review/myiloomLogo_red.svg"); background-size: contain; background-repeat: no-repeat; background-position: center;}
+.reViewPage.eventPgRvw .goRvwPgBnnr .bnnrBtn{display: inline-block; width: 32px; height: 32px; border-radius: 30px;
+	background-color: #c80a1e; background-image: url("/img/newImg/arrw_r_whtie.svg"); background-size: 14px 11px; background-position: center; background-repeat: no-repeat;}
+
+.popupBox._veRvwBox{text-align: left;}
+.popupBox._veRvwBox #tmplBox_revwPrdct .revwPrdct{margin: 0;}
