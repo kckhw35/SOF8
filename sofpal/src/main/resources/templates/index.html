@@ -44,17 +44,19 @@
 	<link rel="stylesheet" th:href="@{/css/style-member.css}">
 	<!-- Password Eyes Icon -->
 	<link rel="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
-	
+	<!-- 아이콘 -->
 	<script src="https://code.iconify.design/iconify-icon/1.0.2/iconify-icon.min.js"></script>
-	
+	<!--  -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-	
+	<!-- custom js -->
 	<script th:src="@{/js/script-member.js}"></script>
 	</head>
 
 <body id="body">
-	<div th:replace="inc/top-header :: top-header"></div>
-	<div th:replace="inc/main-menu :: main-menu"></div>
+	<header class="navbar navbar-fixed-top">
+		<div th:replace="inc/top-header :: top-header"></div>
+		<div th:replace="inc/main-menu :: main-menu"></div>
+	</header>
 	
 	<section>
 		<div th:include="${content} ? ${content} : content"></div>

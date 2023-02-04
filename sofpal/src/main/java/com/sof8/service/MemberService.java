@@ -54,10 +54,18 @@ public class MemberService implements Sof8Service<String, Member>{
 		return mapper.getTotal(map);
 	}
 
+	public void modifyPwd(Member v) throws Exception {
+		mapper.updatePwd(v);
+	}
+	
+	public void modifyDisable(String k) throws Exception {
+		mapper.updateDisable(k);
+	}
+
 	public void modifyEnable(String k) throws Exception {
 		mapper.updateEnable(k);
 	}
-
+	
 	public Member getId(Member v) throws Exception {
 		return mapper.selectMemberId(v);
 	}
