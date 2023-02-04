@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -37,10 +38,20 @@ public class AdminController {
 	// 관리자 로그인
 	// 127.0.0.1/admin
 	@RequestMapping("")
-	public String login(Model model, Admin Admin) {
-		model.addAttribute("content", dir + "login");
-		System.out.println("[SUCCESS] : AdminController/ - 관리자 로그인 화면 성공");
-		return "index";
+	public String login(HttpSession session, Model model, Admin Admin) {
+
+		if (checkNullSession(session)) {
+
+			model.addAttribute("content", dir + "login");
+
+			return "index";
+
+		} else {
+
+			return "redirect:/";
+
+		}
+
 	}
 
 	// 로그인 기능
@@ -48,35 +59,44 @@ public class AdminController {
 	@ResponseBody
 	@RequestMapping("/loginok")
 	public String loginok(HttpSession session, Admin admin) {
+
 		String result = "1";
-		System.out.println("Admin: " + admin);
+
 		try {
+
 			// 가입된 아이디 조회
 			Admin a = aservice.get(admin.getAdmin_id());
-			System.out.println("a: " + a);
 
 			// 가입된 아이디라면
 			if (a != null) {
+
 				// 가입된 아이디의 비밀번호가 일치한다면
 				if (a.getAdmin_pwd().equals(admin.getAdmin_pwd())) {
+
 					// 세션에 로그인 유저정보 저장
 					session.setAttribute("admin", a);
+
 					// 홈 화면으로 이동
-					System.out.println("[SUCCESS] : AdminController/loginok - 관리자 로그인 성공");
 					return "redirect:/";
+
 				} else {
+
 					// error = "아이디 또는 비밀번호가 일치하지 않습니다.";
 					result = "0";
+
 				}
+
 			} else {
+
 				// error = "아이디 또는 비밀번호가 일치하지 않습니다.";
 				result = "0";
-				System.out.println("[ERROR] : AdminController/accountok - 아이디 로그인 실패");
+
 			}
 
 		} catch (Exception e) {
-			System.out.println("[ERROR] : AdminController/accountok - 관리자 로그인 실패");
+
 			e.printStackTrace();
+
 		}
 
 		return result;
@@ -86,12 +106,10 @@ public class AdminController {
 	// 127.0.0.1/admin/logout
 	@RequestMapping("/logout")
 	public String logout(HttpSession session, Model model) {
-		// 세션이 존재할 시 세션을 삭제하여 로그아웃
-		if (session != null)
-			session.removeAttribute("admin");
 
-		model.addAttribute("content", null);
-		System.out.println("[SUCCESS] : MemberController/logout - 로그아웃 성공");
+		// 세션이 존재할 시 세션을 삭제하여 로그아웃
+		if (!checkNullSession(session))
+			session.removeAttribute("admin");
 
 		return "redirect:/";
 	}
@@ -99,33 +117,48 @@ public class AdminController {
 	// 관리자 회원가입 화면
 	// 127.0.0.1/admin/account
 	@RequestMapping("/account")
-	public String admin(Model model, Admin Admin) {
-		model.addAttribute("content", dir + "account");
-		System.out.println("[SUCCESS] : AdminController/account - 관리자 회원가입 화면 성공");
-		return "index";
+	public String admin(HttpSession session, Model model, Admin Admin) {
+
+		if (checkNullSession(session)) {
+
+			model.addAttribute("content", dir + "account");
+
+			return "index";
+
+		} else {
+
+			return "redirect:/";
+		}
+
 	}
 
 	// 관리자 회원가입 기능
 	// 127.0.0.1/admin/accountok
 	@RequestMapping("/accountok")
 	public String accountok(Model model, Admin admin) {
+
 		try {
+
 			// 회원가입 기능 실행
 			aservice.register(admin);
+
 			// 회원가입 성공화면 출력
 			model.addAttribute("content", dir + "accountok");
+
 			// 성공화면에 출력할 이름
 			model.addAttribute("name", admin.getAdmin_name());
-			System.out.println("[SUCCESS] : AdminController/accountok - 관리자 회원가입 성공");
-			// throw new Exception();
+
 		} catch (Exception e) {
+
 			// 회원가입 실패화면 출력
 			model.addAttribute("content", dir + "accountfail");
 
-			System.out.println("[ERROR] : AdminController/accountok - 관리자 회원가입 실패");
 			e.printStackTrace();
+
 		}
+
 		return "index";
+
 	}
 
 	// 관리자 아이디 중복 체크
@@ -133,8 +166,11 @@ public class AdminController {
 	@ResponseBody
 	@RequestMapping("/check_adminid")
 	public Object check_adminid(String admin_id) {
+
 		int result = 0;
+
 		try {
+
 			// 가입된 아이디 검색
 			Admin admin = aservice.get(admin_id);
 
@@ -142,46 +178,201 @@ public class AdminController {
 			if (admin != null)
 				result = 1;
 
-			System.out.println("[SUCCESS] : MainController/check_adminid");
 		} catch (Exception e) {
-			System.out.println("[ERROR] : MainController/check_adminid");
+
 			e.printStackTrace();
+
 		}
+
 		return result;
+
 	}
 
 	// 회원 리스트 화면
 	// 127.0.0.1/admin/memberlist
 	@RequestMapping("/memberlist")
-	public String memberlist(HttpSession session, Model model,
-			@RequestParam(defaultValue = "1") int page,
+	public String memberlist(HttpSession session, Model model, @RequestParam(defaultValue = "1") int page,
 			@RequestParam(required = false) String keyword,
-			@RequestParam(value="type", defaultValue = "user_id") String type
-			) {
-		System.out.println(keyword);
-		System.out.println(type);
-		if (session.getAttribute("admin") != null) {
+			@RequestParam(value = "type", defaultValue = "user_id") String type) {
+
+		if (!checkNullSession(session)) {
+
 			try {
+
 				int totalRow = mservice.getTotal(keyword, type);
-				Paging paging = new Paging(2, 2, totalRow, page, keyword, type);
-				List<Member> members = mservice.getList(paging); 
+				Paging paging = new Paging(6, 5, totalRow, page, keyword, type);
+				List<Member> members = mservice.getList(paging);
 
 				model.addAttribute("members", members);
 				model.addAttribute("page", page);
 				model.addAttribute("paging", paging);
 				model.addAttribute("content", dir + "memberlist");
-				
-				System.out.println("totalRow: " + totalRow);
-				System.out.println("paging: " + paging);
-				System.out.println("members: " + members);				
-				System.out.println("[SUCCESS] : AdminController/memberlist - 회원리스트 화면출력");
+
 			} catch (Exception e) {
+
 				e.printStackTrace();
-				System.out.println("[ERROR] : AdminController/memberlist - 회원리스트 로딩 실패");
+
 			}
+
+			return "index";
+
+		} else {
+
+			return "redirect:/";
+
 		}
 
-		return "index";
+	}
+
+	// 회원 활성화
+	// 127.0.0.1/admin/memberenable
+	@ResponseBody
+	@RequestMapping("/memberenable")
+	public Boolean memberenable(HttpSession session, @RequestParam(value = "arrlist[]") List<String> arrlist) {
+
+		Boolean result = false;
+
+		if (!checkNullSession(session)) {
+
+			for (String user_id : arrlist) {
+
+				try {
+
+					mservice.modifyEnable(user_id);
+					result = true;
+
+				} catch (Exception e) {
+
+					e.printStackTrace();
+
+				}
+
+			}
+
+		}
+
+		return result;
+
+	}
+
+	// 회원 비활성화
+	// 127.0.0.1/admin/memberdisable
+	@ResponseBody
+	@RequestMapping("/memberdisable")
+	public Boolean memberdisable(HttpSession session, @RequestParam(value = "arrlist[]") List<String> arrlist) {
+
+		Boolean result = false;
+
+		if (!checkNullSession(session)) {
+
+			for (String user_id : arrlist) {
+
+				try {
+
+					mservice.modifyDisable(user_id);
+					result = true;
+
+				} catch (Exception e) {
+
+					e.printStackTrace();
+
+				}
+
+			}
+
+		}
+
+		return result;
+	}
+
+	// 회원 상세
+	// 127.0.0.1/admin/memberedit
+	@RequestMapping("/memberedit/{user_id}")
+	public String memberedit(HttpSession session, Model model, Member member, @PathVariable String user_id) {
+
+		// 세션이 있다면(로그인 중이라면)
+		if (!checkNullSession(session)) {
+
+			try {
+
+				// 회원 정보 로딩
+				Member m = mservice.get(user_id);
+
+				model.addAttribute("member", m);
+				model.addAttribute("content", dir + "memberedit");
+
+				return "index";
+
+			} catch (Exception e) {
+
+				e.printStackTrace();
+
+			}
+
+		}
+
+		return "redirect:/";
+
+	}
+
+	// 회원정보 수정
+	// 127.0.0.1/admin/membereditok
+	@RequestMapping("/membereditok")
+	public String membereditok(HttpSession session, Member member) {
+
+		// 세션이 있다면(로그인 중이라면)
+		if (!checkNullSession(session)) {
+
+			try {
+
+				// 회원정보 수정
+				mservice.modify(member);
+
+			} catch (Exception e) {
+
+				e.printStackTrace();
+
+			}
+
+			return "redirect:/admin/memberlist";
+
+		} else {
+
+			return "redirect:/";
+
+		}
+
+	}
+
+	// 회원삭제
+	// 127.0.0.1/admin/memberdelete
+	@ResponseBody
+	@RequestMapping("/memberdelete")
+	public Boolean memberdelete(HttpSession session, @RequestParam(value = "arrlist[]") List<String> arrlist) {
+
+		Boolean result = false;
+
+		if (!checkNullSession(session)) {
+
+			for (String user_id : arrlist) {
+
+				try {
+
+					mservice.remove(user_id);
+					result = true;
+
+				} catch (Exception e) {
+
+					e.printStackTrace();
+
+				}
+
+			}
+
+		}
+
+		return result;
+
 	}
 	
 	// 상품등록 폼
@@ -205,5 +396,22 @@ public class AdminController {
 
 		model.addAttribute("content", dir + "updateproduct");
 		return "index";
-		}
+	}
+	
+	@RequestMapping("/console")
+	public String console() {
+
+		return "/admin/console";
+	}
+	
+	// 로그인 중인지 유무 확인 메소드
+	private Boolean checkNullSession(HttpSession session) {
+
+		if (session.getAttribute("admin") == null)
+			return true;
+		else
+			return false;
+
+	}
+	
 }

@@ -10,29 +10,195 @@
 
 /*=== [ 1. Button Fuction ] ===*/
 
-// 체크 박스 전체 선택 
-function selectAll(selectAll) {
-	// 전체 체크박스 버튼
-	var checkbox = document.getElementsById("checkAll");
+//  회원 정상 
+function memberEnable() {
+	//체크박스 체크된 항목
+	var query = 'input[name="checkbox"]:checked'
+	var selectedElements = document.querySelectorAll(query);
 
-	// 전체 체크박스 버튼 체크 여부
-	var is_checked = checkbox.checked;
-	
-	// 전체 체크박스 제외한 모든 체크박스
-	if(is_checked) {
-		// 체크박스 전체 체크
-		allChecked
+	//체크박스 체크된 항목의 개수
+	var selectedElementsCnt = selectedElements.length;
+
+	if (selectedElementsCnt == 0) {
+		alert("가입할 항목을 선택해주세요.");
+		return false;
 	} else {
-		// 체크박스 전체 해제
-		allUnchecked
+		if (confirm("정말로 가입하시겠습니까?")) {
+			//배열생성
+			var arr = new Array(selectedElementsCnt);
+
+			document.querySelectorAll('input[name="checkbox"]:checked').forEach(function(v, i) {
+				arr[i] = v.value;
+			});
+
+			console.log(arr);
+			var json = {
+				"arrlist": arr
+			};
+
+			var option = {
+				method: 'post',
+				url: '/admin/memberenable',
+				data: json,
+				success: function(result) {
+					if (result) {
+						alert('성공적으로 가입처리 하였습니다.');
+						$('#form_memberlist').load('/admin/memberlist #form_memberlist');
+					}
+				}
+			};
+
+			$.ajax(option);
+		}
 	}
 };
 
-// 체크박스 전체 체크
+//  회원 비활성화 
+function memberDisable() {
+	//체크박스 체크된 항목
+	var query = 'input[name="checkbox"]:checked'
+	var selectedElements = document.querySelectorAll(query);
+
+	//체크박스 체크된 항목의 개수
+	var selectedElementsCnt = selectedElements.length;
+
+	if (selectedElementsCnt == 0) {
+		alert("탈퇴할 항목을 선택해주세요.");
+		return false;
+	} else {
+		if (confirm("정말로 탈퇴하시겠습니까?")) {
+			//배열생성
+			var arr = new Array(selectedElementsCnt);
+
+			document.querySelectorAll('input[name="checkbox"]:checked').forEach(function(v, i) {
+				arr[i] = v.value;
+			});
+
+			console.log(arr);
+			var json = {
+				"arrlist": arr
+			};
+
+			var option = {
+				method: 'post',
+				url: '/admin/memberdisable',
+				data: json,
+				success: function(result) {
+					if (result) {
+						alert('성공적으로 탈퇴처리 하였습니다.');
+						$('#form_memberlist').load('/admin/memberlist #form_memberlist');
+					}
+				}
+			};
+
+			$.ajax(option);
+		}
+	}
+};
+
+//  회원 삭제
+function memberDelete(user_id) {
+
+	if (user_id == null) {
+		//체크박스 체크된 항목
+		var query = 'input[name="checkbox"]:checked'
+		var selectedElements = document.querySelectorAll(query);
+
+		//체크박스 체크된 항목의 개수
+		var selectedElementsCnt = selectedElements.length;
+
+		if (selectedElementsCnt == 0) {
+			alert("삭제할 항목을 선택해주세요.");
+			return false;
+		} else {
+			if (confirm("정말로 삭제하시겠습니까?")) {
+				//배열생성
+				var arr = new Array(selectedElementsCnt);
+
+				document.querySelectorAll('input[name="checkbox"]:checked').forEach(function(v, i) {
+					arr[i] = v.value;
+				});
+			}
+		}
+	} else {
+		if (confirm("정말로 삭제하시겠습니까?")) {
+			console.log(user_id);
+			var arr = new Array(1);
+			arr[0] = user_id;
+			console.log(arr);
+		}
+	}
+
+	var json = {
+		"arrlist": arr
+	};
+
+	var option = {
+		method: 'post',
+		url: '/admin/memberdelete',
+		data: json,
+		success: function(result) {
+			if (result) {
+				alert('성공적으로 삭제처리 하였습니다.');
+				$('#form_memberlist').load('/admin/memberlist #form_memberlist');
+			}
+		}
+	};
+
+	$.ajax(option);
+};
+
+// 체크박스 전체 선택 클릭 이벤트
 function allChecked() {
-	document.querySelectorAll("").forEach(function(v, i) {
-            v.checked = true;
-        });
+
+	//전체 체크박스 버튼
+	var checkbox = document.getElementById('allCheckbox');
+
+	//전체 체크박스 버튼 체크 여부
+	var is_checked = checkbox.checked;
+
+	//전체 체크박스 제외한 모든 체크박스
+	if (is_checked) {
+		//체크박스 전체 체크
+		chkAllChecked();
+	} else {
+		//체크박스 전체 해제
+		chkAllUnChecked();
+	}
+};
+
+//자식 체크박스 클릭 이벤트
+function chkClicked() {
+
+	//체크박스 전체개수
+	var allCount = document.querySelectorAll(".check").length;
+
+	//체크된 체크박스 전체개수
+	var query = 'input[name="check"]:checked';
+	var selectedElements = document.querySelectorAll(query);
+	var selectedElementsCnt = selectedElements.length;
+
+	//체크박스 전체개수와 체크된 체크박스 전체개수가 같으면 전체 체크박스 체크
+	if (allCount == selectedElementsCnt) {
+		document.getElementById('allCheckbox').checked = true;
+		//같지않으면 전체 체크박스 해제	
+	} else {
+		document.getElementById('allCheckbox').checked = false;
+	}
+};
+
+//체크박스 전체 체크
+function chkAllChecked() {
+	document.querySelectorAll(".check").forEach(function(v) {
+		v.checked = true;
+	});
+};
+
+//체크박스 전체 체크 해제
+function chkAllUnChecked() {
+	document.querySelectorAll(".check").forEach(function(v) {
+		v.checked = false;
+	});
 };
 
 // 비밀번호 보이기/숨기기 토글 버튼
@@ -66,6 +232,13 @@ function select_email() {
 			$('#email').val('@gmail.com');
 		}
 	});
+};
+
+// 상태 셀렉트
+function change_enable() {
+	var enable = document.getElementById('enable');
+
+
 };
 
 // 우편번호검색
@@ -108,7 +281,6 @@ function search_postcode() {
 				if (extraAddr !== '') {
 					extraAddr = ' (' + extraAddr + ')';
 				}
-
 			}
 
 			// 우편번호와 주소 정보를 해당 필드에 넣는다.
@@ -174,25 +346,43 @@ function send_authemail(name, email) {
 		}
 	} else {
 		var member = $('#form_auth').serialize();
-		console.log(member);
-		var option = {
-			type: 'POST',
-			url: '/member/send_authemail',
-			data: member,
-			success: function(data) {
-				console.log(data);
-				if (data != null) {
-					alert('인증번호가 전송되었습니다.');
-					location.href = '/member/user_authok';
-				} else {
-					alert('인증번호 전송이 실패하였습니다.');
-				}
-			}
-		};
 	}
+	console.log(member);
+	var option = {
+		type: 'POST',
+		url: '/member/send_authemail',
+		data: member,
+		success: function(data) {
+			console.log(data.values.name);
+			console.log(data.values.auth);
+			console.log(data.to);
+			if (data != null) {
+				alert('인증번호가 전송되었습니다.');
+				location.href = "/member/user_authok";
+			} else {
+				alert('인증번호 전송이 실패하였습니다.');
+			}
+		}
+	};
 	$.ajax(option);
 	return false;
-}
+};
+
+function check_auth() {
+
+	var auth = $('input[name=auth]').val();
+	var inputauth = $('input[name=inputauth]').val();
+	alert(auth);
+	alert(inputauth);
+
+
+	if (auth != inputauth) {
+		alert('인증번호가 일치하지 않습니다.');
+		return false;
+	} else {
+		location.href = "/member/reset_password";
+	}
+};
 
 
 // 아이디 기억하기
@@ -276,17 +466,23 @@ function save_admin_id() {
 };
 
 // 회원정보수정
-function check_edit() {
+function check_edit(auth) {
+	var result = true;
 	var c = confirm('수정 하시겠습니까?');
 	if (c == true) {
-
-		if (check_nowpwd() == 1)
-			if (check_pwd() & check_chkpwd() == 0)
-				return false;
-
-		if ((check_name() & check_email() & check_tel() & check_postcode() & check_addr() & check_detailaddr()) == 0)
-			return false;
+	
+		if (check_nowpwd() == 1 || auth != null) {
+			if ((check_pwd() & check_chkpwd()) == 0) {
+				result = false;
+			}
+		}
+		
+		if (auth == null) {
+			if ((check_name() & check_email() & check_tel() & check_postcode() & check_addr() & check_detailaddr()) == 0)
+			result = false;
+		}
 	}
+	return result;
 };
 
 // 회원탈퇴
@@ -376,6 +572,7 @@ function getMatchedAdminId(admin_id) {
 			$('#form_id').removeClass('has-success');
 			$('#form_id').addClass('has-error');
 			$('#error_id').text('중복된 아이디입니다.');
+			result = 0;
 		}
 	});
 	return result;
@@ -393,10 +590,12 @@ function check_userid() {
 		$('#form_id').removeClass('has-success');
 		$('#form_id').addClass('has-error');
 		$('#error_id').text('아이디를 입력해 주세요.');
+		result = 0;
 	} else if (!reg.test(user_id)) {
 		$('#form_id').removeClass('has-success');
 		$('#form_id').addClass('has-error');
 		$('#error_id').text('잘못된 형식의 아이디입니다.');
+		result = 0;
 	} else {
 		// 사용자 아이디 중복 확인
 		result = getMatchedId(user_id);
@@ -416,10 +615,12 @@ function check_adminid() {
 		$('#form_id').removeClass('has-success');
 		$('#form_id').addClass('has-error');
 		$('#error_id').text('아이디를 입력해 주세요.');
+		result = 0;
 	} else if (!reg.test(admin_id)) {
 		$('#form_id').removeClass('has-success');
 		$('#form_id').addClass('has-error');
 		$('#error_id').text('잘못된 형식의 아이디입니다.');
+		result = 0;
 	} else {
 		// 사용자 아이디 중복 확인
 		result = getMatchedAdminId(admin_id);
@@ -434,22 +635,23 @@ function check_nowpwd() {
 	var now_pwd = $('#now_pwd').val();
 	var edit_pwd = $('#edit_pwd').val();
 
-	// 현재 비밀번호가 입력됨
-	if (now_pwd != '') {
+	if (now_pwd == null) {
+		result = -1;
+	}
+	else if (now_pwd != '') {
 
 		// 입력한 비밀번호와 현재 비밀번호와 일치
 		if (now_pwd == edit_pwd) {
 			$('#form_nowpwd').removeClass('has-error');
 			$('#error_nowpwd').text('');
-
 			result = 1;
 		} else {
 			$('#form_nowpwd').removeClass('has-success');
 			$('#form_nowpwd').addClass('has-error');
 			$('#error_nowpwd').text('현재 비밀번호와 일치하지 않습니다.');
+			result = 0;
 		}
 	}
-
 	return result;
 };
 
@@ -465,10 +667,12 @@ function check_pwd() {
 		$('#form_pwd').removeClass('has-success');
 		$('#form_pwd').addClass('has-error');
 		$('#error_pwd').text('비밀번호를 입력해 주세요.');
+		result = 0;
 	} else if (!reg.test(pwd)) {
 		$('#form_pwd').removeClass('has-success');
 		$('#form_pwd').addClass('has-error');
 		$('#error_pwd').text('잘못된 형식의 비밀번호입니다.');
+		result = 0;
 	} else {
 		$('#form_pwd').removeClass('has-error');
 		$('#form_pwd').addClass('has-success');
@@ -489,10 +693,12 @@ function check_chkpwd() {
 		$('#form_chk_pwd').removeClass('has-success');
 		$('#form_chk_pwd').addClass('has-error');
 		$('#error_chk_pwd').text('비밀번호 확인을 입력해주세요.');
+		result = 0;
 	} else if (chk_pwd != pwd) {
 		$('#form_chk_pwd').removeClass('has-success');
 		$('#form_chk_pwd').addClass('has-error');
 		$('#error_chk_pwd').text('비밀번호와 일치하지 않습니다.');
+		result = 0;
 	} else {
 		$('#form_chk_pwd').removeClass('has-error');
 		$('#form_chk_pwd').addClass('has-success');
@@ -513,9 +719,11 @@ function check_name() {
 	if (name == null || name == "") {
 		$('#form_name').addClass('has-error');
 		$('#error_name').text('이름을 입력해 주세요.');
+		result = 0;
 	} else if (!reg.test(name)) {
 		$('#form_name').addClass('has-error');
 		$('#error_name').text('잘못된 형식의 이름입니다.');
+		result = 0;
 	} else {
 		$('#form_name').removeClass('has-error');
 		$('#error_name').text('');
@@ -536,9 +744,11 @@ function check_email() {
 	if (email == null || email == "") {
 		$('#form_email').addClass('has-error');
 		$('#error_email').text('이메일을 입력해 주세요.');
+		result = 0;
 	} else if (!reg.test(email)) {
 		$('#form_email').addClass('has-error');
 		$('#error_email').text('잘못된 형식의 이메일입니다.');
+		result = 0;
 	} else {
 		$('#form_email').removeClass('has-error');
 		$('#error_email').text('');
@@ -558,9 +768,11 @@ function check_tel() {
 	if (tel == null || tel == "") {
 		$('#form_tel').addClass('has-error');
 		$('#error_tel').text('휴대전화를 입력해 주세요.');
+		result = 0;
 	} else if (!reg.test(tel)) {
 		$('#form_tel').addClass('has-error');
 		$('#error_tel').text('잘못된 형식의 휴대전화입니다.');
+		result = 0;
 	} else {
 		$('#form_tel').removeClass('has-error');
 		$('#error_tel').text('');
@@ -580,6 +792,7 @@ function check_postcode() {
 		$('#error_postcode').text('우편번호를 입력해 주세요.');
 		$('#btn_postcode').removeClass('btn btn-lg');
 		$('#btn_postcode').addClass('btn btn-lg btn-danger');
+		result = 0;
 	} else {
 		$('#form_postcode').removeClass('has-error');
 		$('#error_postcode').text('');
@@ -601,9 +814,11 @@ function check_addr() {
 	if (addr == null || addr == "") {
 		$('#form_addr').addClass('has-error');
 		$('#error_addr').text('주소를 입력해 주세요.');
+		result = 0;
 	} else if (!reg.test(addr)) {
 		$('#form_addr').addClass('has-error');
 		$('#error_addr').text('잘못된 형식의 주소입니다.');
+		result = 0;
 	} else {
 		$('#form_addr').removeClass('has-error');
 		$('#error_addr').text('');
@@ -623,9 +838,11 @@ function check_detailaddr() {
 	if (de_addr == null || de_addr == "") {
 		$('#form_detailaddr').addClass('has-error');
 		$('#error_detailaddr').text('상세주소를 입력해 주세요.');
+		result = 0;
 	} else if (!reg.test(de_addr)) {
 		$('#form_detailaddr').addClass('has-error');
 		$('#error_detailaddr').text('잘못된 형식의 상세주소입니다.');
+		result = 0;
 	} else {
 		$('#form_detailaddr').removeClass('has-error');
 		$('#error_detailaddr').text('');
@@ -649,43 +866,43 @@ function check_valid() {
 	});
 
 	$('#now_pwd').focusout(function() {
-		check_nowpwd()
+		check_nowpwd();
 	});
 
 	$('#pwd').focusin(function() {
 		$('#error_pwd').html('<small class="text-primary"><b>8-20자, 하나 이상의 문자, 숫자 및 특수문자(!@#$%^&*?)</b></small>');
 	}).focusout(function() {
-		check_pwd()
+		check_pwd();
 	});
 
 	$('#chk_pwd').focusout(function() {
-		check_chkpwd()
+		check_chkpwd();
 	});
 
 	$('#name').focusin(function() {
 		$('#error_name').html('<small class="text-primary"><b>2-6자, 한글</b></small>');
 	}).focusout(function() {
-		check_name()
+		check_name();
 	});
 
 	$('#email').focusout(function() {
-		check_email()
+		check_email();
 	});
 
 	$('#tel').focusout(function() {
-		check_tel()
+		check_tel();
 	});
 
 	$('#postcode').focusout(function() {
-		check_postcode()
+		check_postcode();
 	});
 
 	$('#addr').focusout(function() {
-		check_addr()
+		check_addr();
 	});
 
 	$('#de_addr').focusout(function() {
-		check_detailaddr()
+		check_detailaddr();
 	});
 };
 

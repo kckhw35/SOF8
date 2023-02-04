@@ -14,11 +14,13 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 			#{tel}, #{postcode}, #{addr}, #{de_addr}
 		)
 	</insert>
+	<!-- 회원 검색 -->
 	<select id="select" parameterType="String" resultType="Member">
 		SELECT * 
 		FROM member 
 		WHERE user_id = #{user_id}
 	</select>
+	<!-- 회원 리스트 -->
 	<select id="selectall" resultType="Member">
 		SELECT * 
 		FROM member
@@ -45,16 +47,37 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<!-- 회원정보 수정 -->
 	<update id="update" parameterType="Member">
 		UPDATE member 
-		SET pwd = #{pwd}, name = #{name}, email = #{email}, tel = #{tel},
-		 	postcode = #{postcode}, addr = #{addr}, de_addr = #{de_addr} 
+		SET 
+			<if test="pwd != null">
+				pwd = #{pwd}, 
+			</if>
+			name = #{name}, email = #{email}, tel = #{tel},
+		 	postcode = #{postcode}, addr = #{addr}, de_addr = #{de_addr}
+		 	<if test="enable != null">
+		 		, enable = #{enable}
+		 	</if>
 		WHERE user_id = #{user_id}
 	</update>
-	<!-- 회원탈퇴 시 휴면상태로 변경 -->
-	<update id="updateEnable" parameterType="String">
+	<!-- 비밀번호 수정 -->
+	<update id="updatePwd" parameterType="Member">
+		UPDATE member 
+		SET pwd = #{pwd} 
+		WHERE user_id = #{user_id}
+	</update>
+	
+	<!-- 회원 비활성화 -->
+	<update id="updateDisable" parameterType="String">
 		UPDATE member 
 		SET enable = 0 
 		WHERE user_id = #{user_id}
+	</update>
+	<!-- 회원 활성화 -->
+	<update id="updateEnable" parameterType="String">
+		UPDATE member 
+		SET enable = 1 
+		WHERE user_id = #{user_id}
 	</update>	
+	<!-- 회원 삭제 -->
 	<delete id="delete" parameterType="String">
 		DELETE FROM member 
 		WHERE user_id = #{user_id}

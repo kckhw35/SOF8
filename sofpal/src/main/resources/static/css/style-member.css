@@ -3,7 +3,6 @@
 /*******************************************
 [Table of Content]
 1. Common			: 공통 
-<<<<<<< HEAD
 2. Admin			
 	2.1 login		: 로그인
 	2.2 memberlist	: 회원 리스트 
@@ -22,30 +21,36 @@
 
 *******************************************/
 /*=== [ 1. Common ] ===*/
+
+#body {
+	padding-top: 260px;
+}
+
+header {
+	background: #fff;
+}
+
 .memberlist .none {
 	display: none;
 }
 
-=======
-2. Member 			: 
-	2.1 account		: 회원가입
-	2.2 accountok	: 회원가입 성공
-	2.3 accountfail	: 회원가입 실패
-	2.4 login		: 로그인
-	2.5 loginfail	: 로그인 실패
-3. Mypage
-	3.1 sidenav		: 마이페이지 메뉴 	
-	3.2 info		: 회원정보
-	3.3 edit		: 회원정보 수정
 
-4. Order
-	4.1 cart		: 장바구니	
-	
-5. Mail-templates
+iconify-icon {
+	color: #43454f;	 
+}
 
-*******************************************/
-/*=== [ 1. Common ] ===*/
->>>>>>> temp
+.br-4 {
+    border-radius: 4px;
+    background-color: #43454f;
+    border-color: #43454f;
+    color: #fff!important;
+}
+
+.br-4:hover {
+	color: #43454f!important;	 
+	background-color: #C4CED6!important;
+}
+
 .dropdown-menu>.active>a, 
 .dropdown-menu>.active>a:focus, 
 .dropdown-menu>.active>a:hover {
@@ -66,12 +71,14 @@ input[type="checkbox"] {
 
 /* 장바구니, 찜목록 */
 /*input 바로 다음의 label*/
-input[type="checkbox"]+label {
+input[type="checkbox"]+label,
+input[type="checkbox"]+input+label {
 	cursor: pointer;
 }
 
 /*input 바로 다음의 label:before 에 체크하기 전 CSS 설정*/
-input[type="checkbox"]+label:before {
+input[type="checkbox"]+label:before,
+input[type="checkbox"]+input+label:before {
 	content: "";
 	display: inline-block;
 	width: 17px;
@@ -82,43 +89,14 @@ input[type="checkbox"]+label:before {
 }
 
 /*checked된 input 바로 다음의 label:before 에 체크 후 CSS 설정*/
-input[type="checkbox"]:checked+label:before {
-	content: "\f00c"; /*폰트어썸 유니코드*/
-	font-family: "Font Awesome 5 free"; /*폰트어썸 아이콘 사용*/
-	font-weight: 900; /*폰트어썸 설정*/
-	color: #fff;
-	background-color: #000;
-	border-color: #000;
-	font-size: 13px;
-	text-align: center;
-}
-
-/* 로그인 */
-/*input 바로 다음의 label*/
-input[type="checkbox"]+input+label {
-	cursor: pointer;
-}
-
-/*input 바로 다음의 label:before 에 체크하기 전 CSS 설정*/
-input[type="checkbox"]+input+label:before {
-	content: "";
-	display: inline-block;
-	width: 20px;
-	height: 20px;
-	line-height: 20px;
-	border: 1px solid #cbcbcb;
-	text-align: center;
-	vertical-align: middle; /*체크 전과 체크 후 높이 차이 때문에 설정*/
-}
-
-/*checked된 input 바로 다음의 label:before 에 체크 후 CSS 설정*/
+input[type="checkbox"]:checked+label:before,
 input[type="checkbox"]:checked+input+label:before {
 	content: "\f00c"; /*폰트어썸 유니코드*/
 	font-family: "Font Awesome 5 free"; /*폰트어썸 아이콘 사용*/
 	font-weight: 900; /*폰트어썸 설정*/
 	color: #fff;
-	background-color: #000;
-	border-color: #000;
+	background-color: #43454f;
+	border-color: #43454f;
 	font-size: 13px;
 	text-align: center;
 }
@@ -146,6 +124,10 @@ input[type="checkbox"]:checked+input+label:before {
 .large {
 	font-size: 14px;
 } /* account, accountok, accountfail, loginfail */
+
+.fs-12 {
+	font-size: 12px;
+}
 
 .clearfix {
 	margin-top: 40px;
@@ -187,6 +169,42 @@ input[type="checkbox"]:checked+input+label:before {
 /*=== [ 2. Admin ] ===*/
 /*== [ 2.1 login ] ==*/
 /*== [ 2.2 memberlist ] ==*/
+@media screen and (max-width: 768px) {
+	
+	.memberlist .col-xs-12 {
+		text-align: center;
+		margin-bottom: 10px;
+		padding: 0;
+		
+	}
+	
+	.memberlist .col-xs-12 a{
+		width: 32%
+	}
+	
+	.memberlist .col-xs-12 .pull-right {
+		float: none!important;
+		margin-bottom: 10px;
+	}
+	.memberlist .col-xs-12 .pull-right select {
+		width: 23%;
+	}
+	.memberlist .col-xs-12 .pull-right input {
+		width: 50%;
+	}
+	.memberlist .col-xs-12 .pull-right button{
+		width: 23%;
+		vertical-align: baseline;
+	}
+	
+	.memberlist .col-xs-12 .form-control {
+		display:inline-block; 
+		text-align: center;
+		width: auto;
+	}
+	
+}
+
 .memberlist .form-inline .form-group {
 	width: 100%;
 	margin-bottom: 20px;
@@ -226,7 +244,7 @@ input[type="checkbox"]:checked+input+label:before {
 .sidenav .nav-pills>li.active>a:focus,
 .sidenav .nav-pills>li.active>a:hover {
 	color: #FFF;
-	background-color: #000;
+	background-color: #43454f;
 }
 
 /*== [ 4.2 info ] ==*/
@@ -262,18 +280,18 @@ input[type="checkbox"]:checked+input+label:before {
 }
 
 .post-pagination>li>a {
-	color: #000;
+	color: #43454f;
 }
 
 .post-pagination>li>a:hover {
 	color: #fff;
-	background: #000;
-	border: 1px solid #000;
+	background: #43454f;
+	border: 1px solid #43454f;
 }
 
 .post-pagination>li.active>a {
-	background: #000;
-	border: 1px solid #000;
+	background: #43454f;
+	border: 1px solid #43454f;
 }
 
 .post-pagination>li:first-child>a, 
@@ -290,8 +308,8 @@ input[type="checkbox"]:checked+input+label:before {
     z-index: 3;
     color: #fff;
     cursor: default;
-    background-color: #000;
-    border-color: #000;
+    background-color: #43454f;
+    border-color: #43454f;
 }
 
 .center {
@@ -371,7 +389,7 @@ dl {
 }
 
 .price-list dd {
-	color: #000;
+	color: #43454f;
 }
 
 .price-list span {

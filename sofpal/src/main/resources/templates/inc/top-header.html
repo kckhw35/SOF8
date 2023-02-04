@@ -1,4 +1,4 @@
-<section th:fragment="top-header" class="top-header ">
+<section th:fragment="top-header" class="top-header">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-4 col-xs-12 col-sm-4">
@@ -8,7 +8,7 @@
 				</div>
 			</div>
 			<div class="col-md-8 col-xs-12 col-sm-8">
-				<ul class="top-menu text-right list-inline">
+				<ul class="top-menu text-right list-inline" >
 					<!-- Search -->
 					<li class="dropdown search dropdown-slide">
 						<a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><i class="tf-ion-ios-search-strong"></i></a>
@@ -20,6 +20,7 @@
 					</li><!-- / Search -->
 					<!-- Admin -->
 					<li th:if="${session.admin != null}"><span style="color:red; font-weight: border; border: 2px solid red;">[[${session.admin.admin_name}]] 관리자</span></li>
+
 					<!-- Management -->
 					<li th:if="${session.admin != null}">
 						<a th:href="@{/admin/memberlist}" class="account"><iconify-icon icon="carbon:id-management"></iconify-icon> 회원관리</a>
@@ -39,12 +40,16 @@
 					<!-- Admin Logout -->
 					<li class="login-site" th:if="${session.admin != null}">
 						<a th:href="@{/admin/logout}" class="account"><iconify-icon inline icon="ri:logout-box-r-fill"></iconify-icon> 로그아웃</a>
-					</li><!-- / Admin Logout -->				
-					<!-- Cart -->
+					</li><!-- / Admin Logout -->	
+					<!-- 콘솔 -->
+					<li th:if="${session.admin != null}">
+ 						<a th:href="@{/admin/console}" class="account br-4"> 콘솔 </a>
+					</li>		
 					<!-- MyPage -->
 					<li class="account-site" th:if="${session.admin == null && session.member != null}">
 						<a th:href="@{/mypage/info}" class="account"><iconify-icon inline icon="ion:person"></iconify-icon> 마이페이지</a>
 					</li><!-- / MyPage -->
+					<!-- 장바구니 -->
 					<li class="dropdown cart-nav dropdown-slide" th:if="${session.admin == null && session.member != null}">
 						<a th:href="@{/order/cart}" class="dropdown-toggle" data-hover="dropdown"><iconify-icon inline icon="ion:bag"></iconify-icon> 장바구니</a>
 						<!-- 

@@ -8,7 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.sof8.dto.Mark;
 import com.sof8.dto.Member;
 import com.sof8.service.MemberService;
 
@@ -124,7 +123,7 @@ public class MypageController {
 				System.out.println("m: " + m);
 				if (m.getPwd().equals(member.getPwd())) {
 
-					service.modifyEnable(m.getUser_id());
+					service.modifyDisable(m.getUser_id());
 					session.invalidate();
 					System.out.println("[SUCCESS] : MypageController/cancelok - 회원탈퇴 성공");
 					result = true;
@@ -159,16 +158,5 @@ public class MypageController {
 			System.out.println("[SUCCESS] : MypageController/mark - 찜목록 화면 출력");
 		}
 		return "index";
-	}
-	
-	@RequestMapping("/addmark")
-	public String addmark(HttpSession session, Model model, Mark mark) {
-		
-		// 로그인이 안 되어 있을 경우 로그인 페이지로 이동
-		if(session == null) {
-			model.addAttribute("content", "/member/login");
-		}
-		
-		return "";
 	}
 }
