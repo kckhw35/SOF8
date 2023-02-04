@@ -37,6 +37,7 @@
 	}	
 </style>
 <script>
+	// 상품 삭제
 	function deleteproduct(){
 		$('#delete_btn').click(function(){
 			var c = confirm('삭제 하시겠습니까 ?');
@@ -47,6 +48,16 @@
 		});
 	};
 	
+	// 상품 주문 페이지로 이동
+	function purchaseproduct(){
+		$('#purchase_btn').click(function(){
+			var quantity = $('#product_quantity').val();
+			var p_id = $('#p_id').val();
+			location.href="/order/order?p_id="+p_id+"&quantity="+quantity;
+		});
+	};
+	
+	// 찜 목록에 추가
 	function addmark(){
 		$('#heart_btn').click(function(){
 			$('#heart_btn').attr({
@@ -56,8 +67,20 @@
 		});
 	};
 	
+	// 장바구니에 추가
+	function addcart(){
+		$('#cart_btn').click(function(){
+			var quantity = $('#product_quantity').val();
+			var p_id = $('#p_id').val();
+			location.href="/order/addcart?p_id="+p_id+"&quantity="+quantity;
+			alert("장바구니에 추가되었습니다.");
+		});
+	}
+	
 	window.onload = function() {
 		deleteproduct();
+		addcart();
+		purchaseproduct();
 	};
 
 </script>
@@ -127,7 +150,7 @@
 	                   <div class="product-quantity">
 							<span>수량</span>
 							<div class="product-quantity-slider">
-								<input id="product-quantity" type="text" value="0" name="product-quantity">
+								<input type="number" id="product_quantity" name="product_quantity">
 							</div>
 						</div>
 						<label>크기</label>
@@ -142,11 +165,13 @@
 								<li id="icon_heart"><a href="#" id="mark_btn" ><i class="tf-ion-ios-heart"></i></a></li>
 							</span>
 							<!-- 장바구니 -->
-							<span  data-toggle="modal" data-target="#cart-modal">
+							<!-- <span  data-toggle="modal" data-target="#cart-modal"> -->
+							<span>
 							<li id="icon_cart"><a href="#" id="cart_btn"><i class="tf-ion-android-cart"></i></a></li>
 							</span>
 						</div>
-						<a th:href="@{/order/order(p_id=${p.p_id})}" th:value="${p.p_id}" class="btn btn-main mt-20">구매하기</a>
+						<input type="hidden" th:value="${p.p_id}" id="p_id"/>
+						<a href="#" class="btn btn-main mt-20" id="purchase_btn">구매하기</a>
 						<a th:if="${session.admin != null}" th:href="@{/admin/updateproduct(p_id=${p.p_id})}" th:value="${p.p_id}" class="btn btn-main mt-20">수정하기</a>
 						<a th:if="${session.admin != null}" href="#" class="btn btn-main mt-20" id="delete_btn">삭제하기</a>
 					</div>
@@ -189,14 +214,14 @@
 			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 				<i class="tf-ion-close"></i>
 			</button>
-		  	<div class="modal-heart " role="document">
+		  	<div class="modal-cart " role="document">
 		    	<div class="modal-content">
 			      	<div class="modal-body">
 			        	<div class="row">
 			        		<img th:src="@{/images/shop/products/}+${p.p_img}"/>
 			        		<h1 id="p_name" th:text="${p.p_name}"></h1>
 			        		<div><h3>장바구니에 추가되었습니다.</h3></div>
-			        		<a href="#" class="btn btn-main mt-20">장바구니 목록 확인하기</a>
+			        		<a th:href="@{/order/cart}" class="btn btn-main mt-20">장바구니 목록 확인하기</a>
 			        	</div>
 			        </div>
 		    	</div>

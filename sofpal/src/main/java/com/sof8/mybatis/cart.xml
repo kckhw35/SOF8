@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sof8.mapper.CartMapper">
+	<select id="select" parameterType="int" resultType="Cart">
+		SELECT * FROM cart WHERE c_id = ${c_id}
+	</select>
+	<select id="selectall" resultType="Cart">
+		SELECT * FROM cart
+	</select>
+	<insert id="insert" parameterType="Cart">
+		INSERT INTO cart VALUES(c_id, #{user_id}, ${p_id}, ${c_cnt})
+	</insert>
+	<!-- 상품 개수 변경 -->
+	<update id="update" parameterType="Cart">
+		UPDATE cart SET c_cnt = ${c_cnt} WHERE c_id=${c_id}
+	</update>
+	<delete id="delete" parameterType="int">
+		DELETE FROM cart WHERE c_id = ${c_id}
+	</delete>
+	<!-- 사용자 장바구니 -->
+	<select id="selectusercart" parameterType="String" resultType="Cart">
+		SELECT c.c_id AS c_id, c.user_id AS user_id, p.p_id AS p_id, c.c_cnt AS c_cnt, p.p_name AS p_name, p.p_content AS p_content, p.color AS color, p.p_img AS p_img, p.price AS price, p.del_cost AS del_cost, p.discount AS discount FROM cart AS c JOIN product p ON p.p_id = c.p_id WHERE user_id = #{user_id} ORDER BY c_id ASC
+	</select>
+	<!-- 선택된 장바구니 내역 -->
+	<select id="selectedproduct" parameterType="int" resultType="Cart">
+		SELECT c.c_id AS c_id, c.user_id AS user_id, p.p_id AS p_id, c.c_cnt AS c_cnt, p.p_name AS p_name, p.p_content AS p_content, p.color AS color, p.p_img AS p_img, p.price AS price, p.del_cost AS del_cost, p.discount AS discount FROM cart AS c JOIN product p ON p.p_id = c.p_id WHERE c.c_id=${c_id} ORDER BY c_id ASC
+	</select>
+</mapper>

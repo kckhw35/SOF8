@@ -12,19 +12,19 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Order {
-	int o_id;
-	String user_id;
-	int c_id;
-	int totalprice;
-	int discount;
-	String pay_option;
-	String o_status;
-	String o_date;
-	String c_date;
-	String re_name;
-	String re_tel;
-	String re_zipcode;
-	String re_addr;
-	String re_deaddr;
-	String re_req;
+	private int o_id;
+	private String user_id;
+	private int c_id;
+	private int totalprice;
+	private int discount;
+	private String pay_option;
+	private String o_status;
+	private String o_date;
+	private String c_date;
+	private String re_name;
+	private String re_tel;
+	private String re_zipcode;
+	private String re_addr;
+	private String re_deaddr;
+	private String re_req;
 }

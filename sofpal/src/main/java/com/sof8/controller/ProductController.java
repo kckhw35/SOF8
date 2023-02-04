@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.sof8.dto.Product;
 import com.sof8.frame.ImgUtil;
-import com.sof8.service.CategoryService;
 import com.sof8.service.ProductService;
 
 @Controller
@@ -21,7 +20,6 @@ public class ProductController {
 	
 	@Autowired
 	ProductService pservice;
-	CategoryService cservice;
 	
 	@Value("${imgdir}")
 	String imgdir;
@@ -43,6 +41,15 @@ public class ProductController {
 	
 	@RequestMapping("/fabric")
 	public String fabric(Model model) {
+		
+		List<Product> list = null;
+		
+		try {
+			list = pservice.get();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		model.addAttribute("plist", list);
 		model.addAttribute("content", dir+"fabric");
 		return "index";
 	}
@@ -89,6 +96,8 @@ public class ProductController {
 		
 		try {
 			ImgUtil.saveFile(product.getImg(), imgdir);
+			// 카테고리 설정
+			product.setCat_id(pservice.selectcategory(product));
 			pservice.register(product);
 			model.addAttribute("obj", product);
 			
@@ -107,6 +116,8 @@ public class ProductController {
 		
 		if(p_img.equals("") || p_img == null) {
 			try {
+				// 카테고리 설정
+				product.setCat_id(pservice.selectcategory(product));
 				pservice.modify(product);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -115,6 +126,7 @@ public class ProductController {
 			p_img = product.getImg().getOriginalFilename();
 			product.setP_img(p_img);
 			try {
+				product.setCat_id(pservice.selectcategory(product));
 				pservice.modify(product);
 				ImgUtil.saveFile(product.getImg(), imgdir);
 			} catch (Exception e) {

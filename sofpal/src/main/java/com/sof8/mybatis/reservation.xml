@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sof8.mapper.ReservationMapper">
+
+	<select id="select" parameterType="int" resultType="Reservation">
+		SELECT * FROM reservation WHERE re_id = ${re_id}
+	</select>
+	<select id="selectall" resultType="Reservation">
+		SELECT * FROM reservation
+	</select>
+	<insert id="insert" parameterType="Reservation">
+		INSERT INTO reservation VALUES (re_id, ${d_id}, ${o_id}, #{r_date}, ${r_time})
+	</insert>
+	<update id="update" parameterType="Reservation">
+		UPDATE reservation SET d_id = ${d_id}, r_date = #{r_date}, r_time = ${r_time} where re_id = ${re_id}
+	</update>
+	<delete id="delete" parameterType="int">
+		DELETE FROM reservation WHERE re_id = ${re_id}
+	</delete>
+	<insert id="insertreservation" parameterType="OrderForm">
+		INSERT INTO reservation VALUES (re_id, ${d_id}, ${o_id}, #{r_date}, ${r_time})
+	</insert>
+</mapper>

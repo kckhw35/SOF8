@@ -1,0 +1,405 @@
+<style>
+	#ship_detail, #pay_detail{
+		margin-bottom: 10px;
+	}
+	.required{
+		color: red;
+	}
+	#product-img{
+		width: 400px;
+	}
+	.checkout-form .checkout-email input{
+	  width: calc(75% - 2px);
+	  margin-right: 4px;
+	  display : inline;
+	}
+	
+	#select-email, #bank_name{
+		width: 270px; 
+		height: 50px;
+		padding: .8em .5em; 
+		border: 1px solid #ccc;
+		font-family: inherit;
+		font-size: 12px;
+		text-align: center;
+		background: url('arrow.jpg') no-repeat 95% 50%; 
+	}
+	
+	#depositor{
+	    border-radius: 0;
+	    display: inline;
+	    padding: 6px 10px 5px;
+	    height: 50px;
+	    line-height: 1.42857143;
+	    color: #555;
+	    background-color: #fff;
+	    border: 1px solid #ccc;
+	    font-weight: 200;
+    	font-size: 12px;
+	}
+	
+	.form-datetime{
+		border-radius: 0;
+		height: 50px;
+		margin-bottom: 8px;
+	}
+	
+	#date, #time{
+		width: 150px; 
+		height: 50px;
+		padding: .8em .5em; 
+		border: 1px solid #ccc;
+		font-family: inherit;
+		font-size: 12px;
+		text-align: center;
+		background: url('arrow.jpg') no-repeat 95% 50%;
+	}
+	
+	#pay_btn{
+		text-align: center;
+	}
+	
+	#pay_btn > a{
+		font-size: 16px;
+	}
+	
+	#order_list{
+		margin: 0px;
+	}
+
+	.order-price-box {
+    	padding: 10px 40px 10px 40px;
+    	border: 1px solid #dedede;
+}
+</style>
+<script>
+	function checkschedule(){
+		var r_date = $('input[name="r_date"]').val();
+		
+		$.ajax({
+			url:'/order/checkschedule',
+			type:'post',
+			data:{'r_date':r_date},
+			success: function(data){
+				alert("성공!");
+			}
+		})
+	}
+	function sum(){
+		var count = $('input[name="price"]').length;
+		
+		var sum = 0;
+		var sum2 = 0;
+		var sum3 = 0;
+		
+		for(var i =0; i < count; i++){
+			sum += Number($('input[name="price"]').eq(i).attr('value'));
+			sum2 += Number($('input[name="del_cost"]').eq(i).attr('value'));
+			sum3 += Number($('input[name="discount"]').eq(i).attr('value'));
+		}
+		
+		$('#sumprice').text(sum);
+		$('#sumdelcost').text(sum2);
+		$('#sumdiscount').text(sum3);
+		$('input[name="totaldiscount"]').attr('value',sum3);
+	}
+	
+	function totalprice(){
+		var price = $('#sumprice').text();
+		var delcost = $('#sumdelcost').text();
+		var discount = $('#sumdiscount').text();
+		var totalprice = Number(price) - Number(discount)+ Number(delcost);
+		
+		$('#totalprice').text(totalprice);
+		$('input[name="totalprice"]').attr('value',totalprice);
+	}
+	
+	function searchzipcode(){
+			new daum.Postcode({
+				oncomplete: function(data) {
+					// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+					// 각 주소의 노출 규칙에 따라 주소를 조합한다.
+					// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+					var addr = ''; // 주소 변수
+					var extraAddr = ''; // 참고항목 변수
+
+					//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+					if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+						addr = data.roadAddress;
+					} else { // 사용자가 지번 주소를 선택했을 경우(J)
+						addr = data.jibunAddress;
+					}
+
+					// 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+					if (data.userSelectedType === 'R') {
+						// 법정동명이 있을 경우 추가한다. (법정리는 제외)
+						// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+						if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+							extraAddr += data.bname;
+						}
+						// 건물명이 있고, 공동주택일 경우 추가한다.
+						if (data.buildingName !== '' && data.apartment === 'Y') {
+							extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+						}
+						// 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+						if (extraAddr !== '') {
+							extraAddr = ' (' + extraAddr + ')';
+						}
+					}
+
+					// 우편번호와 주소 정보를 해당 필드에 넣는다.
+					document.querySelector('#re_zipcode').value = data.zonecode;
+					document.querySelector('#re_addr').value = addr;
+					// 커서를 상세주소 필드로 이동한다.
+					document.querySelector('#re_deaddr').focus();
+				}
+			}).open();
+	};
+	
+	function payproduct(){
+		$('#pay_product').click(function(){
+			$('.checkout-form').attr({
+				'method' : 'post',
+				'action' : '[[@{/order/ordered}]]'
+			});
+			$('.checkout-form').submit();
+		});
+	};
+	
+	window.onload = function(){
+		sum();
+		totalprice();
+		payproduct();
+	};
+</script>
+<section class="page-header">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="content">
+					<h1 class="page-name">주문서 작성 & 결재</h1>
+					<ol class="breadcrumb">
+						<li><a th:href="@{/}">홈</a></li>
+						<li class="active">주문서 작성 & 결재</li>
+					</ol>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<div class="page-wrapper">
+   <div class="checkout shopping">
+      <div class="container">
+         <div class="row">
+         <form class="checkout-form">
+	         	<div class="col-md-12">
+	               <div class="product-checkout-details">
+	                  <div class="block">
+	                     <h4 class="widget-title">주문 상세내역</h4>
+	                     <table class="table line">
+									<thead>
+										<tr class="cart-amount">
+											<th class="">상품/옵션 정보</th>
+											<th class="">수량</th>
+											<th class="widthDisplayNone">상품금액</th>
+											<th class="widthDisplayNone">할인</th>
+											<th class="widthDisplayNone">합계금액</th>
+											<th class="widthDisplayNone">배송비</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="c : ${clist}" class="">
+											<input type="hidden" th:value="${c.c_id}" name="o_ids"/>
+											<td class="">
+												<div class="product-info">
+													<img width="80" th:src="@{/images/shop/products/}+${c.p_img}" />
+													<a th:href="@{/product/productdetail(p_id=${c.p_id})}" th:value="${c.p_id}" th:text="${c.p_name}"></a>
+													<input type="hidden" th:value="${c.p_id}" name="p_id"/>
+												</div>
+											</td>
+											<td th:text="${c.c_cnt}" id="c_cnt"></td>
+											<input type="hidden" th:value="${c.c_cnt}" name="d_cnt"/>
+											<td th:text="${c.price}" id="price"></td>
+											<td th:text="${c.discount}" id="discount"></td>
+											<input type="hidden" th:value="${c.discount}" name="discount">
+											<td th:text="${c.c_cnt*c.price}" ></td>
+											<input type="hidden" th:value="${c.c_cnt*c.price}" name="price" />
+											<td th:text="${c.del_cost}" name="del_cost"></td>
+											<input type="hidden" name="del_cost" th:value="${c.del_cost}" />
+										</tr>
+									</tbody>
+								</table>
+								<div class="order-price-box col-md-12 col-xs-12 col-sm-12">
+									<div class="price-content">
+										<div class="price-list">
+											<dl>
+												<dt>
+													총 <p id="checked_cnt" th:text="${totalcnt}">0</p> 개의 상품금액
+												</dt>
+												<dd>
+													<p id="sumprice"></p>원
+												</dd>
+											</dl>
+											<span><iconify-icon icon="akar-icons:circle-minus-fill" width="25"></iconify-icon></span>
+											<dl>
+												<dt>할인</dt>
+												<dd>
+													<p id="sumdiscount"></p>원
+													<input type="hidden" name="totaldiscount"/>
+												</dd>
+											</dl>
+											<span><iconify-icon icon="akar-icons:circle-plus-fill" width="25"></iconify-icon></span>
+											<dl>
+												<dt>배송비</dt>
+												<dd>
+													<p id="sumdelcost"></p>원
+												</dd>
+											</dl>
+											<span><iconify-icon icon="akar-icons:equal-fill" width="25"></iconify-icon></span>
+											<dl class="price-total">
+												<dt>합계</dt>
+												<dd>
+													<p id="totalprice"></p>원
+													<input type="hidden" name="totalprice"/>
+												</dd>
+											</dl>
+										</div>
+									</div>
+								</div>								
+	                  	</div>
+	               </div>
+	               <div class="block">
+	                  <h4 class="widget-title">주문자 정보</h4>
+	                  <div class="checkout-product-details">
+	                     <div class="orderer">
+	                        <div class="orderer-details">
+	                              <div class="form-group">
+	                                 <label>주문하시는 분 <span class="required">*</span></label>
+	                                 <input type="text" th:value="${m.name}" class="form-control">
+	                              </div>
+	                              <div class="form-group">
+	                                 <label>연락처 <span class="required">*</span></label>
+	                                 <input type="text" th:value="${m.tel}" class="form-control">
+	                              </div>
+	                              <div class="form-group">
+	                                 <label>우편번호 <span class="required">*</span></label>
+	                                 <input type="text" th:value="${m.postcode}" class="form-control">
+	                              </div>
+	                              <div class="form-group">
+	                                 <label>주소 <span class="required">*</span></label>
+	                                 <input type="text" th:value="${m.addr}" class="form-control">
+	                              </div>
+	                              <div class="form-group">
+	                                 <label>상세주소 <span class="required">*</span></label>
+	                                 <input type="text" th:value="${m.de_addr}" class="form-control">
+	                              </div>
+	                        </div>
+	                     </div>
+	                  </div>
+	               </div>
+	               <div class="block billing-details">
+	                  <h4 class="widget-title">배송정보</h4>
+	                  <div id= "ship_detail" >
+	                  	    <input type="radio" name="ship_detail" value="1" checked/> 직접입력&emsp;
+	                  	 	<input type="radio" name="ship_detail" value="2"/> 주문자 정보와 동일
+	                  </div>
+	                     <div class="form-group">
+	                        <label>받으실분</label>
+	                        <input type="text" class="form-control" id="re_name" name="re_name">
+	                     </div>
+	                     <div class="form-group">
+	                        <label>연락처</label>
+	                        <input type="text" class="form-control" id="re_tel" name="re_tel">
+	                     </div>
+	                     <div class="checkout-country-code clearfix">
+	                        <div class="form-group">
+	                           <label>우편번호</label>
+	                           <input type="text" class="form-control" id="re_zipcode" name="re_zipcode" readonly>
+	                        </div> 
+	                        <span class="input-group-btn">
+								<button type="button" class="btn btn-lg" th:onclick="searchzipcode()" id="search_zipcode"><span class="large">우편번호검색</span></button>
+							</span>   
+	                     </div>      
+	                     <div class="form-group" >
+	                           <label>주소</label>
+	                           <input type="text" class="form-control" id="re_addr" name="re_addr">
+	                     </div>
+	                     <div class="form-group">
+	                        	<label>상세주소</label>
+	                        	<input type="text" class="form-control" id="re_deaddr" name="re_deaddr">
+	                   	 </div>
+	                   	 <div class="form-group">
+	                   	 		<label>배송시 요청사항</label>
+	                        	<input type="text" class="form-control" id="re_req" name="re_req">
+	                   	 </div>
+	               </div>
+	               
+	               <div class="block reservation_details">
+	               		<h4 class="widget-title">예약정보</h4>
+		               		<div class="form-datetime">
+		               			<span>배달 요청일 </span>&emsp;
+		               			<input id="date" type="date" name="r_date" oninput="checkschedule()">
+		               		</div>
+		               		<div class="form-datetime">
+		               			<span>요청 시간 </span>&emsp;&emsp;
+		               			<select id="time" name="r_time">
+		               				<option value="9">09:00</option>
+		               				<option value="10">10:00</option>
+		               				<option value="11">11:00</option>
+		               				<option value="12">12:00</option>
+		               				<option value="13">13:00</option>
+		               				<option value="14">14:00</option>
+		               				<option value="15">15:00</option>
+		               				<option value="16">16:00</option>
+		               				<option value="17">17:00</option>
+		               				<option value="18">18:00</option>
+		               			</select>
+		               		</div>
+	               </div>
+	               <div class="block">
+	                    <h4 class="widget-title">결재정보</h4>
+	                    <div id= "pay_detail" >
+	                  	    <input type="radio" name="pay_option" value="신용카드" checked/> 신용카드&emsp;
+	                  	 	<input type="radio" name="pay_option" value="무통장입금"/> 무통장입금
+	                    </div>
+		          		<div class="form-group">
+		           	 		<span>입금자명 </span>&emsp;
+		                	<input type="text" id="depositor">
+		           	 	</div>
+		           	 	<div class="form-group">
+		           	 		<span>입금은행 </span>&emsp;
+		                	<select id="bank_name" name="bank_name">
+		                		<option value="none">은행을 선택하세요.</option>
+		        				<option value="신한">신한은행 [999-87456-32101 주식회사 SOF8]</option>
+		        				<option value="하나">KEB하나은행 [123-456789-01234 주식회사 SOF8]</option>
+		        				<option value="우리">우리은행 [135-79548-13542 주식회사 SOF8]</option>
+		        				<option value="국민">KB국민은행 [987-32145-1245 주식회사 SOF8]</option>
+		        				<option value="기업">IBK기업은행 [258-726415-12397 주식회사 SOF8]</option>
+		        			</select>
+		           	 	</div>
+	               </div>
+	            </div>
+         	</div>
+         	<div id="pay_btn">
+				<a href="#" class="btn btn-main mt-20" id="pay_product">결제하기</a>
+		    </div>
+         </form>
+      </div>
+   </div>
+</div>
+   <!-- Modal -->
+   <div class="modal fade" id="coupon-modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+         <div class="modal-content">
+            <div class="modal-body">
+               <form>
+                  <div class="form-group">
+                     <input class="form-control" type="text" placeholder="Enter Coupon Code">
+                  </div>
+                  <button type="submit" class="btn btn-main">Apply Coupon</button>
+               </form>
+            </div>
+         </div>
+      </div>
+   </div>

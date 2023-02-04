@@ -19,7 +19,4 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<delete id="delete" parameterType="int">
 		DELETE FROM category WHERE cat_id = ${cat_id}
 	</delete>
-	<select id="selectcategory"  parameterType="int" resultType="Category">
-		select c1.cat_name as cat_name, c2.cat_name size from category as c1, (select * from category where cat_id = ${cat_id}) as c2 where c1.cat_id=c2.cat_id2;
-	</select>	
 </mapper>

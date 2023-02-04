@@ -5,19 +5,21 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.sof8.dto.DetailOrder;
 import com.sof8.dto.Order;
 import com.sof8.dto.OrderForm;
 import com.sof8.frame.Sof8Service;
+import com.sof8.mapper.DetailOrderMapper;
 import com.sof8.mapper.OrderMapper;
 
 @Service
-public class OrderService implements Sof8Service<Integer, Order>{
+public class DetailOrderService implements Sof8Service<Integer, DetailOrder>{
 
 	@Autowired
-	OrderMapper mapper;
+	DetailOrderMapper mapper;
 
 	@Override
-	public void register(Order v) throws Exception {
+	public void register(DetailOrder v) throws Exception {
 		mapper.insert(v);
 	}
 
@@ -27,30 +29,18 @@ public class OrderService implements Sof8Service<Integer, Order>{
 	}
 
 	@Override
-	public void modify(Order v) throws Exception {
+	public void modify(DetailOrder v) throws Exception {
 		mapper.update(v);
 	}
 
 	@Override
-	public Order get(Integer k) throws Exception {
+	public DetailOrder get(Integer k) throws Exception {
 		return mapper.select(k);
 	}
 
 	@Override
-	public List<Order> get() throws Exception {
+	public List<DetailOrder> get() throws Exception {
 		return mapper.selectall();
 	}
-	
-	public int selectoid() throws Exception{
-		return mapper.selectoid();
-	}
-	
-	public int selectpid(int c_id) throws Exception{
-		return mapper.selectpid(c_id);
-	}
-	
-	public int selectcnt(int c_id) throws Exception{
-		return mapper.selectpid(c_id);
-	}
-	
+
 }

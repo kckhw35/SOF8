@@ -25,6 +25,9 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
 	
+	<!--폰트어썸 최신 CDN-->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
+	
 	<!-- Themefisher Icon font -->
 	<link rel="stylesheet" th:href="@{/plugins/themefisher-font/style.css}">
 	<!-- bootstrap.min css -->
@@ -41,11 +44,10 @@
 	<link rel="stylesheet" th:href="@{/css/style-member.css}">
 	<!-- Password Eyes Icon -->
 	<link rel="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
-	<!--폰트어썸 최신 CDN-->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">	
 	
-	<!-- 아이콘 -->
 	<script src="https://code.iconify.design/iconify-icon/1.0.2/iconify-icon.min.js"></script>
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 	
 	<script th:src="@{/js/script-member.js}"></script>
 	</head>
@@ -57,7 +59,6 @@
 	<section>
 		<div th:include="${content} ? ${content} : content"></div>
 	</section>
-	
 
 	<footer class="footer section text-center">
 		<div class="container">
@@ -96,8 +97,8 @@
 	<script th:src="@{/plugins/slick/slick.min.js}"></script>
 	<script th:src="@{/plugins/slick/slick-animation.min.js}"></script>
 	<!-- Google Mapl -->
-	<script	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCC72vZw-6tGqFyRhhg5CkF2fqfILn2Tsw"></script>
-	<script type="text/javascript" th:src="@{/plugins/google-map/gmap.js}"></script>
+	<!-- <script	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCC72vZw-6tGqFyRhhg5CkF2fqfILn2Tsw"></script>
+	<script type="text/javascript" th:src="@{/plugins/google-map/gmap.js}"></script> -->
 	<!-- Main Js File -->
 	<script th:src="@{/js/script.js}"></script>
 	<!-- kakao postcode api -->

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sof8.mapper.ScheduleyMapper">
+
+	<select id="select" parameterType="int" resultType="Schedule">
+		SELECT * FROM schedule WHERE s_id = ${s_id}
+	</select>
+	<select id="selectall" resultType="Schedule">
+		SELECT * FROM schedule
+	</select>
+	<!-- 배송일정 예약 -->
+	<insert id="insert" parameterType="Schedule">
+		INSERT INTO schedule VALUES (s_id, ${d_id}, #{s_date}, ${s_time}, '대기중')
+	</insert>
+	<update id="update" parameterType="Schedule">
+		UPDATE schedule SET d_id = ${d_id}, s_date = #{s_date}, s_time = ${s_time}, status = #{status} where s_id = ${s_id}
+	</update>
+	<delete id="delete" parameterType="int">
+		DELETE FROM schedule WHERE s_id = ${s_id}
+	</delete>
+	<!-- 오늘 이후 일정 가져오기 -->
+	<select id="confirmschedule" parameterType="Schedule">
+		SELECT * FROM schedule WHERE s_date > now();
+	</select>
+	<!-- 각 시간별 배달일정 가져오기 -->
+	<select id="schedulecnt" parameterType="int">
+		SELECT count(s_id) FROM schedule where s_date = #{s_date}, s_time = ${s_time}
+	</select>
+	<!-- 해당 날짜의 시간대 별 예약 일정 개수 확인 -->
+	<select id="checktime" parameterType="String" resultType="Schedule">
+		SELECT count(s_id),s_time FROM schedule WHERE s_date = #{s_date} GROUP BY s_time
+	</select>
+</mapper>

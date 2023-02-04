@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sof8.mapper.DeliveryMapper">
+
+	<select id="select" parameterType="int" resultType="Delivery">
+		SELECT * FROM delivery WHERE d_id = ${d_id}
+	</select>
+	<select id="selectall" resultType="Delivery">
+		SELECT * FROM delivery
+	</select>
+	<insert id="insert" parameterType="Delivery">
+		INSERT INTO delivery VALUES (d_id, #{d_name}, #{d_tel}, ${longitude}, ${latitude},#{d_enable})
+	</insert>
+	<update id="update" parameterType="Delivery">
+		UPDATE delivery SET d_name = #{d_name}, d_tel = #{d_tel}, longitude = ${longitude}, latitude = ${latitude}, d_enable = #{d_enable} where d_id = ${d_id}
+	</update>
+	<delete id="delete" parameterType="int">
+		DELETE FROM delivery WHERE d_id = ${d_id}
+	</delete>
+	<!-- 총 배달기사 수 -->
+	<select id="deliverymancnt" parameterType="int">
+		SELECT COUNT(d_id) FROM delivery
+	</select>
+</mapper>

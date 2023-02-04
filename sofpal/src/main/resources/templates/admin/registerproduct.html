@@ -26,18 +26,18 @@
 	function showsize(){
 		$('#cat_id').change(function(){
 			var result = $('#cat_id option:selected').val();
-			if(result == 1){
+			if(result == 1 || result == 2){
 				$('#size1').show();
 				$('#size2').hide();
 				$('#size3').hide();
-			}else if(result == 2){
-				$('#size1').hide();
-				$('#size2').show();
-				$('#size3').hide();
 			}else if(result == 3){
+				$('#size2').show();
+				$('#size1').hide();
+				$('#size3').hide();
+			}else if(result == 4){
+				$('#size3').show();
 				$('#size1').hide();
 				$('#size2').hide();
-				$('#size3').show();
 			}
 		});
 	};
@@ -57,7 +57,13 @@
 	};
 
 	window.onload = function() {
+		// 크기 기본
+		$('#size1').show();
+		$('#size2').hide();
+		$('#size3').hide();
+		
 		registerproduct();
+		showsize();
 	};
 	
 </script>
@@ -105,20 +111,20 @@
 	                    <div class="form-group">
 							<label>크기</label><br/>
 								<div id="size1">
-									<input type="radio" name="size" value="1"/> 1인용&emsp;
-			                        <input type="radio" name="size" value="2"/> 2인용&emsp;
-			                        <input type="radio" name="size" value="3"/> 3인용&emsp;
-			                        <input type="radio" name="size" value="4"/> 4인용&emsp;
-			                        <input type="radio" name="size" value="5"/> 5인용&emsp;
-			                        <input type="radio" name="size" value="6"/> 6인용&emsp;
+									<input type="radio" name="size" value="1인용"/> 1인용&emsp;
+			                        <input type="radio" name="size" value="2인용"/> 2인용&emsp;
+			                        <input type="radio" name="size" value="3인용"/> 3인용&emsp;
+			                        <input type="radio" name="size" value="4인용"/> 4인용&emsp;
+			                        <input type="radio" name="size" value="5인용"/> 5인용&emsp;
+			                        <input type="radio" name="size" value="6인용"/> 6인용&emsp;
 								</div>
 								<div id="size2">
-									<input type="radio" name="size" value="7"/> 펫쇼파&emsp;
-		                       		<input type="radio" name="size" value="8"/> 펫스텝&emsp;
+									<input type="radio" name="size" value="펫쇼파"/> 펫쇼파&emsp;
+		                       		<input type="radio" name="size" value="펫스텝"/> 펫스텝&emsp;
 								</div>
 								<div id="size3">
-									<input type="radio" name="size" value="9"/> 쿠션&emsp;
-		                        	<input type="radio" name="size" value="10"/> 러그&emsp;
+									<input type="radio" name="size" value="쿠션"/> 쿠션&emsp;
+		                        	<input type="radio" name="size" value="러그"/> 러그&emsp;
 	                        	</div>         
 						</div>
 						<div class="form-group">

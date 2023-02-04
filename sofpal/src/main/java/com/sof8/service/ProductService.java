@@ -39,4 +39,16 @@ public class ProductService implements Sof8Service<Integer, Product>{
 	public List<Product> get() throws Exception {
 		return mapper.selectall();
 	}
+	
+	public int selectcategory(Product v) throws Exception{
+		return mapper.selectcategory(v);
+	}
+	
+	public int getcnt(Integer k) throws Exception {
+		return mapper.selectcnt(k);
+	}
+	
+	public Product updatecnt(Integer k) throws Exception{
+		return mapper.updatecnt(k);
+	}
 }

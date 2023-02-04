@@ -11,12 +11,24 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		SELECT * FROM product
 	</select>
 	<insert id="insert" parameterType="Product">
-		INSERT INTO product VALUES (p_id, ${cat_id}, #{p_name}, #{p_content}, #{p_img}, ${price}, ${del_cost}, ${cnt}, ${discount}, ${size}, #{color}, #{visiable})
+		INSERT INTO product VALUES (p_id, ${cat_id}, #{p_name}, #{p_content}, #{p_img}, ${price}, ${del_cost}, ${p_cnt}, ${discount}, #{size}, #{color}, #{visiable})
 	</insert>
 	<update id="update" parameterType="Product">
-		UPDATE product SET cat_id = ${cat_id}, p_name = #{p_name}, p_content = #{p_content}, p_img = #{p_img}, price = ${price}, del_cost = ${del_cost}, cnt = ${cnt}, discount = ${discount}, size = ${size}, color = #{color}, visiable = #{visiable} WHERE p_id = ${p_id}
+		UPDATE product SET cat_id = ${cat_id}, p_name = #{p_name}, p_content = #{p_content}, p_img = #{p_img}, price = ${price}, del_cost = ${del_cost}, p_cnt = ${p_cnt}, discount = ${discount}, size = ${size}, color = #{color}, visiable = #{visiable} WHERE p_id = ${p_id}
 	</update>
 	<delete id="delete" parameterType="int">
 		DELETE FROM product WHERE p_id = ${p_id}
 	</delete>
+	<!-- 상품 카테고리 찾기 -->
+	<select id="selectcategory"  parameterType="Product" resultType="int">
+		SELECT c2.cat_id as cat_id FROM category as c1, (select * from category where cat_id2 = ${cat_id}) as c2 WHERE c1.cat_id=c2.cat_id2 and c2.cat_name=#{size};
+	</select>
+	<!-- 상품 개수 확인 -->
+	<select id="selectcnt" parameterType="int" resultType="int">
+		SELECT p_cnt FROM product WHERE p_id = ${p_id}
+	</select>
+	<!-- 상품 구매로 인한 상품 개수 변경 -->
+	<update id="updatecnt" parameterType="Product">
+		UPDATE product Set p_cnt = ${p_cnt} where p_id = ${p_id}
+	</update>
 </mapper>

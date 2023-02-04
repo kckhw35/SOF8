@@ -21,9 +21,9 @@ public class Product {
 	private String p_img;
 	private int price;
 	private int del_cost;
-	private int cnt;
+	private int p_cnt;
 	private int discount;
-	private int size;
+	private String size;
 	private String color;
 	private boolean visiable;
 	

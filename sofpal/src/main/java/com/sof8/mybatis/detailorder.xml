@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sof8.mapper.DetailOrderMapper">
+
+	<select id="select" parameterType="int" resultType="DetailOrder">
+		SELECT * FROM detail_order WHERE de_id = ${de_id}
+	</select>
+	<select id="selectall" resultType="DetailOrder">
+		SELECT * FROM detail_order
+	</select>
+	<insert id="insert" parameterType="DetailOrder">
+		INSERT INTO detail_order VALUES (de_id, ${o_id}, ${p_id}, ${d_cnt}, ${price})
+	</insert>
+	<update id="update" parameterType="DetailOrder">
+		UPDATE detail_order SET d_cnt = ${d_cnt}, price = ${price} where de_id = ${de_id}
+	</update>
+	<delete id="delete" parameterType="int">
+		DELETE FROM detail_order WHERE de_id = ${de_id}
+	</delete>
+	<!-- 상세 주문서 작성 -->
+	<insert id="insertdeorder" parameterType="OrderForm">
+		INSERT INTO detail_order VALUES (de_id, ${o_id}, ${p_id}, ${d_cnt}, ${price})
+	</insert>
+</mapper>

@@ -60,7 +60,10 @@
 
 
   // e-commerce touchspin
-  $('input[name=\'product-quantity\']').TouchSpin();
+  $('input[name=\'product_quantity\']').TouchSpin({
+  		initval : 0,
+  		max : 100
+  });
 
 
   // Video Lightbox
