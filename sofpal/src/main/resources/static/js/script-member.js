@@ -10,8 +10,8 @@
 
 /*=== [ 1. Button Fuction ] ===*/
 
-//  회원 정상 
-function memberEnable() {
+// 선택회원가입
+function memberEnable(page) {
 	//체크박스 체크된 항목
 	var query = 'input[name="checkbox"]:checked'
 	var selectedElements = document.querySelectorAll(query);
@@ -43,7 +43,7 @@ function memberEnable() {
 				success: function(result) {
 					if (result) {
 						alert('성공적으로 가입처리 하였습니다.');
-						$('#form_memberlist').load('/admin/memberlist #form_memberlist');
+						$('#form_memberlist').load('/admin/memberlist?page=' + page + ' #form_memberlist');
 					}
 				}
 			};
@@ -53,8 +53,8 @@ function memberEnable() {
 	}
 };
 
-//  회원 비활성화 
-function memberDisable() {
+// 선택회원탈퇴 
+function memberDisable(page) {
 	//체크박스 체크된 항목
 	var query = 'input[name="checkbox"]:checked'
 	var selectedElements = document.querySelectorAll(query);
@@ -86,7 +86,7 @@ function memberDisable() {
 				success: function(result) {
 					if (result) {
 						alert('성공적으로 탈퇴처리 하였습니다.');
-						$('#form_memberlist').load('/admin/memberlist #form_memberlist');
+						$('#form_memberlist').load('/admin/memberlist?page=' + page + ' #form_memberlist');
 					}
 				}
 			};
@@ -97,35 +97,26 @@ function memberDisable() {
 };
 
 //  회원 삭제
-function memberDelete(user_id) {
+function memberDelete(page) {
 
-	if (user_id == null) {
-		//체크박스 체크된 항목
-		var query = 'input[name="checkbox"]:checked'
-		var selectedElements = document.querySelectorAll(query);
+	//체크박스 체크된 항목
+	var query = 'input[name="checkbox"]:checked'
+	var selectedElements = document.querySelectorAll(query);
 
-		//체크박스 체크된 항목의 개수
-		var selectedElementsCnt = selectedElements.length;
+	//체크박스 체크된 항목의 개수
+	var selectedElementsCnt = selectedElements.length;
 
-		if (selectedElementsCnt == 0) {
-			alert("삭제할 항목을 선택해주세요.");
-			return false;
-		} else {
-			if (confirm("정말로 삭제하시겠습니까?")) {
-				//배열생성
-				var arr = new Array(selectedElementsCnt);
-
-				document.querySelectorAll('input[name="checkbox"]:checked').forEach(function(v, i) {
-					arr[i] = v.value;
-				});
-			}
-		}
+	if (selectedElementsCnt == 0) {
+		alert("삭제할 항목을 선택해주세요.");
+		return false;
 	} else {
 		if (confirm("정말로 삭제하시겠습니까?")) {
-			console.log(user_id);
-			var arr = new Array(1);
-			arr[0] = user_id;
-			console.log(arr);
+			//배열생성
+			var arr = new Array(selectedElementsCnt);
+
+			document.querySelectorAll('input[name="checkbox"]:checked').forEach(function(v, i) {
+				arr[i] = v.value;
+			});
 		}
 	}
 
@@ -140,7 +131,7 @@ function memberDelete(user_id) {
 		success: function(result) {
 			if (result) {
 				alert('성공적으로 삭제처리 하였습니다.');
-				$('#form_memberlist').load('/admin/memberlist #form_memberlist');
+				$('#form_memberlist').load('/admin/memberlist?page=' + page + ' #form_memberlist');
 			}
 		}
 	};
@@ -232,13 +223,6 @@ function select_email() {
 			$('#email').val('@gmail.com');
 		}
 	});
-};
-
-// 상태 셀렉트
-function change_enable() {
-	var enable = document.getElementById('enable');
-
-
 };
 
 // 우편번호검색

@@ -143,9 +143,8 @@
 										<p class="product-short-description">Lorem ipsum dolor sit
 											amet, consectetur adipisicing elit. Rem iusto nihil cum. Illo
 											laborum numquam rem aut officia dicta cumque.</p>
-										<a href="cart.html" class="btn btn-main">Add To Cart</a> <a
-											href="product-single.html" class="btn btn-transparent">View
-											Product Details</a>
+										<a href="cart.html" class="btn btn-main">Add To Cart</a> 
+										<a href="product-single.html" class="btn btn-transparent">View Product Details</a>
 									</div>
 								</div>
 							</div>
@@ -162,7 +161,60 @@
 <section class="product-video section bg-viva-magenta">
 	<div class="container">
 		<div class="row">
-			<iframe id="ytplayer" type="text/html" width="500" height="281.25" src="https://www.youtube.com/embed/-OjCvIYIXEg?autoplay=1&controls=0&end=27&fs=0&loop=1" frameborder="0" allowfullscreen></iframe>
+			<div class="wrapper col-md-12">
+				<div class="frame-container">
+					<div id="player"></div>
+					<script>
+						// 2. IFrame Player API 코드를 비동기적으로 로드합니다.
+						var tag = document.createElement('script');
+			
+						tag.src = "https://www.youtube.com/iframe_api";
+						var firstScriptTag = document.getElementsByTagName('script')[0];
+						firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+			
+						var section = {
+							start : 0, 	// 반복 시작 시간(초)
+							end : 27.1	// 반복 종료 시간(초)
+						};
+			
+						// 3.  API 코드 다운로드 후 <iframe>(및 YouTube 플레이어)를 생성합니다.
+						function onYouTubeIframeAPIReady() {
+							player = new YT.Player('player', {
+								height : '360',
+								width : '640',
+								playerVars : {
+									'autoplay' : 1,			// 자동재생, 	 0: off, 1: on
+									'controls' : 0,			// 컨트롤러,	 0: off, 1: on 
+									'mute' : 1,				// 음소거, 	 	 0: off, 1: on
+									'disablekb ' : 1,		// 키보드금지, 	 0: off, 1: on
+									'rel' : 0				// 관련영상표시, 0: off, 1: on
+								},
+								videoId : '-OjCvIYIXEg', 	// 영상 고유 주소
+								events : {
+									'onReady' : onPlayerReady,
+									'onStateChange' : onPlayerStateChange
+								}
+							});
+						}
+			
+						function onPlayerReady(event) {
+							player.seekTo(section.start);
+							player.playVideo();
+						}
+			
+						function onPlayerStateChange(event) {
+							if (event.data == YT.PlayerState.PLAYING) {
+								var duration = section.end - section.start;
+								setTimeout(restartVideoSection, duration * 1000);
+							}
+						}
+			
+						function restartVideoSection() {
+							player.seekTo(section.start);
+						}
+					</script>
+				</div>	
+			</div>
 		</div>
 	</div>
 </section>
