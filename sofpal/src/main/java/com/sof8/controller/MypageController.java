@@ -1,15 +1,22 @@
 package com.sof8.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sof8.dto.Member;
+import com.sof8.dto.Paging;
+import com.sof8.dto.Qna;
 import com.sof8.service.MemberService;
+import com.sof8.service.QnaService;
+import com.sof8.service.ReplyService;
 
 @Controller
 @RequestMapping("/mypage")
@@ -18,6 +25,13 @@ public class MypageController {
 	@Autowired
 	MemberService service;
 
+	/* MyPage 1:1문의내역 확인 - Park */
+	@Autowired
+	QnaService qnaService;
+	@Autowired
+	ReplyService replyService;
+
+	
 	String dir = "mypage/";
 
 	// 127.0.0.1/mypage/info
@@ -158,5 +172,133 @@ public class MypageController {
 			System.out.println("[SUCCESS] : MypageController/mark - 찜목록 화면 출력");
 		}
 		return "index";
+	}
+	
+	/* mypage에서 1:1 문의 내역 확인 - Park*/
+	// 127.0.0.1/mypage/qna
+	@RequestMapping("/qna")
+	public String myQna(HttpSession session, Model model,
+			@RequestParam(defaultValue = "1") int page) {
+		
+		Member member = (Member)session.getAttribute("member");
+		
+		/* 예외처리 로직: 로그인이 안되어있으면, Home으로 이동 */
+		if (member == null) {
+			return "redirect:/member/login";
+		}
+		
+		String keyword = member.getUser_id();
+		String type = "user_id";
+		try {
+			
+			int totalRow = qnaService.getTotal(keyword, type);
+			Paging paging = new Paging(10, 5, totalRow, page, keyword, type);
+			List<Qna> qnas = qnaService.getList(paging);
+			
+			for (Qna qna : qnas) {
+				qna.setReply(replyService.getReply(qna.getR_id()));
+			}
+			
+			model.addAttribute("qnas", qnas);
+			model.addAttribute("page", page);
+			model.addAttribute("paging", paging);
+			model.addAttribute("content", dir + "qna");
+			
+			System.out.println("[SUCCESS] : MypageController/qna - qna 화면 출력");
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("[ERROR] : MypageController/qna - qna 화면 출력");
+		}
+		
+		model.addAttribute("content", dir + "qna");
+		
+		return "index";
+	}
+	
+	/* mypage에서 1:1 문의 내역 확인 - Park*/
+	// 127.0.0.1/mypage/qna/content
+	@RequestMapping("/qna/content")
+	public String myQnaContent(HttpSession session, Model model,
+			@RequestParam("id") int r_id,
+			@RequestParam(defaultValue = "1") int page) {
+		
+		Member member = (Member)session.getAttribute("member");
+		
+		/* 예외처리 로직: 로그인이 안되어있으면, Home으로 이동 */
+		if (member == null) {
+			return "redirect:/member/login";
+		}
+		
+		String keyword = member.getUser_id();
+		String type = "user_id";
+		
+		Qna qna = null;
+		try {
+			int totalRow = qnaService.getTotal(keyword, type);
+			Paging paging = new Paging(10, 5, totalRow, page, keyword, type);
+			model.addAttribute("paging", paging);
+
+			
+			qna = qnaService.get(r_id);
+			qna.setReply(replyService.getReply(qna.getR_id()));
+			System.out.println("/qna/content - succes");
+			
+		} catch (Exception e) {
+			System.out.println("/qna/content - Fail");
+			e.printStackTrace();
+		}
+		
+		model.addAttribute("qna", qna);
+		model.addAttribute("content", dir + "qna-content");
+		
+		return "index";
+	}
+	
+	/* mypage에서 1:1 문의 작성 - Park*/
+	// 127.0.0.1/mypage/qna/write
+	@RequestMapping("/qna/write")
+	public String myQnaWrite(HttpSession session, Model model) {
+		
+		Member member = (Member)session.getAttribute("member");
+		
+		/* 예외처리 로직: 로그인이 안되어있으면, login page로 이동 */
+		if (member == null) {
+			return "redirect:/member/login";
+		}
+		
+		model.addAttribute("member", member);
+		model.addAttribute("content", dir + "qna-write");
+		
+		return "index";
+	}
+	
+	/* mypage에서 1:1 문의 작성한것 저장- Park*/
+	// 127.0.0.1/mypage/qna/save
+	@RequestMapping("/qna/save")
+	public String myQnaWrite(HttpSession session, Model model,
+			@RequestParam String title, @RequestParam String content) {
+		
+		Member member = (Member)session.getAttribute("member");
+		
+		/* 예외처리 로직: 로그인이 안되어있으면, login page로 이동 */
+		if (member == null) {
+			return "redirect:/member/login";
+		}
+		
+		Qna qna = new Qna();
+		qna.setTitle(title);
+		qna.setContent(content);
+		qna.setUser_id(member.getUser_id());
+		
+		try {
+			qnaService.register(qna);
+			System.out.println("[SUCCESS] : qnaService.register(qna)");
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		model.addAttribute("member", member);
+		
+		return "redirect:/mypage/qna";
 	}
 }

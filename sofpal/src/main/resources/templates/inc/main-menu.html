@@ -99,6 +99,7 @@
 						<ul class="dropdown-menu">
 							<li><a href="#" th:href="@{/notice}">공지사항</a></li>
 							<li><a href="#" th:href="@{/faq}">자주하는 문의</a></li>
+							<li th:if="${session.admin != null}"><a href="#" th:href="@{/admin/qna/list}">1:1 문의목록</a></li><!-- 관리자만 이 항목이 보임  -->
 						</ul>
 					</li><!-- / Blog -->
 
