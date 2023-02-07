@@ -292,20 +292,3 @@ public class OrderController {
 			return "index";
 		}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
