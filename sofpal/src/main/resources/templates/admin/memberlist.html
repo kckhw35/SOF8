@@ -18,9 +18,9 @@
 						<form id="form_memberlist" class="form-inline" method="post">
 							<div class="form-group">
 								<div class="col-md-6 col-sm-6 col-xs-12">
-									<a class="btn btn-default" onclick="memberEnable()">선택 회원 가입</a>
-									<a class="btn btn-default" onclick="memberDisable()">선택 회원 탈퇴</a> 															
-									<a class="btn btn-default" onclick="memberDelete()">선택 회원 삭제</a>
+									<a class="btn btn-default" th:onclick="memberEnable([[${paging.page}]])">선택 회원 가입</a>
+									<a class="btn btn-default" th:onclick="memberDisable([[${paging.page}]])">선택 회원 탈퇴</a> 															
+									<a class="btn btn-default" th:onclick="memberDelete([[${paging.page}]])">선택 회원 삭제</a>
 								</div>
 								<div class="col-md-6 col-sm-6 col-xs-12">
 									<div class="pull-right">
@@ -36,12 +36,12 @@
 							<table class="table line">
 								<colgroup>
 									<col width="1%"/>
-									<col width="16.5%"/>
-									<col width="16.5%"/>
-									<col width="16.5%"/>
-									<col width="16.5%" class="widthDisplayNone"/>
-									<col width="16.5%" class="widthDisplayNone"/>
-									<col width="16.5%"/>
+									<col width="10%"/>
+									<col width="17.8%"/>
+									<col width="17.8%"/>
+									<col width="17.8%" class="widthDisplayNone"/>
+									<col width="17.8%" class="widthDisplayNone"/>
+									<col width="17.8%"/>
 								</colgroup>
 								<thead>
 									<tr class="cart-amount" >
