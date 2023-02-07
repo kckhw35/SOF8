@@ -19,6 +19,10 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<delete id="delete" parameterType="int">
 		DELETE FROM product WHERE p_id = ${p_id}
 	</delete>
+	<!-- 상품의 대분류 카테고리 확인 -->
+	<select id="selectmaincat" parameterType="int" resultType="int">
+		select cat_id2 from category where cat_id=${cat_id}
+	</select>
 	<!-- 상품 카테고리 찾기 -->
 	<select id="selectcategory"  parameterType="Product" resultType="int">
 		SELECT c2.cat_id as cat_id FROM category as c1, (select * from category where cat_id2 = ${cat_id}) as c2 WHERE c1.cat_id=c2.cat_id2 and c2.cat_name=#{size};

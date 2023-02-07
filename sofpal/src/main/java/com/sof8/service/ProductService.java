@@ -40,6 +40,10 @@ public class ProductService implements Sof8Service<Integer, Product>{
 		return mapper.selectall();
 	}
 	
+	public int getmaincat(Integer k) throws Exception{
+		return mapper.selectmaincat(k);
+	}
+	
 	public int selectcategory(Product v) throws Exception{
 		return mapper.selectcategory(v);
 	}
