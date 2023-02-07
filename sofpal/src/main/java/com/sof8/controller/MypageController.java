@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sof8.dto.Mark;
 import com.sof8.dto.Member;
+import com.sof8.service.MarkService;
 import com.sof8.service.MemberService;
 
 @Controller
@@ -24,6 +25,9 @@ public class MypageController {
 	@Autowired
 	MemberService service;
 
+	@Autowired
+	MarkService mservice;
+	
 	String dir = "mypage/";
 
 	// 127.0.0.1/mypage/info
@@ -168,18 +172,24 @@ public class MypageController {
 		return "index";
 	}
 	
+	// 찜 추가
 	@ResponseBody
 	@PostMapping("/addmark")
 	public Map<String,Integer> addmark(HttpSession session, Model model, @RequestParam(value="p_id") int p_id) {
+		Mark ma = new Mark();
 		Member m = (Member)session.getAttribute("member");
 		Map<String, Integer> mark = new HashMap<String, Integer>();
 		
 		// 로그인 상태 확인
 		if (session.getAttribute("member") == null) {
-			mark.put("c_id",-1);
+			mark.put("m_id",-1);
 			return mark;
 		}else {
 			try {
+				ma.setUser_id(m.getUser_id());
+				ma.setP_id(p_id);
+				mservice.register(ma);
+				mark.put("m_id", ma.getM_id());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

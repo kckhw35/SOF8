@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sof8.mapper.MarkMapper">
+	<select id="select" parameterType="int" resultType="Mark">
+		SELECT * FROM mark WHERE m_id = ${m_id}
+	</select>
+	<select id="selectall" resultType="Mark">
+		SELECT * FROM mark
+	</select>
+	<!-- 장바구니에 상품 추기 -->
+	<insert id="insert" parameterType="Mark">
+		INSERT INTO mark VALUES(m_id, #{user_id}, ${p_id})
+			<selectKey keyProperty="m_id" resultType="Integer" order="AFTER"> 
+                SELECT LAST_INSERT_ID()
+      		</selectKey>
+	</insert>
+	<!-- 찜 목록에서는 수정이 없음 -->
+	<update id="update" parameterType="Mark">
+	</update>
+	<!-- 찜 목록 삭제 -->
+	<delete id="delete" parameterType="int">
+		DELETE FROM mark WHERE m_id = ${m_id}
+	</delete>
+</mapper>

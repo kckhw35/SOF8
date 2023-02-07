@@ -81,18 +81,19 @@
 	
 	// 찜 목록에 추가
 	function addmark(){
-		$('#heart_btn').click(function(){
+		$('#mark_btn').click(function(){
 			var p_id = Number($('#p_id').val());
-			
+
 			$.ajax({
-				url:'/order/addmark',
+				url:'/mypage/addmark',
 				type:'post',
 				data:{'p_id':p_id},
 				success: function(data){
-					var c_id = data.c_id;
-					if(c_id==-1){
+					var m_id = data.m_id;
+					if(m_id==-1){
 						location.href="/member/login"
 					}
+					alert('찜 목록에 추가되었습니다.');
 				}
 			});
 		});
@@ -113,6 +114,7 @@
 					if(c_id==-1){
 						location.href="/member/login"
 					}
+					alert('장바구니에 추가되었습니다.');
 				}
 			});
 		});
@@ -120,6 +122,7 @@
 	
 	window.onload = function() {
 		deleteproduct();
+		addmark();
 		addcart();
 		purchaseproduct();
 	};
@@ -204,7 +207,7 @@
 														
 						<div id="fav_product">
 							<!-- 찜 -->
-							<span  data-toggle="modal" data-target="#mark-modal">
+							<!-- <span  data-toggle="modal" data-target="#mark-modal"> -->
 								<li id="icon_heart"><a href="#" id="mark_btn" ><i class="tf-ion-ios-heart"></i></a></li>
 							</span>
 							<!-- 장바구니 -->
