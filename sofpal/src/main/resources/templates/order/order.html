@@ -73,6 +73,7 @@
 }
 </style>
 <script>
+	// 배송 가능 시간 확인 후 예약 요청 시간 선택 옵션 변경
 	function checkschedule(){
 		var r_date = $('input[name="r_date"]').val();
 		
@@ -81,10 +82,19 @@
 			type:'post',
 			data:{'r_date':r_date},
 			success: function(data){
-				alert("성공!");
+				var dlist= new Array();
+				dlist = data.disabletime;
+				for(c of dlist){
+					$('#time option').each(function(){
+						if(this.value == c){
+							$(this).hide();
+						}
+					});
+				}
 			}
-		})
+		});
 	}
+	
 	function sum(){
 		var count = $('input[name="price"]').length;
 		
@@ -210,7 +220,7 @@
 									</thead>
 									<tbody>
 										<tr th:each="c : ${clist}" class="">
-											<input type="hidden" th:value="${c.c_id}" name="o_ids"/>
+											<input type="hidden" th:value="${c.c_id}" name="c_ids"/>
 											<td class="">
 												<div class="product-info">
 													<img width="80" th:src="@{/images/shop/products/}+${c.p_img}" />
@@ -344,16 +354,17 @@
 		               		<div class="form-datetime">
 		               			<span>요청 시간 </span>&emsp;&emsp;
 		               			<select id="time" name="r_time">
-		               				<option value="9">09:00</option>
-		               				<option value="10">10:00</option>
-		               				<option value="11">11:00</option>
-		               				<option value="12">12:00</option>
-		               				<option value="13">13:00</option>
-		               				<option value="14">14:00</option>
-		               				<option value="15">15:00</option>
-		               				<option value="16">16:00</option>
-		               				<option value="17">17:00</option>
-		               				<option value="18">18:00</option>
+		               				<option th:value="none">시간을 선택하세요.</option>
+		               				<option th:value="9">09:00</option>
+		               				<option th:value="10">10:00</option>
+		               				<option th:value="11">11:00</option>
+		               				<option th:value="12">12:00</option>
+		               				<option th:value="13">13:00</option>
+		               				<option th:value="14">14:00</option>
+		               				<option th:value="15">15:00</option>
+		               				<option th:value="16">16:00</option>
+		               				<option th:value="17">17:00</option>
+		               				<option th:value="18">18:00</option>
 		               			</select>
 		               		</div>
 	               </div>

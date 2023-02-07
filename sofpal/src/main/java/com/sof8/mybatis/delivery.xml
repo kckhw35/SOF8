@@ -23,4 +23,8 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<select id="deliverymancnt" resultType="int">
 		SELECT COUNT(d_id) FROM delivery
 	</select>
+	<!-- 선택한 시간에 배송 예약이 없는 배달기사 조회(결과 중 한 명만 가져오기) -->
+	<select id="selectdeliveryman" parameterType="Schedule" resultType="int">
+		SELECT d_id from delivery WHERE d_id not in (SELECT d.d_id AS d_id FROM delivery d JOIN schedule s ON d.d_id = s.d_id WHERE s_date = #{s_date} and s_time = ${s_time}) limit 1
+	</select>
 </mapper>

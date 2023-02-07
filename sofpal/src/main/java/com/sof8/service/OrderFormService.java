@@ -3,6 +3,7 @@ package com.sof8.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.sof8.dto.DetailOrder;
 import com.sof8.dto.OrderForm;
 import com.sof8.mapper.OrderFormMapper;
 
@@ -16,11 +17,15 @@ public class OrderFormService{
 		mapper.insertorder(v);
 	}
 	
-	public void registerdetailorder(OrderForm v) throws Exception {
+	public void registerdetailorder(DetailOrder v) throws Exception {
 		mapper.insertdetailorder(v);
 	}
 	
 	public void registerreservation(OrderForm v) throws Exception {
 		mapper.insertreservation(v);
+	}
+	
+	public void registerschedule(OrderForm v) throws Exception{
+		mapper.insertschedule(v);
 	}
 }

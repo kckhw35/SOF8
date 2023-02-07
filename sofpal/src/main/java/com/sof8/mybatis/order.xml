@@ -32,4 +32,8 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<select id="selectcnt" resultType="int">
 		SELECT c_cnt FROM cart WHERE c_id=${c_id}
 	</select>
+	<!-- 주문 상품 정보 -->
+	<select id="selectorderd" parameterType="int" resultType="Product">
+		SELECT d.p_id AS p_id, d.d_cnt AS p_cnt, d.price AS price, p.p_name as p_name, p.p_img AS p_img, p.del_cost AS del_cost, p.discount AS discount FROM detail_order d JOIN product p ON d.p_id = p.p_id WHERE o_id = ${o_id};
+	</select>
 </mapper>

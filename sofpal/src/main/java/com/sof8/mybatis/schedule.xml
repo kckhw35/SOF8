@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.sof8.mapper.ScheduleyMapper">
+<mapper namespace="com.sof8.mapper.ScheduleMapper">
 
 	<select id="select" parameterType="int" resultType="Schedule">
 		SELECT * FROM schedule WHERE s_id = ${s_id}
@@ -30,6 +30,6 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	</select>
 	<!-- 해당 날짜의 시간대 별 예약 일정 개수 확인 -->
 	<select id="checktime" parameterType="String" resultType="Schedule">
-		SELECT count(s_id),s_time FROM schedule WHERE s_date = #{s_date} GROUP BY s_time
+		SELECT count(s_id) AS s_cnt, s_time FROM schedule WHERE s_date = #{s_date} GROUP BY s_time
 	</select>
 </mapper>

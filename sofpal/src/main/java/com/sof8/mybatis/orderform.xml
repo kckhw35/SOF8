@@ -5,15 +5,18 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 <mapper namespace="com.sof8.mapper.OrderFormMapper">
 
 	<insert id="insertorder" parameterType="Order">
-		INSERT into orderTBL VALUES (o_id, #{user_id}, 1, ${totalprice}, ${totaldiscount}, #{pay_option}, #{o_status}, NOW(), #{c_date}, #{re_name}, #{re_tel}, #{re_zipcode}, #{re_addr}, #{re_deaddr}, #{re_req})
+		INSERT INTO orderTBL VALUES (o_id, #{user_id}, 1, ${totalprice}, ${totaldiscount}, #{pay_option}, #{o_status}, NOW(), #{c_date}, #{re_name}, #{re_tel}, #{re_zipcode}, #{re_addr}, #{re_deaddr}, #{re_req})
 			<selectKey keyProperty="o_id" resultType="Integer" order="AFTER"> 
                 SELECT LAST_INSERT_ID()
       		</selectKey> 
 	</insert>
 	<insert id="insertdetailorder" parameterType="DetailOrder">
-		INSERT into detail_order VALUES (de_id, ${o_id}, ${p_id}, ${d_cnt}, ${price})
+		INSERT INTO detail_order VALUES (de_id, ${o_id}, ${p_id}, ${d_cnt}, ${price})
 	</insert>
 	<insert id="insertreservation" parameterType="Reservation">
-		INSERT into reservation VALUES (re_id, ${d_id}, ${o_id}, #{deliver_date})
+		INSERT INTO reservation VALUES (re_id, ${d_id}, ${o_id}, #{r_date}, ${r_time})
+	</insert>
+	<insert id="insertschedule" parameterType="OrderForm">
+		INSERT INTO schedule VALUES(s_id, ${d_id}, #{r_date}, ${r_time}, '대기중')
 	</insert>
 </mapper>

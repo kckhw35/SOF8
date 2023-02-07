@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sof8.dto.Order;
-import com.sof8.dto.OrderForm;
+import com.sof8.dto.Product;
 import com.sof8.frame.Sof8Service;
 import com.sof8.mapper.OrderMapper;
 
@@ -45,12 +45,15 @@ public class OrderService implements Sof8Service<Integer, Order>{
 		return mapper.selectoid();
 	}
 	
-	public int selectpid(int c_id) throws Exception{
-		return mapper.selectpid(c_id);
+	public int selectpid(int k) throws Exception{
+		return mapper.selectpid(k);
 	}
 	
-	public int selectcnt(int c_id) throws Exception{
-		return mapper.selectpid(c_id);
+	public int selectcnt(int k) throws Exception{
+		return mapper.selectcnt(k);
 	}
 	
+	public List<Product> selectorderd(int k) throws Exception{
+		return mapper.selectorderd(k);
+	}
 }

@@ -12,5 +12,5 @@ import com.sof8.frame.Sof8Mapper;
 public interface ProductMapper extends Sof8Mapper<Integer, Product>{
 	public int selectcategory(Product v) throws Exception;
 	public int selectcnt(Integer k) throws Exception;
-	public Product updatecnt(Integer k) throws Exception;
+	public int updatecnt(Integer k) throws Exception;
 }

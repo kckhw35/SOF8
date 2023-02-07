@@ -1,7 +1,9 @@
 package com.sof8.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -12,10 +14,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sof8.dto.Cart;
+import com.sof8.dto.DetailOrder;
 import com.sof8.dto.Member;
 import com.sof8.dto.OrderForm;
+import com.sof8.dto.Product;
 import com.sof8.dto.Schedule;
 import com.sof8.service.CartService;
 import com.sof8.service.DeliveryService;
@@ -82,29 +87,34 @@ public class OrderController {
 		
 		return "index";
 	}
-	
-	// 장바구니 추가
-		@RequestMapping("/addcart")
-		public String addcart(HttpSession session, Model model, int p_id, int quantity) {
+
+		// 장바구니 추가
+		@ResponseBody
+		@PostMapping("/addcart")
+		public Map<String,Integer> addcart(HttpSession session, Model model, @RequestParam(value="p_id") int p_id, @RequestParam(value="quantity") int quantity) {
 			Cart c = new Cart();
 			Member  m = (Member)session.getAttribute("member");
+			Map<String, Integer> cart = new HashMap<String, Integer>();
 			
 			// 로그인 상태 확인
 			if (session.getAttribute("member") == null) {
-				return "redirect:/member/login";
+				cart.put("c_id",-1);
+				return cart;
 			}else {
 				try {
 					c.setUser_id(m.getUser_id()); 
 					c.setP_id(p_id);
 					c.setC_cnt(quantity); 
 					cservice.register(c);
+					cart.put("c_id", c.getC_id());
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
-
-			return "redirect:/product/productdetail?p_id="+p_id;
+			
+			return cart;
 		}
+	
 		
 		// 장바구니 삭제
 		@RequestMapping("/deletecart")
@@ -135,30 +145,30 @@ public class OrderController {
 		}
 		
 		// 배달 일정 확인
+		@ResponseBody
 		@PostMapping("/checkschedule")
-		public String checkschedule(Model model, @RequestParam(value="r_date") String r_date) {
+		public Map<String,List<Integer>> checkschedule(Model model, @RequestParam(value="r_date") String r_date) {
 			List<Schedule> slist = new ArrayList<>();
-			List<Integer> enable_time = new ArrayList<Integer>();
+			List<Integer> disable_time = new ArrayList<Integer>();
+			Map<String,List<Integer>> cant = new HashMap<String,List<Integer>>();
 			int dmancnt = 0;
-			int schedulecnt = 0;
 			
-			System.out.println(r_date);
-			
-			
-			// 배달기사 정보
+			// 해당 날짜에 배달 예약 불가능한 시간 확인
 			try {
 				dmancnt = deservice.deliverymancnt();	// 총 배달기사 수
 				slist = sservice.checktime(r_date);
-				System.out.println(slist);
 				
+				for(Schedule s : slist) {
+					if(s.getS_cnt() == dmancnt) {	// 해당 시간에 모든 기사들이 예약이 있음
+						disable_time.add(s.getS_time());
+					}
+				}
+				cant.put("disabletime", disable_time);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			
-			model.addAttribute("dmancnt", dmancnt);
-			model.addAttribute("schedulecnt", schedulecnt);
-			
-			return "redirect:/order";
+			return cant;
 		}
 		
 		// 주문 폼
@@ -197,8 +207,15 @@ public class OrderController {
 		
 		// 주문 완료
 		@RequestMapping("ordered")
-		public String ordered(HttpSession session, Model model, OrderForm of, Cart o_ids) {
+		public String ordered(HttpSession session, Model model, OrderForm of, Cart c_ids) {
 			Member  m = (Member)session.getAttribute("member");
+			Schedule s = new Schedule();
+			DetailOrder d = new DetailOrder();
+			ArrayList<Integer> p_id = of.getP_id();
+			ArrayList<Integer> d_cnt = of.getD_cnt();
+			ArrayList<Integer> price = of.getPrice();
+			List<Product> orderedproduct = new ArrayList<Product>();
+			int dman_id = 0;
 			int before_cnt = 0;
 			int now_cnt = 0;
 			
@@ -214,32 +231,52 @@ public class OrderController {
 					of.setO_status("결제완료");
 				}
 				
-				
 				try {
-					// 주문 및 상세주문 등록
+					// 주문 등록
 					ofservice.registerorder(of);
-					System.out.println(of);
 					
+					// 상세주문 등록 
+					for(int i=0; i< of.getP_id().size(); i++) {
+							d.setO_id(of.getO_id());
+							d.setP_id(p_id.get(i));
+							d.setD_cnt(d_cnt.get(i));
+							d.setPrice(price.get(i));
+						
+						// 주문한 상품 내역
+						ofservice.registerdetailorder(d);
+						orderedproduct = oservice.selectorderd(of.getO_id());
+					}
 					
-//					ofservice.registerdetailorder(of);
+					// 배달 기사 설정
+					s.setS_date(of.getR_date());
+					s.setS_time(of.getR_time());
+					dman_id = deservice.selectdeliveryman(s);
+					
+					of.setD_id(dman_id);
+					
+					// 예약 등록
 					ofservice.registerreservation(of);
 					
+					// 배송 일정 등록
+					ofservice.registerschedule(of);
+					
 					// 상품 재고 개수 변경
-//					for(int c_id : o_ids.getC_ids()) {
-//						// 기존 재고 확인
-//						before_cnt = pservice.getcnt(oservice.selectpid(c_id));
-//						// 재고 개수 변경
-//						now_cnt = before_cnt - oservice.selectcnt(c_id);
-//						pservice.updatecnt(now_cnt);
-//					}
-					
-					
+					for(int c_id : c_ids.getC_ids()) {
+						// 기존 재고 확인
+						before_cnt = pservice.getcnt(oservice.selectpid(c_id));
+						// 재고 개수 변경
+						now_cnt = before_cnt - oservice.selectcnt(c_id);
+						pservice.updatecnt(now_cnt);
+						
+						// 장바구니에서 해당 상품 삭제
+						cservice.remove(c_id);
+					}
+					model.addAttribute("orderlist", orderedproduct);
 					model.addAttribute("content", dir+"confirmation" );
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 				
-				System.out.println(of);
 			}
 			return "index";
 		}

@@ -9,8 +9,12 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<select id="selectall" resultType="Cart">
 		SELECT * FROM cart
 	</select>
+	<!-- 장바구니에 상품 추기 -->
 	<insert id="insert" parameterType="Cart">
 		INSERT INTO cart VALUES(c_id, #{user_id}, ${p_id}, ${c_cnt})
+			<selectKey keyProperty="c_id" resultType="Integer" order="AFTER"> 
+                SELECT LAST_INSERT_ID()
+      		</selectKey>
 	</insert>
 	<!-- 상품 개수 변경 -->
 	<update id="update" parameterType="Cart">

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sof8.dto.Delivery;
+import com.sof8.dto.Schedule;
 import com.sof8.frame.Sof8Service;
 import com.sof8.mapper.DeliveryMapper;
 
@@ -44,4 +45,7 @@ public class DeliveryService implements Sof8Service<Integer, Delivery>{
 		return mapper.deliverymancnt();
 	};
 	
+	public int selectdeliveryman(Schedule s) throws Exception{
+		return mapper.selectdeliveryman(s);
+	}
 }

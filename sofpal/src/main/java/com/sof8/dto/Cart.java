@@ -30,5 +30,4 @@ public class Cart {
 	private int discount;		// 할인
 	
 	private ArrayList<Integer> c_ids;
-	private ArrayList<String> o_ids;
 }

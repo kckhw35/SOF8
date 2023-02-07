@@ -1,4 +1,8 @@
 <style>
+	#p_name{
+			margin-top: 0;
+		}
+		
 	#fav_product li {
 		display: inline-block;
 		text-align: center;
@@ -51,18 +55,45 @@
 	// 상품 주문 페이지로 이동
 	function purchaseproduct(){
 		$('#purchase_btn').click(function(){
-			var quantity = $('#product_quantity').val();
-			var p_id = $('#p_id').val();
-			location.href="/order/order?p_id="+p_id+"&quantity="+quantity;
+			// 장바구니에 상품 추가
+			var quantity = Number($('#quantity').val());
+			var p_id = Number($('#p_id').val());
+
+			$.ajax({
+				url:'/order/addcart',
+				type:'post',
+				data:{'p_id':p_id,'quantity':quantity},
+				success: function(data){
+					if(data.c_id==-1){
+						location.href="/member/login"
+					}else{
+						$('#c_id').val(data.c_id);
+						$('#product_form').attr({
+							'method' : 'post',
+							'action' : '[[@{/order/order}]]'
+						});
+						$('#product_form').submit();
+					}
+				}
+			});
 		});
 	};
 	
 	// 찜 목록에 추가
 	function addmark(){
 		$('#heart_btn').click(function(){
-			$('#heart_btn').attr({
-				'method' : 'post',
-				'action' : '[[@{/mypage/addmark}]]'
+			var p_id = Number($('#p_id').val());
+			
+			$.ajax({
+				url:'/order/addmark',
+				type:'post',
+				data:{'p_id':p_id},
+				success: function(data){
+					var c_id = data.c_id;
+					if(c_id==-1){
+						location.href="/member/login"
+					}
+				}
 			});
 		});
 	};
@@ -70,10 +101,20 @@
 	// 장바구니에 추가
 	function addcart(){
 		$('#cart_btn').click(function(){
-			var quantity = $('#product_quantity').val();
-			var p_id = $('#p_id').val();
-			location.href="/order/addcart?p_id="+p_id+"&quantity="+quantity;
-			alert("장바구니에 추가되었습니다.");
+			var quantity = Number($('#quantity').val());
+			var p_id = Number($('#p_id').val());
+			
+			$.ajax({
+				url:'/order/addcart',
+				type:'post',
+				data:{'p_id':p_id,'quantity':quantity},
+				success: function(data){
+					c_id = data.c_id;
+					if(c_id==-1){
+						location.href="/member/login"
+					}
+				}
+			});
 		});
 	}
 	
@@ -140,17 +181,19 @@
 				</div>
 				<div class="col-md-7">
 					<div class="single-product-details">
+						<input type="hidden" th:value="${p.p_id}" id="p_id"/>
 						<h2 id="p_name" th:text="${p.p_name}"></h2>
 	                    <label>판매가</label>
 	                    <p id="price" th:text="${p.price}"></p><br/>
-	
+						<label>할인</label>
+	                    <p id="discount" th:text="${p.discount}"></p><br/>
 	                    <label>배송비</label>
 	                    <p id="del_cost" th:text="${p.del_cost}"></p><br/>
 	
 	                   <div class="product-quantity">
 							<span>수량</span>
 							<div class="product-quantity-slider">
-								<input type="number" id="product_quantity" name="product_quantity">
+								<input type="number" id="quantity" value="0" name="quantity" min="0" max="100">
 							</div>
 						</div>
 						<label>크기</label>
@@ -170,7 +213,7 @@
 							<li id="icon_cart"><a href="#" id="cart_btn"><i class="tf-ion-android-cart"></i></a></li>
 							</span>
 						</div>
-						<input type="hidden" th:value="${p.p_id}" id="p_id"/>
+						<input type="hidden" id="c_id" name="c_ids"/>
 						<a href="#" class="btn btn-main mt-20" id="purchase_btn">구매하기</a>
 						<a th:if="${session.admin != null}" th:href="@{/admin/updateproduct(p_id=${p.p_id})}" th:value="${p.p_id}" class="btn btn-main mt-20">수정하기</a>
 						<a th:if="${session.admin != null}" href="#" class="btn btn-main mt-20" id="delete_btn">삭제하기</a>

@@ -1,13 +1,19 @@
 package com.sof8.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.sof8.dto.Mark;
 import com.sof8.dto.Member;
 import com.sof8.service.MemberService;
 
@@ -135,7 +141,8 @@ public class MypageController {
 		}
 		return result;
 	}
-
+	
+	// 마이페이지 - 장바구니 목록
 	// 127.0.0.1/mypage/orderlist
 	@RequestMapping("/orderlist")
 	public String orderlist(HttpSession session, Model model, Member member) {
@@ -148,6 +155,7 @@ public class MypageController {
 		return "index";
 	}
 	
+	// 마이페이지 - 찜 목록
 	// 127.0.0.1/mypage/mark
 	@RequestMapping("/mark")
 	public String mark(HttpSession session, Model model, Member member) {
@@ -159,4 +167,38 @@ public class MypageController {
 		}
 		return "index";
 	}
+	
+	@ResponseBody
+	@PostMapping("/addmark")
+	public Map<String,Integer> addmark(HttpSession session, Model model, @RequestParam(value="p_id") int p_id) {
+		Member m = (Member)session.getAttribute("member");
+		Map<String, Integer> mark = new HashMap<String, Integer>();
+		
+		// 로그인 상태 확인
+		if (session.getAttribute("member") == null) {
+			mark.put("c_id",-1);
+			return mark;
+		}else {
+			try {
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return mark;
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
