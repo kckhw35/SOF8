@@ -126,7 +126,7 @@ public class OrderController {
 			}else {
 				for(String cart : c_id) {
 					int cart_id = Integer.parseInt(cart);
-					System.out.println("삭제되는 c_id : " + cart_id);
+
 					try {
 						cservice.remove(cart_id);
 					} catch (Exception e) {
@@ -137,12 +137,25 @@ public class OrderController {
 			return "redirect:/order/cart";
 		}
 		
-		// 장바구니 물건 개수 수정
-		@RequestMapping("updatecart")
-		public String updatecart(HttpSession session, Model model, @RequestParam(value="c_id") int c_id) {
-			
-			return "redirect:/order/cart";
-		}
+//		// 장바구니 물건 개수 수정
+//		@RequestMapping("updatecart")
+//		public String updatecart(HttpSession session, Model model, HttpServletRequest request) {
+//			String[] c_id = request.getParameterValues("c_id");
+//			String[] c_cnt = request.getParameterValues("c_cnt");
+//			
+//			if (session.getAttribute("member") == null) {
+//				return "redirect:/member/login";
+//			}else {
+//
+//				try {
+//					 
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//				
+//			}
+//			return "redirect:/order/cart";
+//		}
 		
 		// 배달 일정 확인
 		@ResponseBody

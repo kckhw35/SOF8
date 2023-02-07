@@ -60,7 +60,16 @@ function allorder(){
 
 // 선택된 상품 장바구니에서 수량 변경
 function updatecart(){
-	
+		var c_id = $('input[name="c_ids"]').val();
+		var c_cnt = $('#quantity').val();
+
+		$.ajax({
+			url:'/order/updatecart',
+			type:'POST',
+			data:{'c_id':c_id,
+				  'c_cnt':c_cnt},
+			traditional: true
+		});
 }
 
 // 선택된 상품 장바구니에서 삭제
@@ -74,7 +83,7 @@ function deletecart(){
 		$.ajax({
 			url:'/order/deletecart',
 			type:'POST',
-			data:{c_id,c_id},
+			data:{'c_id':c_id},
 			traditional: true
 		});
 	});
@@ -144,7 +153,7 @@ window.onload = function(){
 											</td>
 											<td class="col-md-2" id="c_cnt">
 												<div class="product-quantity-slider">
-													<input type="number" th:value="${c.c_cnt}" id="product_quantity" name="product_quantity">
+													<input type="number" id="quantity" th:value="${c.c_cnt}" name="quantity" min="0" max="100" oninput="updatecart()">
 												</div>
 											</td>
 											<td th:text="${c.price}" id="price"></td>
