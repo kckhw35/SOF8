@@ -1,5 +1,6 @@
 package com.sof8.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,31 +44,90 @@ public class ProductController {
 	public String fabric(Model model) {
 		
 		List<Product> list = null;
+		List<Product> plist = new ArrayList<Product>();
 		
 		try {
+			
 			list = pservice.get();
+			for(Product p:list) {
+				pservice.getmaincat(p.getCat_id());
+				if( pservice.getmaincat(p.getCat_id())== 1) {
+					plist.add(p);
+				}
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		model.addAttribute("plist", list);
+		model.addAttribute("plist", plist);
 		model.addAttribute("content", dir+"fabric");
 		return "index";
 	}
 	
 	@RequestMapping("/leather")
 	public String leather(Model model) {
+		
+		List<Product> list = null;
+		List<Product> plist = new ArrayList<Product>();
+		
+		try {
+			
+			list = pservice.get();
+			for(Product p:list) {
+				pservice.getmaincat(p.getCat_id());
+				if( pservice.getmaincat(p.getCat_id())== 2) {
+					plist.add(p);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		model.addAttribute("plist", plist);
 		model.addAttribute("content", dir+"leather");
 		return "index";
 	}
 	
 	@RequestMapping("/pet")
 	public String pet(Model model) {
+
+		List<Product> list = null;
+		List<Product> plist = new ArrayList<Product>();
+		
+		try {
+			
+			list = pservice.get();
+			for(Product p:list) {
+				pservice.getmaincat(p.getCat_id());
+				if( pservice.getmaincat(p.getCat_id())== 3) {
+					plist.add(p);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		model.addAttribute("plist", plist);
 		model.addAttribute("content", dir+"pet");
 		return "index";
 	}
 	
 	@RequestMapping("/livingroom")
 	public String livingroom(Model model) {
+
+		List<Product> list = null;
+		List<Product> plist = new ArrayList<Product>();
+		
+		try {
+			
+			list = pservice.get();
+			for(Product p:list) {
+				pservice.getmaincat(p.getCat_id());
+				if( pservice.getmaincat(p.getCat_id())== 4) {
+					plist.add(p);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		model.addAttribute("plist", plist);
 		model.addAttribute("content", dir+"livingroom");
 		return "index";
 	}
