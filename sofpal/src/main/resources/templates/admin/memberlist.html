@@ -63,7 +63,7 @@
 									</tr>	
 									<tr th:if="${members != null}" th:each="member : ${members}">
 										<td>
-											<input type="checkbox" th:id="${member.user_id}" name="checkbox" class="check" onclick="chkClicked()" th:value="${member.user_id}">
+											<input type="checkbox" th:id="${member.user_id}" name="checkbox" class="check" th:value="${member.user_id}" onclick="chkClicked()">
 											<label th:for="${member.user_id}"></label>
 										</td>
 										<td class="text-center" th:text="${memberStat.count + paging.offset}"></td>
@@ -74,7 +74,7 @@
 										<td class="widthDisplayNone" th:text="${#dates.format(member.joindate,'yyyy.MM.dd')}"></td>
 										<td>
 											<a class="btn br-4" th:href="@{/admin/memberedit/{user_id}(user_id=${member.user_id})}">수정</a>
-											<a class="btn br-4" th:onclick="memberDelete([[${member.user_id}]])">삭제</a>											
+											<a class="btn br-4" th:onclick="memberOneDelete([[${paging.page}]], [[${member.user_id}]])">삭제</a>											
 										</td>
 									</tr>
 								</tbody>

@@ -20,6 +20,7 @@ public class Mark {
 	private String user_id;		// 사용자 아이디
 	// 상품 테이블
 	private int p_id;			// 상품 아이디
+	private String p_img;		// 상품 사진명
 	private String p_name;		// 상품명
 	private String p_content;	// 상품 정보
 	private String color;		// 색상

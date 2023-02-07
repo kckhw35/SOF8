@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sof8.dto.Mark;
+import com.sof8.dto.Paging;
 import com.sof8.frame.Sof8Service;
 import com.sof8.mapper.MarkMapper;
 
@@ -39,4 +40,13 @@ public class MarkService implements Sof8Service<Integer, Mark>{
 	public List<Mark> get() throws Exception {
 		return mapper.selectall();
 	}
+	
+	public List<Mark> getList(Paging paging) throws Exception {
+		return mapper.selectList(paging);
+	}
+	
+	public int getTotal(String user_id) throws Exception {
+		return mapper.getTotal(user_id);
+	}
+	
 }

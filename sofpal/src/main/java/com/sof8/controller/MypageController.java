@@ -1,6 +1,7 @@
 package com.sof8.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -15,8 +16,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sof8.dto.Mark;
 import com.sof8.dto.Member;
+import com.sof8.dto.Paging;
 import com.sof8.service.MarkService;
 import com.sof8.service.MemberService;
+import com.sof8.service.OrderService;
 
 @Controller
 @RequestMapping("/mypage")
@@ -28,8 +31,11 @@ public class MypageController {
 	@Autowired
 	MarkService mservice;
 	
+	@Autowired
+	OrderService oservice;
+	
 	String dir = "mypage/";
-
+	
 	// 127.0.0.1/mypage/info
 	@RequestMapping("/info")
 	public String info(HttpSession session, Model model) {
@@ -152,6 +158,7 @@ public class MypageController {
 	public String orderlist(HttpSession session, Model model, Member member) {
 		// 세션이 있다면(로그인 중이라면)
 		if (session.getAttribute("member") != null) {
+			
 			// 찜목록 화면이동
 			model.addAttribute("content", dir + "orderlist");
 			System.out.println("[SUCCESS] : MypageController/orderlist - 주문목록 화면 출력");
@@ -162,14 +169,49 @@ public class MypageController {
 	// 마이페이지 - 찜 목록
 	// 127.0.0.1/mypage/mark
 	@RequestMapping("/mark")
-	public String mark(HttpSession session, Model model, Member member) {
+	public String mark(HttpSession session, Model model,  
+			@RequestParam(defaultValue = "1") int page) {
+		
+		Member member =  (Member) session.getAttribute("member");
 		// 세션이 있다면(로그인 중이라면)
 		if (session.getAttribute("member") != null) {
+		
+			try {
+				String keyword = member.getUser_id();
+				String type= "user_id";
+				
+				// 검색한 아이디의 총 찜 수
+				int totalRow = mservice.getTotal(keyword);
+				Paging paging = null;
+				List<Mark> marks= null;
+				do {
+					// 페이징을 위한 데이터 입력
+					paging = new Paging(5,5,totalRow, page, keyword, type);
+					// 페이징 후 데이터 검색 
+					marks = mservice.getList(paging);
+					--page;
+				}while (marks.isEmpty());
+
+				model.addAttribute("marks", marks);
+				model.addAttribute("page", page);
+				model.addAttribute("paging", paging);				
+				
+				System.out.println("marks: " + marks);
+				System.out.println("page: " + page);
+				System.out.println("paging: " + paging);
+				System.out.println("[SUCCESS] : MypageController/mark - 찜목록 검색 성공");
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("[ERROR] : MypageController/mark - 찜목록 검색 실패");
+			}
+			
 			// 찜목록 화면이동
 			model.addAttribute("content", dir + "mark");
 			System.out.println("[SUCCESS] : MypageController/mark - 찜목록 화면 출력");
+			return "index";
+		} else {
+			return "redirect:/";
 		}
-		return "index";
 	}
 	
 	// 찜 추가
@@ -197,6 +239,27 @@ public class MypageController {
 		
 		return mark;
 	}
+	
+	// 찜삭제
+	// 127.0.0.1/mypage/markdelete
+	@ResponseBody
+	@RequestMapping("/markdelete")
+	public Boolean markdelete(HttpSession session, @RequestParam(value = "arrlist[]") List<Integer> arrlist) {
+
+		Boolean result = false;
+
+		if (session.getAttribute("member")!= null) {
+			for (int m_id : arrlist) {
+				try {
+					mservice.remove(m_id);
+					result = true;
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return result;
+	}	
 }
 
 

@@ -58,8 +58,10 @@ public class MemberController {
 
 		try {
 
+			// 가입할 비밀번호 암호화
 			String encryptPwd = CryptoUtil.sha512(member.getPwd());
 			member.setPwd(encryptPwd);
+			
 			// 회원가입 기능 실행
 			service.register(member);
 
@@ -150,8 +152,8 @@ public class MemberController {
 
 		try {
 
+			// 입력한 비밀번호 암호화
 			String encryptPwd = CryptoUtil.sha512(member.getPwd());
-			member.setPwd(encryptPwd);
 
 			// 가입된 아이디 조회
 			Member m = service.get(member.getUser_id());

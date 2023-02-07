@@ -77,6 +77,23 @@ public class OrderController {
 			try {
 				clist = cservice.selectusercart(m.getUser_id());
 				
+				//  
+				int total_price = 0;
+				int total_discount = 0;
+				int total_delcost = 0;
+				
+				for (Cart i : clist) {
+					total_price += (i.getC_cnt()*i.getPrice());
+					total_discount += i.getDiscount();
+					total_delcost += i.getDel_cost();
+				}
+				
+				c.setTotal_price(total_price);
+				c.setTotal_discount(total_discount);
+				c.setTotal_delcost(total_delcost);
+				c.setTotal(total_price+total_discount+total_delcost); 
+
+				model.addAttribute("cart", c);
 				model.addAttribute("m", m);
 				model.addAttribute("clist", clist);
 				model.addAttribute("content", dir + "cart");

@@ -16,6 +16,7 @@ import com.sof8.dto.Admin;
 import com.sof8.dto.Member;
 import com.sof8.dto.Paging;
 import com.sof8.dto.Product;
+import com.sof8.frame.CryptoUtil;
 import com.sof8.service.AdminService;
 import com.sof8.service.MemberService;
 import com.sof8.service.ProductService;
@@ -69,9 +70,12 @@ public class AdminController {
 
 			// 가입된 아이디라면
 			if (a != null) {
-
+				
+				// 입력한 비밀번호 암호화
+				String encryptPwd = CryptoUtil.sha512(admin.getAdmin_pwd());
+				
 				// 가입된 아이디의 비밀번호가 일치한다면
-				if (a.getAdmin_pwd().equals(admin.getAdmin_pwd())) {
+				if (a.getAdmin_pwd().equals(encryptPwd)) {
 
 					// 세션에 로그인 유저정보 저장
 					session.setAttribute("admin", a);
@@ -138,7 +142,11 @@ public class AdminController {
 	public String accountok(Model model, Admin admin) {
 
 		try {
-
+			
+			// 가입할 비밀전호 암호화
+			String encryptPwd = CryptoUtil.sha512(admin.getAdmin_pwd());
+			admin.setAdmin_pwd(encryptPwd);
+			
 			// 회원가입 기능 실행
 			aservice.register(admin);
 
@@ -198,9 +206,12 @@ public class AdminController {
 		if (!checkNullSession(session)) {
 
 			try {
-
+				
+				// 검색한 데이터의 총 개수
 				int totalRow = mservice.getTotal(keyword, type);
+				// 페이징을 위한 데이터 입력
 				Paging paging = new Paging(6, 5, totalRow, page, keyword, type);
+				// 페이징 후 데이터 검색
 				List<Member> members = mservice.getList(paging);
 
 				model.addAttribute("members", members);

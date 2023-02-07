@@ -96,7 +96,7 @@ function memberDisable(page) {
 	}
 };
 
-//  회원 삭제
+//  선택회원삭제
 function memberDelete(page) {
 
 	//체크박스 체크된 항목
@@ -132,6 +132,109 @@ function memberDelete(page) {
 			if (result) {
 				alert('성공적으로 삭제처리 하였습니다.');
 				$('#form_memberlist').load('/admin/memberlist?page=' + page + ' #form_memberlist');
+			}
+		}
+	};
+
+	$.ajax(option);
+};
+
+// 회원 하나씩 삭제
+function memberOneDelete(page, user_id) {
+
+	if (confirm("정말로 삭제하시겠습니까?")) {
+		//배열생성
+		var arr = new Array(1);
+		
+		arr[0] = user_id;
+	}
+	
+	
+	var json = {
+		"arrlist": arr
+	};
+
+	var option = {
+		method: 'post',
+		url: '/admin/memberdelete',
+		data: json,
+		success: function(result) {
+			if (result) {
+				alert('성공적으로 삭제처리 하였습니다.');
+				$('#form_memberlist').load('/admin/memberlist?page=' + page + ' #form_memberlist');
+			}
+		}
+	};
+
+	$.ajax(option);
+};
+
+//  선택찜삭제
+function markDelete(page) {
+
+	//체크박스 체크된 항목
+	var query = 'input[name="checkbox"]:checked'
+	var selectedElements = document.querySelectorAll(query);
+
+	//체크박스 체크된 항목의 개수
+	var selectedElementsCnt = selectedElements.length;
+
+	if (selectedElementsCnt == 0) {
+		alert("삭제할 항목을 선택해주세요.");
+		return false;
+	} else {
+		if (confirm("정말로 삭제하시겠습니까?")) {
+			//배열생성
+			var arr = new Array(selectedElementsCnt);
+			
+			document.querySelectorAll('input[name="checkbox"]:checked').forEach(function(v, i) {
+				arr[i] = v.value;
+			});
+		}
+	}
+	
+	var json = {
+		"arrlist": arr
+	};
+
+	var option = {
+		method: 'post',
+		url: '/mypage/markdelete',
+		data: json,
+		success: function(result) {
+			if (result) {
+				alert('성공적으로 삭제처리 하였습니다.');
+				$('#form_mark').load('/mypage/mark?page=' + page + ' #form_mark');
+			}
+		}
+	};
+
+	$.ajax(option);
+};
+
+//  찜 하나씩 삭제
+function markOneDelete(page, m_id) {
+
+	if (confirm("정말로 삭제하시겠습니까?")) {
+		//배열생성
+		var arr = new Array(1);
+		
+		arr[0] = m_id;
+	}
+	
+	
+	var json = {
+		"arrlist": arr
+	};
+
+	var option = {
+		method: 'post',
+		url: '/mypage/markdelete',
+		data: json,
+		success: function(result) {
+			if (result) {
+				alert('성공적으로 삭제처리 하였습니다.');
+				$('#form_mark').load('/mypage/mark?page=' + page + ' #form_mark');
 			}
 		}
 	};

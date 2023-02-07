@@ -9,6 +9,19 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<select id="selectall" resultType="Mark">
 		SELECT * FROM mark
 	</select>
+	<!-- 아이디가 일치하는 찜목록 수 구하기 -->	
+	<select id="getTotal" parameterType="String" resultType="int">
+		SELECT count(*) 
+		FROM mark m JOIN product p ON m.p_id = p.p_id
+		WHERE m.user_id = #{user_id}
+	</select>
+	<!--  아이디가 일치하는 찜목록 검색 및 페이징 -->
+	<select id="selectList" parameterType="Paging" resultType="Mark">
+		SELECT m.m_id, p.p_id, p.p_img, p.p_name, p.price 
+		FROM mark m JOIN product p ON m.p_id = p.p_id
+		<include refid="common.search"></include>
+		<include refid="common.paging"></include> 
+	</select>	
 	<!-- 장바구니에 상품 추기 -->
 	<insert id="insert" parameterType="Mark">
 		INSERT INTO mark VALUES(m_id, #{user_id}, ${p_id})

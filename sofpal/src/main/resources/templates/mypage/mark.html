@@ -16,7 +16,7 @@
 					</div>
 					
 					<!-- 장바구니에 아이템이 없을시 -->
-					<div class="empty-cart page-wrapper text-center">
+					<div class="empty-cart page-wrapper text-center" th:if="${marks == null}">
 						<iconify-icon icon="mdi:heart" width="120"></iconify-icon>
 						<h2 class="text-center">찜목록에 담겨있는 상품이 없습니다.</h2>
 	          			<p>Your wish list is currently empty.</p>
@@ -24,66 +24,78 @@
 					</div>
 					
 					<!-- 장바구니에 아이템이 있을시 -->
-					<div class="product-list">
-						<form method="post">
+					<div class="product-list" th:if="${marks != null}">
+						<form id="form_mark" method="post">
 							<div class="form-group">
-								<a href="#" class="large btn btn-small btn-solid-border">선택 상품 삭제</a>
+								<a class="btn btn-default" th:onclick="|markDelete(${paging.page})|">선택 상품 삭제</a>
 							</div>
 							<table class="table line">
+								<colgroup>
+									<col width="1%"/>
+									<col width="59%"/>
+									<col width="39%"/>
+									<col width="1%"/>
+								</colgroup>
 								<thead>
 									<tr class="cart-amount">
-<<<<<<< HEAD
-										<th width="1" class="text-center"><input type="checkbox" id="check" class="check"> <label for="check"></label></th>
-=======
-										<th width="1" class="text-center"><input type="checkbox" id="check" class="check"> <label for="check"></th>
->>>>>>> temp
+										<th width="1" class="text-center">
+											<input type="checkbox" id="allCheckbox" onclick="allChecked()">
+											<label for="allCheckbox"></label>
+										</th>
 										<th class="">상품 정보</th>
 										<th class="">상품금액</th>
 										<th width="1"></th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr class="">
-										<td class=""><input type="checkbox" id="check1" class="check"> <label for="check1"></label></td>
+									<tr th:each="mark : ${marks}">
+										<td class="">
+											<input type="checkbox" th:id="${mark.m_id}" name="checkbox" class="check"  th:value="${mark.m_id}" onclick="chkClicked()">
+											<label th:for="${mark.m_id}"></label>
+										</td>
 										<td class="">
 											<div class="product-info">
-												<img width="80" th:src="@{/images/shop/cart/cart-1.jpg}" alt="" />
-												<a href="#!">Sunglass</a>
+												<img width="150" th:src="@{/images/shop/products/}+${mark.p_img}" /> 
+												<a th:href="@{/product/productdetail(p_id=${mark.p_id})}" th:text="${mark.p_name}"></a>
 											</div>
 										</td>
-										<td class="">$200.00</td>
+										<td th:text="|${#numbers.formatInteger(mark.price, 3, 'COMMA')}원|"></td>
 										<td class="">
-											<a href="#" onclick=""><iconify-icon icon="ph:x-square-thin" width="25"></iconify-icon></a>
-										</td>
-									</tr>
-									<tr class="">
-<<<<<<< HEAD
-										<td class=""><input type="checkbox" id="check2" class="check"> <label for="check2"></label></td>
-=======
-										<td class=""><input type="checkbox" id="check2" class="check"> <label for="check2"></td>
->>>>>>> temp
-										<td class="">
-											<div class="product-info">
-												<img width="80" th:src="@{/images/shop/cart/cart-1.jpg}" alt="" />
-												<a href="#!">Sunglass</a>
-											</div>
-										</td>
-										<td class="">$200.00</td>
-										<td class="">
-											<a href="#" onclick=""><iconify-icon icon="ph:x-square-thin" width="25"></iconify-icon></a>
+											<a th:onclick="|markOneDelete(${paging.page}, ${mark.m_id})|"><iconify-icon icon="ph:x-square-thin" width="25"></iconify-icon></a>
 										</td>
 									</tr>
 								</tbody>
 							</table>
+							<div class="form-group">
+								<a class="btn btn-default" th:onclick="|markDelete(${paging.page})|">선택 상품 삭제</a>
+							</div>
 							<div class="text-center">
-								<ul class="pagination post-pagination">
-									<li><a href="#!">Prev</a></li>
-									<li class="active"><a href="#!">1</a></li>
-									<li><a href="#!">2</a></li>
-									<li><a href="#!">3</a></li>
-									<li><a href="#!">4</a></li>
-									<li><a href="#!">5</a></li>
-									<li><a href="#!">Next</a></li>
+								<ul class="pagination post-pagination" th:if="${paging.totalRow > 0}">
+									<!-- 맨 처음 페이지 이동 -->
+									<li th:if="${paging.startPage > 1}">
+										<a th:href="@{'mark?page=1'}" th:text="처음"></a>
+									</li>
+									<!-- 이전 블록 이동 -->
+									<li th:if="${paging.prev}">
+										<a th:href="@{'mark?page='+${paging.startPage-1}}" 
+											th:text="이전"></a>
+
+									</li>
+									<!-- 시퀀스 보여주는 값 변경 -->
+									<li th:each="pageNum : ${#numbers.sequence(paging.startPage, paging.endPage)}" th:class="${pageNum == paging.page} ? 'active'" >
+										<a th:href="@{'mark?page='+${pageNum}}" 
+											th:text="${pageNum}"></a>
+
+									</li>
+									<!-- 다음 블록으로 이동 -->
+									<li th:if="${paging.next}">
+										<a th:href="@{'mark?page='+|${paging.endPage + 1}|}" 
+											th:text="다음"></a>
+									</li>
+									<!-- 맨 뒷 페이지로 이동 -->
+									<li th:if="${paging.endPage < paging.totalPage}">
+										<a th:href="@{'mark?page='+${paging.totalPage}}" th:text="끝"></a>
+									</li>
 								</ul>
 							</div>
 						</form>

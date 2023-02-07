@@ -139,28 +139,39 @@ window.onload = function(){
 									</thead>
 									<tbody>
 										<tr th:each="c : ${clist}" class="">
+											<!-- 체크박스 -->
 											<td>
 												<input type="checkbox" th:id="${c.c_id}" class="check" name="c_ids" th:value="${c.c_id}"><label th:for="${c.c_id}"></label>
 											</td>
+											<!-- 상품/옵션정보 -->
 											<td class="">
 												<div class="product-info">
-													<img width="80"
-														th:src="@{/images/shop/products/}+${c.p_img}" /> <input
-														type="hidden" name="p_img" th:value="${c.p_img}">
-													<a th:href="@{/product/productdetail(p_id=${c.p_id})}"
-														th:value="${c.p_id}" th:text="${c.p_name}"></a>
+													<img width="80" th:src="@{/images/shop/products/}+${c.p_img}" /> 
+													<input type="hidden" name="p_img" th:value="${c.p_img}" />
+													<a th:href="@{/product/productdetail(p_id=${c.p_id})}" th:value="${c.p_id}" th:text="${c.p_name}"></a>
 												</div>
 											</td>
+											<!-- 수량 -->
 											<td class="col-md-2" id="c_cnt">
 												<div class="product-quantity-slider">
-													<input type="number" id="quantity" th:value="${c.c_cnt}" name="quantity" min="0" max="100" oninput="updatecart()">
+													<input type="number" id="quantity" name="quantity" min="0" max="100" th:value="${c.c_cnt}" oninput="updatecart()">
 												</div>
 											</td>
-											<td th:text="${c.price}" id="price"></td>
-											<td th:text="${c.discount}"></td>
-											<td th:text="${c.c_cnt*c.price}" id="sum_price"></td>
+											<!-- 상품금액 -->
+											<td id="price" class="widthDisplayNone" th:if="${c.price == 0}" th:text="0원"></td>
+											<td id="price" class="widthDisplayNone" th:if="${c.price != 0}" th:text="|${#numbers.formatInteger(c.price, 3, 'COMMA')}원|"></td>
+											<!-- 할인 -->
+											<td class="widthDisplayNone" th:if="${c.discount == 0}" th:text="0원"></td>
+											<td class="widthDisplayNone" th:if="${c.discount != 0}" 
+												th:text="|${#numbers.formatInteger(c.discount, 3, 'COMMA')}원|"></td>
+											<!-- 합계금액 -->
+											<td id="sum_price" class="widthDisplayNone" 
+												th:text="|${#numbers.formatInteger(c.c_cnt*c.price, 3, 'COMMA')}원|"></td>
 											<input type="hidden" name="sum_price" th:value="${c.c_cnt*c.price}" />
-											<td th:text="${c.del_cost}"></td>
+											<!-- 배송비 -->
+											<td class="widthDisplayNone" th:if="${c.del_cost == 0}" th:text="0원"></td>
+											<td class="widthDisplayNone" th:if="${c.del_cost != 0}" 
+												th:text="|${#numbers.formatInteger(c.del_cost, 3, 'COMMA')}원|"></td>
 											<input type="hidden" name="del_cost" th:value="${c.del_cost}" />
 										</tr>
 									</tbody>
@@ -170,17 +181,19 @@ window.onload = function(){
 										<div class="price-list">
 											<dl>
 												<dt>
-													총 <strong id="checked_cnt" th:text="${totalcnt}">0</strong> 개의 상품금액
+													총 <strong id="checked_cnt" th:text="${#lists.size(clist)}"></strong> 개의 상품금액
 												</dt>
 												<dd>
-													<p id="sumprice"></p>원
+													<p id="sumprice" th:text="|${#numbers.formatInteger(cart.total_price, 3, 'COMMA')}원|"></p>
 												</dd>
 											</dl>
 											<span><iconify-icon icon="akar-icons:circle-minus-fill" width="25"></iconify-icon></span>
 											<dl>
 												<dt>할인</dt>
 												<dd>
-													<p id="sumdiscount"></p>원
+													<p id="sumdiscount" th:if="${cart.total_discount == 0}" th:text="0원"></p>
+													<p id="sumdiscount" th:if="${cart.total_discount != 0}" 
+														th:text="|${#numbers.formatInteger(cart.total_discount, 3, 'COMMA')}원|"></p>
 													<input type="hidden" name="totaldiscount"/>
 												</dd>
 											</dl>
@@ -188,14 +201,16 @@ window.onload = function(){
 											<dl>
 												<dt>배송비</dt>
 												<dd>
-													<p id="sumdelcost"></p>원
+													<p id="sumdiscount" th:if="${cart.total_delcost == 0}" th:text="0원"></p>
+													<p id="sumdiscount" th:if="${cart.total_delcost != 0}" 
+														th:text="|${#numbers.formatInteger(cart.total_delcost, 3, 'COMMA')}원|"></p>
 												</dd>
 											</dl>
 											<span><iconify-icon icon="akar-icons:equal-fill" width="25"></iconify-icon></span>
 											<dl class="price-total">
 												<dt>합계</dt>
-												<dd>
-													<p id="totalprice"></p>원
+												<dd>	
+													<p id="sumdiscount" th:text="|${#numbers.formatInteger(cart.total, 3, 'COMMA')}원|"></p>
 													<input type="hidden" name="totalprice"/>
 												</dd>
 											</dl>
