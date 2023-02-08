@@ -39,9 +39,8 @@
 								class="tf-ion-ios-arrow-down"></span></a>
 						<div class="dropdown-menu">
 							<div class="row">
-
 								<!-- product -->
-								<div class="col-sm-3 col-xs-12">
+								<div class="col-xs-12">
 									<ul>
 										<li class="dropdown-header">상품</li>
 										<li role="separator" class="divider"></li>
@@ -51,45 +50,10 @@
 										<li><a th:href="@{/product/pet}">펫소파</a></li>
 										<li><a th:href="@{/product/livingroom}">리빙룸</a></li>
 									</ul>
-
-								</div>
-								<div class="col-sm-3 col-xs-12">
-									<ul>
-										<li class="dropdown-header">크기</li>
-										<li role="separator" class="divider"></li>
-										<li><a href="#">1인용</a></li>
-										<li><a href="#">2인용</a></li>
-										<li><a href="#">3인용</a></li>
-										<li><a href="#">4인용</a></li>
-										<li><a href="#">5인용</a></li>
-										<li><a href="#">6인용</a></li>
-									</ul>
-									
-									<ul>
-										<li class="dropdown-header"></li>
-										<li role="separator" class="divider"></li>
-										<li><a href="#">펫쇼파</a></li>
-										<li><a href="#">펫스텝</a></li>
-									</ul>
-									
-									<ul>
-										<li class="dropdown-header"></li>
-										<li role="separator" class="divider"></li>
-										<li><a href="#">쿠션</a></li>
-										<li><a href="#">러그</a></li>
-									</ul>
-								</div>
-								<!-- Mega Menu -->
-								<div class="col-sm-3 col-xs-12">
-									<a href="shop.html">
-										<img class="img-responsive" th:src="@{/images/shop/header-img.jpg}" alt="menu image" />
-									</a>
 								</div>
 							</div><!-- / .row -->
 						</div><!-- / .dropdown-menu -->
 					</li><!-- / Pages -->
-
-
 
 					<!-- Blog -->
 					<li class="dropdown dropdown-slide">
@@ -99,6 +63,7 @@
 						<ul class="dropdown-menu">
 							<li><a href="#" th:href="@{/notice}">공지사항</a></li>
 							<li><a href="#" th:href="@{/faq}">자주하는 문의</a></li>
+							<li th:if="${session.admin != null}"><a href="#" th:href="@{/admin/qna/list}">1:1 문의목록</a></li><!-- 관리자만 이 항목이 보임  -->
 						</ul>
 					</li><!-- / Blog -->
 
