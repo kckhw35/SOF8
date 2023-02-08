@@ -21,6 +21,10 @@
 
 *******************************************/
 /*=== [ 1. Common ] ===*/
+.bf {
+	background-color: buttonface;
+}
+
 .frame-container {
     position: relative;
     padding-bottom: 56.25%; /* 16:9 */  
@@ -292,6 +296,10 @@ input[type="checkbox"]:checked+input+label:before {
 	margin: 0;
 }
 
+.wish .shopping.cart .product-list .product-info a:first-child {
+	margin: 0;
+}
+
 .post-pagination {
 	margin-top: 70px;
 }
@@ -351,16 +359,20 @@ dl {
 	margin-top: 14px;
 }
 
-.wish .shopping.cart .product-list .product-info a:first-child {
-	margin: 0;
-}
-
 .orderlist input[type="date"] {
 	padding: 5px;
 	vertical-align: middle;
 	height: 30px;
 	display: inline;
-	width: 100px
+	width: 120px
+}
+
+.orderlist .shopping.cart .product-list .product-info a:first-child {
+	margin: 0;
+}
+
+.orderlist .form-horizontal {
+	margin-left: 10px;
 }
 
 /*=== [ 5. Order ] ===*/

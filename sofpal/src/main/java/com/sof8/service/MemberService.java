@@ -51,7 +51,7 @@ public class MemberService implements Sof8Service<String, Member>{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("keyword", keyword);
 		map.put("type", type);
-		return mapper.getTotal(map);
+		return mapper.selectTotal(map);
 	}
 
 	public void modifyPwd(Member v) throws Exception {

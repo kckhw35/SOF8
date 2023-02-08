@@ -37,9 +37,25 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		SELECT d.p_id AS p_id, d.d_cnt AS p_cnt, d.price AS price, p.p_name as p_name, p.p_img AS p_img, p.del_cost AS del_cost, p.discount AS discount FROM detail_order d JOIN product p ON d.p_id = p.p_id WHERE o_id = ${o_id};
 	</select>
 	<!-- 총 주문 수 구하기 -->
-	<select id="getTotal" parameterType="String" resultType="int">
+	<select id="selectTotal" parameterType="Map" resultType="int">
 		SELECT count(*) 
-		FROM order o JOIN product p ON m.p_id = p.p_id
-		WHERE m.user_id = #{user_id}
+		FROM ordertbl o 
+			JOIN detail_order d ON  o.o_id = d.o_id
+		    JOIN product p ON d.p_id = p.p_id
+		<include refid="common.search"></include>
 	</select>
+	<select id="selectList" parameterType="Paging" resultType="Order">
+		SELECT o.o_date, o.o_id, p.p_name, p.size, p.color, p.price, d.d_cnt, o.o_status, p.p_id, p.p_img
+		FROM ordertbl o 
+			JOIN detail_order d ON  o.o_id = d.o_id
+		    JOIN product p ON d.p_id = p.p_id
+		<include refid="common.search"></include>
+		ORDER BY o.o_date DESC
+		<include refid="common.paging"></include>
+	</select>
+	<update id="updateStatus" parameterType="int">
+		UPDATE ordertbl
+		SET o_status = '주문취소'
+		WHERE o_id = #{o_id}
+	</update>
 </mapper>

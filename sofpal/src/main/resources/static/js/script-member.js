@@ -10,6 +10,44 @@
 
 /*=== [ 1. Button Fuction ] ===*/
 
+// 기간조회 유효성검사
+function check_range() {
+	var first = document.getElementById('first').value;
+	var last = document.getElementById('last').value;
+	
+	if(first == '' || last == '') {
+		alert('조회할 기간을 입력해주세요.');
+		var result =  false;	
+	}
+	return result;
+};
+
+// 주문취소
+function cancelOrder(page, o_id) {
+	var c = confirm('주문을 취소하시겠습니까?');
+	if(c) {
+		var json = {
+			'o_id' : o_id
+		}
+	
+		var option = {
+			method : 'post',
+			url : '/mypage/cancelOrder',
+			data : json,
+			success: function(result) {
+				if(result) {
+					alert('주문이 취소되었습니다.');
+					$('#table_order').load('/mypage/orderlist?page='+ page + ' #table_order');
+				}
+			}
+		};
+		
+		$.ajax(option);
+	} else {
+		return false;
+	}
+};
+
 // 선택회원가입
 function memberEnable(page) {
 	//체크박스 체크된 항목

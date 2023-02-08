@@ -18,7 +18,7 @@ public interface MemberMapper extends Sof8Mapper<String, Member>{
 	public List<Member> selectList(Paging paging) throws Exception;
 	
 	// 페이징을 위한 전체 회원 수
-	public int getTotal(Map<String, Object> map) throws Exception;
+	public int selectTotal(Map<String, Object> map) throws Exception;
 	
 	public void updatePwd(Member v) throws Exception;
 	

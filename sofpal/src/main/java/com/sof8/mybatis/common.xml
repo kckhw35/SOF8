@@ -13,18 +13,46 @@
 		<if test="keyword != null and keyword != ''">
 			<choose>
 				<!-- 검색 유형이 있을 때 -->
-				<when test="type != null and type!= ''">
+				<when test="type != null and type != ''">
 					WHERE
 					<choose>
+						<!-- 아이디검색 -->
 						<when test="'user_id'.equals(type)">
 							user_id LIKE CONCAT('%', #{keyword}, '%')
 						</when>
+						<!-- 이름 검색 -->
 						<when test="'name'.equals(type)">
 							name LIKE CONCAT('%', #{keyword}, '%')
+						</when>
+						<!-- 오늘 검색 -->
+						<when test="'today'.equals(type)">
+							user_id LIKE CONCAT('%', #{keyword}, '%') AND
+							o.o_date > CURRENT_DATE()
+						</when>
+						<!-- 1개월 검색 -->
+						<when test="'oneMonth'.equals(type)">
+							user_id LIKE CONCAT('%', #{keyword}, '%') AND
+							o.o_date > DATE_SUB(NOW(), INTERVAl 1 MONTH)
+						</when>
+						<!-- 3개월 검색 -->
+						<when test="'threeMonth'.equals(type)">
+							user_id LIKE CONCAT('%', #{keyword}, '%') AND
+							o.o_date > DATE_SUB(NOW(), INTERVAl 3 MONTH)
+						</when>
+						<!-- 1년 검색 -->
+						<when test="'oneYear'.equals(type)">
+							user_id LIKE CONCAT('%', #{keyword}, '%') AND
+							o.o_date > DATE_SUB(NOW(), INTERVAl 1 YEAR)
+						</when>
+						<!-- 선택기간 검색 -->
+						<when test="'range'.equals(type)">
+							user_id LIKE CONCAT('%', #{keyword}, '%') AND
+							DATE(o.o_date) BETWEEN #{first} AND #{last}
 						</when>
 					</choose>
 				</when>
 			</choose>
 		</if>
 	</sql>
+	
 </mapper>

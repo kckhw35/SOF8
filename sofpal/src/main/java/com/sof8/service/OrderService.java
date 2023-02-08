@@ -1,11 +1,15 @@
 package com.sof8.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.sof8.dto.Mark;
 import com.sof8.dto.Order;
+import com.sof8.dto.Paging;
 import com.sof8.dto.Product;
 import com.sof8.frame.Sof8Service;
 import com.sof8.mapper.OrderMapper;
@@ -57,7 +61,20 @@ public class OrderService implements Sof8Service<Integer, Order>{
 		return mapper.selectorderd(k);
 	}
 
-	public int getTotal(String keyword) throws Exception {
-		return mapper.selectTotal(keyword);
+	public int getTotal(String keyword, String type, String first, String last) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("keyword", keyword);
+		map.put("type", type);
+		map.put("first", first);
+		map.put("last", last);
+		return mapper.selectTotal(map);
+	}
+
+	public List<Mark> getList(Paging paging) throws Exception {
+		return mapper.selectList(paging);
+	}
+
+	public void modifyStatus(int o_id) throws Exception {
+		mapper.updateStatus(o_id);
 	}
 }

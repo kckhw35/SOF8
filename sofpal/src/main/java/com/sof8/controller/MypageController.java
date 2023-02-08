@@ -164,7 +164,11 @@ public class MypageController {
 	// 마이페이지 - 주문목록
 	// 127.0.0.1/mypage/orderlist
 	@RequestMapping("/orderlist")
-	public String orderlist(HttpSession session, Model model, @RequestParam(defaultValue = "1") int page) {
+	public String orderlist(HttpSession session, Model model, 
+			@RequestParam(defaultValue = "1") int page,
+			@RequestParam(defaultValue = "user_id") String type,
+			@RequestParam(defaultValue = "") String first, 
+			@RequestParam(defaultValue = "") String last) {
 
 		Member member =  (Member) session.getAttribute("member");
 
@@ -172,31 +176,40 @@ public class MypageController {
 		if (session.getAttribute("member") != null) {
 			try {
 				String keyword = member.getUser_id();
-				String type= "user_id";
 				
 				// 검색한 아이디의 총 찜 수
-				int totalRow = oservice.getTotal(keyword);
+				int totalRow = oservice.getTotal(keyword, type, first, last);
 				Paging paging = null;
-				List<Mark> marks= null;
+				List<Mark> orders= null;
+				
+				System.out.println("totalRow: " + totalRow);
+				System.out.println("keyword: " + keyword);
+				System.out.println("type: " + type);
+				System.out.println("first: " + first);
+				System.out.println("last: " + last);
+				
 				do {
 					// 페이징을 위한 데이터 입력
 					paging = new Paging(5,5,totalRow, page, keyword, type);
+					paging.setFirst(first);
+					paging.setLast(last);	
+					
 					// 페이징 후 데이터 검색 
-					marks = mservice.getList(paging);
-					--page;
-				}while (marks.isEmpty());
+					orders = oservice.getList(paging);
+					page--;
+				}while (orders.isEmpty());
 
-				model.addAttribute("marks", marks);
+				model.addAttribute("orders", orders);
 				model.addAttribute("page", page);
 				model.addAttribute("paging", paging);				
 				
-				System.out.println("marks: " + marks);
+				System.out.println("orders: " + orders);
 				System.out.println("page: " + page);
 				System.out.println("paging: " + paging);
-				System.out.println("[SUCCESS] : MypageController/mark - 찜목록 검색 성공");
+				System.out.println("[SUCCESS] : MypageController/orderlist - 주문목록 검색 성공");
 			} catch (Exception e) {
 				e.printStackTrace();
-				System.out.println("[ERROR] : MypageController/mark - 찜목록 검색 실패");
+				System.out.println("[ERROR] : MypageController/orderlist - 주문목록 검색 실패");
 			}
 			
 			// 찜목록 화면이동
@@ -206,11 +219,33 @@ public class MypageController {
 		return "index";
 	}
 	
+	// 마이페이지 - 주문취소
+	// 127.0.0.1/mypage/cancelOrder
+	@ResponseBody
+	@RequestMapping("/cancelOrder")
+	public Boolean cancelOrder(HttpSession session, Model model, 
+			@RequestParam(value = "o_id") int o_id) {
+		Boolean result = false;
+		System.out.println("o_id: " + o_id);
+		try {
+			oservice.modifyStatus(o_id);
+			result = true;
+			System.out.println("[SUCCESS] 주문취소 성공");
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("[ERROR] 주문취소 실패");
+		}
+
+		return result;
+	}
+	
+	
 	// 마이페이지 - 찜 목록
 	// 127.0.0.1/mypage/mark
 	@RequestMapping("/mark")
 	public String mark(HttpSession session, Model model,  
-			@RequestParam(defaultValue = "1") int page) {
+			@RequestParam(defaultValue = "1") int page,
+			@RequestParam(defaultValue = "user_id") String type) {
 		
 		Member member =  (Member) session.getAttribute("member");
 		// 세션이 있다면(로그인 중이라면)
@@ -218,7 +253,6 @@ public class MypageController {
 		
 			try {
 				String keyword = member.getUser_id();
-				String type= "user_id";
 				
 				// 검색한 아이디의 총 찜 수
 				int totalRow = mservice.getTotal(keyword);
@@ -229,7 +263,7 @@ public class MypageController {
 					paging = new Paging(5,5,totalRow, page, keyword, type);
 					// 페이징 후 데이터 검색 
 					marks = mservice.getList(paging);
-					--page;
+					page--;
 				}while (marks.isEmpty());
 
 				model.addAttribute("marks", marks);
@@ -430,17 +464,3 @@ public class MypageController {
 		return "redirect:/mypage/qna";
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
