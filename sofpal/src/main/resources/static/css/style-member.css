@@ -256,6 +256,7 @@ input[type="checkbox"]:checked+input+label:before {
 /*== [ 3.4 login ] ==*/
 /*== [ 3.5 loginfail ] ==*/
 
+
 /*=== [ 4. Mypage ] ===*/
 /*== [ 4.1 sidenav ] ==*/
 .ud-space {
@@ -348,6 +349,18 @@ dl {
 
 .cancel #form_pwd {
 	margin-top: 14px;
+}
+
+.wish .shopping.cart .product-list .product-info a:first-child {
+	margin: 0;
+}
+
+.orderlist input[type="date"] {
+	padding: 5px;
+	vertical-align: middle;
+	height: 30px;
+	display: inline;
+	width: 100px
 }
 
 /*=== [ 5. Order ] ===*/

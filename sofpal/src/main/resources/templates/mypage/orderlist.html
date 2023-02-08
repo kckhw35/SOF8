@@ -28,8 +28,8 @@
 										<button type="button" class="btn btn-secondary">3개월</button>
 										<button type="button" class="btn btn-secondary">1년</button>
 									</div>
-									<input type="date" class="form-control" id="d1" style="padding: 5px;vertical-align:middle;height:30px;display: inline;width: 100px"> ~
-									<input type="date" class="form-control" id="d2" style="padding: 5px;vertical-align:middle;height:30px;display: inline;width: 100px">
+									<input type="date" class="form-control" id="d1"> ~
+									<input type="date" class="form-control" id="d2">
 
 									<button type="button" class="btn">검색</button>
 								</div>
@@ -39,42 +39,37 @@
 								<table class="table line">
 									<thead>
 										<tr class="cart-amount">
-											<th class="">날짜/주문번호</th>
-											<th class="">상품명/옵션</th>
+											<th>날짜/주문번호</th>
+											<th>상품명/옵션</th>
 											<th class="widthDisplayNone">상품금액/수량</th>
 											<th class="widthDisplayNone">주문상태</th>
+											<th class="widthDisplayNone">취소</th>
 										</tr>
 									</thead>
 									<tbody>
-										<tr class="">
+										<tr>
 											<td class="text-center">
 												<p>2023-01-27<br>no.1</p>
 											</td>
-											<td class="">
+											<td>
 												<div class="product-info">
-													<img width="80" th:src="@{/images/shop/cart/cart-1.jpg}" alt="" />
-													<a href="#!">Sunglass</a>
+													<div class="ib">
+														<img width="80" th:src="@{/images/shop/cart/cart-1.jpg}" alt="" />
+													</div>
+													<div class="ib form-horizontal">
+														<a href="#!">Sunglass</a>
+														<p>&nbsp;&nbsp;5인용</p>
+														<p>&nbsp;&nbsp;색상</p>
+													</div>
 												</div>
 											</td>
 											<td class="widthDisplayNone">
 												<p>$200.00<br>1개</p>
 											</td>
 											<td class="widthDisplayNone">결제대기</td>
-										</tr>
-										<tr class="">
-											<td class="text-center">
-												<p>2023-01-27<br>no.2</p>
-											</td>
-											<td class="">
-												<div class="product-info">
-													<img width="80" th:src="@{/images/shop/cart/cart-1.jpg}" alt="" />
-													<a href="#!">Sunglass</a>
-												</div>
-											</td>
 											<td class="widthDisplayNone">
-												<p>$200.00<br>1개</p>
-											</td>	
-											<td class="widthDisplayNone">배송완료</td>
+												<button class="btn" th:text="주문취소"></button>
+											</td>
 										</tr>
 									</tbody>
 								</table>							

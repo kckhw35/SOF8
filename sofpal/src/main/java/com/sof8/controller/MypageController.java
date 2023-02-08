@@ -152,12 +152,43 @@ public class MypageController {
 		return result;
 	}
 	
-	// 마이페이지 - 장바구니 목록
+	// 마이페이지 - 주문목록
 	// 127.0.0.1/mypage/orderlist
 	@RequestMapping("/orderlist")
-	public String orderlist(HttpSession session, Model model, Member member) {
+	public String orderlist(HttpSession session, Model model, @RequestParam(defaultValue = "1") int page) {
+
+		Member member =  (Member) session.getAttribute("member");
+
 		// 세션이 있다면(로그인 중이라면)
 		if (session.getAttribute("member") != null) {
+			try {
+				String keyword = member.getUser_id();
+				String type= "user_id";
+				
+				// 검색한 아이디의 총 찜 수
+				int totalRow = oservice.getTotal(keyword);
+				Paging paging = null;
+				List<Mark> marks= null;
+				do {
+					// 페이징을 위한 데이터 입력
+					paging = new Paging(5,5,totalRow, page, keyword, type);
+					// 페이징 후 데이터 검색 
+					marks = mservice.getList(paging);
+					--page;
+				}while (marks.isEmpty());
+
+				model.addAttribute("marks", marks);
+				model.addAttribute("page", page);
+				model.addAttribute("paging", paging);				
+				
+				System.out.println("marks: " + marks);
+				System.out.println("page: " + page);
+				System.out.println("paging: " + paging);
+				System.out.println("[SUCCESS] : MypageController/mark - 찜목록 검색 성공");
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("[ERROR] : MypageController/mark - 찜목록 검색 실패");
+			}
 			
 			// 찜목록 화면이동
 			model.addAttribute("content", dir + "orderlist");

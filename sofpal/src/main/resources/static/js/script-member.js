@@ -169,6 +169,49 @@ function memberOneDelete(page, user_id) {
 	$.ajax(option);
 };
 
+//  선택장바구니삭제
+function cartDelete() {
+
+	//체크박스 체크된 항목
+	var query = 'input[name="c_ids"]:checked'
+	var selectedElements = document.querySelectorAll(query);
+
+	//체크박스 체크된 항목의 개수
+	var selectedElementsCnt = selectedElements.length;
+
+	if (selectedElementsCnt == 0) {
+		alert("삭제할 항목을 선택해주세요.");
+		return false;
+	} else {
+		if (confirm("정말로 삭제하시겠습니까?")) {
+			//배열생성
+			var arr = new Array(selectedElementsCnt);
+			
+			document.querySelectorAll('input[name="c_ids"]:checked').forEach(function(v, i) {
+				arr[i] = v.value;
+			});
+		}
+	}
+	
+	var json = {
+		"arrlist": arr
+	};
+
+	var option = {
+		method: 'post',
+		url: '/order/deletecart',
+		data: json,
+		success: function(result) {
+			if (result) {
+				alert('성공적으로 삭제처리 하였습니다.');
+				$('#cart_form').load('/order/cart #cart_form');
+			}
+		}
+	};
+
+	$.ajax(option);
+};
+
 //  선택찜삭제
 function markDelete(page) {
 

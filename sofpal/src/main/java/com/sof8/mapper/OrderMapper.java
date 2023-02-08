@@ -16,4 +16,5 @@ public interface OrderMapper extends Sof8Mapper<Integer, Order>{
 	public int selectpid(int k) throws Exception;
 	public int selectcnt(int k) throws Exception;
 	public List<Product> selectorderd(int k) throws Exception;
+	public int selectTotal(String keyword) throws Exception;
 }

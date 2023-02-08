@@ -55,7 +55,9 @@
 										</td>
 										<td class="">
 											<div class="product-info">
-												<img width="150" th:src="@{/images/shop/products/}+${mark.p_img}" /> 
+												<a th:href="@{/product/productdetail(p_id=${mark.p_id})}">
+													<img width="150" th:src="@{/images/shop/products/}+${mark.p_img}" />												
+												</a>
 												<a th:href="@{/product/productdetail(p_id=${mark.p_id})}" th:text="${mark.p_name}"></a>
 											</div>
 										</td>

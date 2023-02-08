@@ -56,4 +56,8 @@ public class OrderService implements Sof8Service<Integer, Order>{
 	public List<Product> selectorderd(int k) throws Exception{
 		return mapper.selectorderd(k);
 	}
+
+	public int getTotal(String keyword) throws Exception {
+		return mapper.selectTotal(keyword);
+	}
 }
