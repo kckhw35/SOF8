@@ -1,0 +1,124 @@
+<script>
+	function saveQna(){
+		
+		var title = $('#qna-title').val();
+		var content = $('#qna-content').val();
+		
+		if( title == ""){
+			alert("제목을 입력해주세요");
+			return
+		}
+		
+		if(content == ""){
+			alert("내용을 입력해주세요")
+			return
+		}
+		
+		alert("1:1 문의가 접수되었습니다.")
+		$('#qna-form').submit()
+	}
+</script>
+
+<section class="memberlist">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-3" th:include="@{/mypage/sidenav}"></div>
+			<div class="col-md-9">
+				<div style="margin-bottom: 30px;">
+					<div class="page-header">
+						<div class="container">
+							<h1>1:1 문의</h1>
+							<ol class="breadcrumb">
+								<li><a th:href="@{/}">Home</a></li>
+								<li>고객센터</li>
+								<li class="active">1:1 문의</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+				<div class="product-list">
+					<h2 style="margin-bottom: 10px; font-weight: bold;">문의</h2>
+					<p>SOF8 서비스에 대해 궁금하신 점을 문의해 주시면 친절하게 답변드리겠습니다.</p>
+					<br>
+					<p>
+						<span style="color: red;">상품에 대한 문의</span>는 해당 상품페이지에서 문의해 주시면 더욱
+						신속하게 답변 받으실 수 있습니다.
+					</p>
+					<br>
+					<br>
+					<br>
+
+					<h3>1:1 문의하기 개인 정보 수집 · 이용 동의</h3>
+					<div style="border: solid 1px; margin-top: 20px;">
+						<ul style="margin: 20px;">
+							<li
+								style="padding-left: 14px; text-indent: -14px; font-size: 14px; line-height: 160%;">
+								1. 개인 정보의 수집 · 이용 목적<br> 불만 처리 의사소통 경로 확보, 기타 원활한 양질의 서비스
+								제공, 문의 접수, 상담 및 처리결과 회신
+							</li>
+							<li
+								style="padding-left: 14px; margin: 12px 0 0 0; text-indent: -14px; font-size: 14px; line-height: 160%;">
+								2. 개인 정보의 항목<br> (필수) 이름<br>
+							</li>
+							<li
+								style="padding-left: 14px; margin: 12px 0 0 0; text-indent: -14px; font-size: 14px; line-height: 160%;">
+								3. <span
+								style="font-size: 16px; line-height: 160%; color: #000; font-weight: bold; text-decoration: underline;">
+									개인 정보의 보유 · 이용 기간<br> 소비자의 불만 및 분쟁 처리에 관한 법령에 따라 3년 보관
+							</span>
+
+								<div
+									style="margin-top: 10px; font-size: 14px; line-height: 160%;">*
+									개인정보 외 상담 내용 등은 통계 및 서비스 개선 목적으로 개인을 식별할 수 없는 형태로 보관 될 수 있습니다.</div>
+							</li>
+							<li
+								style="padding-left: 14px; margin: 12px 0 0 0; text-indent: -14px; font-size: 14px; line-height: 160%;">
+								4. 동의 거부 권리에 대한 사항<br> 귀하는 본 개인 정보 수집 및 이용 동의를 거부할 권리가
+								있습니다. 단, 동의를 거부 시, 문의하기 서비스 이용이 제한될 수 있습니다. 문의하기 서비스 이용시 동의한 것
+								으로 간주합니다.
+							</li>
+						</ul>
+					</div>
+
+					<form id="qna-form" th:action="@{/mypage/qna/save}" th:method="post">
+						<table style="margin-top: 50px;" class="table">
+							<colgroup>
+								<col width="15%">
+								<col width="55%">
+							</colgroup>
+							<tbody>
+								<tr>
+									<th class="active">작성자</th>
+									<td class=""><input name="user" style="border: none;"
+										class="form-control" type="text" th:value="${member.user_id}"
+										readonly /></td>
+								</tr>
+								<tr>
+									<th class="active">이름</th>
+									<td class=""><input style="border: none;"
+										class="form-control" type="text" th:value="${member.name}"
+										readonly /></td>
+								</tr>
+								<tr>
+									<th class="active">제목</th>
+									<td class=""><input id="qna-title" name="title"
+										placeholder="제목을 입력해주세요" class="form-control" type="text" /></td>
+								</tr>
+								<tr>
+									<th class="active align-middle" style="height: 100px;">내용</th>
+									<td class=""><textarea id="qna-content" name="content"
+											style="resize: none;" rows="10" class="form-control"
+											placeholder="문의내용을 입력해주세요"></textarea></td>
+								</tr>
+								<tr>
+									<td class="" colspan="2"><button type="button"
+											onclick="saveQna();" class="pull-right btn btn-primary">등록</button></td>
+								</tr>
+							</tbody>
+						</table>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

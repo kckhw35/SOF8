@@ -59,7 +59,6 @@
 				<button th:unless="!${keyword} or ${keyword} =='null'" type="button" class="btn btn-default"><a th:href="@{|/notice?page=${page}&searchOption=${searchOption}&keyword=${keyword}|}">목록</a></button>
 				
 				<button type="button" class="btn btn-default"><a th:href="@{|/notice/write?b_id=${notice.b_id}|}">수정</a></button>
-				<!-- <button type="button" class="btn btn-default"><a th:href="@{|/notice/${notice.b_id}/delete|}">삭제</a></button> -->
 				<button type="button" class="btn btn-default" onclick="deleteFaq()">삭제</button>
 			</div>
 		</div>
