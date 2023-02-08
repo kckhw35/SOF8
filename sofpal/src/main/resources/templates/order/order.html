@@ -25,6 +25,17 @@
 		background: url('arrow.jpg') no-repeat 95% 50%; 
 	}
 	
+	#card_name, #installment_plan{
+		width: 160px; 
+		height: 50px;
+		padding: .8em .5em; 
+		border: 1px solid #ccc;
+		font-family: inherit;
+		font-size: 12px;
+		text-align: center;
+		background: url('arrow.jpg') no-repeat 95% 50%; 
+	}
+	
 	#depositor{
 	    border-radius: 0;
 	    display: inline;
@@ -68,6 +79,7 @@
 	}
 
 	.order-price-box {
+		margin-bottom: 50px;
     	padding: 10px 40px 10px 40px;
     	border: 1px solid #dedede;
 }
@@ -124,12 +136,26 @@
 		$('input[name="totalprice"]').attr('value',totalprice);
 	}
 	
-/* 	function shipdetail(){
-		$('input:radio[name="ship_detail"]').click(function(){
-			if()
+	function shipdetail() {	
+		$('input:radio[name="ship_detail"]').change(function(){
+			var value = $(this).val();
+			
+			if(value == 1){	// 직접 입력 선택 시 입력한 내용 모두 삭제
+				document.querySelector('#re_name').value=null;
+				document.querySelector('#re_tel').value=null;
+				document.querySelector('#re_zipcode').value=null;
+				document.querySelector('#re_addr').value=null;
+				document.querySelector('#re_deaddr').value=null;
+				document.querySelector('#re_req').value=null;
+			}else{	// 주문자 정보와 동일
+				document.querySelector('#re_name').value = document.querySelector('#order_name').value;
+				document.querySelector('#re_tel').value = document.querySelector('#order_tel').value;
+				document.querySelector('#re_zipcode').value = document.querySelector('#order_zipcode').value;
+				document.querySelector('#re_addr').value = document.querySelector('#order_addr').value;
+				document.querySelector('#re_deaddr').value = document.querySelector('#order_deaddr').value;
+			}
 		});
-		
-	} */
+	};
 	
 	function searchzipcode(){
 			new daum.Postcode({
@@ -174,6 +200,22 @@
 			}).open();
 	};
 	
+	function payoption(){
+		$('#bank').hide();
+		
+		$('input:radio[name="pay_option"]').change(function(){
+			var option = $(this).val();
+
+			if(option == '신용카드'){
+				$('#card').show();
+				$('#bank').hide();
+			}else if(option == '무통장입금'){
+				$('#card').hide();
+				$('#bank').show();
+			}
+		});
+	};
+	
 	function payproduct(){
 		$('#pay_product').click(function(){
 			$('.checkout-form').attr({
@@ -187,6 +229,8 @@
 	window.onload = function(){
 		sum();
 		totalprice();
+		shipdetail();
+		payoption();
 		payproduct();
 	};
 </script>
@@ -293,23 +337,23 @@
 	                        <div class="orderer-details">
 	                              <div class="form-group">
 	                                 <label>주문하시는 분 <span class="required">*</span></label>
-	                                 <input type="text" th:value="${m.name}" class="form-control">
+	                                 <input type="text" th:value="${m.name}" class="form-control" id="order_name">
 	                              </div>
 	                              <div class="form-group">
 	                                 <label>연락처 <span class="required">*</span></label>
-	                                 <input type="text" th:value="${m.tel}" class="form-control">
+	                                 <input type="text" th:value="${m.tel}" class="form-control" id="order_tel">
 	                              </div>
 	                              <div class="form-group">
 	                                 <label>우편번호 <span class="required">*</span></label>
-	                                 <input type="text" th:value="${m.postcode}" class="form-control">
+	                                 <input type="text" th:value="${m.postcode}" class="form-control" id="order_zipcode">
 	                              </div>
 	                              <div class="form-group">
 	                                 <label>주소 <span class="required">*</span></label>
-	                                 <input type="text" th:value="${m.addr}" class="form-control">
+	                                 <input type="text" th:value="${m.addr}" class="form-control" id="order_addr">
 	                              </div>
 	                              <div class="form-group">
 	                                 <label>상세주소 <span class="required">*</span></label>
-	                                 <input type="text" th:value="${m.de_addr}" class="form-control">
+	                                 <input type="text" th:value="${m.de_addr}" class="form-control" id="order_deaddr">
 	                              </div>
 	                        </div>
 	                     </div>
@@ -381,21 +425,48 @@
 	                  	    <input type="radio" name="pay_option" value="신용카드" checked/> 신용카드&emsp;
 	                  	 	<input type="radio" name="pay_option" value="무통장입금"/> 무통장입금
 	                    </div>
-		          		<div class="form-group">
-		           	 		<span>입금자명 </span>&emsp;
-		                	<input type="text" id="depositor">
-		           	 	</div>
-		           	 	<div class="form-group">
-		           	 		<span>입금은행 </span>&emsp;
-		                	<select id="bank_name" name="bank_name">
-		                		<option value="none">은행을 선택하세요.</option>
-		        				<option value="신한">신한은행 [999-87456-32101 주식회사 SOF8]</option>
-		        				<option value="하나">KEB하나은행 [123-456789-01234 주식회사 SOF8]</option>
-		        				<option value="우리">우리은행 [135-79548-13542 주식회사 SOF8]</option>
-		        				<option value="국민">KB국민은행 [987-32145-1245 주식회사 SOF8]</option>
-		        				<option value="기업">IBK기업은행 [258-726415-12397 주식회사 SOF8]</option>
-		        			</select>
-		           	 	</div>
+	                    <div id="card">
+	                    	<div class="form-group">
+			           	 		<span>신용카드 </span>&emsp;
+			                	<select id="card_name" name="card_name">
+			                		<option value="none">카드 종류를 선택하세요.</option>
+			        				<option value="신한">신한카드</option>
+			        				<option value="하나">하나카드</option>
+			        				<option value="우리">우리카드</option>
+			        				<option value="국민">국민카드</option>
+			        				<option value="기업">기업카드</option>
+			        				<option value="BC">BC카드</option>
+			        			</select>
+		           	 		</div>
+			           	 	<div class="form-group">
+			           	 		<span>할부선택 </span>&emsp;
+			                	<select id="installment_plan" name="installment_plan">
+			        				<option value="일시불">일시불</option>
+			        				<option value="1개월">1개월</option>
+			        				<option value="2개월">2개월</option>
+			        				<option value="3개월">3개월</option>
+			        				<option value="4개월">4개월</option>
+			        				<option value="5개월">5개월</option>
+			        			</select>
+			           	 	</div>
+	                    </div>
+		          		<div id="bank">
+		          			<div class="form-group">
+			           	 		<span>입금자명 </span>&emsp;
+			                	<input type="text" id="depositor">
+		           	 		</div>
+			           	 	<div class="form-group">
+			           	 		<span>입금은행 </span>&emsp;
+			                	<select id="bank_name" name="bank_name">
+			                		<option value="none">은행을 선택하세요.</option>
+			        				<option value="신한">신한은행 [999-87456-32101 주식회사 SOF8]</option>
+			        				<option value="하나">KEB하나은행 [123-456789-01234 주식회사 SOF8]</option>
+			        				<option value="우리">우리은행 [135-79548-13542 주식회사 SOF8]</option>
+			        				<option value="국민">KB국민은행 [987-32145-1245 주식회사 SOF8]</option>
+			        				<option value="기업">IBK기업은행 [258-726415-12397 주식회사 SOF8]</option>
+			        			</select>
+			           	 	</div>
+		          		</div>
 	               </div>
 	            </div>
          	</div>
