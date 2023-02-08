@@ -1,0 +1,107 @@
+
+<section class="memberlist">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-3" th:include="@{/mypage/sidenav}"></div>
+			<div class="col-md-9">
+				<div style="margin-bottom:30px;">
+					<div class="page-header">
+						<div class="container">
+							<h1>1:1 문의</h1>
+							<ol class="breadcrumb">
+								<li><a th:href="@{/}">Home</a></li>
+								<li>고객센터</li>
+								<li class="active">1:1 문의</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+				<div class="product-list">
+					<h4 style="font-weight: bold;">문의</h4>
+
+					<table class="table table-bordered">
+						<colgroup>
+							<col width="15%">
+							<col width="55%">
+							<col width="15%">
+							<col width="15%">
+						</colgroup>
+						<tbody>
+							<tr>
+								<th class="active">작성자</th>
+								<td class="" th:text="${qna.user_id}"></td>
+								<th class="active">등록일</th>
+								<td class="" th:text="${#dates.format(qna.rdate,'yyyy.MM.dd')}"></td>
+							</tr>
+							<tr>
+								<th class="active">처리상태</th>
+								<td th:if="${qna.reply != null}" colspan="3" class="">답변 완료</td>
+								<td th:unless="${qna.reply != null}" colspan="3" class="">답변 대기</td>
+							</tr>
+							<tr>
+								<th class="active">제목</th>
+								<td class="" colspan="3" th:text="${qna.title}"></td>
+							</tr>
+							<tr>
+								<th class="active align-middle" style="height: 100px;">내용</th>
+								<td class="" colspan="3" th:text="${qna.content}"></td>
+							</tr>
+						</tbody>
+					</table>
+					<h4 style="margin: 60px 0 20px 0; font-weight: bold;">답변</h4>
+
+					<table class="table">
+						<colgroup>
+							<col width="15%">
+							<col width="55%">
+							<col width="15%">
+							<col width="15%">
+						</colgroup>
+
+						<!-- 답변이 있는 경우  -->
+						<tbody id="reply-table" th:if="${qna.reply != null}">
+							<tr>
+								<th class="active">관리자</th>
+								<td class="" th:text="${qna.reply.admin_id}"></td>
+								<th class="active">등록일</th>
+								<td class=""
+									th:text="${#dates.format(qna.reply.rdate,'yyyy.MM.dd')}"></td>
+							</tr>
+							<tr>
+								<th class="active">내용</th>
+								<td style="height: 100px;" class="" colspan="3"
+									th:text="${qna.reply.reply}"></td>
+							</tr>
+							<tr>
+								<td colspan="4">
+									<div class="btn-group pull-right">
+										<button type="button" class="btn btn-default"
+											th:onclick='location.href=[[@{/mypage/qna(page=${paging.page})}]]'>목록</button>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+
+						<!-- 답변이 없는 경우 -->
+						<tbody id="reply-table" th:unless="${qna.reply != null}">
+							<tr>
+								<td class="text-center active" colspan="4"
+									style="height: 50px; vertical-align: middle;">등록된 답변이
+									없습니다.</td>
+							</tr>
+							<tr>
+								<td colspan="4">
+									<div class="btn-group pull-right">
+										<button type="button" class="btn btn-default"
+											th:onclick='location.href=[[@{/mypage/qna(page=${paging.page})}]]'>목록</button>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
