@@ -21,7 +21,7 @@
 								<h3><small>주문목록 조회</small></h3>
 								<div class="line">
 									<b>조회기간</b>
-									<div class="btn-group" role="group">
+									<div class="btn-group widthDisplayNone" role="group">
 										<a class="btn bf btn-secondary" th:href="@{/mypage/orderlist?type=today}">오늘</a>
 										<a class="btn bf btn-secondary" th:href="@{/mypage/orderlist?type=oneMonth}">1개월</a>
 										<a class="btn bf btn-secondary" th:href="@{/mypage/orderlist?type=threeMonth}">3개월</a>
@@ -30,7 +30,7 @@
 									<input type="hidden" name="type" value="range">
 									<input type="date" class="form-control" id="first" name="first"> ~
 									<input type="date" class="form-control" id="last" name="last">
-									<button type="submit" class="btn bf">검색</button>
+									<button type="submit" class="btn bf"><i class="tf-ion-ios-search-strong"></i> 조회</button>
 								</div>
 							</div>
 							<div class="form-group clearfix">

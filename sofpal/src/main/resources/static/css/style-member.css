@@ -360,6 +360,7 @@ dl {
 }
 
 .orderlist input[type="date"] {
+	margin: 0 5px;
 	padding: 5px;
 	vertical-align: middle;
 	height: 30px;
@@ -373,6 +374,17 @@ dl {
 
 .orderlist .form-horizontal {
 	margin-left: 10px;
+}
+
+.orderlist .line div {
+	margin-left: 5px;
+}
+
+@media screen and (max-width: 768px) {
+	.orderlist .line {
+		text-align: center;
+	}
+	
 }
 
 /*=== [ 5. Order ] ===*/
