@@ -1,5 +1,6 @@
 package com.sof8.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -29,8 +30,8 @@ public class AdminQnaController {
 	
 	String dir ="qna/";
 	
-	//127.0.0.1/admin/qna/list
-	@RequestMapping("/list")
+	//127.0.0.1/admin/qna
+	@RequestMapping("")
 	public String qnalist(HttpSession session, Model model,
 			@RequestParam(defaultValue = "1") int page,
 			@RequestParam(required = false) String keyword,
@@ -153,6 +154,7 @@ public class AdminQnaController {
 			
 			replyObject.setAdmin_id(admin.getAdmin_id());
 			replyObject.setReply(reply);
+			replyObject.setMdate(LocalDateTime.now());
 			
 			replyService.modify(replyObject);
 			

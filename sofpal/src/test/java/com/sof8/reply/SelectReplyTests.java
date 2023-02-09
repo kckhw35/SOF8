@@ -18,7 +18,7 @@ class SelectReplyTests {
 		Reply reply = null;
 		
 		try {
-			reply = service.getReply(23);
+			reply = service.getReply(1);
 			System.out.println(reply);
 			System.out.println("OK");
 		} catch (Exception e) {

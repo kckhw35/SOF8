@@ -24,5 +24,7 @@ public class Review {
 	private String r_img;
 	private Integer grade;
 	private Integer up;
-	private LocalDateTime rdate;		
+	private LocalDateTime rdate;		//등록일
+	private LocalDateTime mdate;		//수정일
+	private Boolean enable;		
 }

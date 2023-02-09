@@ -42,9 +42,9 @@
 										<td class="text-center" th:text="${paging.totalRow - (qnaStat.index + paging.offset)}"></td>
 										<td class=""><a style="margin-left:5%;" th:text="${qna.title}" th:href="@{/mypage/qna/content(id=${qna.r_id},page=${paging.page})}"></a></td>
 										<td class="" th:text="${qna.user_id}"></td>
-										<td class="" th:text="${#dates.format(qna.rdate,'yyyy.MM.dd')}"></td>
-										<td class="" th:if="${#lists.isEmpty(qna.reply)}" th:text="대기중"></td>
-										<td class="" th:unless="${#lists.isEmpty(qna.reply)}" th:text="완료"></td>
+										<td class="" th:text="${#temporals.format(qna.rdate,'yyyy-MM-dd hh:mm')}"></td>
+										<td class="" th:if="${qna.reply == null}" style="color:red" th:text="대기중"></td>
+										<td class="" th:unless="${qna.reply == null}" th:text="완료"></td>
 									</tr>
 								</tbody>
 							</table>

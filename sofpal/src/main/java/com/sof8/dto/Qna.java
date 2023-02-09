@@ -1,6 +1,6 @@
 package com.sof8.dto;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,7 +24,9 @@ public class Qna {
 	private String r_img;	//사용X
 	private Integer grade;	//사용X
 	private Integer up;		//사용X
-	private Date rdate;		
+	private LocalDateTime rdate;	//등록일
+	private LocalDateTime mdate;	//수정일
+	private Boolean enable;
 	
 	/* 1:1 문의에 대한 답변 */
 	private Reply reply;

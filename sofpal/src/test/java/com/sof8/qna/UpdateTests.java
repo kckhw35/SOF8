@@ -1,5 +1,7 @@
 package com.sof8.qna;
 
+import java.time.LocalDateTime;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,12 +17,15 @@ class UpdateTests {
 
 	@Test
 	void contextLoads() {
-		Qna qna = new Qna();
-		qna.setRe_pwd("password-changed");
-		qna.setTitle("문의 제목 변경요~");
-		qna.setContent("내용도 변경요~ ㄹ어나밀디ㅏ머딞ㅈㄹㅈㅁ");
-		qna.setR_id(37);
 		try {
+			Qna qna = service.get(2);
+			
+			qna.setRe_pwd("password-changed");
+			qna.setTitle("Qna enable Change");
+			qna.setContent("Qna enable change");
+			qna.setMdate(LocalDateTime.now());
+			qna.setEnable(true);
+			
 			service.modify(qna);
 			System.out.println("OK");
 		} catch (Exception e) {

@@ -398,6 +398,36 @@ public class MypageController {
 		
 		return "redirect:/mypage/qna";
 	}
+	
+	/* mypage에서 1:1 문의 삭제- Park*/
+	// 127.0.0.1/mypage/qna/delete
+	@RequestMapping("/qna/delete")
+	public String myQnaDelete(HttpSession session, Model model,
+			@RequestParam int r_id) {
+		
+		Member member = (Member)session.getAttribute("member");
+		
+		/* 예외처리 로직: 로그인이 안되어있으면, login page로 이동 */
+		if (member == null) {
+			return "redirect:/member/login";
+		}
+		
+		Qna qna = null;
+		
+		try {
+			qna = qnaService.get(r_id);
+			qna.setEnable(false);
+			
+			qnaService.modify(qna);
+			System.out.println("[SUCCESS] : qnaService.modify(qna)");
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		model.addAttribute("member", member);
+		
+		return "redirect:/mypage/qna";
+	}
 }
 
 

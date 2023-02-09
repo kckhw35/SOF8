@@ -27,40 +27,31 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	</sql>
 	
 	<insert id="insert" parameterType="Qna">
-		INSERT INTO `reviewqna`
-		(
-		`user_id`,
-		`re_pwd`,
-		`title`,
-		`content`,
-		`rdate`)
+		INSERT INTO reviewqna
+		(user_id, re_pwd, title, content, rdate, mdate)
 		VALUES
-		(
-		#{user_id},
-		#{re_pwd},
-		#{title},
-		#{content},
-		CURRENT_TIMESTAMP)
+		(#{user_id},#{re_pwd},#{title},#{content},CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
 	</insert>
 	
 	<update id="update" parameterType="Qna">
-		UPDATE `reviewqna`
+		UPDATE reviewqna
 		SET
-		`re_pwd` = #{re_pwd},
-		`title` = #{title},
-		`content` = #{content}
-		WHERE `r_id` = #{r_id}
+		re_pwd = #{re_pwd},
+		title = #{title},
+		content = #{content},
+		mdate = #{mdate},
+		enable = #{enable}
+		WHERE r_id = #{r_id}
 	</update>
 	
 	<delete id="delete" parameterType="Integer">
-		DELETE FROM `reviewqna`
-		WHERE `r_id` = #{r_id}
+		DELETE FROM reviewqna
+		WHERE r_id = #{r_id}
 	</delete>
 	
 	<!-- 문의 조회 -->
 	<select id="select" parameterType="Integer" resultType="Qna">
-		SELECT *
-		FROM
+		SELECT * FROM
 		reviewqna WHERE r_id = #{r_id}
 	</select>
 	
@@ -71,7 +62,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<!-- 문의 리스트 페이징 -->
 	<select id="selectList" parameterType="Paging" resultType="Qna">
 		SELECT * 
-		FROM reviewqna WHERE de_id IS NULL
+		FROM reviewqna WHERE de_id IS NULL AND enable = 1
 		<include refid="search"></include>
 		ORDER BY r_id DESC 
 		<include refid="common.paging"></include> 
@@ -79,8 +70,8 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	
 	<!-- 총 문의 수 구하기 -->
 	<select id="getTotal" parameterType="Map" resultType="int">
-		SELECT count(*) 
-		FROM reviewqna WHERE de_id IS NULL
+		SELECT count(*)
+		FROM reviewqna WHERE de_id IS NULL AND enable = 1
 		<include refid="search"></include>
 	</select>
 </mapper>

@@ -10,5 +10,6 @@ import com.sof8.frame.Sof8Mapper;
 @Mapper
 public interface ReplyMapper extends Sof8Mapper<Integer, Reply>{
 	
+	//reply table 의 PK(re_id)가 아닌 Qna의 PK를 가지고 reply 조회
 	public Reply selectReply(Integer k) throws Exception;
 }
