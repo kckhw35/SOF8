@@ -45,7 +45,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		<include refid="common.search"></include>
 	</select>
 	<select id="selectList" parameterType="Paging" resultType="Order">
-		SELECT o.o_date, o.o_id, p.p_name, p.size, p.color, p.price, d.d_cnt, o.o_status, p.p_id, p.p_img
+		SELECT o.o_date, o.o_id, p.p_name, p.size, p.color, p.price, d.d_cnt, o.o_status, p.p_id, p.p_img, d.de_id
 		FROM ordertbl o 
 			JOIN detail_order d ON  o.o_id = d.o_id
 		    JOIN product p ON d.p_id = p.p_id
