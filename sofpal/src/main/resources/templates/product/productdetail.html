@@ -93,7 +93,6 @@
 					if(m_id==-1){
 						location.href="/member/login"
 					}
-					alert('찜 목록에 추가되었습니다.');
 				}
 			});
 		});
@@ -114,7 +113,6 @@
 					if(c_id==-1){
 						location.href="/member/login"
 					}
-					alert('장바구니에 추가되었습니다.');
 				}
 			});
 		});
@@ -207,13 +205,13 @@
 														
 						<div id="fav_product">
 							<!-- 찜 -->
-							<!-- <span  data-toggle="modal" data-target="#mark-modal"> -->
+							<span  data-toggle="modal" data-target="#mark-modal">
 								<li id="icon_heart"><a href="#" id="mark_btn" ><i class="tf-ion-ios-heart"></i></a></li>
 							</span>
 							<!-- 장바구니 -->
-							<!-- <span  data-toggle="modal" data-target="#cart-modal"> -->
+							<span  data-toggle="modal" data-target="#cart-modal">
 							<span>
-							<li id="icon_cart"><a href="#" id="cart_btn"><i class="tf-ion-android-cart"></i></a></li>
+								<li id="icon_cart"><a href="#" id="cart_btn"><i class="tf-ion-android-cart"></i></a></li>
 							</span>
 						</div>
 						<input type="hidden" id="c_id" name="c_ids"/>
@@ -239,7 +237,7 @@
 			</div>
 		</div>
 		<!-- Modal -->
-		<div class="modal product-modal fade" id="mark-modal">
+		<div class="modal product-modal" id="mark-modal">
 			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 				<i class="tf-ion-close"></i>
 			</button>
@@ -256,7 +254,7 @@
 		    	</div>
 		  	</div>
 		</div>
-		<div class="modal product-modal fade" id="cart-modal">
+		<div class="modal product-modal" id="cart-modal">
 			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 				<i class="tf-ion-close"></i>
 			</button>

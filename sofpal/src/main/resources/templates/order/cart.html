@@ -127,8 +127,10 @@ window.onload = function(){
 								<table class="table line">
 									<thead>
 										<tr class="cart-amount">
-											<th width="1" class="text-center"><input type="checkbox"
-												id="checkall" class="check"><label for="checkall"></label></th>
+											<th width="1" class="text-center">
+												<input type="checkbox"	id="checkall" class="check">
+												<label for="checkall"></label>
+											</th>
 											<th class="">상품/옵션 정보</th>
 											<th class="">수량</th>
 											<th class="widthDisplayNone">상품금액</th>
@@ -141,7 +143,8 @@ window.onload = function(){
 										<tr th:each="c : ${clist}" class="">
 											<!-- 체크박스 -->
 											<td>
-												<input type="checkbox" th:id="${c.c_id}" class="check" name="c_ids" th:value="${c.c_id}"><label th:for="${c.c_id}"></label>
+												<input type="checkbox" th:id="${c.c_id}" class="check" name="c_ids" th:value="${c.c_id}">
+												<label th:for="${c.c_id}"></label>
 											</td>
 											<!-- 상품/옵션정보 -->
 											<td class="">
@@ -154,11 +157,10 @@ window.onload = function(){
 											<!-- 수량 -->
 											<td class="col-md-2" id="c_cnt">
 												<div class="product-quantity-slider">
-													<input type="number" id="quantity" name="quantity" min="0" max="100" th:value="${c.c_cnt}" oninput="updatecart()">
+													<input type="number" id="quantity" name="quantity" min="1" max="100" th:value="${c.c_cnt}" th:oninput="|updatecart(${c.c_id})|">
 												</div>
 											</td>
 											<!-- 상품금액 -->
-											<td id="price" class="widthDisplayNone" th:if="${c.price == 0}" th:text="0원"></td>
 											<td id="price" class="widthDisplayNone" th:if="${c.price != 0}" th:text="|${#numbers.formatInteger(c.price, 3, 'COMMA')}원|"></td>
 											<!-- 할인 -->
 											<td class="widthDisplayNone" th:if="${c.discount == 0}" th:text="0원"></td>
@@ -166,13 +168,15 @@ window.onload = function(){
 												th:text="|${#numbers.formatInteger(c.discount, 3, 'COMMA')}원|"></td>
 											<!-- 합계금액 -->
 											<td id="sum_price" class="widthDisplayNone" 
-												th:text="|${#numbers.formatInteger(c.c_cnt*c.price, 3, 'COMMA')}원|"></td>
-											<input type="hidden" name="sum_price" th:value="${c.c_cnt*c.price}" />
+												th:text="|${#numbers.formatInteger(c.c_cnt*c.price, 3, 'COMMA')}원|">
+												<input type="hidden" name="sum_price" th:value="${c.c_cnt*c.price}" />
+											</td>
 											<!-- 배송비 -->
 											<td class="widthDisplayNone" th:if="${c.del_cost == 0}" th:text="0원"></td>
 											<td class="widthDisplayNone" th:if="${c.del_cost != 0}" 
-												th:text="|${#numbers.formatInteger(c.del_cost, 3, 'COMMA')}원|"></td>
-											<input type="hidden" name="del_cost" th:value="${c.del_cost}" />
+												th:text="|${#numbers.formatInteger(c.del_cost, 3, 'COMMA')}원|">
+												<input type="hidden" name="del_cost" th:value="${c.del_cost}" />	
+											</td>
 										</tr>
 									</tbody>
 								</table>
@@ -197,7 +201,7 @@ window.onload = function(){
 													<input type="hidden" name="totaldiscount"/>
 												</dd>
 											</dl>
-											<span><iconify-icon icon="akar-icons:equal-fill" width="25"></iconify-icon></span>
+											<span><iconify-icon icon="akar-icons:circle-plus-fill" width="25"></iconify-icon></span>
 											<dl>
 												<dt>배송비</dt>
 												<dd>
@@ -219,8 +223,7 @@ window.onload = function(){
 								</div>
 								<div class="btn-order-box col-md-12 col-xs-12 col-sm-12">
 									<div class="btn-left-box">
-										<a href="" class="large btn btn-small btn-solid-border"
-											id="delete_cart">선택 상품 삭제</a>
+										<a href="" class="large btn btn-small btn-solid-border" id="delete_cart">선택 상품 삭제</a>
 									</div>
 									<div class="btn-right-box">
 										<button type="submit" class="large btn btn-solid-border" id="selectd_order">

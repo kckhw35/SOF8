@@ -24,6 +24,11 @@
 	};
 	
 	function showsize(){
+		// 크기 기본
+		$('#size1').show();
+		$('#size2').hide();
+		$('#size3').hide();
+		
 		$('#cat_id').change(function(){
 			var result = $('#cat_id option:selected').val();
 			if(result == 1 || result == 2){
@@ -57,11 +62,6 @@
 	};
 
 	window.onload = function() {
-		// 크기 기본
-		$('#size1').show();
-		$('#size2').hide();
-		$('#size3').hide();
-		
 		registerproduct();
 		showsize();
 	};

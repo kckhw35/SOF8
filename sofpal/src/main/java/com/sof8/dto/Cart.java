@@ -29,10 +29,10 @@ public class Cart {
 	private int del_cost;		// 배송비
 	private int discount;		// 할인
 	
-	private int total_price;
-	private int total_discount;
-	private int total_delcost;
-	private int total;
+	private int total_price;	// 총 상품금액
+	private int total_discount;	// 총 할인금액
+	private int total_delcost;	// 총 배송금액
+	private int total;			// 합계
 	
 	private ArrayList<Integer> c_ids;
 }

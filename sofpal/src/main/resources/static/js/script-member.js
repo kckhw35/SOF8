@@ -10,6 +10,44 @@
 
 /*=== [ 1. Button Fuction ] ===*/
 
+// 기간조회 유효성검사
+function check_range() {
+	var first = document.getElementById('first').value;
+	var last = document.getElementById('last').value;
+	
+	if(first == '' || last == '') {
+		alert('조회할 기간을 입력해주세요.');
+		var result =  false;	
+	}
+	return result;
+};
+
+// 주문취소
+function cancelOrder(page, o_id) {
+	var c = confirm('주문을 취소하시겠습니까?');
+	if(c) {
+		var json = {
+			'o_id' : o_id
+		}
+	
+		var option = {
+			method : 'post',
+			url : '/mypage/cancelOrder',
+			data : json,
+			success: function(result) {
+				if(result) {
+					alert('주문이 취소되었습니다.');
+					$('#table_order').load('/mypage/orderlist?page='+ page + ' #table_order');
+				}
+			}
+		};
+		
+		$.ajax(option);
+	} else {
+		return false;
+	}
+};
+
 // 선택회원가입
 function memberEnable(page) {
 	//체크박스 체크된 항목
@@ -162,6 +200,49 @@ function memberOneDelete(page, user_id) {
 			if (result) {
 				alert('성공적으로 삭제처리 하였습니다.');
 				$('#form_memberlist').load('/admin/memberlist?page=' + page + ' #form_memberlist');
+			}
+		}
+	};
+
+	$.ajax(option);
+};
+
+//  선택장바구니삭제
+function cartDelete() {
+
+	//체크박스 체크된 항목
+	var query = 'input[name="c_ids"]:checked'
+	var selectedElements = document.querySelectorAll(query);
+
+	//체크박스 체크된 항목의 개수
+	var selectedElementsCnt = selectedElements.length;
+
+	if (selectedElementsCnt == 0) {
+		alert("삭제할 항목을 선택해주세요.");
+		return false;
+	} else {
+		if (confirm("정말로 삭제하시겠습니까?")) {
+			//배열생성
+			var arr = new Array(selectedElementsCnt);
+			
+			document.querySelectorAll('input[name="c_ids"]:checked').forEach(function(v, i) {
+				arr[i] = v.value;
+			});
+		}
+	}
+	
+	var json = {
+		"arrlist": arr
+	};
+
+	var option = {
+		method: 'post',
+		url: '/order/deletecart',
+		data: json,
+		success: function(result) {
+			if (result) {
+				alert('성공적으로 삭제처리 하였습니다.');
+				$('#cart_form').load('/order/cart #cart_form');
 			}
 		}
 	};
