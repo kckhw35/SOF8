@@ -267,7 +267,7 @@ input[type=email]:focus, input[type=password]:focus, input[type=text]:focus, inp
 }
 
 #now_category{
-	background-color: #C4CED6;
+	color: #BE3455;
 } 
 
 @media (max-width: 400px) {
@@ -344,6 +344,11 @@ input[type=email]:focus, input[type=password]:focus, input[type=text]:focus, inp
 }
 .category-box .content p {
   margin: 6px 0 0;
+}
+
+.fabir-bar, .leather-bar, .pet-bar, .livingroom-bar{
+	height: 300px;
+	display: flex;
 }
 
 .page-header {

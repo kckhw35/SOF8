@@ -28,4 +28,5 @@ public class Product {
 	private boolean visiable;
 	
 	private MultipartFile img;
+	private String cat_name;
 }

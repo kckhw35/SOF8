@@ -1,3 +1,9 @@
+<style>
+.product-info img{
+	float: left;
+}
+
+</style>
 <!-- Page Wrapper -->
 <section class="page-wrapper success-msg">
 	<div class="container">
@@ -8,27 +14,27 @@
 					<table class="table line">
 						<thead>
 							<tr class="cart-amount">
-								<th class="widthDisplayNone">상품/옵션 정보</th>
-								<th class="widthDisplayNone">수량</th>
-								<th class="widthDisplayNone">상품금액</th>
-								<th class="widthDisplayNone">할인</th>
-								<th class="widthDisplayNone">합계금액</th>
-								<th class="widthDisplayNone">배송비</th>
+								<th>상품/옵션 정보</th>
+								<th>수량</th>
+								<th>상품금액</th>
+								<th>할인</th>
+								<th>배송비</th>
+								<th>합계금액</th>
 							</tr>
 						</thead>
-						<tbody>
+						<tbody class="order-list">
 							<tr th:each="o : ${orderlist}">
 								<td class="">
 									<div class="product-info">
-										<img width="80" th:src="@{/images/shop/products/}+${o.p_img}" />
+										<img width="100" th:src="@{/images/shop/products/}+${o.p_img}" />
 										<p th:text="${o.p_name}"></p>
 									</div>
 								</td>
 								<td th:text="${o.p_cnt}"></td>
 								<td th:text="${o.price}"></td>
 								<td th:text="${o.discount}"></td>
-								<td th:text="${o.p_cnt*o.price}"></td>
 								<td th:text="${o.del_cost}"></td>
+								<td th:text="${o.p_cnt*o.price-o.discount+o.del_cost}"></td>
 							</tr>
 						</tbody>
 					</table>

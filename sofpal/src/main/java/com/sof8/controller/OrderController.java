@@ -104,6 +104,57 @@ public class OrderController {
 		
 		return "index";
 	}
+	
+	// 장바구니 선택 상품 정보
+	@ResponseBody
+	@PostMapping("/productinfo")
+	public Map<String,Integer> productinfo(HttpSession session, Model model, HttpServletRequest request){
+		String[] c_ids = request.getParameterValues("c_ids");
+		Map<String, Integer> info = new HashMap<String, Integer>();
+		Cart cart = null;
+		Product product = null;
+		int price = 0;
+		int discount = 0;
+		int delcost = 0;
+		int sumprice = 0;
+		int sumdiscount = 0;
+		int sumdelcost = 0;
+		int c_id = 0;
+		int p_id = 0;
+		int c_cnt = 0;
+		
+		for(String c_info : c_ids) {
+			// 장바구니 번호 확인
+			c_id = Integer.parseInt(c_info);
+			
+			try {
+				// 해당 번호의 장바구니 정보 가져오기
+				cart = cservice.get(c_id);
+				// 상품 번호 및 개수 가져오기
+				p_id = cart.getP_id();
+				c_cnt = cart.getC_cnt();
+				
+				// 상품의 총 가격, 총 할인금액, 총 배송비 구하기
+				product = pservice.get(p_id);
+				price = product.getPrice() * c_cnt;
+				discount = product.getDiscount() * c_cnt;
+				delcost = product.getDel_cost() * c_cnt;
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			sumprice += price;
+			sumdiscount += discount;
+			sumdelcost += delcost;
+		}
+		info.put("sumprice", sumprice);
+		info.put("sumdiscount", sumdiscount);
+		info.put("sumdelcost", sumdelcost);
+		info.put("total", (sumprice-sumdiscount+sumdelcost));
+		System.out.println("총 상품금액 : " + sumprice + " 총 할인금액 : " + sumdiscount + " 총 배송비 : " + sumdelcost);
+		return info;
+	}
+	
 
 		// 장바구니 추가
 		@ResponseBody
@@ -155,7 +206,8 @@ public class OrderController {
 		}
 		
 		// 장바구니 물건 개수 수정
-		@RequestMapping("updatecart")
+		@ResponseBody
+		@PostMapping("updatecart")
 		public String updatecart(HttpSession session, Model model, @RequestParam(value="c_id") int c_id, @RequestParam(value="c_cnt") int c_cnt) {
 			
 			if (session.getAttribute("member") == null) {
@@ -167,7 +219,6 @@ public class OrderController {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				
 			}
 			return "redirect:/order/cart";
 		}

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.sof8.dto.Product;
 import com.sof8.frame.ImgUtil;
+import com.sof8.service.CategoryService;
 import com.sof8.service.ProductService;
 
 @Controller
@@ -21,6 +22,9 @@ public class ProductController {
 	
 	@Autowired
 	ProductService pservice;
+	
+	@Autowired
+	CategoryService cservice;
 	
 	@Value("${imgdir}")
 	String imgdir;
@@ -138,6 +142,7 @@ public class ProductController {
 		Product p = null;
 		try {
 			p = pservice.get(p_id);
+			p.setCat_name(cservice.selectcatname(p.getCat_id()));
 			model.addAttribute("p", p);
 		
 		} catch (Exception e) {

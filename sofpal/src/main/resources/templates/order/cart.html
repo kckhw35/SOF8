@@ -22,17 +22,44 @@ function checkedall(){
 	});
 }
 
+// 선택된 상품 가격
 function selectedproduct(){
 	$('input:checkbox').on('click', function(){
+		var c_ids = Array();
 		var checked_cnt = $('input:checkbox[name="c_ids"]:checked').length;
-		var sum = 0;
-		var price = 0;
 		
-		$('#checked_cnt').text(checked_cnt);
+		// 선택된 것이 한 개도 없을 경우
+		if(checked_cnt == 0){
+			$('#checked_cnt').text(checked_cnt);
+			$('#sumprice').text('0원');
+			$('#sumdiscount').text('0원');
+			$('#sumdelcost').text('0원');
+			$('#totalprice').text('0원');
+		}
 		
-		// 이곳에 선택된 상품들 값 가져오는 것 추가
+		$('input:checkbox[name="c_ids"]:checked').each(function(){
+			c_ids.push($(this).val());
+		});
+
+		$.ajax({
+			url:'/order/productinfo',
+			type:'POST',
+			data:{'c_ids':c_ids},
+			traditional: true,
+			success: function(data){
+				// 선택된 상품 개수
+				$('#checked_cnt').text(checked_cnt);
+				// 선택된 상품 총 금액
+				$('#sumprice').text(data.sumprice+'원');
+				// 선택된 상품 총 할인 금액
+				$('#sumdiscount').text(data.sumdiscount+'원');
+				// 선택된 상품 총 배송비
+				$('#sumdelcost').text(data.sumdelcost+'원');
+				// 총 지불할 금액
+				$('#totalprice').text(data.total+'원');
+			}
+		});
 	});
-	
 };
 
 // 선택된 상품 주문
@@ -58,7 +85,7 @@ function allorder(){
 	});
 }
 
-// 선택된 상품 장바구니에서 수량 변경
+/* // 선택된 상품 장바구니에서 수량 변경
 function updatecart(){
 		var c_id = $('input[id=""]').val();
 		var c_cnt = $('#quantity').val();
@@ -70,7 +97,7 @@ function updatecart(){
 				  'c_cnt':c_cnt},
 			traditional: true
 		});
-}
+} */
 
 // 선택된 상품 장바구니에서 삭제
 function deletecart(){
@@ -132,8 +159,8 @@ window.onload = function(){
 											<th class="">상품/옵션 정보</th>
 											<th class="">수량</th>
 											<th class="widthDisplayNone">상품금액</th>
+											<th class="widthDisplayNone">총 상품금액</th>
 											<th class="widthDisplayNone">할인</th>
-											<th class="widthDisplayNone">합계금액</th>
 											<th class="widthDisplayNone">배송비</th>
 										</tr>
 									</thead>
@@ -160,19 +187,17 @@ window.onload = function(){
 											<!-- 상품금액 -->
 											<td id="price" class="widthDisplayNone" th:if="${c.price == 0}" th:text="0원"></td>
 											<td id="price" class="widthDisplayNone" th:if="${c.price != 0}" th:text="|${#numbers.formatInteger(c.price, 3, 'COMMA')}원|"></td>
+											<!-- 총 상품금액 -->
+											<td id="sum_price" class="widthDisplayNone" th:text="|${#numbers.formatInteger(c.c_cnt*c.price, 3, 'COMMA')}원|"></td>
+											<input type="hidden" name="sum_price" th:value="${c.c_cnt*c.price}" />
 											<!-- 할인 -->
 											<td class="widthDisplayNone" th:if="${c.discount == 0}" th:text="0원"></td>
-											<td class="widthDisplayNone" th:if="${c.discount != 0}" 
-												th:text="|${#numbers.formatInteger(c.discount, 3, 'COMMA')}원|"></td>
-											<!-- 합계금액 -->
-											<td id="sum_price" class="widthDisplayNone" 
-												th:text="|${#numbers.formatInteger(c.c_cnt*c.price, 3, 'COMMA')}원|"></td>
-											<input type="hidden" name="sum_price" th:value="${c.c_cnt*c.price}" />
+											<td class="widthDisplayNone" th:if="${c.discount != 0}" th:text="|${#numbers.formatInteger(c.c_cnt*c.discount, 3, 'COMMA')}원|"></td>
+											<input type="hidden" name="discount" th:value="${c.c_cnt*c.discount}" />
 											<!-- 배송비 -->
 											<td class="widthDisplayNone" th:if="${c.del_cost == 0}" th:text="0원"></td>
-											<td class="widthDisplayNone" th:if="${c.del_cost != 0}" 
-												th:text="|${#numbers.formatInteger(c.del_cost, 3, 'COMMA')}원|"></td>
-											<input type="hidden" name="del_cost" th:value="${c.del_cost}" />
+											<td class="widthDisplayNone" th:if="${c.del_cost != 0}" th:text="|${#numbers.formatInteger(c.c_cnt*c.del_cost, 3, 'COMMA')}원|"></td>
+											<input type="hidden" name="del_cost" th:value="${c.c_cnt*c.del_cost}" />
 										</tr>
 									</tbody>
 								</table>
@@ -181,19 +206,17 @@ window.onload = function(){
 										<div class="price-list">
 											<dl>
 												<dt>
-													총 <strong id="checked_cnt" th:text="${#lists.size(clist)}"></strong> 개의 상품금액
+													총 <strong id="checked_cnt" th:text="0"></strong> 개의 상품금액
 												</dt>
 												<dd>
-													<p id="sumprice" th:text="|${#numbers.formatInteger(cart.total_price, 3, 'COMMA')}원|"></p>
+													<p id="sumprice" th:text="0원"></p>
 												</dd>
 											</dl>
 											<span><iconify-icon icon="akar-icons:circle-minus-fill" width="25"></iconify-icon></span>
 											<dl>
 												<dt>할인</dt>
 												<dd>
-													<p id="sumdiscount" th:if="${cart.total_discount == 0}" th:text="0원"></p>
-													<p id="sumdiscount" th:if="${cart.total_discount != 0}" 
-														th:text="|${#numbers.formatInteger(cart.total_discount, 3, 'COMMA')}원|"></p>
+													<p id="sumdiscount" th:text="0원"></p>
 													<input type="hidden" name="totaldiscount"/>
 												</dd>
 											</dl>
@@ -201,16 +224,14 @@ window.onload = function(){
 											<dl>
 												<dt>배송비</dt>
 												<dd>
-													<p id="sumdiscount" th:if="${cart.total_delcost == 0}" th:text="0원"></p>
-													<p id="sumdiscount" th:if="${cart.total_delcost != 0}" 
-														th:text="|${#numbers.formatInteger(cart.total_delcost, 3, 'COMMA')}원|"></p>
+													<p id="sumdelcost" th:text="0원"></p>
 												</dd>
 											</dl>
 											<span><iconify-icon icon="akar-icons:equal-fill" width="25"></iconify-icon></span>
 											<dl class="price-total">
 												<dt>합계</dt>
 												<dd>	
-													<p id="sumdiscount" th:text="|${#numbers.formatInteger(cart.total, 3, 'COMMA')}원|"></p>
+													<p id="totalprice" th:text="0원"></p>
 													<input type="hidden" name="totalprice"/>
 												</dd>
 											</dl>
