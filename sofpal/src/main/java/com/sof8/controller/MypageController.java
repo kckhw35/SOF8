@@ -188,17 +188,21 @@ public class MypageController {
 				System.out.println("first: " + first);
 				System.out.println("last: " + last);
 				
-				do {
-					// 페이징을 위한 데이터 입력
+				if(totalRow>0) {
+					do {
+						// 페이징을 위한 데이터 입력
+						paging = new Paging(5,5,totalRow, page, keyword, type);
+						paging.setFirst(first);
+						paging.setLast(last);	
+						
+						// 페이징 후 데이터 검색 
+						orders = oservice.getList(paging);
+						--page;
+					}while (orders.isEmpty());	
+				} else {
 					paging = new Paging(5,5,totalRow, page, keyword, type);
-					paging.setFirst(first);
-					paging.setLast(last);	
-					
-					// 페이징 후 데이터 검색 
-					orders = oservice.getList(paging);
-					page--;
-				}while (orders.isEmpty());
-
+				}
+				
 				model.addAttribute("orders", orders);
 				model.addAttribute("page", page);
 				model.addAttribute("paging", paging);				
@@ -258,13 +262,18 @@ public class MypageController {
 				int totalRow = mservice.getTotal(keyword);
 				Paging paging = null;
 				List<Mark> marks= null;
-				do {
-					// 페이징을 위한 데이터 입력
+				if(totalRow>0) {
+					do {
+						// 페이징을 위한 데이터 입력
+						paging = new Paging(5,5,totalRow, page, keyword, type);
+						// 페이징 후 데이터 검색 
+						marks = mservice.getList(paging);
+						--page;
+					}while (marks.isEmpty());
+				} else {
 					paging = new Paging(5,5,totalRow, page, keyword, type);
-					// 페이징 후 데이터 검색 
-					marks = mservice.getList(paging);
-					page--;
-				}while (marks.isEmpty());
+				}
+
 
 				model.addAttribute("marks", marks);
 				model.addAttribute("page", page);

@@ -199,7 +199,8 @@ public class AdminController {
 	// 회원 리스트 화면
 	// 127.0.0.1/admin/memberlist
 	@RequestMapping("/memberlist")
-	public String memberlist(HttpSession session, Model model, @RequestParam(defaultValue = "1") int page,
+	public String memberlist(HttpSession session, Model model, 
+			@RequestParam(defaultValue = "1") int page,
 			@RequestParam(required = false) String keyword,
 			@RequestParam(value = "type", defaultValue = "user_id") String type) {
 
@@ -209,10 +210,21 @@ public class AdminController {
 				
 				// 검색한 데이터의 총 개수
 				int totalRow = mservice.getTotal(keyword, type);
-				// 페이징을 위한 데이터 입력
-				Paging paging = new Paging(6, 5, totalRow, page, keyword, type);
-				// 페이징 후 데이터 검색
-				List<Member> members = mservice.getList(paging);
+				Paging paging = null;
+				List<Member> members = null;
+				
+				if(totalRow>0) {
+					do {
+						// 페이징을 위한 데이터 입력
+						paging = new Paging(6, 5, totalRow, page, keyword, type);
+						// 페이징 후 데이터 검색
+						members = mservice.getList(paging);
+						--page;
+					}while(members.isEmpty());
+				} else {
+					// 페이징을 위한 데이터 입력
+					paging = new Paging(6, 5, totalRow, page, keyword, type);
+				}
 
 				model.addAttribute("members", members);
 				model.addAttribute("page", page);

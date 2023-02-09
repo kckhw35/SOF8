@@ -33,86 +33,89 @@
 									<button type="submit" class="btn bf"><i class="tf-ion-ios-search-strong"></i> 조회</button>
 								</div>
 							</div>
-							<div class="form-group clearfix">
-								<h5>주문목록 내역 총 <span th:text="${paging.totalRow}"></span> 건</h5>
-								<table id="table_order" class="table line">
-									<colgroup>
-										<col width="13%"/>
-										<col width="46%"/>
-										<col width="15%" class="widthDisplayNone"/>
-										<col width="13%" class="widthDisplayNone"/>
-										<col width="13%" class=""/>
-									</colgroup>
-									<thead>
-										<tr class="cart-amount">
-											<th>날짜/주문번호</th>
-											<th>상품명/옵션</th>
-											<th class="widthDisplayNone">상품금액/수량</th>
-											<th class="widthDisplayNone">주문상태</th>
-											<th>관리</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr th:each="order : ${orders}">
-											<td class="text-center">
-												<p th:text="${#dates.format(order.o_date,'yyyy.MM.dd')}"></p>
-												<p th:text="${order.o_id}"></p>
-											</td>
-											<td>
-												<div class="product-info">
-													<div class="pull-left">
-														<a th:href="@{/product/productdetail(p_id=${order.p_id})}">
-															<img width="120" th:src="@{/images/shop/products/}+${order.p_img}" alt="" />
-														</a>
-													</div>
-													<div class="pull-left form-horizontal">
-														<a th:href="@{/product/productdetail(p_id=${order.p_id})}" th:text="${order.p_name}"></a>
-														<p><small th:text="|사이즈: ${order.size}|"></small></p>
-														<p><small th:text="|색상: ${order.color}|"></small></p>
-													</div>
+						</form>							
+						<div class="form-group clearfix">
+							<h5>주문목록 내역 총 <span th:text="${paging.totalRow}"></span> 건</h5>
+							<table id="table_order" class="table">
+								<colgroup>
+									<col width="17%"/>
+									<col width="40%"/>
+									<col width="17%" class="widthDisplayNone"/>
+									<col width="13%" class="widthDisplayNone"/>
+									<col width="13%" class=""/>
+								</colgroup>
+								<thead>
+									<tr class="cart-amount line">
+										<th>날짜/주문번호</th>
+										<th>상품명/옵션</th>
+										<th class="widthDisplayNone">상품금액/수량</th>
+										<th class="widthDisplayNone">주문상태</th>
+										<th>관리</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:if="${orders == null}">
+										<td class="text-class empty" colspan="5">조회된 주문 리스트가 없습니다.</td>
+									</tr>
+									<tr th:if="${orders != null}" th:each="order : ${orders}">
+										<td class="text-center">
+											<p th:text="${#dates.format(order.o_date,'yyyy.MM.dd')}"></p>
+											<p th:text="${order.o_id}"></p>
+										</td>
+										<td>
+											<div class="product-info">
+												<div class="pull-left">
+													<a th:href="@{/product/productdetail(p_id=${order.p_id})}">
+														<img width="120" th:src="@{/images/shop/products/}+${order.p_img}" alt="" />
+													</a>
 												</div>
-											</td>
-											<td class="widthDisplayNone">
-												<p th:text="|${#numbers.formatInteger(order.price, 3, 'COMMA')}원|"></p>
-												<p th:text="|${order.d_cnt}개|"></p>
-											</td>
-											<td class="widthDisplayNone">
-												<p th:text="${order.o_status}"></p>
-											</td>
-											<td class="">
-												<button th:id="${order.o_id}" class="btn" th:text="주문취소" 
-													th:disabled="${order.o_status == '주문취소'}"
-													th:onclick="|return cancelOrder(${paging.page}, ${order.o_id})|"></button>
-											</td>
-										</tr>
-									</tbody>
-								</table>							
-							</div>
-							<div class="text-center">
-								<ul class="pagination post-pagination" th:if="${paging.totalRow > 0}">
-									<!-- 맨 처음 페이지 이동 -->
-									<li th:if="${paging.startPage > 1}">
-										<a th:href="@{'orderlist?page=1'}" th:text="처음"></a>
-									</li>
-									<!-- 이전 블록 이동 -->
-									<li th:if="${paging.prev}">
-										<a th:href="@{'orderlist?page='+${paging.startPage-1}}" th:text="이전"></a>
-									</li>
-									<!-- 시퀀스 보여주는 값 변경 -->
-									<li th:each="pageNum : ${#numbers.sequence(paging.startPage, paging.endPage)}" th:class="${pageNum == paging.page} ? 'active'" >
-										<a th:href="@{'orderlist?page='+${pageNum}}" th:text="${pageNum}"></a>
-									</li>
-									<!-- 다음 블록으로 이동 -->
-									<li th:if="${paging.next}">
-										<a th:href="@{'orderlist?page='+|${paging.endPage + 1}|}" th:text="다음"></a>
-									</li>
-									<!-- 맨 뒷 페이지로 이동 -->
-									<li th:if="${paging.endPage < paging.totalPage}">
-										<a th:href="@{'orderlist?page='+${paging.totalPage}}" th:text="끝"></a>
-									</li>
-								</ul>
-							</div>
-						</form>
+												<div class="pull-left form-horizontal">
+													<a th:href="@{/product/productdetail(p_id=${order.p_id})}" th:text="${order.p_name}"></a>
+													<p><small th:text="|사이즈: ${order.size}|"></small></p>
+													<p><small th:text="|색상: ${order.color}|"></small></p>
+												</div>
+											</div>
+										</td>
+										<td class="widthDisplayNone">
+											<p th:text="|${#numbers.formatInteger(order.price, 3, 'COMMA')}원|"></p>
+											<p th:text="|${order.d_cnt}개|"></p>
+										</td>
+										<td class="widthDisplayNone">
+											<p th:text="${order.o_status}"></p>
+										</td>
+										<td class="">
+											<button th:id="${order.o_id}" class="btn" th:text="주문취소" 
+												th:disabled="${order.o_status == '주문취소'}"
+												th:onclick="|return cancelOrder(${paging.page}, ${order.o_id})|"></button>
+										</td>
+									</tr>
+								</tbody>
+							</table>							
+						</div>
+						<div class="text-center">
+							<ul class="pagination post-pagination" th:if="${paging.totalRow > 0}">
+								<!-- 맨 처음 페이지 이동 -->
+								<li th:if="${paging.startPage > 1}">
+									<a th:href="@{'orderlist?page=1'}" th:text="처음"></a>
+								</li>
+								<!-- 이전 블록 이동 -->
+								<li th:if="${paging.prev}">
+									<a th:href="@{'orderlist?page='+${paging.startPage-1}}" th:text="이전"></a>
+								</li>
+								<!-- 시퀀스 보여주는 값 변경 -->
+								<li th:each="pageNum : ${#numbers.sequence(paging.startPage, paging.endPage)}" th:class="${pageNum == paging.page} ? 'active'" >
+									<a th:href="@{'orderlist?page='+${pageNum}}" th:text="${pageNum}"></a>
+								</li>
+								<!-- 다음 블록으로 이동 -->
+								<li th:if="${paging.next}">
+									<a th:href="@{'orderlist?page='+|${paging.endPage + 1}|}" th:text="다음"></a>
+								</li>
+								<!-- 맨 뒷 페이지로 이동 -->
+								<li th:if="${paging.endPage < paging.totalPage}">
+									<a th:href="@{'orderlist?page='+${paging.totalPage}}" th:text="끝"></a>
+								</li>
+							</ul>
+						</div>
 					</div>
 				</div>
 			</div>
