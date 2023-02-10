@@ -6,7 +6,6 @@
 	<sql id="paging">
 		LIMIT #{rowCount} OFFSET #{offset}
 	</sql>
-	
 	<!-- 검색 -->
 	<sql id="search">
 		<!-- 검색 키워드 있을 때 -->
@@ -54,5 +53,4 @@
 			</choose>
 		</if>
 	</sql>
-	
 </mapper>
