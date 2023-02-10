@@ -1,8 +1,14 @@
 package com.sof8.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
 @Getter
 @ToString
 public class Paging {
@@ -25,6 +31,8 @@ public class Paging {
 	
 	private String keyword;
 	private String type;
+	private String first;
+	private String last;	
 
 	public Paging(int rowCount, int pageCount, int totalRow, int page, String keyword, String type) {
 
@@ -61,23 +69,18 @@ public class Paging {
 		setKeyword(keyword);
 		
 		setType(type);
+		System.out.println("rowCount: " + this.rowCount);
+		System.out.println("pageCount: " + this.pageCount);
+		System.out.println("totalRow: " + this.totalRow);
+		System.out.println("totalPage: " + this.totalPage);
+		System.out.println("startPage: " + this.startPage);
+		System.out.println("endPage: " + this.endPage);
+		System.out.println("page: " + this.page);
+		System.out.println("prev: " + this.prev);
+		System.out.println("next: " + this.next);
+		System.out.println("offset: " + this.offset);
 	}
-	
-	// 한 페이지 당 보여줄 게시물 개수
-	private void setRowCount(final int rowCount) {
-		this.rowCount = rowCount;
-	}
-	
-	// 한 블럭에 몇 개의 페이지 개수
-	private void setPageCount(final int pageCount) {
-		this.pageCount = pageCount;
-	}
-	
-	// 총 게시물 개수
-	private void setTotalRow(final int totalRow) {
-		this.totalRow = totalRow;
-	}
-	
+
 	// 총 페이지 개수 구하기
 	private void setTotalPage(final int totalCount, final int rowCount) {
 		this.totalPage = (int) Math.ceil(totalCount * 1.0 / rowCount);
@@ -94,7 +97,7 @@ public class Paging {
 	}
 	
 	// 현재 페이지 구하기
-	private void setPage(final int page) {
+	public void setPage(final int page) {
 		this.page = page;
 	}
 	
@@ -111,15 +114,6 @@ public class Paging {
 	// offset 구하기 // 쿼리 select 시 끊어서 가져오기
 	private void setOffset(final int page, final int rowCount) {
 		this.offset = (page - 1) * rowCount;
-	}
-	
-	// 검색어 구하기
-	private void setKeyword(String keyword) {
-		this.keyword = keyword;
-	}
-	
-	// 검색 유형 구하기
-	private void setType(String type) {
-		this.type = type;
+		if(this.offset<0)	this.offset = this.offset * -1;
 	}
 }

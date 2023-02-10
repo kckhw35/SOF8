@@ -21,6 +21,10 @@
 
 *******************************************/
 /*=== [ 1. Common ] ===*/
+.bf {
+	background-color: buttonface;
+}
+
 .frame-container {
     position: relative;
     padding-bottom: 56.25%; /* 16:9 */  
@@ -256,6 +260,7 @@ input[type="checkbox"]:checked+input+label:before {
 /*== [ 3.4 login ] ==*/
 /*== [ 3.5 loginfail ] ==*/
 
+
 /*=== [ 4. Mypage ] ===*/
 /*== [ 4.1 sidenav ] ==*/
 .ud-space {
@@ -288,6 +293,10 @@ input[type="checkbox"]:checked+input+label:before {
 /*== [ 4.4 wish ] ==*/
 .wish p {
 	display: block;
+	margin: 0;
+}
+
+.wish .shopping.cart .product-list .product-info a:first-child {
 	margin: 0;
 }
 
@@ -348,6 +357,34 @@ dl {
 
 .cancel #form_pwd {
 	margin-top: 14px;
+}
+
+.orderlist input[type="date"] {
+	margin: 0 5px;
+	padding: 5px;
+	vertical-align: middle;
+	height: 30px;
+	display: inline;
+	width: 120px
+}
+
+.orderlist .shopping.cart .product-list .product-info a:first-child {
+	margin: 0;
+}
+
+.orderlist .form-horizontal {
+	margin-left: 10px;
+}
+
+.orderlist .line div {
+	margin-left: 5px;
+}
+
+@media screen and (max-width: 768px) {
+	.orderlist .line {
+		text-align: center;
+	}
+	
 }
 
 /*=== [ 5. Order ] ===*/
