@@ -260,8 +260,8 @@
 		});
 	};
 	
-	function payproduct(){
-		/* 카드결제 */
+	/* function payproduct(){
+		
 		$('#pay_product').click(function(){
 			$('.checkout-form').attr({
 				'method' : 'post',
@@ -270,7 +270,55 @@
 			$('.checkout-form').submit();
 		});
 		
-		/* 무통장 입금 */
+		$('#bank_pay_product').click(function(){
+			$('.checkout-form').attr({
+				'method' : 'post',
+				'action' : '[[@{/order/ordered}]]'
+			});
+			$('.checkout-form').submit();
+		});
+	}; */
+	
+	function cardpay(){
+		$('#card_pay_product').click(function(){
+			var IMP = window.IMP;
+			IMP.init("imp07131386");
+			
+			var price = $('input[name="totalprice"]').val();
+			var order_name = $('#order_name').val();
+			var order_tel = $('#order_tel').val();
+			var order_email = $('#order_email').val();
+			var order_zipcode = $('#order_zipcode').val();
+			var order_addr = $('#order_addr').val() + $('#order_deaddr').val();
+			
+			// IMP.request_pay(param, callback) 호출
+			IMP.request_pay({
+				// 결제 정보
+				pg: 'html5_inicis', // PG사 선택
+				pay_method: 'card', // 지불 수단
+				merchant_uid: 'merchant_' + new Date().getTime(), //가맹점에서 구별할 수 있는 고유한id
+				name: '(주)SOF8',
+				amount: price,
+				buyer_email: order_email,
+				buyer_name: order_name, // 구매자 이름
+			    buyer_tel: order_tel, // 구매자 연락처 
+			    buyer_addr: order_addr,// 구매자 주소지
+			    buyer_postcode: order_zipcode, // 구매자 우편번호
+			}, function(rsp){	// 결제 실행 후
+				if(rsp.success){
+					$('.checkout-form').attr({
+						'method' : 'post',
+						'action' : '[[@{/order/ordered}]]'
+					});
+					$('.checkout-form').submit();
+				}else{
+					alert('결제에 실패했습니다.');
+				}
+			});
+		});
+	};
+	
+	function bankpay(){
 		$('#bank_pay_product').click(function(){
 			$('.checkout-form').attr({
 				'method' : 'post',
@@ -285,7 +333,8 @@
 		totalprice();
 		shipdetail();
 		payoption();
-		payproduct();
+		cardpay();
+		bankpay();
 	};
 </script>
 <section class="page-header">
@@ -486,7 +535,7 @@
 		           	 		</div>
 			           	 	<div class="form-group">
 			           	 		<span>입금은행 </span>&emsp;
-			                	<select id="bank_name" name="bank_name">
+			                	<select id="bank_name" name="note">
 			                		<option value="none">은행을 선택하세요.</option>
 			        				<option value="신한">신한은행 [999-87456-32101 주식회사 SOF8]</option>
 			        				<option value="하나">KEB하나은행 [123-456789-01234 주식회사 SOF8]</option>
@@ -500,9 +549,7 @@
 	            </div>
          	</div>
          	<div id="pay_btn">
-         		<span  data-toggle="modal" data-target="#card-pay-modal" id="card-pay">
 					<a href="#" class="btn btn-main mt-20" id="card_pay_product">결제하기</a>
-				</span>
 					<a href="#" class="btn btn-main mt-20" id="bank_pay_product">결제하기</a>
 		    </div>
          </form>

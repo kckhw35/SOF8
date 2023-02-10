@@ -27,4 +27,5 @@ public class Order {
 	private String re_addr;
 	private String re_deaddr;
 	private String re_req;
+	private String note;
 }

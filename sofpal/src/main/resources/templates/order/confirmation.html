@@ -3,6 +3,13 @@
 	float: left;
 }
 
+.icon-arrow-down{
+	color:#BE3455;
+}
+
+.bank_info{
+	color:#BE3455;
+}
 </style>
 <!-- Page Wrapper -->
 <section class="page-wrapper success-msg">
@@ -11,6 +18,10 @@
 			<div class="col-md-6 col-md-offset-3">
 				<div class="block text-center">
 					<h2 class="text-center">주문이 완료되었습니다!</h2>
+					<h4 class="bank_info">
+						<iconify-icon class="icon-arrow-down" icon="ion:arrow-down"></iconify-icon> 입금 계좌번호 <iconify-icon class="icon-arrow-down" icon="ion:arrow-down"></iconify-icon>
+					</h4>
+					<h4 class="bank_info" th:text="${bank}"></h4>
 					<table class="table line">
 						<thead>
 							<tr class="cart-amount">

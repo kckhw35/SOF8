@@ -29,7 +29,7 @@ public class ProductController {
 	@Value("${imgdir}")
 	String imgdir;
 	
-	// 상품보기
+	// 전체 상품보기
 	@RequestMapping("/productall")
 	public String productall(Model model) {
 		List<Product> list = null;
@@ -44,6 +44,7 @@ public class ProductController {
 		return "index";
 	}
 	
+	// 패브릭소파 상품보기
 	@RequestMapping("/fabric")
 	public String fabric(Model model) {
 		
@@ -67,6 +68,7 @@ public class ProductController {
 		return "index";
 	}
 	
+	// 가죽소파 상품보기
 	@RequestMapping("/leather")
 	public String leather(Model model) {
 		
@@ -90,6 +92,7 @@ public class ProductController {
 		return "index";
 	}
 	
+	// 펫소파 상품보기
 	@RequestMapping("/pet")
 	public String pet(Model model) {
 
@@ -113,6 +116,7 @@ public class ProductController {
 		return "index";
 	}
 	
+	// 리빙룸 상품보기
 	@RequestMapping("/livingroom")
 	public String livingroom(Model model) {
 

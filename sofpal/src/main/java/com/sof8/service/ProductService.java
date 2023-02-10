@@ -55,4 +55,8 @@ public class ProductService implements Sof8Service<Integer, Product>{
 	public int updatecnt(Integer k) throws Exception{
 		return mapper.updatecnt(k);
 	}
+	
+	public List<Product> selectnew() throws Exception{
+		return mapper.selectnew();
+	}
 }
