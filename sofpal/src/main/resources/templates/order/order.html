@@ -1,4 +1,45 @@
 <style>
+	/* 카드 정보 modal */
+	.card-info {
+	  border-collapse: collapse;
+	  line-height: 1.5;
+	  border: 1px solid #43454F;
+	  margin: 20px 10px;
+	}
+	.card-info thead {
+	  border-right: 1px solid #43454F;
+	  border-left: 1px solid #43454F;
+	  background: #BE3455;
+	}
+	.card-info thead th {
+	  padding: 10px;
+	  text-align: left;
+	  font-weight: bold;
+	  vertical-align: top;
+	  color: #fff;
+	}
+	.card-info tbody th {
+	  width: 150px;
+	  padding: 10px;
+	  text-align: left;
+	  font-weight: bold;
+	  vertical-align: top;
+	  border-bottom: 1px solid #43454F;
+	  background: #F0CFC3;
+	}
+	.card-info td {
+	  width: 350px;
+	  padding: 10px;
+	  vertical-align: top;
+	  border-bottom: 1px solid #43454F;
+	}
+	.card-num{
+		border: 1px solid #ccc;
+		width: 160px;
+	}
+	.cart-amount th, .order-product td{
+		text-align: center;
+	}
 	#ship_detail, #pay_detail{
 		margin-bottom: 10px;
 	}
@@ -66,11 +107,11 @@
 		background: url('arrow.jpg') no-repeat 95% 50%;
 	}
 	
-	#pay_btn{
+	#pay_btn, #modal_pay_btn{
 		text-align: center;
 	}
 	
-	#pay_btn > a{
+	#pay_btn > a, #pay_btn > span > a, #modal_pay_btn > a{
 		font-size: 16px;
 	}
 	
@@ -202,22 +243,71 @@
 	
 	function payoption(){
 		$('#bank').hide();
+		$('#bank_pay_product').hide();
 		
 		$('input:radio[name="pay_option"]').change(function(){
 			var option = $(this).val();
 
 			if(option == '신용카드'){
-				$('#card').show();
 				$('#bank').hide();
+				$('#card_pay_product').show();
+				$('#bank_pay_product').hide();
 			}else if(option == '무통장입금'){
-				$('#card').hide();
 				$('#bank').show();
+				$('#bank_pay_product').show();
+				$('#card_pay_product').hide();
 			}
 		});
 	};
 	
-	function payproduct(){
-		$('#pay_product').click(function(){
+	function cardpay(){
+		$('#card_pay_product').click(function(){
+			var IMP = window.IMP;
+			IMP.init("imp07131386");
+			
+			var price = $('input[name="totalprice"]').val();
+			var order_name = $('#order_name').val();
+			var order_tel = $('#order_tel').val();
+			var order_email = $('#order_email').val();
+			var order_zipcode = $('#order_zipcode').val();
+			var order_addr = $('#order_addr').val() + $('#order_deaddr').val();
+			var product_name = $('#p_name').text();
+			var product_cnt = $('#order-table tbody tr').length;
+			
+			if(product_cnt != 1){
+				product_name = product_name+' (외 '+(product_cnt-1)+'개의 상품)';
+			}
+			
+			// IMP.request_pay(param, callback) 호출
+			 IMP.request_pay({
+				// 결제 정보
+				pg: 'html5_inicis', // PG사 선택
+				pay_method: 'card', // 지불 수단
+				merchant_uid: 'merchant_' + new Date().getTime(), //가맹점에서 구별할 수 있는 고유한id
+				name: product_name,
+				amount: price,
+				buyer_email: order_email,
+				buyer_name: order_name, // 구매자 이름
+			    buyer_tel: order_tel, // 구매자 연락처 
+			    buyer_addr: order_addr,// 구매자 주소지
+			    buyer_postcode: order_zipcode, // 구매자 우편번호
+			}, function(rsp){	// 결제 실행 후
+				if(rsp.success){
+					$('.checkout-form').attr({
+						'method' : 'post',
+						'action' : '[[@{/order/ordered}]]'
+					});
+					$('.checkout-form').submit();
+				}else{
+					alert('결제에 실패했습니다.');
+					location.href="redirect:/order/order"
+				}
+			});
+		});
+	};
+	
+	function bankpay(){
+		$('#bank_pay_product').click(function(){
 			$('.checkout-form').attr({
 				'method' : 'post',
 				'action' : '[[@{/order/ordered}]]'
@@ -231,7 +321,8 @@
 		totalprice();
 		shipdetail();
 		payoption();
-		payproduct();
+		cardpay();
+		bankpay();
 	};
 </script>
 <section class="page-header">
@@ -258,14 +349,14 @@
 	               <div class="product-checkout-details">
 	                  <div class="block">
 	                     <h4 class="widget-title">주문 상세내역</h4>
-	                     <table class="table line">
+	                     <table class="table line" id="order-table">
 									<thead>
 										<tr class="cart-amount">
 											<th class="">상품/옵션 정보</th>
-											<th class="">수량</th>
+											<th class="widthDisplayNone">수량</th>
 											<th class="widthDisplayNone">상품금액</th>
+											<th class="">총 상품금액</th>
 											<th class="widthDisplayNone">할인</th>
-											<th class="widthDisplayNone">합계금액</th>
 											<th class="widthDisplayNone">배송비</th>
 										</tr>
 									</thead>
@@ -274,20 +365,20 @@
 											<input type="hidden" th:value="${c.c_id}" name="c_ids"/>
 											<td class="">
 												<div class="product-info">
-													<img width="80" th:src="@{/images/shop/products/}+${c.p_img}" />
-													<a th:href="@{/product/productdetail(p_id=${c.p_id})}" th:value="${c.p_id}" th:text="${c.p_name}"></a>
+													<img width="200" th:src="@{/images/shop/products/}+${c.p_img}" />
+													<a th:href="@{/product/productdetail(p_id=${c.p_id})}" id="p_name" th:value="${c.p_id}" th:text="${c.p_name}"></a>
 													<input type="hidden" th:value="${c.p_id}" name="p_id"/>
 												</div>
 											</td>
-											<td th:text="${c.c_cnt}" id="c_cnt"></td>
+											<td class="widthDisplayNone" th:text="${c.c_cnt}" id="c_cnt"></td>
 											<input type="hidden" th:value="${c.c_cnt}" name="d_cnt"/>
-											<td th:text="${c.price}" id="price"></td>
-											<td th:text="${c.discount}" id="discount"></td>
-											<input type="hidden" th:value="${c.discount}" name="discount">
+											<td class="widthDisplayNone" th:text="${c.price}" id="price"></td>
 											<td th:text="${c.c_cnt*c.price}" ></td>
 											<input type="hidden" th:value="${c.c_cnt*c.price}" name="price" />
-											<td th:text="${c.del_cost}" name="del_cost"></td>
-											<input type="hidden" name="del_cost" th:value="${c.del_cost}" />
+											<td class="widthDisplayNone" th:text="${c.c_cnt*c.discount}" id="discount"></td>
+											<input type="hidden" th:value="${c.c_cnt*c.discount}" name="discount">
+											<td class="widthDisplayNone" th:text="${c.c_cnt*c.del_cost}" name="del_cost"></td>
+											<input type="hidden" name="del_cost" th:value="${c.c_cnt*c.del_cost}" />
 										</tr>
 									</tbody>
 								</table>
@@ -342,6 +433,7 @@
 	                              <div class="form-group">
 	                                 <label>연락처 <span class="required">*</span></label>
 	                                 <input type="text" th:value="${m.tel}" class="form-control" id="order_tel">
+	                                 <input type="hidden" th:value=${m.email} id="order_email"/>
 	                              </div>
 	                              <div class="form-group">
 	                                 <label>우편번호 <span class="required">*</span></label>
@@ -425,31 +517,6 @@
 	                  	    <input type="radio" name="pay_option" value="신용카드" checked/> 신용카드&emsp;
 	                  	 	<input type="radio" name="pay_option" value="무통장입금"/> 무통장입금
 	                    </div>
-	                    <div id="card">
-	                    	<div class="form-group">
-			           	 		<span>신용카드 </span>&emsp;
-			                	<select id="card_name" name="card_name">
-			                		<option value="none">카드 종류를 선택하세요.</option>
-			        				<option value="신한">신한카드</option>
-			        				<option value="하나">하나카드</option>
-			        				<option value="우리">우리카드</option>
-			        				<option value="국민">국민카드</option>
-			        				<option value="기업">기업카드</option>
-			        				<option value="BC">BC카드</option>
-			        			</select>
-		           	 		</div>
-			           	 	<div class="form-group">
-			           	 		<span>할부선택 </span>&emsp;
-			                	<select id="installment_plan" name="installment_plan">
-			        				<option value="일시불">일시불</option>
-			        				<option value="1개월">1개월</option>
-			        				<option value="2개월">2개월</option>
-			        				<option value="3개월">3개월</option>
-			        				<option value="4개월">4개월</option>
-			        				<option value="5개월">5개월</option>
-			        			</select>
-			           	 	</div>
-	                    </div>
 		          		<div id="bank">
 		          			<div class="form-group">
 			           	 		<span>입금자명 </span>&emsp;
@@ -457,7 +524,7 @@
 		           	 		</div>
 			           	 	<div class="form-group">
 			           	 		<span>입금은행 </span>&emsp;
-			                	<select id="bank_name" name="bank_name">
+			                	<select id="bank_name" name="note">
 			                		<option value="none">은행을 선택하세요.</option>
 			        				<option value="신한">신한은행 [999-87456-32101 주식회사 SOF8]</option>
 			        				<option value="하나">KEB하나은행 [123-456789-01234 주식회사 SOF8]</option>
@@ -471,40 +538,65 @@
 	            </div>
          	</div>
          	<div id="pay_btn">
-         		<span  data-toggle="modal" data-target="#card-pay-modal">
-				<a href="#" class="btn btn-main mt-20" id="pay_product">결제하기</a>
+					<a href="#" class="btn btn-main mt-20" id="card_pay_product">결제하기</a>
+					<a href="#" class="btn btn-main mt-20" id="bank_pay_product">결제하기</a>
 		    </div>
          </form>
       </div>
    </div>
 </div>
    <!-- Modal -->
-   <div class="modal fade" id="coupon-modal" tabindex="-1" role="dialog">
+   <div class="modal" id="card-pay-modal" tabindex="-1" role="dialog">
       <div class="modal-dialog" role="document">
          <div class="modal-content">
             <div class="modal-body">
-               <form>
-                  <div class="form-group">
-                     <input class="form-control" type="text" placeholder="Enter Coupon Code">
-                  </div>
-                  <button type="submit" class="btn btn-main">Apply Coupon</button>
-               </form>
+              	  <div>
+              	  	<table class="card-info">
+              			<thead>
+              				<tr class="cart-amount">
+							<th>신용카드</th>
+							<th></th>
+						</tr>
+              			</thead>
+              			<tbody>
+              				<tr>
+              					<td>카드종류</td>
+              					<td><select id="card_name" name="card_name">
+			                		<option value="none">카드 종류를 선택하세요.</option>
+			        				<option value="신한">신한카드</option>
+			        				<option value="하나">하나카드</option>
+			        				<option value="우리">우리카드</option>
+			        				<option value="국민">국민카드</option>
+			        				<option value="기업">기업카드</option>
+			        				<option value="BC">BC카드</option>
+		        				</select>
+		        			</td>
+              				</tr>
+              				<tr>
+              					<td>카드번호</td>
+              					<td>
+              						<input class="card-num" type="text" placeholder="숫자만 입력하세요.">
+		        			</td>
+              				</tr>
+              				<tr>
+              					<td>할부선택</td>
+              					<td><select id="installment_plan" name="installment_plan">
+			        				<option value="일시불">일시불</option>
+			        				<option value="1개월">1개월</option>
+			        				<option value="2개월">2개월</option>
+			        				<option value="3개월">3개월</option>
+			        				<option value="4개월">4개월</option>
+			        				<option value="5개월">5개월</option>
+		        				</select>
+		        			</td>
+              				</tr>
+              			</tbody>
+              		</table>
+              	  </div>
+              	  <div id="modal_pay_btn">
+              	  	<button class="btn btn-main" id="pay_product">결제하기</button>
+              	  </div>
             </div>
          </div>
       </div>
-	</div>
-	<div class="modal" id="card-pay-modal">
-		<button type="button" class="close" data-dismiss="modal"
-			aria-label="Close">
-			<i class="tf-ion-close"></i>
-		</button>
-		<div class="modal-mark " role="document">
-			<div class="modal-content">
-				<div class="modal-body">
-					<div class="row">
-						<h2>카드 정보 입력</h2>
-					</div>
-				</div>
-			</div>
-		</div>
 	</div>

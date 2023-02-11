@@ -47,8 +47,7 @@
 		<div class="row">
 			<div class="col-md-6">
 				<div class="category-box category-box-2">
-					<a href="#!"> <img
-						th:src="@{/images/shop/event/main-event.jpg}" alt="" />
+					<a href="#!"> <img th:src="@{/images/shop/event/main-event.jpg}"/>
 						<div class="content">
 							<h2>EVENT</h2>
 						</div>
@@ -56,6 +55,26 @@
 				</div>
 			</div>
 			<div class="col-md-6 form-horizontal">
+				<div class="form-group">
+					<div class="col-md-4">
+						<div class="category-box">
+							<a href="#!"> <img th:src="@{/images/shop/event/event1.png}"
+								alt="" />
+							</a>
+						</div>
+					</div>
+					<div class="col-md-8">
+						<div class="category-box-info">
+							<a href="#!"><h2>천연 가죽 소파</h2></a><br /> <br />
+							<h3>1,600,000원</h3>
+							&nbsp;&nbsp;
+							<p style="text-decoration: line-through;">2,000,000원</p>
+							&emsp;&emsp;&emsp;
+							<h2 id="discount">20%</h2>
+							<br /> <br /> <br />
+						</div>
+					</div>				
+				</div>
 				<div class="form-group">
 					<div class="col-md-4">
 						<div class="category-box">
@@ -178,144 +197,20 @@
 					<h2>2023 신상품</h2>
 				</div>
 			</div>
-			<div class="col-md-4">
-				<div class="product-item">
-					<div class="product-thumb">
-						<span class="bage">Sale</span> <img class="img-responsive"
-							th:src="@{/images/shop/products/product-1.jpg}" alt="product-img" />
-						<div class="preview-meta">
-							<ul>
-								<li><span data-toggle="modal" data-target="#product-modal">
-										<i class="tf-ion-ios-search-strong"></i>
-								</span></li>
-								<li><a href="#!"><i class="tf-ion-ios-heart"></i></a></li>
-								<li><a href="#!"><i class="tf-ion-android-cart"></i></a></li>
-							</ul>
+			<tr th:each="p : ${plist}">
+				<div class="col-md-4" id="product-list" >
+					<div class="product-item">
+						<div class="product-thumb" th:OnClick="|location.href ='@{/product/productdetail(p_id=${p.p_id})}'|" th:value="${p.p_id}" style="cursor:pointer;" >
+							<td><img class="img-responsive" th:src="@{/images/shop/products/}+${p.p_img}"/></td>
+							<input type="hidden" name="p_img" th:value="${p.p_img}">
+						</div>
+						<div class="product-content">
+							<td><h4><a th:href="@{/product/productdetail(p_id=${p.p_id})}" th:value="${p.p_id}" th:text="${p.p_name}"></a></h4></td>
+							<p class="price"><td th:text="${p.price}"></td></p>
 						</div>
 					</div>
-					<div class="product-content">
-						<h4>
-							<a href="product-single.html">Reef Boardsport</a>
-						</h4>
-						<p class="price">$200</p>
-					</div>
 				</div>
-			</div>
-			<div class="col-md-4">
-				<div class="product-item">
-					<div class="product-thumb">
-						<span class="bage">Sale</span> <img class="img-responsive"
-							th:src="@{/images/shop/products/product-2.jpg}" alt="product-img" />
-						<div class="preview-meta">
-							<ul>
-								<li><span data-toggle="modal" data-target="#product-modal">
-										<i class="tf-ion-ios-search-strong"></i>
-								</span></li>
-								<li><a href="#!"><i class="tf-ion-ios-heart"></i></a></li>
-								<li><a href="#!"><i class="tf-ion-android-cart"></i></a></li>
-							</ul>
-						</div>
-					</div>
-					<div class="product-content">
-						<h4>
-							<a href="product-single.html">Reef Boardsport</a>
-						</h4>
-						<p class="price">$200</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-4">
-				<div class="product-item">
-					<div class="product-thumb">
-						<span class="bage">Sale</span> <img class="img-responsive"
-							th:src="@{/images/shop/products/product-3.jpg}" alt="product-img" />
-						<div class="preview-meta">
-							<ul>
-								<li><span data-toggle="modal" data-target="#product-modal">
-										<i class="tf-ion-ios-search-strong"></i>
-								</span></li>
-								<li><a href="#!"><i class="tf-ion-ios-heart"></i></a></li>
-								<li><a href="#!"><i class="tf-ion-android-cart"></i></a></li>
-							</ul>
-						</div>
-					</div>
-					<div class="product-content">
-						<h4>
-							<a href="product-single.html">Reef Boardsport</a>
-						</h4>
-						<p class="price">$200</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-4">
-				<div class="product-item">
-					<div class="product-thumb">
-						<span class="bage">Sale</span> <img class="img-responsive"
-							th:src="@{/images/shop/products/product-4.jpg}" alt="product-img" />
-						<div class="preview-meta">
-							<ul>
-								<li><span data-toggle="modal" data-target="#product-modal">
-										<i class="tf-ion-ios-search-strong"></i>
-								</span></li>
-								<li><a href="#!"><i class="tf-ion-ios-heart"></i></a></li>
-								<li><a href="#!"><i class="tf-ion-android-cart"></i></a></li>
-							</ul>
-						</div>
-					</div>
-					<div class="product-content">
-						<h4>
-							<a href="product-single.html">Reef Boardsport</a>
-						</h4>
-						<p class="price">$200</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-4">
-				<div class="product-item">
-					<div class="product-thumb">
-						<span class="bage">Sale</span> <img class="img-responsive"
-							th:src="@{/images/shop/products/product-5.jpg}" alt="product-img" />
-						<div class="preview-meta">
-							<ul>
-								<li><span data-toggle="modal" data-target="#product-modal">
-										<i class="tf-ion-ios-search-strong"></i>
-								</span></li>
-								<li><a href="#!"><i class="tf-ion-ios-heart"></i></a></li>
-								<li><a href="#!"><i class="tf-ion-android-cart"></i></a></li>
-							</ul>
-						</div>
-					</div>
-					<div class="product-content">
-						<h4>
-							<a href="product-single.html">Reef Boardsport</a>
-						</h4>
-						<p class="price">$200</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-4">
-				<div class="product-item">
-					<div class="product-thumb">
-						<span class="bage">Sale</span> <img class="img-responsive"
-							th:src="@{/images/shop/products/product-6.jpg}" alt="product-img" />
-						<div class="preview-meta">
-							<ul>
-								<li><span data-toggle="modal" data-target="#product-modal">
-										<i class="tf-ion-ios-search-strong"></i>
-								</span></li>
-								<li><a href="#!"><i class="tf-ion-ios-heart"></i></a></li>
-								<li><a href="#!"><i class="tf-ion-android-cart"></i></a></li>
-							</ul>
-						</div>
-					</div>
-					<div class="product-content">
-						<h4>
-							<a href="product-single.html">Reef Boardsport</a>
-						</h4>
-						<p class="price">$200</p>
-					</div>
-				</div>
-			</div>
+			</tr>	
 		</div>
 	</div>
 </section>

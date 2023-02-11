@@ -39,4 +39,8 @@ public class CategoryService implements Sof8Service<Integer, Category>{
 	public List<Category> get() throws Exception {
 		return mapper.selectall();
 	}
+	
+	public String selectcatname(Integer K) throws Exception{
+		return mapper.selectcatname(K);
+	}
 }

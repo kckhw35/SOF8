@@ -9,5 +9,5 @@ import com.sof8.frame.Sof8Mapper;
 @Repository
 @Mapper
 public interface CategoryMapper extends Sof8Mapper<Integer, Category>{
-
+	public String selectcatname(Integer K) throws Exception;
 }

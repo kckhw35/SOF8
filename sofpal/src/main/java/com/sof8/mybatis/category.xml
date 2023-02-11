@@ -19,4 +19,8 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<delete id="delete" parameterType="int">
 		DELETE FROM category WHERE cat_id = ${cat_id}
 	</delete>
+	<!-- 상품의 대분류 카테고리 이름 가져오기 -->
+	<select id="selectcatname" parameterType="int" resultType="String">
+		select cat_name from category where cat_id = (select cat_id2 from category where cat_id = ${cat_id});
+	</select>
 </mapper>

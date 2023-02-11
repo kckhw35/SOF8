@@ -85,6 +85,22 @@
 	}
 </style>
 <script>
+	// 카테고리 페이지로 이동
+	function subcategory(){
+		$('#sub-category').click(function(){
+			var subcategory = $('#sub-category').text();
+			if(subcategory == '패브릭소파'){
+				location.href="[[@{/product/fabric}]]";
+			}else if(subcategory == '가죽소파'){
+				location.href="[[@{/product/leather}]]";
+			}else if(subcategory == '펫소파'){
+				location.href="[[@{/product/pet}]]";
+			}else if(subcategory == '리빙룸'){
+				location.href="[[@{/product/livingroom}]]";
+			}
+		});
+	};
+	
 	// 상품 삭제
 	function deleteproduct(){
 		$('#delete_btn').click(function(){
@@ -161,12 +177,14 @@
 			});
 		});
 	}
+	
 	//추천 기능
 	function thumbsUp(){
 		alert("clicked");
 	}
 	
 	window.onload = function() {
+		subcategory();
 		deleteproduct();
 		addmark();
 		addcart();
@@ -180,14 +198,7 @@
 			<div class="col-md-6">
 				<ol class="breadcrumb">
 					<li><a th:href="@{/product/productall}">전체상품</a></li>
-					<li><a href="#"+>패브릭소파(수정필요)</a></li>
-					<li><a href="#"+>3인용(수정필요)</a></li>
-				</ol>
-			</div>
-			<div class="col-md-6">
-				<ol class="product-pagination text-right">
-					<li><a href="#"><i class="tf-ion-ios-arrow-left"></i> 이전</a></li>
-					<li><a href="#">다음 <i class="tf-ion-ios-arrow-right"></i></a></li>
+					<li><a href="#" id ="sub-category" th:text="${p.cat_name}"></a></li>
 				</ol>
 			</div>
 		</div>
@@ -209,7 +220,6 @@
 										<img th:src='@{/images/shop/single-products/product-3.jpg}' alt='' th:data-zoom-image="@{/images/shop/single-products/product-3.jpg}" />
 									</div>	 -->							
 								</div>
-								
 								<!-- sag sol -->
 								<a class='left carousel-control' href='#carousel-custom' data-slide='prev'>
 									<i class="tf-ion-ios-arrow-left"></i>
@@ -330,8 +340,6 @@
 					                <li><span>가격, 판매자, 교환/환불 및 배송 및 해당 상품과 관련있는 문의 또한 우측 상단 문의하기 또는 고객센터 내 1:1 문의하기</span>를 이용해주세요.</li>
 					            </ul>
 					        </div>
-						</div>
-					</div>
 				</div>
 			</div>
 		</div>

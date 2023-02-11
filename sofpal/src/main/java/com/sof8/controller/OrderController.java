@@ -70,7 +70,8 @@ public class OrderController {
 	public String cart(HttpSession session, Model model, Cart c) {
 		List<Cart> clist = null;
 		Member m = (Member) session.getAttribute("member");
-
+		Cart c_ids = new Cart();
+		
 		if (session.getAttribute("member") == null) {
 			return "redirect:/member/login";
 		} else {
@@ -92,7 +93,8 @@ public class OrderController {
 				c.setTotal_discount(total_discount);
 				c.setTotal_delcost(total_delcost);
 				c.setTotal(total_price + total_discount + total_delcost);
-
+				
+				model.addAttribute("checked", c_ids.getC_ids());
 				model.addAttribute("cart", c);
 				model.addAttribute("m", m);
 				model.addAttribute("clist", clist);
@@ -105,11 +107,60 @@ public class OrderController {
 		return "index";
 	}
 
+	// 장바구니 선택 상품 정보
+	@ResponseBody
+	@PostMapping("/productinfo")
+	public Map<String, Integer> productinfo(HttpSession session, Model model, HttpServletRequest request) {
+		String[] c_ids = request.getParameterValues("c_ids");
+		Map<String, Integer> info = new HashMap<String, Integer>();
+		Cart cart = null;
+		Product product = null;
+		int price = 0;
+		int discount = 0;
+		int delcost = 0;
+		int sumprice = 0;
+		int sumdiscount = 0;
+		int sumdelcost = 0;
+		int c_id = 0;
+		int p_id = 0;
+		int c_cnt = 0;
+
+		for (String c_info : c_ids) {
+			// 장바구니 번호 확인
+			c_id = Integer.parseInt(c_info);
+
+			try {
+				// 해당 번호의 장바구니 정보 가져오기
+				cart = cservice.get(c_id);
+				// 상품 번호 및 개수 가져오기
+				p_id = cart.getP_id();
+				c_cnt = cart.getC_cnt();
+
+				// 상품의 총 가격, 총 할인금액, 총 배송비 구하기
+				product = pservice.get(p_id);
+				price = product.getPrice() * c_cnt;
+				discount = product.getDiscount() * c_cnt;
+				delcost = product.getDel_cost() * c_cnt;
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			sumprice += price;
+			sumdiscount += discount;
+			sumdelcost += delcost;
+		}
+		info.put("sumprice", sumprice);
+		info.put("sumdiscount", sumdiscount);
+		info.put("sumdelcost", sumdelcost);
+		info.put("total", (sumprice - sumdiscount + sumdelcost));
+
+		return info;
+	}
+
 	// 장바구니 추가
 	@ResponseBody
 	@PostMapping("/addcart")
-	public Map<String, Integer> addcart(HttpSession session, Model model, 
-			@RequestParam(value = "p_id") int p_id,
+	public Map<String, Integer> addcart(HttpSession session, Model model, @RequestParam(value = "p_id") int p_id,
 			@RequestParam(value = "quantity") int quantity) {
 		Cart c = new Cart();
 		Member m = (Member) session.getAttribute("member");
@@ -136,15 +187,14 @@ public class OrderController {
 
 	// 장바구니 삭제
 	@RequestMapping("/deletecart")
-	public String deletecart(HttpSession session, Model model, HttpServletRequest request) {
-		String[] c_id = request.getParameterValues("c_id");
-
+	public String deletecart(HttpSession session, Model model, Cart c_ids) {
+		List<Integer> c_id = c_ids.getC_ids();
+		
 		if (session.getAttribute("member") == null) {
 			return "redirect:/member/login";
 		} else {
-			for (String cart : c_id) {
-				int cart_id = Integer.parseInt(cart);
-
+			for (int cart_id : c_id) {
+				System.out.println("삭제번호:" + cart_id);
 				try {
 					cservice.remove(cart_id);
 				} catch (Exception e) {
@@ -156,30 +206,55 @@ public class OrderController {
 	}
 
 	// 장바구니 물건 개수 수정
-	@ResponseBody
 	@RequestMapping("updatecart")
-	public Boolean updatecart(HttpSession session, Model model, Cart cart) {
-
-		Boolean result = false;
-		System.out.println("c_id : " + cart.getC_id() + "/ c_cnt : " + cart.getC_cnt());
+	public String updatecart(HttpSession session, Model model, int c_id, int quantity) {
+		Cart c = new Cart();
+		List<Cart> clist = null;
+		Member m = (Member) session.getAttribute("member");
 		
-		try {
-			cservice.modify(cart);
-			System.out.println("[SUCCESS] - 상품 수량 수정");
-			result = true;
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("[ERROR] - 상품 수량 수정");
-		}
+		if (session.getAttribute("member") == null) {
+			return "redirect:/member/login";
+		} else {
+			try {
+				// 개수 변경
+				c.setC_id(c_id);
+				c.setC_cnt(quantity);
+				cservice.modify(c);
+				
+				// 변경 후 장바구니 내용 보여주기
+				clist = cservice.selectusercart(m.getUser_id());
 
-		return result;
+				int total_price = 0;
+				int total_discount = 0;
+				int total_delcost = 0;
+
+				for (Cart i : clist) {
+					total_price += (i.getC_cnt() * i.getPrice());
+					total_discount += i.getDiscount();
+					total_delcost += i.getDel_cost();
+				}
+
+				c.setTotal_price(total_price);
+				c.setTotal_discount(total_discount);
+				c.setTotal_delcost(total_delcost);
+				c.setTotal(total_price + total_discount + total_delcost);
+				
+				model.addAttribute("cart", c);
+				model.addAttribute("m", m);
+				model.addAttribute("clist", clist);
+				model.addAttribute("content", dir + "cart");
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return "redirect:/order/cart";
 	}
 
 	// 배달 일정 확인
 	@ResponseBody
 	@PostMapping("/checkschedule")
-	public Map<String, List<Integer>> checkschedule(Model model, 
-			@RequestParam(value = "r_date") String r_date) {
+	public Map<String, List<Integer>> checkschedule(Model model, @RequestParam(value = "r_date") String r_date) {
 		List<Schedule> slist = new ArrayList<>();
 		List<Integer> disable_time = new ArrayList<Integer>();
 		Map<String, List<Integer>> cant = new HashMap<String, List<Integer>>();
@@ -247,10 +322,11 @@ public class OrderController {
 		ArrayList<Integer> d_cnt = of.getD_cnt();
 		ArrayList<Integer> price = of.getPrice();
 		List<Product> orderedproduct = new ArrayList<Product>();
+		String bank_info = null;
 		int dman_id = 0;
 		int before_cnt = 0;
 		int now_cnt = 0;
-
+		
 		if (session.getAttribute("member") == null) {
 			return "redirect:/member/login";
 		} else {
@@ -259,6 +335,17 @@ public class OrderController {
 
 			if (of.getPay_option().equals("무통장입금")) {
 				of.setO_status("입금대기");
+				if(of.getNote().equals("신한")) {
+					bank_info = "신한은행 [999-87456-32101 주식회사 SOF8]";
+				}else if(of.getNote().equals("하나")) {
+					bank_info = "KEB하나은행 [123-456789-01234 주식회사 SOF8]";
+				}else if(of.getNote().equals("우리")) {
+					bank_info = "우리은행 [135-79548-13542 주식회사 SOF8]";
+				}else if(of.getNote().equals("국민")) {
+					bank_info = "KB국민은행 [987-32145-1245 주식회사 SOF8]";
+				}else if(of.getNote().equals("기업")) {
+					bank_info = "IBK기업은행 [258-726415-12397 주식회사 SOF8]";
+				}
 			} else if (of.getPay_option().equals("신용카드")) {
 				of.setO_status("결제완료");
 			}
@@ -303,6 +390,7 @@ public class OrderController {
 					// 장바구니에서 해당 상품 삭제
 					cservice.remove(c_id);
 				}
+				model.addAttribute("bank", bank_info);
 				model.addAttribute("orderlist", orderedproduct);
 				model.addAttribute("content", dir + "confirmation");
 			} catch (Exception e) {

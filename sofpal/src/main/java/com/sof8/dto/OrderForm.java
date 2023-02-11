@@ -30,6 +30,7 @@ public class OrderForm {
 	private String re_addr;
 	private String re_deaddr;
 	private String re_req;
+	private String note;
 	
 	// DetailOrder
 	private int de_id;

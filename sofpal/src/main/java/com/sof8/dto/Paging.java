@@ -71,7 +71,7 @@ public class Paging {
 		
 		setType(type);
 	}
-
+	
 	// 총 페이지 개수 구하기
 	private void setTotalPage(final int totalCount, final int rowCount) {
 		this.totalPage = (int) Math.ceil(totalCount * 1.0 / rowCount);

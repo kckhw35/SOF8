@@ -5,20 +5,25 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 <mapper namespace="com.sof8.mapper.OrderMapper">
 
 	<select id="select" parameterType="int" resultType="Order">
-		
+		SELECT * FROM orderTBL WHERE o_id = ${o_id}
 	</select>
 	<select id="selectall" resultType="Order">
-		
+		SELECT * FROM orderTBL
 	</select>
 	<insert id="insert" parameterType="Order">
-		INSERT into orderTBL VALUES (o_id, #{user_id}, ${c_id}, ${totalprice}, ${discount}, #{pay_option}, #{o_status}, NOW(), #{c_date}, #{re_name}, #{re_tel}, #{re_zipcode}, #{re_addr}, #{re_deaddr}, #{re_req})
+		INSERT into orderTBL VALUES (o_id, #{user_id}, ${c_id}, ${totalprice}, ${discount}, #{pay_option}, #{o_status}, NOW(), #{c_date}, #{re_name}, #{re_tel}, #{re_zipcode}, #{re_addr}, #{re_deaddr}, #{re_req}, #{note})
 	</insert>
+	<!-- 주문 상태 변경 -->
 	<update id="update" parameterType="Order">
-		
+		UPDATE orderTBL SET WHERE o_status = #{o_status}
+	</update>
+	<!-- 구매 확정 -->
+	<update id="confirmbuying" parameterType="Order">
+		UPDATE orderTBL SET WHERE c_date = #{c_date}
 	</update>
 	<!-- 주문 내역은 주문 취소가 되어도 삭제하지 않음 -->
 	<delete id="delete" parameterType="int">
-	
+		DELETE orderTBL WEHRE o_id = ${o_id}
 	</delete>
 	<!-- 주문 번호 확인 -->
 	<select id="selectoid" resultType="int">
@@ -26,11 +31,11 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	</select>
 	<!-- 상품 아이디 확인 -->
 	<select id="selectpid" resultType="int">
-		SELECT p_id FROM cart WHERE c_id=${c_id}
+		SELECT p_id FROM cart WHERE c_id = ${c_id}
 	</select>
 	<!-- 상품 구매 개수 확인 -->
 	<select id="selectcnt" resultType="int">
-		SELECT c_cnt FROM cart WHERE c_id=${c_id}
+		SELECT c_cnt FROM cart WHERE c_id = ${c_id}
 	</select>
 	<!-- 주문 상품 정보 -->
 	<select id="selectorderd" parameterType="int" resultType="Product">

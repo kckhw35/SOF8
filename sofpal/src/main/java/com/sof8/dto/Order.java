@@ -26,6 +26,7 @@ public class Order {
 	private String re_addr;
 	private String re_deaddr;
 	private String re_req;
+	private String note;
 	
 	private Date o_date;		// 주문일
 	private int o_id;			// 주문번호

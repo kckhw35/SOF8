@@ -1,3 +1,16 @@
+<style>
+.product-info img{
+	float: left;
+}
+
+.icon-arrow-down{
+	color:#BE3455;
+}
+
+.bank_info{
+	color:#BE3455;
+}
+</style>
 <!-- Page Wrapper -->
 <section class="page-wrapper success-msg">
 	<div class="container">
@@ -5,30 +18,34 @@
 			<div class="col-md-6 col-md-offset-3">
 				<div class="block text-center">
 					<h2 class="text-center">주문이 완료되었습니다!</h2>
+					<h4 class="bank_info" th:if="${bank} != null">
+						<iconify-icon class="icon-arrow-down" icon="ion:arrow-down"></iconify-icon> 입금 계좌번호 <iconify-icon class="icon-arrow-down" icon="ion:arrow-down"></iconify-icon>
+					</h4>
+					<h4 class="bank_info" th:text="${bank}"></h4>
 					<table class="table line">
 						<thead>
 							<tr class="cart-amount">
-								<th class="widthDisplayNone">상품/옵션 정보</th>
-								<th class="widthDisplayNone">수량</th>
-								<th class="widthDisplayNone">상품금액</th>
-								<th class="widthDisplayNone">할인</th>
-								<th class="widthDisplayNone">합계금액</th>
-								<th class="widthDisplayNone">배송비</th>
+								<th>상품/옵션 정보</th>
+								<th>수량</th>
+								<th>상품금액</th>
+								<th>할인</th>
+								<th>배송비</th>
+								<th>합계금액</th>
 							</tr>
 						</thead>
-						<tbody>
+						<tbody class="order-list">
 							<tr th:each="o : ${orderlist}">
 								<td class="">
 									<div class="product-info">
-										<img width="80" th:src="@{/images/shop/products/}+${o.p_img}" />
+										<img width="100" th:src="@{/images/shop/products/}+${o.p_img}" />
 										<p th:text="${o.p_name}"></p>
 									</div>
 								</td>
 								<td th:text="${o.p_cnt}"></td>
 								<td th:text="${o.price}"></td>
 								<td th:text="${o.discount}"></td>
-								<td th:text="${o.p_cnt*o.price}"></td>
 								<td th:text="${o.del_cost}"></td>
+								<td th:text="${o.p_cnt*o.price-o.discount+o.del_cost}"></td>
 							</tr>
 						</tbody>
 					</table>

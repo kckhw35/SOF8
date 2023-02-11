@@ -116,7 +116,33 @@
 		}
 	};
 	
+	function showsize(){
+		// 크기 기본
+		$('#size1').show();
+		$('#size2').hide();
+		$('#size3').hide();
+		
+		$('#cat_id').change(function(){
+			var result = $('#cat_id option:selected').val();
+			if(result == 1 || result == 2){
+				$('#size1').show();
+				$('#size2').hide();
+				$('#size3').hide();
+			}else if(result == 3){
+				$('#size2').show();
+				$('#size1').hide();
+				$('#size3').hide();
+			}else if(result == 4){
+				$('#size3').show();
+				$('#size1').hide();
+				$('#size2').hide();
+			}
+		});
+	};
+	
+	
 	window.onload = function() {
+		showsize();
 		checksize();
 		checkcat();
 		checkcolor();
@@ -131,6 +157,7 @@
 				<input type="hidden" th:value="${p.p_id}" name="p_id"/>
 				<div class="col-md-5">
 					<input type="file" id="p_img" name="img" accept="images/shop/products/*" required multiple>
+					<img th:src="@{/images/shop/products/}+${p.p_img}" alt='' th:data-zoom-image="@{/images/shop/products/}+${p.p_img}" />
 				</div>
 				<div class="col-md-7">
 					<div class="single-product-details">

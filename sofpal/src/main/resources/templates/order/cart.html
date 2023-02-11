@@ -1,4 +1,5 @@
 <script>
+// 상품 전체 선택
 function checkedall(){
 	$('#checkall').click(function(){
 		// 전체 체크박스 클릭
@@ -22,18 +23,56 @@ function checkedall(){
 	});
 }
 
+// 선택된 상품 가격
 function selectedproduct(){
 	$('input:checkbox').on('click', function(){
+		var c_ids = Array();
 		var checked_cnt = $('input:checkbox[name="c_ids"]:checked').length;
-		var sum = 0;
-		var price = 0;
 		
-		$('#checked_cnt').text(checked_cnt);
-		
-		// 이곳에 선택된 상품들 값 가져오는 것 추가
+		// 선택된 것이 한 개도 없을 경우
+		if(checked_cnt == 0){
+			$('#checked_cnt').text(checked_cnt);
+			$('#sumprice').text('0원');
+			$('#sumdiscount').text('0원');
+			$('#sumdelcost').text('0원');
+			$('#totalprice').text('0원');
+		}else{
+			$('input:checkbox[name="c_ids"]:checked').each(function(){
+				c_ids.push($(this).val());
+			});
+
+			$.ajax({
+				url:'/order/productinfo',
+				type:'POST',
+				data:{'c_ids':c_ids},
+				traditional: true,
+				success: function(data){
+					// 선택된 상품 개수
+					$('#checked_cnt').text(checked_cnt);
+					// 선택된 상품 총 금액
+					$('#sumprice').text(data.sumprice+'원');
+					// 선택된 상품 총 할인 금액
+					$('#sumdiscount').text(data.sumdiscount+'원');
+					// 선택된 상품 총 배송비
+					$('#sumdelcost').text(data.sumdelcost+'원');
+					// 총 지불할 금액
+					$('#totalprice').text(data.total+'원');
+				}
+			});
+		}
 	});
-	
 };
+
+//선택된 상품 장바구니에서 삭제
+function deletecart(){
+	 $('#delete_cart').click(function(){
+			$('#cart_form').attr({
+				'method' : 'post',
+				'action' : '[[@{/order/deletecart}]]'
+			});
+			$('#cart_form').submit();
+		});
+}
 
 // 선택된 상품 주문
 function selectedorder(){
@@ -59,43 +98,23 @@ function allorder(){
 }
 
 // 선택된 상품 장바구니에서 수량 변경
-function updatecart(){
-		var c_id = $('input[id=""]').val();
-		var c_cnt = $('#quantity').val();
+function updatecart(quantity,c_id){
+	location.href='/order/updatecart?c_id='+c_id+'&quantity='+quantity;
+};
 
-		$.ajax({
-			url:'/order/updatecart',
-			type:'POST',
-			data:{'c_id':c_id,
-				  'c_cnt':c_cnt},
-			traditional: true
-		});
-}
-
-// 선택된 상품 장바구니에서 삭제
-function deletecart(){
-	$('#delete_cart').click(function(){
-		var c_id = Array();
-		$('input:checkbox[name="c_ids"]:checked').each(function(){
-			c_id.push($(this).val());
-		});
-
-		$.ajax({
-			url:'/order/deletecart',
-			type:'POST',
-			data:{'c_id':c_id},
-			traditional: true
-		});
-	});
+// 
+function beforechecked(){
+	var c_ids = $('#checked_cids').val();
 }
 
 window.onload = function(){
+	beforechecked();
 	checkedall();
 	selectedproduct();
+	deletecart();
 	selectedorder();
 	allorder();
-	updatecart();
-	deletecart();
+	updatecart(quantity,c_id);
 };
 </script>
 
@@ -114,8 +133,6 @@ window.onload = function(){
 		</div>
 	</div>
 </section>
-
-<!-- 장바구니에 아이템이 있을시 -->
 <div class="page-wrapper">
 	<div class="cart shopping">
 		<div class="container">
@@ -127,24 +144,21 @@ window.onload = function(){
 								<table class="table line">
 									<thead>
 										<tr class="cart-amount">
-											<th width="1" class="text-center">
-												<input type="checkbox"	id="checkall" class="check">
-												<label for="checkall"></label>
-											</th>
+											<th width="1" class="text-center"><input type="checkbox" id="checkall" class="check"><label for="checkall"></label></th>
 											<th class="">상품/옵션 정보</th>
 											<th class="">수량</th>
 											<th class="widthDisplayNone">상품금액</th>
-											<th class="widthDisplayNone">할인</th>
-											<th class="widthDisplayNone">합계금액</th>
-											<th class="widthDisplayNone">배송비</th>
+											<th class="">총 상품금액</th>
+											<th class="">할인</th>
+											<th class="">배송비</th>
 										</tr>
 									</thead>
 									<tbody>
-										<tr th:each="c : ${clist}" class="">
+										<tr th:each="c : ${clist}">
 											<!-- 체크박스 -->
 											<td>
-												<input type="checkbox" th:id="${c.c_id}" class="check" name="c_ids" th:value="${c.c_id}">
-												<label th:for="${c.c_id}"></label>
+												<input type="hidden" id="checked_cids" th:value="${checked}"/>
+												<input type="checkbox" th:id="${c.c_id}" class="check" name="c_ids" th:value="${c.c_id}"><label th:for="${c.c_id}"></label>
 											</td>
 											<!-- 상품/옵션정보 -->
 											<td class="">
@@ -161,22 +175,18 @@ window.onload = function(){
 												</div>
 											</td>
 											<!-- 상품금액 -->
-											<td id="price" class="widthDisplayNone" th:if="${c.price != 0}" th:text="|${#numbers.formatInteger(c.price, 3, 'COMMA')}원|"></td>
+											<td id="price" class="widthDisplayNone" th:text="|${#numbers.formatInteger(c.price, 3, 'COMMA')}원|"></td>
+											<!-- 총 상품 금액 -->
+											<td th:id="'sum_price'+${c.c_id}" th:text="|${#numbers.formatInteger(c.c_cnt*c.price, 3, 'COMMA')}원|"></td>
+											<input type="hidden" name="sum_price" th:value="${c.c_cnt*c.price}" />
 											<!-- 할인 -->
 											<td class="widthDisplayNone" th:if="${c.discount == 0}" th:text="0원"></td>
-											<td class="widthDisplayNone" th:if="${c.discount != 0}" 
-												th:text="|${#numbers.formatInteger(c.discount, 3, 'COMMA')}원|"></td>
-											<!-- 합계금액 -->
-											<td id="sum_price" class="widthDisplayNone" 
-												th:text="|${#numbers.formatInteger(c.c_cnt*c.price, 3, 'COMMA')}원|">
-												<input type="hidden" name="sum_price" th:value="${c.c_cnt*c.price}" />
-											</td>
+											<td id="discount" th:if="${c.discount != 0}" th:text="|${#numbers.formatInteger(c.c_cnt*c.discount, 3, 'COMMA')}원|"></td>
+											<input type="hidden" name="discount" th:value="${c.c_cnt*c.discount}" />
 											<!-- 배송비 -->
 											<td class="widthDisplayNone" th:if="${c.del_cost == 0}" th:text="0원"></td>
-											<td class="widthDisplayNone" th:if="${c.del_cost != 0}" 
-												th:text="|${#numbers.formatInteger(c.del_cost, 3, 'COMMA')}원|">
-												<input type="hidden" name="del_cost" th:value="${c.del_cost}" />	
-											</td>
+											<td id="del_cost" th:if="${c.del_cost != 0}" th:text="|${#numbers.formatInteger(c.c_cnt*c.del_cost, 3, 'COMMA')}원|"></td>
+											<input type="hidden" name="del_cost" th:value="${c.c_cnt*c.del_cost}" />
 										</tr>
 									</tbody>
 								</table>
@@ -185,19 +195,17 @@ window.onload = function(){
 										<div class="price-list">
 											<dl>
 												<dt>
-													총 <strong id="checked_cnt" th:text="${#lists.size(clist)}"></strong> 개의 상품금액
+													총 <strong id="checked_cnt" th:text="0"></strong> 개의 상품금액
 												</dt>
 												<dd>
-													<p id="sumprice" th:text="|${#numbers.formatInteger(cart.total_price, 3, 'COMMA')}원|"></p>
+													<p id="sumprice" th:text="0원"></p>
 												</dd>
 											</dl>
 											<span><iconify-icon icon="akar-icons:circle-minus-fill" width="25"></iconify-icon></span>
 											<dl>
 												<dt>할인</dt>
 												<dd>
-													<p id="sumdiscount" th:if="${cart.total_discount == 0}" th:text="0원"></p>
-													<p id="sumdiscount" th:if="${cart.total_discount != 0}" 
-														th:text="|${#numbers.formatInteger(cart.total_discount, 3, 'COMMA')}원|"></p>
+													<p id="sumdiscount" th:text="0원"></p>
 													<input type="hidden" name="totaldiscount"/>
 												</dd>
 											</dl>
@@ -205,16 +213,14 @@ window.onload = function(){
 											<dl>
 												<dt>배송비</dt>
 												<dd>
-													<p id="sumdiscount" th:if="${cart.total_delcost == 0}" th:text="0원"></p>
-													<p id="sumdiscount" th:if="${cart.total_delcost != 0}" 
-														th:text="|${#numbers.formatInteger(cart.total_delcost, 3, 'COMMA')}원|"></p>
+													<p id="sumdelcost" th:text="0원"></p>
 												</dd>
 											</dl>
 											<span><iconify-icon icon="akar-icons:equal-fill" width="25"></iconify-icon></span>
 											<dl class="price-total">
 												<dt>합계</dt>
 												<dd>	
-													<p id="sumdiscount" th:text="|${#numbers.formatInteger(cart.total, 3, 'COMMA')}원|"></p>
+													<p id="totalprice" th:text="0원"></p>
 													<input type="hidden" name="totalprice"/>
 												</dd>
 											</dl>
@@ -223,7 +229,8 @@ window.onload = function(){
 								</div>
 								<div class="btn-order-box col-md-12 col-xs-12 col-sm-12">
 									<div class="btn-left-box">
-										<a href="" class="large btn btn-small btn-solid-border" id="delete_cart">선택 상품 삭제</a>
+										<a href="#" class="large btn btn-small btn-solid-border" id="delete_cart">선택 상품 삭제</a>
+										
 									</div>
 									<div class="btn-right-box">
 										<button type="submit" class="large btn btn-solid-border" id="selectd_order">

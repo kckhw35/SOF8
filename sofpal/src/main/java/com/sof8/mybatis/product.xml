@@ -13,8 +13,13 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<insert id="insert" parameterType="Product">
 		INSERT INTO product VALUES (p_id, ${cat_id}, #{p_name}, #{p_content}, #{p_img}, ${price}, ${del_cost}, ${p_cnt}, ${discount}, #{size}, #{color}, #{visiable})
 	</insert>
+	<!-- 상품 수정하기 -->
 	<update id="update" parameterType="Product">
-		UPDATE product SET cat_id = ${cat_id}, p_name = #{p_name}, p_content = #{p_content}, p_img = #{p_img}, price = ${price}, del_cost = ${del_cost}, p_cnt = ${p_cnt}, discount = ${discount}, size = #{size}, color = #{color}, visiable = #{visiable} WHERE p_id = ${p_id}
+		UPDATE product SET cat_id = ${cat_id}, p_name = #{p_name}, p_content = #{p_content}, 
+		<if test="p_img !=null">
+			p_img = #{p_img}, 
+		</if>
+		price = ${price}, del_cost = ${del_cost}, p_cnt = ${p_cnt}, discount = ${discount}, size = #{size}, color = #{color}, visiable = #{visiable} WHERE p_id = ${p_id}
 	</update>
 	<delete id="delete" parameterType="int">
 		DELETE FROM product WHERE p_id = ${p_id}
@@ -35,4 +40,60 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<update id="updatecnt" parameterType="Product">
 		UPDATE product Set p_cnt = ${p_cnt} where p_id = ${p_id}
 	</update>
+	<!-- 메인 메뉴 신규 상품 보여주기 -->
+	<select id="selectnew" resultType="Product">
+		SELECT * FROM product ORDER BY p_id DESC LIMIT 6
+	</select>
+	<!-- 총 상품수 구하기(일반사용자) -->	
+	<select id="selecttotal" parameterType="Map" resultType="int">
+		SELECT count(*) FROM product 
+		<include refid="common.search"></include>
+		<if test="keyword == null">
+			WHERE visiable = true
+		</if>
+		<if test="keyword !=null">
+			AND visiable = true
+		</if>
+		<if test="cat_id != 0">
+			AND cat_id in(SELECT cat_id FROM category where cat_id2 = ${cat_id})
+		</if>
+	</select>
+	<!-- 총 상품수 구하기(관리자) -->	
+	<select id="selecttotaladmin" parameterType="Map" resultType="int">
+		SELECT count(*) FROM product
+		<include refid="common.search"></include>
+		<if test="keyword == null and cat_id != 0">
+			WHERE cat_id in(SELECT cat_id FROM category where cat_id2 = ${cat_id})
+		</if>
+		<if test="keyword != null and cat_id != 0">
+			AND cat_id in(SELECT cat_id FROM category where cat_id2 = ${cat_id})
+		</if>
+	</select>
+	<!-- 상품 리스트 페이징(일반사용자) -->
+	<select id="selectlist" parameterType="Paging" resultType="Product">
+		SELECT * FROM product
+		<include refid="common.search"></include>
+		<if test="keyword == null">
+			WHERE visiable = true
+		</if>
+		<if test="keyword !=null">
+			AND visiable = true
+		</if>
+		<if test="cat_id != 0">
+			AND cat_id in(SELECT cat_id FROM category where cat_id2 = ${cat_id})
+		</if>
+		<include refid="common.paging"></include>
+	</select>
+	<!-- 상품 리스트 페이징(관리자) -->
+	<select id="selectlistadmin" parameterType="Paging" resultType="Product">
+		SELECT * FROM product
+		<include refid="common.search"></include>
+		<if test="keyword == null and cat_id != 0">
+			WHERE cat_id in(SELECT cat_id FROM category where cat_id2 = ${cat_id})
+		</if>
+		<if test="keyword != null and cat_id != 0">
+			AND cat_id in(SELECT cat_id FROM category where cat_id2 = ${cat_id})
+		</if>
+		<include refid="common.paging"></include> 
+	</select>
 </mapper>
