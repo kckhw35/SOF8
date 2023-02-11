@@ -19,21 +19,21 @@
 							<!-- 이메일 입력 -->
 							<div id="form_email" class="form-group">
 								<div class="edit-email">				
-									<input type="text" th:field="*{email}" class="form-control" placeholder="이메일 입력">
+									<input type="text" th:field="*{email}" class="form-control find" placeholder="이메일 입력">
 									<select id="slt_email" class="form-control input-lg">
 										<option value="">직접입력</option>
-										<option value="naver">naver.com</option>
-										<option value="hanmail">hanmail.net</option>
-										<option value="daum">daum.net</option>
-										<option value="nate">nate.com</option>
-										<option value="hotmail">hotmail.com</option>
-										<option value="gmail">gmail.com</option>
+										<option value="naver">@naver.com</option>
+										<option value="hanmail">@hanmail.net</option>
+										<option value="daum">@daum.net</option>
+										<option value="nate">@nate.com</option>
+										<option value="hotmail">@hotmail.com</option>
+										<option value="gmail">@gmail.com</option>
 									</select>
 								</div>
 								<!-- 유효성검사 에러문 -->
 								<span id="error_email" class="control-label text-danger" th:text="${error}"></span>
 							</div>
-							<a th:onclick="return find_id()" class="large btn btn-main btn-block">아이디 찾기</a>
+							<a onclick="return find_id()" class="large btn btn-main btn-block">아이디 찾기</a>
 						</div>
 						<!-- 이름과 이메일이 일치한 회원이 있을시 -->
 						<div class="form-group clearfix" th:if="${member.user_id != null}">
