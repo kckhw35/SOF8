@@ -20,6 +20,6 @@ public interface OrderMapper extends Sof8Mapper<Integer, Order>{
 	public int selectcnt(int k) throws Exception;
 	public List<Product> selectorderd(int k) throws Exception;
 	public int selectTotal(Map<String, Object> map) throws Exception;
-	public List<Mark> selectList(Paging paging) throws Exception;
+	public List<Order> selectList(Paging paging) throws Exception;
 	public void updateStatus(int o_id) throws Exception;
 }
