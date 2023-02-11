@@ -260,25 +260,6 @@
 		});
 	};
 	
-	/* function payproduct(){
-		
-		$('#pay_product').click(function(){
-			$('.checkout-form').attr({
-				'method' : 'post',
-				'action' : '[[@{/order/ordered}]]'
-			});
-			$('.checkout-form').submit();
-		});
-		
-		$('#bank_pay_product').click(function(){
-			$('.checkout-form').attr({
-				'method' : 'post',
-				'action' : '[[@{/order/ordered}]]'
-			});
-			$('.checkout-form').submit();
-		});
-	}; */
-	
 	function cardpay(){
 		$('#card_pay_product').click(function(){
 			var IMP = window.IMP;
@@ -290,6 +271,7 @@
 			var order_email = $('#order_email').val();
 			var order_zipcode = $('#order_zipcode').val();
 			var order_addr = $('#order_addr').val() + $('#order_deaddr').val();
+			var order_product = new Array();
 			
 			// IMP.request_pay(param, callback) 호출
 			IMP.request_pay({
@@ -313,6 +295,7 @@
 					$('.checkout-form').submit();
 				}else{
 					alert('결제에 실패했습니다.');
+					location.href="redirect:/order/order"
 				}
 			});
 		});
@@ -445,6 +428,7 @@
 	                              <div class="form-group">
 	                                 <label>연락처 <span class="required">*</span></label>
 	                                 <input type="text" th:value="${m.tel}" class="form-control" id="order_tel">
+	                                 <input type="hidden" th:value=${m.email} id="order_email"/>
 	                              </div>
 	                              <div class="form-group">
 	                                 <label>우편번호 <span class="required">*</span></label>
