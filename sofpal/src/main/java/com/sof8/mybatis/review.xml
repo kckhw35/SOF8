@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sof8.mapper.ReviewMapper">
+
+	<sql id="search">
+		<!-- 검색 키워드 있을 때 -->
+		<if test="keyword != null and keyword != ''">
+			<choose>
+				<!-- 검색 유형이 있을 때 -->
+				<when test="type != null and type!= ''">
+					<choose>
+						<when test="'user_id'.equals(type)">
+							AND user_id LIKE CONCAT('%', #{keyword}, '%')
+						</when>
+						<when test="'title'.equals(type)">
+							AND title LIKE CONCAT('%', #{keyword}, '%')
+						</when>
+						<when test="'content'.equals(type)">
+							AND content LIKE CONCAT('%', #{keyword}, '%')
+						</when>
+					</choose>
+				</when>
+			</choose>
+		</if>
+	</sql>
+	
+	<insert id="insert" parameterType="Review">
+		INSERT INTO `reviewqna`
+		(`user_id`,`p_id`,`de_id`,`re_pwd`,`title`,
+		`content`,`r_img`,`grade`,`rdate`,`mdate`)
+		VALUES
+		(#{user_id},#{p_id},#{de_id},#{re_pwd},#{title},
+		#{content},#{r_img},#{grade},#{rdate}, #{mdate})
+	</insert>
+	
+	<update id="update" parameterType="Review">
+		UPDATE `reviewqna`
+		SET
+		`re_pwd` = #{re_pwd},
+		`title` = #{title},
+		`content` = #{content},
+		`r_img` = #{r_img},
+		`grade` = #{grade},
+		`up` = #{up},
+		`mdate` = #{mdate},
+		`enable` = #{enable}
+		WHERE `r_id` = #{r_id}
+	</update>
+	
+	<delete id="delete" parameterType="Integer">
+		DELETE FROM `reviewqna`
+		WHERE `r_id` = #{r_id}
+	</delete>
+	
+	<select id="select" parameterType="Integer" resultType="Review">
+		SELECT *
+		FROM
+		reviewqna WHERE r_id = #{r_id}
+	</select>
+	
+	<select id="selectall" resultType="Review">
+		SELECT * FROM reviewqna WHERE de_id IS NOT NULL
+	</select>
+	
+	<!-- 상세 주문 아이디를 통해 리뷰를 가지고 온다. 있다면: 리뷰 이미 작성 / 없다면 리뷰 작성 가능 -->
+	<select id="selectReviewByDeId" parameterType="int" resultType="Review">
+		SELECT * FROM reviewqna WHERE de_id = #{de_id}
+	</select>
+	
+	<!-- 상품아이디를 통해 그 상품의 리뷰 가져온다. -->
+	<select id="selectReviewByProductId" parameterType="HashMap" resultType="Review">
+		SELECT * 
+		FROM reviewqna WHERE p_id = #{p_id} AND enable = 1
+		<include refid="search"></include>
+		ORDER BY r_id DESC 
+		LIMIT #{paging.rowCount} OFFSET #{paging.offset}
+	</select>
+	
+	<!-- 별접 높은 순, 별점 낮은순으로 가져어는것도 만들어야 할것 같다. -->
+	
+	<!-- 총 문의 수 구하기 -->
+	<select id="getTotal" parameterType="Map" resultType="int">
+		SELECT count(*) 
+		FROM reviewqna WHERE p_id = #{p_id} AND enable = 1
+		<include refid="search"></include>
+	</select>
+</mapper>

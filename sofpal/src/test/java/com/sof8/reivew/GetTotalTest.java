@@ -1,25 +1,24 @@
-package com.sof8.reply;
+package com.sof8.reivew;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.sof8.dto.Reply;
-import com.sof8.service.ReplyService;
+import com.sof8.service.ReviewService;
 
 @SpringBootTest
-class SelectTests {
+class GetTotalTest {
 	 
 	@Autowired
-	ReplyService service;
+	ReviewService service;
 
 	@Test
 	void contextLoads() {
-		Reply reply = null;
-		
+		int count = 0;
 		try {
-			reply = service.get(1);
-			System.out.println(reply);
+			int p_id = 1;
+			count = service.getTotal(null, null, p_id);
+			System.out.println(count);
 			System.out.println("OK");
 		} catch (Exception e) {
 			System.out.println("Fail");

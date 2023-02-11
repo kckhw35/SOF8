@@ -9,15 +9,6 @@
 			</div>
 			<div class="col-md-8 col-xs-12 col-sm-8">
 				<ul class="top-menu text-right list-inline" >
-					<!-- Search -->
-					<li class="dropdown search dropdown-slide">
-						<a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><i class="tf-ion-ios-search-strong"></i></a>
-						<ul class="dropdown-menu search-dropdown">
-							<li>
-								<form action="post"><input type="search" class="form-control" placeholder="Search..."></form>
-							</li>
-						</ul>
-					</li><!-- / Search -->
 					<!-- Admin -->
 					<li th:if="${session.admin != null}"><span style="color:red; font-weight: border; border: 2px solid red;">[[${session.admin.admin_name}]] 관리자</span></li>
 
@@ -52,7 +43,16 @@
 					<!-- 장바구니 -->
 					<li class="dropdown cart-nav dropdown-slide" th:if="${session.admin == null && session.member != null}">
 						<a th:href="@{/order/cart}" class="dropdown-toggle" data-hover="dropdown"><iconify-icon inline icon="ion:bag"></iconify-icon> 장바구니</a>
-					</li><!-- / Cart -->
+					</li>
+					<!-- Search -->
+					<li class="dropdown search dropdown-slide">
+						<a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><i class="tf-ion-ios-search-strong"></i></a>
+						<ul class="dropdown-menu search-dropdown">
+							<li>
+								<form action="post"><input type="search" class="form-control" placeholder="Search..."></form>
+							</li>
+						</ul>
+					</li><!-- / Search -->
 				</ul><!-- / .nav .navbar-nav .navbar-right -->
 			</div>
 		</div>

@@ -18,7 +18,7 @@ class SelectTests {
 		Qna qna = null;
 		
 		try {
-			qna = service.get(38);
+			qna = service.get(2);
 			System.out.println(qna);
 			System.out.println("OK");
 		} catch (Exception e) {

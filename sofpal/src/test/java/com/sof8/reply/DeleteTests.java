@@ -16,7 +16,7 @@ class DeleteTests {
 	void contextLoads() {
 		
 		try {
-			service.remove(6);
+			service.remove(1);
 			System.out.println("OK");
 		} catch (Exception e) {
 			System.out.println("Fail");

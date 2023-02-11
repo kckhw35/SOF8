@@ -1,25 +1,22 @@
-package com.sof8.reply;
+package com.sof8.reivew;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.sof8.dto.Reply;
-import com.sof8.service.ReplyService;
+import com.sof8.service.ReviewService;
 
 @SpringBootTest
-class SelectTests {
+class CanWriteReviewTest {
 	 
 	@Autowired
-	ReplyService service;
+	ReviewService service;
 
 	@Test
 	void contextLoads() {
-		Reply reply = null;
 		
 		try {
-			reply = service.get(1);
-			System.out.println(reply);
+			System.out.println(service.canWriteReview(6));
 			System.out.println("OK");
 		} catch (Exception e) {
 			System.out.println("Fail");

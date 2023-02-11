@@ -42,7 +42,7 @@
 			<tr>
 				<td class="text-center active" colspan="4">
 					<form id="reply-form" class="form-inline" action="edit" method="post">
-				  	 	<textarea name="reply" class="form-control" style="width:100%; height:100px;">${replyContent}</textarea>
+				  	 	<textarea name="reply" class="form-control" style="width:100%; height:100px; resize:none;">${replyContent}</textarea>
 				  	 	<input type="hidden" name="id" value="${r_id}">
 					</form>
 				</td>
@@ -101,7 +101,7 @@
 					<th class="active">작성자</th>
 					<td class="" th:text="${qna.user_id}"></td>
 					<th class="active">등록일</th>
-					<td class="" th:text="${#dates.format(qna.rdate,'yyyy.MM.dd')}"></td>
+					<td class="" th:text="${#temporals.format(qna.rdate,'yyyy-MM-dd hh:mm')}"></td>
 				</tr>
 				<tr>
 					<th class="active">처리상태</th>
@@ -134,7 +134,7 @@
 					<th class="active">관리자</th>
 					<td class="" th:text="${qna.reply.admin_id}"></td>
 					<th class="active">등록일</th>
-					<td class="" th:text="${#dates.format(qna.reply.rdate,'yyyy.MM.dd')}"></td>
+					<td class="" th:text="${#temporals.format(qna.reply.mdate,'yyyy.MM.dd hh:mm')}"></td>
 				</tr>
 				<tr>
 					<th class="active">내용</th>
@@ -143,8 +143,8 @@
 				<tr>
 					<td colspan="4">
 						<div class="btn-group pull-right">
-							<button th:if="${paging.keyword == null}" type="button" class="btn btn-default" th:onclick='location.href=[[@{/admin/qna/list(page=${paging.page})}]]'>목록</button>
-							<button th:if="${paging.keyword != null}" type="button" class="btn btn-default" th:onclick='location.href=[[@{/admin/qna/list(page=${paging.page},keyword=${paging.keyword},type=${paging.type})}]]'>목록</button>
+							<button th:if="${paging.keyword == null}" type="button" class="btn btn-default" th:onclick='location.href=[[@{/admin/qna(page=${paging.page})}]]'>목록</button>
+							<button th:if="${paging.keyword != null}" type="button" class="btn btn-default" th:onclick='location.href=[[@{/admin/qna(page=${paging.page},keyword=${paging.keyword},type=${paging.type})}]]'>목록</button>
 						 	<button th:if="${admin != null}" type="button" class="btn btn-default" th:onclick="editReply([[${qna.reply.reply}]]);" aria-pressed="false">수정</button>
 						</div>
 					</td>
@@ -164,8 +164,8 @@
 				<tr>
 					<td colspan="4">
 						<div class="btn-group pull-right">
-							<button th:if="${paging.keyword == null}" type="button" class="btn btn-default" th:onclick='location.href=[[@{/admin/qna/list(page=${paging.page})}]]'>목록</button>
-							<button th:if="${paging.keyword != null}" type="button" class="btn btn-default" th:onclick='location.href=[[@{/admin/qna/list(page=${paging.page},keyword=${paging.keyword},type=${paging.type})}]]'>목록</button>
+							<button th:if="${paging.keyword == null}" type="button" class="btn btn-default" th:onclick='location.href=[[@{/admin/qna(page=${paging.page})}]]'>목록</button>
+							<button th:if="${paging.keyword != null}" type="button" class="btn btn-default" th:onclick='location.href=[[@{/admin/qna(page=${paging.page},keyword=${paging.keyword},type=${paging.type})}]]'>목록</button>
 						</div>
 					</td>
 				</tr>

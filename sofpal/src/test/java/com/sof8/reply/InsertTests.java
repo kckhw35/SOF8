@@ -16,8 +16,8 @@ class InsertTests {
 	@Test
 	void contextLoads() {
 		Reply reply = new Reply();
-		reply.setR_id(5);
-		reply.setAdmin_id("jonghoon");
+		reply.setR_id(1);
+		reply.setAdmin_id("admin01");
 		reply.setReply("Java JUnit Test 문의 작성");
 		
 		try {

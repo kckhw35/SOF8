@@ -1,11 +1,64 @@
 /*******************************************
 [Table of Content]
 
+0. Youtube API
 1. Button Fuction 		: 버튼 기능부
 2. Validation Function 	: 유효성검사 기능부
 3. Mypage Navigation	: 마이페이지 네비게이션 기능부
 4. Run Script 			: 스크립트 실행부
 *******************************************/
+
+/*=== [ 0. Youtube API ] ===*/
+
+// 1. IFrame Player API 코드를 비동기적으로 로드합니다.
+var tag = document.createElement('script');
+
+tag.src = "https://www.youtube.com/iframe_api";
+var firstScriptTag = document.getElementsByTagName('script')[0];
+firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+var section = {
+	start : 0, 	// 반복 시작 시간(초)
+	end : 27.1	// 반복 종료 시간(초)
+};
+
+// 2.  API 코드 다운로드 후 <iframe>(및 YouTube 플레이어)를 생성합니다.
+function onYouTubeIframeAPIReady() {
+	player = new YT.Player('player', {
+		height : '360',
+		width : '640',
+	    host: 'https://www.youtube-nocookie.com',
+		videoId : '-OjCvIYIXEg', 	// 영상 고유 주소
+		playerVars : {
+		    origin: window.location.host,
+			'autoplay' : 1,			// 자동재생, 	 0: off, 1: on
+			'controls' : 0,			// 컨트롤러,	 0: off, 1: on 
+			'mute' : 1,				// 음소거, 	 	 0: off, 1: on
+			'disablekb ' : 1,		// 키보드금지, 	 0: off, 1: on
+			'rel' : 0				// 관련영상표시, 0: off, 1: on
+		},
+		events : {
+			'onReady' : onPlayerReady,
+			'onStateChange' : onPlayerStateChange
+		}
+	});
+}
+
+function onPlayerReady() {
+	player.seekTo(section.start);
+	player.playVideo();
+}
+
+function onPlayerStateChange(event) {
+	if (event.data == YT.PlayerState.PLAYING) {
+		var duration = section.end - section.start;
+		setTimeout(restartVideoSection, duration * 1000);
+	}
+}
+
+function restartVideoSection() {
+	player.seekTo(section.start);
+}
 
 
 /*=== [ 1. Button Fuction ] ===*/
@@ -727,9 +780,8 @@ function getMatchedAdminId(admin_id) {
 		url: '/admin/check_adminid',
 		data: {
 			'admin_id': admin_id
-		},
-		async: false	// ajax 동기식 속성 부여해야 ajax 성공시 result 값이 1로 반환이 됨.
-	}
+		}
+	};
 	$.ajax(option).done(function(data) {
 		if (data == 0) {
 			$('#form_id').removeClass('has-error');
@@ -900,11 +952,37 @@ function check_name() {
 	return result;
 };
 
+// 사용자 이메일 중복 확인 
+function getMatchedEmail(email) {
+	var result = 0;
+	var option = {
+		url: '/member/checkemail',
+		data: {
+			'email': email
+		}
+	};
+	$.ajax(option).done(function(data) {
+		if (data == 0) {
+			$('#form_email').removeClass('has-error');
+			$('#form_email').addClass('has-success');
+			$('#error_email').text('사용가능한 이메일입니다.');
+			result = 1;
+		} else {
+			$('#form_email').removeClass('has-success');
+			$('#form_email').addClass('has-error');
+			$('#error_email').text('중복된 이메일입니다.');
+		}
+	});
+	return result;
+};
+
 // 이메일 유효성 검사
 function check_email() {
 	var result = 0;
 	// input 값 초기화 
 	var email = $('#email').val();
+	var check = $('.find').val();
+	alert(check);
 	// 이메일 글자 앞 중간 뒤에 영문+숫자 포함하여 
 	// 특수문자 중 점( . ) 하이픈( - ) 언더바( _ ) 만 사용 가능하도록 하는 정규식
 	var reg = /^([\w\.\_\-])*[a-zA-Z0-9]+([\w\.\_\-])*([a-zA-Z0-9])+([\w\.\_\-])+@([a-zA-Z0-9]+\.)+[a-zA-Z0-9]{2,8}$/;
@@ -918,9 +996,15 @@ function check_email() {
 		$('#error_email').text('잘못된 형식의 이메일입니다.');
 		result = 0;
 	} else {
-		$('#form_email').removeClass('has-error');
-		$('#error_email').text('');
-		result = 1;
+		if(check == null) {
+			// 사용자 이메일 중복 확인
+			result = getMatchedEmail(email);
+		} else {
+			$('#form_email').removeClass('has-error');
+			$('#error_email').text('');
+			result = 1;
+		}
+		
 	}
 	return result;
 }

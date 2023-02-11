@@ -39,5 +39,7 @@ public class Order {
 	
 	private int p_id;			// 상품아이디
 	private String p_img;		// 상품사진
-	private String de_id;		// 상세주문 아이디
+	private int de_id;			// 상세주문 아이디
+	
+	private Review review;		//review
 }

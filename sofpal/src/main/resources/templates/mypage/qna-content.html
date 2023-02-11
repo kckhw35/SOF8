@@ -1,4 +1,13 @@
-
+<script>
+	function qnaDelete(){
+		if(!confirm('정말 삭제하시겠습니까?')){
+			//만약 아니오 클릭 시 종료
+			return
+		}
+		
+		$('#deleteQnaForm').submit();
+	}
+</script>
 <section class="memberlist">
 	<div class="container">
 		<div class="row">
@@ -10,7 +19,7 @@
 							<h1>1:1 문의</h1>
 							<ol class="breadcrumb">
 								<li><a th:href="@{/}">Home</a></li>
-								<li>고객센터</li>
+								<li>나의활동</li>
 								<li class="active">1:1 문의</li>
 							</ol>
 						</div>
@@ -22,16 +31,16 @@
 					<table class="table table-bordered">
 						<colgroup>
 							<col width="15%">
-							<col width="55%">
+							<col width="50%">
 							<col width="15%">
-							<col width="15%">
+							<col width="20%">
 						</colgroup>
 						<tbody>
 							<tr>
 								<th class="active">작성자</th>
 								<td class="" th:text="${qna.user_id}"></td>
 								<th class="active">등록일</th>
-								<td class="" th:text="${#dates.format(qna.rdate,'yyyy.MM.dd')}"></td>
+								<td class="" th:text="${#temporals.format(qna.rdate,'yyyy-MM-dd hh:mm')}"></td>
 							</tr>
 							<tr>
 								<th class="active">처리상태</th>
@@ -48,6 +57,8 @@
 							</tr>
 						</tbody>
 					</table>
+					
+					
 					<h4 style="margin: 60px 0 20px 0; font-weight: bold;">답변</h4>
 
 					<table class="table">
@@ -65,7 +76,7 @@
 								<td class="" th:text="${qna.reply.admin_id}"></td>
 								<th class="active">등록일</th>
 								<td class=""
-									th:text="${#dates.format(qna.reply.rdate,'yyyy.MM.dd')}"></td>
+									th:text="${#temporals.format(qna.reply.rdate,'yyyy-MM-dd hh:mm')}"></td>
 							</tr>
 							<tr>
 								<th class="active">내용</th>
@@ -77,7 +88,12 @@
 									<div class="btn-group pull-right">
 										<button type="button" class="btn btn-default"
 											th:onclick='location.href=[[@{/mypage/qna(page=${paging.page})}]]'>목록</button>
+										<button type="button" class="btn btn-default" th:onclick='qnaDelete();'>삭제</button>
 									</div>
+									<!-- 삭제할 경우 서버로 전송될 폼 -->
+									<form id="deleteQnaForm" th:action="@{/mypage/qna/delete}" method="get">
+										<input type="hidden" name="r_id" th:value="${qna.r_id}">
+									</form>
 								</td>
 							</tr>
 						</tbody>
@@ -94,7 +110,13 @@
 									<div class="btn-group pull-right">
 										<button type="button" class="btn btn-default"
 											th:onclick='location.href=[[@{/mypage/qna(page=${paging.page})}]]'>목록</button>
+										<button type="button" class="btn btn-default"
+											th:onclick='qnaDelete();'>삭제</button>
 									</div>
+									<!-- 삭제할 경우 서버로 전송될 폼 -->
+									<form id="deleteQnaForm" th:action="@{/mypage/qna/delete}" method="get">
+										<input type="hidden" name="r_id" th:value="${qna.r_id}">
+									</form>
 								</td>
 							</tr>
 						</tbody>

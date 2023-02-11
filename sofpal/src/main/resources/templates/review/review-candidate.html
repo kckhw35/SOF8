@@ -1,0 +1,91 @@
+<script>
+	function writeReview(de_id){
+		alert(de_id);
+	}
+	
+</script>
+
+
+<section class="order">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-3" th:include="@{/mypage/sidenav}"></div>
+			<div class="col-md-9">
+				<div class="page-wrapper shopping cart">
+					<div class="page-header">
+						<div class="container">
+							<h1>리뷰관리</h1>
+							<ol class="breadcrumb">
+								<li><a th:href="@{/}">Home</a></li>
+								<li>나의활동</li>
+								<li class="active">리뷰관리</li>
+							</ol>
+						</div>
+					</div>
+					<!-- 장바구니에 아이템이 있을시 -->
+					<div>
+						<form th:action="@{/review/candidate}" onsubmit="return check_range()" method="get">
+							<div class="form-group mt-20">
+								<div class="line">
+									<b>조회기간</b>
+									<div class="btn-group widthDisplayNone" role="group">
+										<a class="btn bf btn-secondary" th:href="@{/review/candidate?type=today}">오늘</a>
+										<a class="btn bf btn-secondary" th:href="@{/review/candidate?type=oneMonth}">1개월</a>
+										<a class="btn bf btn-secondary" th:href="@{/review/candidate?type=threeMonth}">3개월</a>
+										<a class="btn bf btn-secondary" th:href="@{/review/candidate?type=oneYear}">1년</a>
+									</div>
+									<input type="hidden" name="type" value="range">
+									<input type="date" class="form-control" id="first" name="first">
+									<input type="date" class="form-control" id="last" name="last">
+									<button type="submit" class="btn bf"><i class="tf-ion-ios-search-strong"></i> 조회</button>
+								</div>
+							</div>
+						</form>
+						<div class="form-group clearfix">
+							<table class="table">
+								<colgroup>
+									<col width="10%"/>
+									<col width="50%"/>
+									<col width="13%" class=""/>
+								</colgroup>
+								<tbody>
+									<tr th:if="${orders == null}">
+										<td class="text-class empty" colspan="5">작성 가능한 리뷰가 없습니다.</td>
+									</tr>
+									<div th:if="${orders != null}" th:each="order : ${orders}">
+										<!-- 리뷰가 없는 주문 목록들만 생성 -->
+										<tr th:if="${order.review} == null">
+											<td class="text-center">
+												<div>
+													<img width="200" th:src="@{/images/shop/products/}+${order.p_img}" alt="" />
+												</div>
+											</td>
+											<td>
+												<div class="product-info">
+													<div class="pull-left form-horizontal">
+														<h4 style="font-weight: bold;" th:text="${order.p_name}"></h4>
+														<p style="margin-top: 15px; font-size: 15px" th:text="|size: ${order.size}|"></p>
+														<p style="font-size: 15px" th:text="|color: ${order.color}|"></p>
+														<p style="margin-top: 15px; font-size: 12px" th:text="|주문일 ${#dates.format(order.o_date,'yyyy.MM.dd')}|"></p>
+													</div>
+												</div>
+											</td>
+											<td>
+												<form id="go-review-write" method="post"  th:action="@{/review/write}">
+													<input type="hidden" name="user_id" th:value="${member.user_id}">
+													<input type="hidden" name="de_id" th:value="${order.de_id}">
+													<button type="submit" class="btn col-md-11" th:text="'리뷰 ' + '작성'" style="margin: 5px;"></button>
+												</form>
+											</td>
+										</tr>
+									</div>
+								</tbody>
+							</table>							
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

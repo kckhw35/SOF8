@@ -20,8 +20,9 @@ class SelectListTestWithSearch {
 	@Test
 	void contextLoads() {
 		List<Qna> qnas = new ArrayList<Qna>();
-		Paging paging = new Paging(10, 5, 40, 2, "문의", "title");
 		try {
+			int totalRow = service.getTotal(null, null);
+			Paging paging = new Paging(10, 5, totalRow, 1, "enable", "title");
 			qnas = service.getList(paging);
 			for (Qna qna : qnas) {
 				System.out.println(qna);
