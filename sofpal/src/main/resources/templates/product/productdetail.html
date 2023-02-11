@@ -38,7 +38,51 @@
     display: inline-block;
     text-align: center;
     vertical-align: middle;
-	}	
+	}
+	
+	#reviews .review-layout {
+	padding: 30px 0 30px 0;
+	border-bottom: solid 1px;
+	}
+	
+	#reviews .review-title {
+	padding: 10px;
+	font-weight: bold;
+	}
+	
+	#reviews .review-content {
+	padding: 10px;
+	word-break: break-all;
+	}
+	
+	#reviews .review-content span{
+	padding: 15px 3px 0 0;
+	}
+	
+	#reviews .review-thumbs-up {
+	padding: 20px 0 0 5px;
+	word-break: break-all;
+	}
+	
+	#qna a {
+		font-size: 18px;
+		border: solid 1px;
+		padding: 10px;
+		text-align: center;
+	}
+
+	#qna li{
+		padding-top:5px;
+		list-style: disc;
+	}
+	
+	#qna span{
+		font-weight: bold;
+	}
+	
+	#qna .top{
+		margin-bottom: 20px;
+	}
 </style>
 <script>
 	// 상품 삭제
@@ -116,6 +160,10 @@
 				}
 			});
 		});
+	}
+	//추천 기능
+	function thumbsUp(){
+		alert("clicked");
 	}
 	
 	window.onload = function() {
@@ -227,10 +275,61 @@
 				<div class="tabCommon mt-20">
 					<ul class="nav nav-tabs">
 						<li class="active"><a data-toggle="tab" href="#details" aria-expanded="true">상품 설명</a></li>
+						<li class=""><a data-toggle="tab" href="#reviews" aria-expanded="true">상품 후기</a></li>
+						<li class=""><a data-toggle="tab" href="#qna" aria-expanded="true">상품 문의</a></li>
 					</ul>
-					<div class="tab-content patternbg">
+					<div class="tab-content patternbg col-md-12">
+						<!-- 상품 세부 정보 -->
 						<div id="details" class="tab-pane fade active in">
-							<textarea id="txtContent" rows="10" cols="100" style="width: 100%;" th:text="${p.p_content}" readonly="readonly"></textarea>
+							<textarea id="txtContent" rows="10" cols="100" style="width: 100%; resize:none;" th:text="${p.p_content}" readonly="readonly"></textarea>
+						</div>
+						
+						<!-- 리뷰 -->
+						<div id="reviews" class="tab-pane fade col-md-12">
+							<!-- 리뷰가 존재하지 않는다면  -->
+							<div class="col-md-12" th:if="${#lists.isEmpty(reviews)}" th:each="review : ${reviews}">
+								<div>상품후기가 존재하지 않습니다.</div>
+							</div>
+							<!-- 리뷰가 존재하면  -->
+							<div class="col-md-12 review-layout" th:unless="${#lists.isEmpty(reviews)}" th:each="review : ${reviews}">
+								<div class="col-md-12">
+									<span class="glyphicon glyphicon-user"></span>
+									<span th:text=${review.user_id}></span>
+								</div>
+								<div class="col-md-12">
+									<span th:each="i : ${#numbers.sequence(0, review.grade - 1)}" style="color:#ffd700; font-size:28px;">★</span>
+									<span th:if="${review.grade} != 5" th:each="i : ${#numbers.sequence(0, 4 - review.grade)}" style="color:#ffd700; font-size:28px;">☆</span>
+									<span th:text=${#temporals.format(review.rdate,"yyyy.MM.dd")}></span>
+								</div>
+								<div class="col-md-6">
+									<div class="col-md-12 review-title" th:text=${review.title}></div>
+									<div class="col-md-12 review-content" th:text=${review.content}></div>
+									
+									<!-- 리뷰 추천 기능 -->
+									<div class="col-md-12 review-thumbs-up">
+										<button class="btn btn-default col-md-3" onclick="thumbsUp();" data-review-id="${review.r_id}">
+											<i class="glyphicon glyphicon-thumbs-up"></i>
+											추천해요 &nbsp&nbsp
+											<span th:text="${review.up}"></span>
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<!-- 상품 문의 -->
+						<div id="qna" class="tab-pane fade col-md-12">
+							<div class="top col-md-12">
+								<h3 class="col-md-10">상품문의</h3>
+								<a class="col-md-2 " th:href="@{/mypage/qna/write}">문의하기</a>
+							</div>
+							<div class="col-md-12">
+					            <ul>
+					                <li>구매한 상품의 <span>취소/반품은 마이페이지 주문목록에서 신청</span> 가능합니다.</li>
+					                <li>상품문의 및 후기게시판을 통해 취소나 환불, 반품 등은 처리되지 않습니다.</li>
+					                <li><span>가격, 판매자, 교환/환불 및 배송 및 해당 상품과 관련있는 문의 또한 우측 상단 문의하기 또는 고객센터 내 1:1 문의하기</span>를 이용해주세요.</li>
+					            </ul>
+					        </div>
 						</div>
 					</div>
 				</div>

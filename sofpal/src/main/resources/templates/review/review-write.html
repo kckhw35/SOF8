@@ -1,0 +1,112 @@
+<style>
+	#review-form input[type=radio]{
+		display: none;
+	}
+	
+	#review-form td {
+		padding: 20px;
+	}
+	
+	#review-form th {
+		padding: 20px;
+		font-size: 20px;
+	}
+</style>
+
+<section class="memberlist">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-3" th:include="@{/mypage/sidenav}"></div>
+			<div class="col-md-9">
+				<div style="margin-bottom: 30px;">
+					<div class="page-header">
+						<div class="container">
+							<h1>리뷰 작성</h1>
+							<ol class="breadcrumb">
+								<li><a th:href="@{/}">Home</a></li>
+								<li>나의활동</li>
+								<li>리뷰관리</li>
+								<li class="active">리뷰작성</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+				<div class="product-list">
+					<br>
+					<h3>* 아래와 같이 리뷰와 관계없는 글은 관리자 확인 후, 노출제한 될 수 있습니다.</h3>
+					<div style="border: solid 1px; margin-top: 20px;">
+						<ul style="margin: 20px;">
+							<li
+								style="padding-left: 14px; text-indent: -14px; font-size: 14px; line-height: 160%;">
+								1. 작성한 글은 개인의 의견이므로 게시된 내용에 대한 모든 책임은 작성자에게 있으며, 상품 배송, 교환, 취소 등에 관한 문의사항은 고객센터를 이용해 주시기 바랍니다.
+							</li>
+							<li
+								style="padding-left: 14px; margin: 12px 0 0 0; text-indent: -14px; font-size: 14px; line-height: 160%;">
+								2. 모든 리뷰는 공개함을 원칙으로 하나 욕설이나 상업적 내용, 게시물의 성격에 맞지 않는 내용은 임의로 삭제될 수 있습니다.
+							</li>
+							<li
+								style="padding-left: 14px; margin: 12px 0 0 0; text-indent: -14px; font-size: 14px; line-height: 160%;">
+							3. 리뷰에 허위의 사실을 유포하여 다른 회원 또는 제3자에게 피해를 줄 경우 법적인 책임이 따를 수 있으며, 이에 대한 책임은 글을 게시한 당사자에게 있으니 
+							불이익 당하지 않도록 주의하시기 바랍니다.
+							(예) 상품을 구매한 것처럼 허위 사실을 기재한 경우, 타 사이트를 고의적으로 홍보, 고의성을 가지고 상품을 폄하하는 경우 등
+							</li>
+							<li
+								style="padding-left: 14px; margin: 12px 0 0 0; text-indent: -14px; font-size: 14px; line-height: 160%;">
+								4. 타인에 대한 욕설, 비방, 명예훼손, 불성실한 내용, 반복문자, 특정 효능에 있어 
+								오해의 소지가 있는 내용 등 타인의 권리나 명예, 신용 기타 정당한 이익을 침해하는 내용의 경우 임의로 삭제될 수 있습니다.
+							</li>
+							<li
+								style="padding-left: 14px; margin: 12px 0 0 0; text-indent: -14px; font-size: 14px; line-height: 160%;">
+								5. 개인정보보호와 관련한 피해를 방지하기 위해 주민번호, 전화번호, 이메일, 연락처 등의 내용의 기입은 삼가해 주시기 바라며,
+								 제3자 노출을 방지하기 위해 임의 삭제될 수 있습니다.
+							</li>
+						</ul>
+					</div>
+
+					<form id="review-form" th:action="@{/review/save}" th:method="post">
+						<table style="margin-top: 50px;" class="table">
+							<colgroup>
+								<col width="15%">
+								<col width="55%">
+							</colgroup>
+							<tbody>
+								<tr>
+									<td colspan="2">
+										<h3><span class="glyphicon glyphicon-pencil"></span>&nbsp&nbsp상품 품질 리뷰</h3>
+									</td>
+								</tr>
+								<tr>
+									<th class="" style="height: 100px;">상세리뷰</th>
+									<td class="">
+										<textarea name="content" style="resize: none;" rows="10" class="form-control" 
+										placeholder="다른 고객님에게 도움이 되도록 상품에 대한 솔직한 평가를 남겨주세요"></textarea>
+									</td>
+								</tr>
+								<tr>
+									<th class="">제목</th>
+									<td class=""><input id="qna-title" name="title"
+										placeholder="제목을 입력해주세요" class="form-control" type="text" /></td>
+								</tr>
+								<tr>
+									<td class="" colspan="2"><button type="button"
+											onclick="saveQna();" class="pull-right btn btn-primary">등록</button></td>
+								</tr>
+							</tbody>
+						</table>
+						
+						<input type="radio" name="grade" value="5" id="rate1"><label
+							for="rate1">★</label>
+						<input type="radio" name="grade" value="4" id="rate2"><label
+							for="rate2">★</label>
+						<input type="radio" name="grade" value="3" id="rate3"><label
+							for="rate3">★</label>
+						<input type="radio" name="grade" value="2" id="rate4"><label
+							for="rate4">★</label>
+						<input type="radio" name="grade" value="1" id="rate5"><label
+							for="rate5">★</label>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

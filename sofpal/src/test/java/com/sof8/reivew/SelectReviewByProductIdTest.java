@@ -8,13 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.sof8.dto.Paging;
-import com.sof8.dto.Qna;
 import com.sof8.dto.Review;
-import com.sof8.service.QnaService;
 import com.sof8.service.ReviewService;
 
 @SpringBootTest
-class SelectListTestWithSearch {
+class SelectReviewByProductIdTest {
 	 
 	@Autowired
 	ReviewService service;
@@ -23,10 +21,11 @@ class SelectListTestWithSearch {
 	void contextLoads() {
 		List<Review> reviews = new ArrayList<Review>();
 		try {
-			int totalRow = service.getTotal("변경된", "title");
-			Paging paging = new Paging(10, 5, totalRow, 1, "변경된", "title");
+			int p_id = 1;
+			int totalRow = service.getTotal(null, null, p_id);
+			Paging paging = new Paging(10, 5, totalRow, 1, null, null);
 
-			reviews = service.getList(paging);
+			reviews = service.getReviewByProductId(paging, p_id);
 			for (Review review : reviews) {
 				System.out.println(review);
 			}

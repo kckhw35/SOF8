@@ -18,7 +18,7 @@ class SelectTests {
 		Review review = null;
 		
 		try {
-			review = service.get(4);
+			review = service.get(1);
 			System.out.println(review);
 			System.out.println("OK");
 		} catch (Exception e) {

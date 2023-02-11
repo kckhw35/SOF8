@@ -16,18 +16,18 @@ class InsertTests {
 
 	@Test
 	void contextLoads() {
-		LocalDateTime now = LocalDateTime.now();
-		
 		Review review = new Review();
 		
 		review.setUser_id("whdgnsdl35");
+		review.setP_id(1);
+		review.setDe_id(1);
 		review.setRe_pwd("6543");
 		review.setTitle("Review title Test in java [insert Test]");
 		review.setContent("Review content Test in java [insert Test]");
+		review.setR_img("review - img");
 		review.setGrade(4);
-		review.setDe_id(3);
-		review.setP_id(1);
-		review.setRdate(now);
+		review.setRdate(LocalDateTime.now());
+		review.setMdate(LocalDateTime.now());
 		
 		try {
 			service.register(review);

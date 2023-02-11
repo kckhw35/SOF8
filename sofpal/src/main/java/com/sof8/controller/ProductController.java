@@ -3,21 +3,31 @@ package com.sof8.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.sof8.dto.Member;
+import com.sof8.dto.Paging;
 import com.sof8.dto.Product;
+import com.sof8.dto.Review;
 import com.sof8.frame.ImgUtil;
 import com.sof8.service.ProductService;
+import com.sof8.service.ReviewService;
 
 @Controller
 @RequestMapping("/product")
 public class ProductController {
 	
 	String dir = "product/";
+	
+	@Autowired
+	ReviewService reviewService;
 	
 	@Autowired
 	ProductService pservice;
@@ -134,7 +144,13 @@ public class ProductController {
 	
 	// 상품 상세보기
 	@RequestMapping("/productdetail")
-	public String productdetail(Model model, int p_id) {
+	public String productdetail(Model model, int p_id,
+			@RequestParam(defaultValue = "1") int page,
+			@RequestParam(required = false) String keyword,
+			@RequestParam(required = false) String type,
+			HttpSession httpsession) {
+		
+		/* 상품 관련 로직 */
 		Product p = null;
 		try {
 			p = pservice.get(p_id);
@@ -142,8 +158,30 @@ public class ProductController {
 		
 		} catch (Exception e) {
 			e.printStackTrace();
-		}		
+		}
 		model.addAttribute("content", dir+"productdetail");
+		
+		
+		/* 로그인 확인 - 본인 리뷰 수정 삭제 가능구현 위해서 */ 
+		if (httpsession.getAttribute("member") != null) {
+			Member member = (Member) httpsession.getAttribute("member");
+			model.addAttribute("member", member);
+		}
+		
+		/* 리뷰관련 로직 - Park */
+		try {
+			//페이징 처리
+			int totalRow = reviewService.getTotal(keyword, type, p_id);
+			Paging paging = new Paging(totalRow, 5, totalRow, page, keyword, type);
+			//리뷰 처리
+			List<Review> reviews = reviewService.getReviewByProductId(paging, p_id);
+			model.addAttribute("page", page);
+			model.addAttribute("paging", paging);
+			model.addAttribute("reviews", reviews);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		return "index";
 	}
 	
