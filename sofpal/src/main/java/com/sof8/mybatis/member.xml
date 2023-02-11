@@ -31,6 +31,12 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		FROM member 
 		WHERE name = #{name} AND email=#{email}
 	</select>
+	<!-- 중복 이메일 찾기 -->
+	<select id="selectMemberEmail" parameterType="String" resultType="Member">
+		SELECT *
+		FROM member 
+		WHERE email=#{email}
+	</select>
 	<!-- 총 회원수 구하기 -->	
 	<select id="selectTotal" parameterType="Map" resultType="int">
 		SELECT count(*) 

@@ -102,28 +102,36 @@ public class MemberController {
 	@ResponseBody
 	@RequestMapping("/checkid")
 	public Object checkid(String user_id) {
-
 		int result = 0;
-
+		
 		try {
-
 			// 가입된 아이디 검색
 			Member member = service.get(user_id);
-
 			// 가입된 아이디 존재함
-			if (member != null)
-				result = 1;
-
+			if (member != null) result = 1;
 		} catch (Exception e) {
-
 			e.printStackTrace();
-
 		}
-
 		return result;
-
 	}
 
+	@ResponseBody
+	@RequestMapping("/checkemail")
+	public Object checkemail(String email) {
+		int result = 0;
+	
+		try {
+			// 가입된 이메일 검색
+			Member member = service.getEmail(email);
+
+			// 가입된 이메일 존재함
+			if (member != null) result = 1;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
 	// 127.0.0.1/member/login
 	@RequestMapping("/login")
 	public String login(HttpSession session, Model model, Member member) {
