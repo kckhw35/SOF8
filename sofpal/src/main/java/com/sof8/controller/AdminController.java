@@ -203,11 +203,13 @@ public class AdminController {
 			@RequestParam(defaultValue = "1") int page,
 			@RequestParam(required = false) String keyword,
 			@RequestParam(value = "type", defaultValue = "user_id") String type) {
-
+		
 		if (!checkNullSession(session)) {
 
 			try {
-				
+				System.out.println("page: "+ page);
+				System.out.println("keyword: "+ keyword);
+				System.out.println("type: "+ type);
 				// 검색한 데이터의 총 개수
 				int totalRow = mservice.getTotal(keyword, type);
 				Paging paging = null;
