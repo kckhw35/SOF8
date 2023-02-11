@@ -346,11 +346,6 @@ input[type=email]:focus, input[type=password]:focus, input[type=text]:focus, inp
   margin: 6px 0 0;
 }
 
-.fabir-bar, .leather-bar, .pet-bar, .livingroom-bar{
-	height: 300px;
-	display: flex;
-}
-
 .page-header {
   background: #f5f5f5;
   margin-top: 20px;

@@ -271,15 +271,20 @@
 			var order_email = $('#order_email').val();
 			var order_zipcode = $('#order_zipcode').val();
 			var order_addr = $('#order_addr').val() + $('#order_deaddr').val();
-			var order_product = new Array();
+			var product_name = $('#p_name').text();
+			var product_cnt = $('#order-table tbody tr').length;
+			
+			if(product_cnt != 1){
+				product_name = product_name+' (외 '+(product_cnt-1)+'개의 상품)';
+			}
 			
 			// IMP.request_pay(param, callback) 호출
-			IMP.request_pay({
+			 IMP.request_pay({
 				// 결제 정보
 				pg: 'html5_inicis', // PG사 선택
 				pay_method: 'card', // 지불 수단
 				merchant_uid: 'merchant_' + new Date().getTime(), //가맹점에서 구별할 수 있는 고유한id
-				name: '(주)SOF8',
+				name: product_name,
 				amount: price,
 				buyer_email: order_email,
 				buyer_name: order_name, // 구매자 이름
@@ -344,7 +349,7 @@
 	               <div class="product-checkout-details">
 	                  <div class="block">
 	                     <h4 class="widget-title">주문 상세내역</h4>
-	                     <table class="table line">
+	                     <table class="table line" id="order-table">
 									<thead>
 										<tr class="cart-amount">
 											<th class="">상품/옵션 정보</th>
@@ -361,7 +366,7 @@
 											<td class="">
 												<div class="product-info">
 													<img width="200" th:src="@{/images/shop/products/}+${c.p_img}" />
-													<a th:href="@{/product/productdetail(p_id=${c.p_id})}" th:value="${c.p_id}" th:text="${c.p_name}"></a>
+													<a th:href="@{/product/productdetail(p_id=${c.p_id})}" id="p_name" th:value="${c.p_id}" th:text="${c.p_name}"></a>
 													<input type="hidden" th:value="${c.p_id}" name="p_id"/>
 												</div>
 											</td>

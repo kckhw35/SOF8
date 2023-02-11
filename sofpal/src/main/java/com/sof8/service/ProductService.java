@@ -1,10 +1,12 @@
 package com.sof8.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.sof8.dto.Paging;
 import com.sof8.dto.Product;
 import com.sof8.frame.Sof8Service;
 import com.sof8.mapper.ProductMapper;
@@ -58,5 +60,21 @@ public class ProductService implements Sof8Service<Integer, Product>{
 	
 	public List<Product> selectnew() throws Exception{
 		return mapper.selectnew();
+	}
+	
+	public int selecttotal(Map<String, Object> map) throws Exception{
+		return mapper.selecttotal(map);
+	}
+	
+	public int selecttotaladmin(Map<String, Object> map) throws Exception{
+		return mapper.selecttotaladmin(map);
+	}
+	
+	public List<Product> selectlist(Paging p) throws Exception{
+		return mapper.selectlist(p);
+	}
+	
+	public List<Product> selectlistadmin(Paging p) throws Exception{
+		return mapper.selectlistadmin(p);
 	}
 }

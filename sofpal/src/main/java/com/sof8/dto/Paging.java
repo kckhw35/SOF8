@@ -33,7 +33,8 @@ public class Paging {
 	private String type;
 	private String first;
 	private String last;	
-
+	int cat_id = 0;
+	
 	public Paging(int rowCount, int pageCount, int totalRow, int page, String keyword, String type) {
 
 		// 한 페이지 당 보여줄 게시물 개수
@@ -69,18 +70,8 @@ public class Paging {
 		setKeyword(keyword);
 		
 		setType(type);
-		System.out.println("rowCount: " + this.rowCount);
-		System.out.println("pageCount: " + this.pageCount);
-		System.out.println("totalRow: " + this.totalRow);
-		System.out.println("totalPage: " + this.totalPage);
-		System.out.println("startPage: " + this.startPage);
-		System.out.println("endPage: " + this.endPage);
-		System.out.println("page: " + this.page);
-		System.out.println("prev: " + this.prev);
-		System.out.println("next: " + this.next);
-		System.out.println("offset: " + this.offset);
 	}
-
+	
 	// 총 페이지 개수 구하기
 	private void setTotalPage(final int totalCount, final int rowCount) {
 		this.totalPage = (int) Math.ceil(totalCount * 1.0 / rowCount);

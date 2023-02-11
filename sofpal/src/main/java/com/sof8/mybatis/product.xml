@@ -44,4 +44,56 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<select id="selectnew" resultType="Product">
 		SELECT * FROM product ORDER BY p_id DESC LIMIT 6
 	</select>
+	<!-- 총 상품수 구하기(일반사용자) -->	
+	<select id="selecttotal" parameterType="Map" resultType="int">
+		SELECT count(*) FROM product 
+		<include refid="common.search"></include>
+		<if test="keyword == null">
+			WHERE visiable = true
+		</if>
+		<if test="keyword !=null">
+			AND visiable = true
+		</if>
+		<if test="cat_id != 0">
+			AND cat_id in(SELECT cat_id FROM category where cat_id2 = ${cat_id})
+		</if>
+	</select>
+	<!-- 총 상품수 구하기(관리자) -->	
+	<select id="selecttotaladmin" parameterType="Map" resultType="int">
+		SELECT count(*) FROM product
+		<include refid="common.search"></include>
+		<if test="keyword == null and cat_id != 0">
+			WHERE cat_id in(SELECT cat_id FROM category where cat_id2 = ${cat_id})
+		</if>
+		<if test="keyword != null and cat_id != 0">
+			AND cat_id in(SELECT cat_id FROM category where cat_id2 = ${cat_id})
+		</if>
+	</select>
+	<!-- 상품 리스트 페이징(일반사용자) -->
+	<select id="selectlist" parameterType="Paging" resultType="Product">
+		SELECT * FROM product
+		<include refid="common.search"></include>
+		<if test="keyword == null">
+			WHERE visiable = true
+		</if>
+		<if test="keyword !=null">
+			AND visiable = true
+		</if>
+		<if test="cat_id != 0">
+			AND cat_id in(SELECT cat_id FROM category where cat_id2 = ${cat_id})
+		</if>
+		<include refid="common.paging"></include>
+	</select>
+	<!-- 상품 리스트 페이징(관리자) -->
+	<select id="selectlistadmin" parameterType="Paging" resultType="Product">
+		SELECT * FROM product
+		<include refid="common.search"></include>
+		<if test="keyword == null and cat_id != 0">
+			WHERE cat_id in(SELECT cat_id FROM category where cat_id2 = ${cat_id})
+		</if>
+		<if test="keyword != null and cat_id != 0">
+			AND cat_id in(SELECT cat_id FROM category where cat_id2 = ${cat_id})
+		</if>
+		<include refid="common.paging"></include> 
+	</select>
 </mapper>

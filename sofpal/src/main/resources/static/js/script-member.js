@@ -37,7 +37,7 @@ function cancelOrder(page, o_id) {
 			success: function(result) {
 				if(result) {
 					alert('주문이 취소되었습니다.');
-					$('#table_order').load('/mypage/orderlist?page='+ page + ' #table_order');
+					$('#table_order').load('/mypage/order?page='+ page + ' #table_order');
 				}
 			}
 		};

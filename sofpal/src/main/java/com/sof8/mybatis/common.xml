@@ -23,6 +23,18 @@
 						<when test="'name'.equals(type)">
 							name LIKE CONCAT('%', #{keyword}, '%')
 						</when>
+						<!-- 상품 이름 검색 -->
+						<when test="'p_name'.equals(type)">
+							p_name LIKE CONCAT('%', #{keyword}, '%')
+						</when>
+						<!-- 컬러 검색 -->
+						<when test="'color'.equals(type)">
+							color LIKE CONCAT('%', #{keyword}, '%')
+						</when>
+						<!-- 사이즈 검색 -->
+						<when test="'size'.equals(type)">
+							size LIKE CONCAT('%', #{keyword}, '%')
+						</when>
 						<!-- 오늘 검색 -->
 						<when test="'today'.equals(type)">
 							user_id LIKE CONCAT('%', #{keyword}, '%') AND
