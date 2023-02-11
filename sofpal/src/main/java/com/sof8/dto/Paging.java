@@ -69,6 +69,16 @@ public class Paging {
 		setKeyword(keyword);
 		
 		setType(type);
+		System.out.println("rowCount: " + this.rowCount);
+		System.out.println("pageCount: " + this.pageCount);
+		System.out.println("totalRow: " + this.totalRow);
+		System.out.println("totalPage: " + this.totalPage);
+		System.out.println("startPage: " + this.startPage);
+		System.out.println("endPage: " + this.endPage);
+		System.out.println("page: " + this.page);
+		System.out.println("prev: " + this.prev);
+		System.out.println("next: " + this.next);
+		System.out.println("offset: " + this.offset);
 	}
 
 	// 총 페이지 개수 구하기
@@ -87,7 +97,7 @@ public class Paging {
 	}
 	
 	// 현재 페이지 구하기
-	private void setPage(final int page) {
+	public void setPage(final int page) {
 		this.page = page;
 	}
 	
@@ -104,5 +114,6 @@ public class Paging {
 	// offset 구하기 // 쿼리 select 시 끊어서 가져오기
 	private void setOffset(final int page, final int rowCount) {
 		this.offset = (page - 1) * rowCount;
+		if(this.offset<0)	this.offset = this.offset * -1;
 	}
 }

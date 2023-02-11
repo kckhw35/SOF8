@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sof8.dto.Mark;
 import com.sof8.dto.Member;
+import com.sof8.dto.Order;
 import com.sof8.dto.Paging;
 import com.sof8.dto.Qna;
 import com.sof8.service.MarkService;
@@ -161,10 +162,12 @@ public class MypageController {
 		return result;
 	}
 	
+	
+	
 	// 마이페이지 - 주문목록
-	// 127.0.0.1/mypage/orderlist
-	@RequestMapping("/orderlist")
-	public String orderlist(HttpSession session, Model model, 
+	// 127.0.0.1/mypage/order
+	@RequestMapping("/order")
+	public String order(HttpSession session, Model model, 
 			@RequestParam(defaultValue = "1") int page,
 			@RequestParam(defaultValue = "user_id") String type,
 			@RequestParam(defaultValue = "") String first, 
@@ -180,7 +183,7 @@ public class MypageController {
 				// 검색한 아이디의 총 찜 수
 				int totalRow = oservice.getTotal(keyword, type, first, last);
 				Paging paging = null;
-				List<Mark> orders= null;
+				List<Order> orders= null;
 				
 				System.out.println("totalRow: " + totalRow);
 				System.out.println("keyword: " + keyword);
@@ -188,17 +191,21 @@ public class MypageController {
 				System.out.println("first: " + first);
 				System.out.println("last: " + last);
 				
-				do {
-					// 페이징을 위한 데이터 입력
+				if(totalRow>0) {
+					do {
+						// 페이징을 위한 데이터 입력
+						paging = new Paging(5,5,totalRow, page, keyword, type);
+						paging.setFirst(first);
+						paging.setLast(last);	
+						
+						// 페이징 후 데이터 검색 
+						orders = oservice.getList(paging);
+						--page;
+					}while (orders.isEmpty());	
+				} else {
 					paging = new Paging(5,5,totalRow, page, keyword, type);
-					paging.setFirst(first);
-					paging.setLast(last);	
-					
-					// 페이징 후 데이터 검색 
-					orders = oservice.getList(paging);
-					page--;
-				}while (orders.isEmpty());
-
+				}
+				
 				model.addAttribute("orders", orders);
 				model.addAttribute("page", page);
 				model.addAttribute("paging", paging);				
@@ -206,15 +213,15 @@ public class MypageController {
 				System.out.println("orders: " + orders);
 				System.out.println("page: " + page);
 				System.out.println("paging: " + paging);
-				System.out.println("[SUCCESS] : MypageController/orderlist - 주문목록 검색 성공");
+				System.out.println("[SUCCESS] : MypageController/order - 주문목록 검색 성공");
 			} catch (Exception e) {
 				e.printStackTrace();
-				System.out.println("[ERROR] : MypageController/orderlist - 주문목록 검색 실패");
+				System.out.println("[ERROR] : MypageController/order - 주문목록 검색 실패");
 			}
 			
 			// 찜목록 화면이동
-			model.addAttribute("content", dir + "orderlist");
-			System.out.println("[SUCCESS] : MypageController/orderlist - 주문목록 화면 출력");
+			model.addAttribute("content", dir + "order");
+			System.out.println("[SUCCESS] : MypageController/order - 주문목록 화면 출력");
 		}
 		return "index";
 	}
@@ -258,13 +265,18 @@ public class MypageController {
 				int totalRow = mservice.getTotal(keyword);
 				Paging paging = null;
 				List<Mark> marks= null;
-				do {
-					// 페이징을 위한 데이터 입력
+				if(totalRow>0) {
+					do {
+						// 페이징을 위한 데이터 입력
+						paging = new Paging(5,5,totalRow, page, keyword, type);
+						// 페이징 후 데이터 검색 
+						marks = mservice.getList(paging);
+						--page;
+					}while (marks.isEmpty());
+				} else {
 					paging = new Paging(5,5,totalRow, page, keyword, type);
-					// 페이징 후 데이터 검색 
-					marks = mservice.getList(paging);
-					page--;
-				}while (marks.isEmpty());
+				}
+
 
 				model.addAttribute("marks", marks);
 				model.addAttribute("page", page);

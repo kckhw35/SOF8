@@ -359,7 +359,7 @@ dl {
 	margin-top: 14px;
 }
 
-.orderlist input[type="date"] {
+.order input[type="date"] {
 	margin: 0 5px;
 	padding: 5px;
 	vertical-align: middle;
@@ -368,20 +368,20 @@ dl {
 	width: 120px
 }
 
-.orderlist .shopping.cart .product-list .product-info a:first-child {
+.order .shopping.cart .product-list .product-info a:first-child {
 	margin: 0;
 }
 
-.orderlist .form-horizontal {
+.order .form-horizontal {
 	margin-left: 10px;
 }
 
-.orderlist .line div {
+.order .line div {
 	margin-left: 5px;
 }
 
 @media screen and (max-width: 768px) {
-	.orderlist .line {
+	.order .line {
 		text-align: center;
 	}
 	

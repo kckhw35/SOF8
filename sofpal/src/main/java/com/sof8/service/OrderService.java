@@ -70,7 +70,7 @@ public class OrderService implements Sof8Service<Integer, Order>{
 		return mapper.selectTotal(map);
 	}
 
-	public List<Mark> getList(Paging paging) throws Exception {
+	public List<Order> getList(Paging paging) throws Exception {
 		return mapper.selectList(paging);
 	}
 
