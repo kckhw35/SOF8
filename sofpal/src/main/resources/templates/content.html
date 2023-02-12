@@ -1,3 +1,12 @@
+<style>
+.oldproduct{
+	padding-top: 5px;
+}
+
+.discount{
+	text-align: right;
+}
+</style>
 <div class="hero-slider">
 	<div class="slider-item th-fullpage hero-area"
 		style="background-image: url(/images/slider/slider-1.png);">
@@ -55,124 +64,28 @@
 				</div>
 			</div>
 			<div class="col-md-6 form-horizontal">
-				<div class="form-group">
-					<div class="col-md-4">
-						<div class="category-box">
-							<a href="#!"> <img th:src="@{/images/shop/event/event1.png}"
-								alt="" />
-							</a>
-						</div>
-					</div>
-					<div class="col-md-8">
-						<div class="category-box-info">
-							<a href="#!"><h2>천연 가죽 소파</h2></a><br /> <br />
-							<h3>1,600,000원</h3>
-							&nbsp;&nbsp;
-							<p style="text-decoration: line-through;">2,000,000원</p>
-							&emsp;&emsp;&emsp;
-							<h2 id="discount">20%</h2>
-							<br /> <br /> <br />
-						</div>
-					</div>				
-				</div>
-				<div class="form-group">
-					<div class="col-md-4">
-						<div class="category-box">
-							<a href="#!"> <img th:src="@{/images/shop/event/event1.png}"
-								alt="" />
-							</a>
-						</div>
-					</div>
-					<div class="col-md-8">
-						<div class="category-box-info">
-							<a href="#!"><h2>천연 가죽 소파</h2></a><br /> <br />
-							<h3>1,600,000원</h3>
-							&nbsp;&nbsp;
-							<p style="text-decoration: line-through;">2,000,000원</p>
-							&emsp;&emsp;&emsp;
-							<h2 id="discount">20%</h2>
-							<br /> <br /> <br />
-						</div>
-					</div>				
-				</div>
-				<div class="form-group">
-					<div class="col-md-4">
-						<div class="category-box">
-							<a href="#!"> <img th:src="@{/images/shop/event/event1.png}"
-								alt="" />
-							</a>
-						</div>
-					</div>
-					<div class="col-md-8">
-						<div class="category-box-info">
-							<a href="#!"><h2>천연 가죽 소파</h2></a><br /> <br />
-							<h3>1,600,000원</h3>
-							&nbsp;&nbsp;
-							<p style="text-decoration: line-through;">2,000,000원</p>
-							&emsp;&emsp;&emsp;
-							<h2 id="discount">20%</h2>
-							<br /> <br /> <br />
-						</div>
-					</div>				
-				</div>
-				<div class="form-group">
-					<div class="col-md-4">
-						<div class="category-box">
-							<a href="#!"> <img th:src="@{/images/shop/event/event1.png}"
-								alt="" />
-							</a>
-						</div>
-					</div>
-					<div class="col-md-8">
-						<div class="category-box-info">
-							<a href="#!"><h2>천연 가죽 소파</h2></a><br /> <br />
-							<h3>1,600,000원</h3>
-							&nbsp;&nbsp;
-							<p style="text-decoration: line-through;">2,000,000원</p>
-							&emsp;&emsp;&emsp;
-							<h2 id="discount">20%</h2>
-							<br /> <br /> <br />
-						</div>
-					</div>				
-				</div>
-			</div>
-
-			
-			<!-- Modal -->
-			<div class="modal product-modal fade" id="product-modal">
-				<button type="button" class="close" data-dismiss="modal"
-					aria-label="Close">
-					<i class="tf-ion-close"></i>
-				</button>
-				<div class="modal-dialog " role="document">
-					<div class="modal-content">
-						<div class="modal-body">
-							<div class="row">
-								<div class="col-md-8 col-sm-6 col-xs-12">
-									<div class="modal-image">
-										<img class="img-responsive"
-											th:src="@{/images/shop/products/modal-product.jpg}"
-											alt="product-img" />
-									</div>
-								</div>
-								<div class="col-md-4 col-sm-6 col-xs-12">
-									<div class="product-short-details">
-										<h2 class="product-title">GM Pendant, Basalt Grey</h2>
-										<p class="product-price">$200</p>
-										<p class="product-short-description">Lorem ipsum dolor sit
-											amet, consectetur adipisicing elit. Rem iusto nihil cum. Illo
-											laborum numquam rem aut officia dicta cumque.</p>
-										<a href="cart.html" class="btn btn-main">Add To Cart</a> 
-										<a href="product-single.html" class="btn btn-transparent">View Product Details</a>
-									</div>
-								</div>
+				<tr th:each="o : ${oldlist}">
+					<div class="oldproduct form-group">
+						<div class="col-md-5">
+							<div class="category-box">
+								<td><img class="img-responsive" th:src="@{/images/shop/products/}+${o.p_img}"/></td>
+								<input type="hidden" name="p_img" th:value="${o.p_img}">
 							</div>
 						</div>
+						<div class="col-md-7">
+							<div class="category-box-info">
+								<td><h4><a th:href="@{/product/productdetail(p_id=${o.p_id})}" th:value="${o.p_id}" th:text="${o.p_name}"></a></h4></td>
+								<h3><td th:text="${o.price}-${o.discount}"></h3>
+								&nbsp;&nbsp;
+								<p style="text-decoration: line-through;"><td th:text="${o.price}"></td></p>
+								&emsp;&emsp;&emsp;
+								<h2 id="discount"><td id="p_discount" th:text="|${#numbers.formatPercent((o.discount/o.price),1,0)}|"></h2>
+								<br /> <br /> <br />
+							</div>
+						</div>				
 					</div>
-				</div>
+				</tr>
 			</div>
-			<!-- /.modal -->
-
 		</div>
 	</div>
 </section>
@@ -194,10 +107,11 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="title text-center">
-					<h2>2023 신상품</h2>
+					<h1>2023 신상품</h2>
 				</div>
 			</div>
-			<tr th:each="p : ${plist}">
+			<tr th:each="p : ${newlist}">
+			<div class=""></div>
 				<div class="col-md-4" id="product-list" >
 					<div class="product-item">
 						<div class="product-thumb" th:OnClick="|location.href ='@{/product/productdetail(p_id=${p.p_id})}'|" th:value="${p.p_id}" style="cursor:pointer;" >
