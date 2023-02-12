@@ -422,12 +422,6 @@ public class AdminController {
 		return "index";
 	}
 	
-	@RequestMapping("/console")
-	public String console() {
-
-		return "/admin/console";
-	}
-	
 	// 로그인 중인지 유무 확인 메소드
 	private Boolean checkNullSession(HttpSession session) {
 

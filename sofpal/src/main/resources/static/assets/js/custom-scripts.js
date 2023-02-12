@@ -4,9 +4,8 @@
     http://creativecommons.org/licenses/by/3.0/
 ---------------------------------------------------------  */
 
-(function ($) {
-    "use strict";
-    var mainApp = {
+(function ($) { "use strict";
+	var mainApp = {
 
         initFunction: function () {
             /*MENU 
@@ -15,9 +14,9 @@
 			
             $(window).bind("load resize", function () {
                 if ($(this).width() < 768) {
-                    $('div.sidebar-collapse').addClass('collapse')
+                    $('div.sidebar-collapse').addClass('collapse');
                 } else {
-                    $('div.sidebar-collapse').removeClass('collapse')
+                    $('div.sidebar-collapse').removeClass('collapse');
                 }
             });
 
@@ -57,10 +56,10 @@
                 xkey: 'y',
                 ykeys: ['a', 'b'],
                 labels: ['Series A', 'Series B'],
-				 barColors: [
-    '#e96562','#414e63',
-    '#A8E9DC' 
-  ],
+				barColors: [
+				    '#e96562','#414e63',
+				    '#A8E9DC' 
+				],
                 hideHover: 'auto',
                 resize: true
             });

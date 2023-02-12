@@ -3,15 +3,67 @@
 		display: none;
 	}
 	
-	#review-form td {
+	#review-form .review-table-content {
 		padding: 20px;
 	}
 	
-	#review-form th {
+	/* 별은 기본적으로 황금색 */	
+	#review-form .review-table-content label{
+		font-size: 30px;
+		color:#ffd700;
+	}
+	/* 별 클릭시 클릭된 별 뒤에 있는 별은 회색으로 변경 */
+	#review-form .review-table-content input[type="radio"]:checked ~ label {
+		color:#808080;
+	}
+	
+	#review-form .review-table-head {
 		padding: 20px;
-		font-size: 20px;
+		font-size: 18px;
+	}
+	#review-form .title-text {
+		margin: 40px;
 	}
 </style>
+
+<script>
+	function saveReview() {
+		if($('#review-content').val() == ''){
+			alert('리뷰 내용을 입력해주세요');
+			return
+		}
+		
+		if($('#review-title').val() == ''){
+			alert('한줄 요약을 입력해주세요');
+			return
+		}
+		
+		if(!confirm("저장하시겠습니까?")){
+			return
+		}
+		
+		$('#review-form').submit();
+	}
+	
+	function editReview() {
+		if($('#review-content').val() == ''){
+			alert('리뷰 내용을 입력해주세요');
+			return
+		}
+		
+		if($('#review-title').val() == ''){
+			alert('한줄 요약을 입력해주세요');
+			return
+		}
+		
+		if(!confirm("저장하시겠습니까?")){
+			return
+		}
+		
+		$('#review-form').attr("action","[[@{/review/edit}]]");
+		$('#review-form').submit();
+	}
+</script>
 
 <section class="memberlist">
 	<div class="container">
@@ -63,47 +115,75 @@
 						</ul>
 					</div>
 
-					<form id="review-form" th:action="@{/review/save}" th:method="post">
+					<form id="review-form" th:action="@{/review/save}" method="get">
 						<table style="margin-top: 50px;" class="table">
 							<colgroup>
 								<col width="15%">
 								<col width="55%">
 							</colgroup>
 							<tbody>
-								<tr>
-									<td colspan="2">
-										<h3><span class="glyphicon glyphicon-pencil"></span>&nbsp&nbsp상품 품질 리뷰</h3>
+								<tr class="review-table-head">
+									<td colspan="2" style="padding-bottom: 30px;">
+										<h3 class="col-md-12"><span class="glyphicon glyphicon-pencil"></span>&nbsp&nbsp상품 리뷰</h3>
+										<p class="title-text">&nbsp&nbsp이 상품에 대해서 얼마나 만족하시나요?</p>
 									</td>
 								</tr>
 								<tr>
-									<th class="" style="height: 100px;">상세리뷰</th>
-									<td class="">
-										<textarea name="content" style="resize: none;" rows="10" class="form-control" 
+									<td class="review-table-content">
+										<a th:href="@{/product/productdetail(p_id=${product.p_id})}">
+											<img height="100" th:src="@{/images/shop/products/}+${product.p_img}" alt="" />
+										</a>
+									</td>
+									<td class="review-table-content">
+										<!-- 리뷰 별점 -->
+										<div class="col-md-12">
+											<p class="col-md-12" style="font: 20px bold;" th:text="${product.p_name}"></p>										
+											<p class="col-md-12" style="font: 12px bold; padding-left: 20px" th:text="'사이즈: ' + ${product.size}"></p>										
+											<p class="col-md-12" style="font: 12px bold; padding-left: 20px" th:text="'컬러: ' + ${product.color}"></p>										
+										</div>
+										<div class="col-md-12">
+											<label for="rate1">★</label>
+											<input type="radio" name="grade" value="1" id="rate1">
+											<label for="rate2">★</label>
+											<input type="radio" name="grade" value="2" id="rate2">
+											<label for="rate3">★</label>
+											<input type="radio" name="grade" value="3" id="rate3">
+											<label for="rate4">★</label>
+											<input type="radio" name="grade" value="4" id="rate4">
+											<label for="rate5">★</label>
+											<input type="radio" name="grade" value="5" id="rate5" checked>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<th class="review-table-head" style="height: 100px;">상세리뷰</th>
+									<td class="review-table-content">
+										<textarea th:if="${review} == null" id="review-content" name="content" style="resize: none;" rows="10" class="form-control" 
 										placeholder="다른 고객님에게 도움이 되도록 상품에 대한 솔직한 평가를 남겨주세요"></textarea>
+										
+										<textarea th:unless="${review} == null" id="review-content" name="content" style="resize: none;" rows="10" class="form-control" 
+										th:text="${review.content}" placeholder="다른 고객님에게 도움이 되도록 상품에 대한 솔직한 평가를 남겨주세요"></textarea>
 									</td>
 								</tr>
 								<tr>
-									<th class="">제목</th>
-									<td class=""><input id="qna-title" name="title"
-										placeholder="제목을 입력해주세요" class="form-control" type="text" /></td>
+									<th class="review-table-head">한줄 요약</th>
+									<td th:if="${review} == null" class="review-table-content"><input id="review-title" name="title" class="form-control" type="text" /></td>
+									<td th:unless="${review} == null" class="review-table-content"><input th:value="${review.title}" id="review-title" name="title" class="form-control" type="text"/></td>
 								</tr>
 								<tr>
-									<td class="" colspan="2"><button type="button"
-											onclick="saveQna();" class="pull-right btn btn-primary">등록</button></td>
+									<td class="" colspan="2">
+										<input type="hidden" name="user_id" th:value="${member.user_id}">
+										<input type="hidden" name="de_id" th:value="${de_id}">
+										<input type="hidden" name="p_id" th:value="${product.p_id}">
+										<div class="btn-group col-md-offset-9 col-md-3">
+											<button th:if="${review} == null" type="button" onclick="saveReview();" class="col-md-6 btn btn-primary">등록</button>
+											<button th:unless="${review} == null" type="button" onclick="editReview();" class="col-md-6 btn btn-primary">수정</button>
+											<a class="col-md-6 btn btn-primary" th:href="@{/review/candidate}">취소</a>
+										</div>
+									</td>
 								</tr>
 							</tbody>
 						</table>
-						
-						<input type="radio" name="grade" value="5" id="rate1"><label
-							for="rate1">★</label>
-						<input type="radio" name="grade" value="4" id="rate2"><label
-							for="rate2">★</label>
-						<input type="radio" name="grade" value="3" id="rate3"><label
-							for="rate3">★</label>
-						<input type="radio" name="grade" value="2" id="rate4"><label
-							for="rate4">★</label>
-						<input type="radio" name="grade" value="1" id="rate5"><label
-							for="rate5">★</label>
 					</form>
 				</div>
 			</div>

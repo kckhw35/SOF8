@@ -81,9 +81,6 @@
 							DATE(cd.startdate) BETWEEN #{first} AND #{last}
 						</when>
 					</choose>
-					<if test="usaged != null and usaged != ''">
-						AND usaged=${usaged}
-					</if>
 				</when>
 			</choose>
 		</if>

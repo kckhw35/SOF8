@@ -1,3 +1,39 @@
+<style>
+	.review-menu{
+		text-align: center; 
+		font-size: 20px; 
+		height: 50px;
+		line-height: 50px;
+	}
+	
+	.review-menu-selected{
+		border: 1px solid;
+		border-color: #808080;
+		border-bottom: none;
+		/* border-radius: 5px 5px 0 0; */
+	}
+	.review-record-title{
+		font-size: 18px;
+	}
+	
+	.star .star-color{
+		font-size:22px;
+		color: #ffd700;
+	}
+	.star .star-gray{
+		font-size:22px;
+		color: gray;
+	}
+</style>
+<script>
+	function deleteReview(){
+		if(confirm("삭제하면 이 상품에 대해 다시 리뷰를 작성하실 수 없습니다.\n정말 삭제하시겠습니까?")){
+			$('#go-review-delete').attr("action","[[@{/review/delete}]]");
+			$('#go-review-delete').submit();
+			return
+		}
+	}
+</script>
 
 <section class="order">
 	<div class="container">
@@ -38,49 +74,85 @@
 							<table class="table">
 								<colgroup>
 									<col width="10%"/>
-									<col width="50%"/>
-									<col width="13%" class=""/>
+									<col width="70%"/>
+									<col width="20%"/>
 								</colgroup>
 								<tbody>
+									<tr colspan="3">
+										<a class="col-md-6 review-menu" th:href="@{/review/candidate}">리뷰 작성</a>
+										<a class="col-md-6 review-menu review-menu-selected" th:href="@{/review/record}">작성한 리뷰</a>
+									</tr>
 									<tr th:if="${orders == null}">
 										<td class="text-class empty" colspan="5">작성하신 리뷰가 없습니다.</td>
 									</tr>
 									<div th:if="${orders != null}" th:each="order : ${orders}">
 										<!-- 상품에 리뷰가 존재하고 사용가능 여부가 True인 경우 출력 -->
-										<tr th:if="${order.review} != null and ${order.review.enable} == true">
-											<td class="text-center">
-												<div>
-													<img width="200" th:src="@{/images/shop/products/}+${order.p_img}" alt="" />
-												</div>
-											</td>
-											<td>
-												<div class="product-info">
-													<div class="pull-left form-horizontal">
-														<h4 style="font-weight: bold;" th:text="${order.p_name}"></h4>
-														<p style="margin-top: 15px; font-size: 15px" th:text="|size: ${order.size}|"></p>
-														<p style="font-size: 15px" th:text="|color: ${order.color}|"></p>
-														<p style="margin-top: 15px; font-size: 12px" th:text="|주문일 ${#dates.format(order.o_date,'yyyy.MM.dd')}|"></p>
+										<div th:if="${order.review} != null and ${order.review.enable} == true">
+											<tr>
+												<td colspan="2" style="text-align: left">
+													<div class="col-md-12">
+														<span class="review-record-title" th:text=${order.p_name}></span>&nbsp&nbsp;
+														<span th:text="${order.size}"></span>&nbsp;
+														<span th:text="${order.color}"></span>
 													</div>
-												</div>
-											</td>
-											<td class="">
-												<form id="go-review-edit" method="post" th:action="@{/review/edit}">
-													<input type="hidden" name="user_id" th:value="${member.user_id}">
-													<input type="hidden" name="de_id" th:value="${order.de_id}">
-													<button type="submit" class="btn col-md-11" th:text="'리뷰 ' + '수정'" style="margin: 5px;"></button>
-												</form>
-												<form id="go-review-delete" method="post"  th:action="@{/review/delete}">
-													<input type="hidden" name="user_id" th:value="${member.user_id}">
-													<input type="hidden" name="de_id" th:value="${order.de_id}">
-													<button type="submit" class="btn col-md-11" th:text="'리뷰 ' + '삭제'" style="margin: 5px;"></button>
-												</form>
-											</td>
-										</tr>
+													
+													<!-- 리뷰 별 표시  -->
+													<div th:if="${order.review.grade} == 5" class="star col-md-12">
+														<span class="star-color">★ ★ ★ ★ ★</span>&nbsp;
+														<span th:text=${#temporals.format(order.review.rdate,"yyyy.MM.dd")}></span>
+													</div>
+													<div th:if="${order.review.grade} == 4" class="star col-md-12">
+														<span class="star-color">★ ★ ★ ★</span>
+														<span class="star-gray">★</span>&nbsp;
+														<span th:text=${#temporals.format(order.review.rdate,"yyyy.MM.dd")}></span>
+													</div>
+													<div th:if="${order.review.grade} == 3" class="star col-md-12">
+														<span class="star-color">★ ★ ★</span>
+														<span class="star-gray">★ ★</span>&nbsp;
+														<span th:text=${#temporals.format(order.review.rdate,"yyyy.MM.dd")}></span>
+													</div>
+													<div th:if="${order.review.grade} == 2" class="star col-md-12">
+														<span class="star-color">★ ★</span>
+														<span class="star-gray">★ ★ ★</span>&nbsp;
+														<span th:text=${#temporals.format(order.review.rdate,"yyyy.MM.dd")}></span>
+													</div>
+													<div th:if="${order.review.grade} == 1" class="star col-md-12">
+														<span class="star-color">★</span>
+														<span class="star-gray">★ ★ ★ ★</span>&nbsp;
+														<span th:text=${#temporals.format(order.review.rdate,"yyyy.MM.dd")}></span>
+													</div>
+													
+													<div class="col-md-12" style="margin-top: 30px;">
+														<h4 th:text="${order.review.title}"></h4>
+														<p th:text="${order.review.content}"></p>
+													</div>
+												</td>
+												
+												<td class="text-center">
+													<div>
+														<img width="100" th:src="@{/images/shop/products/}+${order.p_img}" alt="" />
+													</div>
+													
+													<div style="margin-top: 25px;">
+														<form id="go-review-edit" method="post" th:action="@{/review/write}">
+															<input type="hidden" name="user_id" th:value="${member.user_id}">
+															<input type="hidden" name="de_id" th:value="${order.de_id}">
+															<input type="hidden" name="p_id" th:value="${order.p_id}">
+															<button type="submit" class="btn col-md-11" th:text="'리뷰 ' + '수정'" style="margin: 5px;"></button>
+														</form>
+														<form id="go-review-delete" method="post" >
+															<input type="hidden" name="user_id" th:value="${member.user_id}">
+															<input type="hidden" name="de_id" th:value="${order.de_id}">
+															<button onclick="deleteReview();" class="btn col-md-11" th:text="'리뷰 ' + '삭제'" style="margin: 5px;"></button>
+														</form>
+													</div>
+												</td>
+											</tr>
+										</div>
 									</div>
 								</tbody>
-							</table>							
+							</table>
 						</div>
-						
 					</div>
 				</div>
 			</div>

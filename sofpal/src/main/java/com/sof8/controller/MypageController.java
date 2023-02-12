@@ -359,8 +359,7 @@ public class MypageController {
 			@RequestParam(defaultValue = "1") int page,
 			@RequestParam(defaultValue = "user_id") String type,
 			@RequestParam(defaultValue = "") String first, 
-			@RequestParam(defaultValue = "") String last,
-			@RequestParam(defaultValue = "true") Boolean usaged) {
+			@RequestParam(defaultValue = "") String last) {
 	
 
 		// 변수 선언 및 초기화
@@ -381,25 +380,22 @@ public class MypageController {
 				map.put("type", type);
 				map.put("first", first);
 				map.put("last", last);
-				map.put("usaged", usaged);
 				
 				// 검색한 아이디의 총 찜 수
 				totalRow = cservice.getTotal(map);
 
-				System.out.println("totalRow: " + totalRow);
 				System.out.println("keyword: " + keyword);
 				System.out.println("type: " + type);
 				System.out.println("first: " + first);
 				System.out.println("last: " + last);
-				System.out.println("usaged: " + usaged);
-				
+				System.out.println("totalRow: " + totalRow);
+
 				if(totalRow>0) {
 					do {
 						// 페이징을 위한 데이터 입력
 						paging = new Paging(5,5,totalRow, page, keyword, type);
 						paging.setFirst(first);
 						paging.setLast(last);	
-						paging.setUsaged(usaged);
 						
 						// 페이징 후 데이터 검색 
 						coupons = cservice.getList(paging);
