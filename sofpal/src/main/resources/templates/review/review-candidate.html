@@ -1,8 +1,24 @@
+<style>
+	.review-menu{
+		text-align: center; 
+		font-size: 20px; 
+		height: 50px;
+		line-height: 50px;
+	}
+	
+	.review-menu-selected{
+		border: 1px solid;
+		border-color: #808080;
+		border-bottom: none;
+		/* border-radius: 5px 5px 0 0; */
+	}
+</style>
+</style>
+
 <script>
 	function writeReview(de_id){
 		alert(de_id);
 	}
-	
 </script>
 
 
@@ -35,7 +51,7 @@
 										<a class="btn bf btn-secondary" th:href="@{/review/candidate?type=oneYear}">1년</a>
 									</div>
 									<input type="hidden" name="type" value="range">
-									<input type="date" class="form-control" id="first" name="first">
+									<input type="date" class="form-control" id="first" name="first"> ~
 									<input type="date" class="form-control" id="last" name="last">
 									<button type="submit" class="btn bf"><i class="tf-ion-ios-search-strong"></i> 조회</button>
 								</div>
@@ -49,6 +65,10 @@
 									<col width="13%" class=""/>
 								</colgroup>
 								<tbody>
+									<tr colspan="3">
+										<a class="col-md-6 review-menu review-menu-selected" th:href="@{/review/candidate}">리뷰 작성</a>
+										<a class="col-md-6 review-menu" th:href="@{/review/record}">작성한 리뷰</a>
+									</tr>
 									<tr th:if="${orders == null}">
 										<td class="text-class empty" colspan="5">작성 가능한 리뷰가 없습니다.</td>
 									</tr>
@@ -74,6 +94,7 @@
 												<form id="go-review-write" method="post"  th:action="@{/review/write}">
 													<input type="hidden" name="user_id" th:value="${member.user_id}">
 													<input type="hidden" name="de_id" th:value="${order.de_id}">
+													<input type="hidden" name="p_id" th:value="${order.p_id}">
 													<button type="submit" class="btn col-md-11" th:text="'리뷰 ' + '작성'" style="margin: 5px;"></button>
 												</form>
 											</td>
@@ -82,7 +103,6 @@
 								</tbody>
 							</table>							
 						</div>
-						
 					</div>
 				</div>
 			</div>

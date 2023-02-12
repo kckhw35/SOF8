@@ -1,0 +1,70 @@
+@charset "UTF-8";
+
+/*******************************************
+[Table of Content]
+1. review in product detail 		
+	
+2. qna in product detail
+
+
+*******************************************/
+/*=== [ 1. reviews ] ===*/
+	#reviews .review-layout {
+	padding: 30px 0 30px 0;
+	border-bottom: solid 1px;
+	}
+	
+	#reviews .review-title {
+	padding: 10px;
+	font-weight: bold;
+	}
+	
+	#reviews .review-content {
+	padding: 10px;
+	word-break: break-all;
+	}
+	
+	#reviews .review-content span{
+	padding: 15px 3px 0 0;
+	}
+	
+	#reviews .review-thumbs-up {
+	padding: 20px 0 0 5px;
+	word-break: break-all;
+	}
+	
+	/*=== [ 2. qna] ===*/
+	#qna a {
+		font-size: 18px;
+		border: solid 1px;
+		padding: 10px;
+		text-align: center;
+	}
+
+	#qna li{
+		padding-top:5px;
+		list-style: disc;
+	}
+	
+	#qna span{
+		font-weight: bold;
+	}
+	
+	#qna .top{
+		margin-bottom: 20px;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
