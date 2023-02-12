@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="shortcut icon" type="image/x-icon" th:href="@{/images/favicon.png}" />
+<title>SOF8 관리자 페이지</title>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
+<link rel="stylesheet"
+	th:href="@{/assets/materialize/css/materialize.min.css}"
+	media="screen,projection" />
+<!-- Bootstrap Styles-->
+<link th:href="@{/assets/css/bootstrap.css}" rel="stylesheet" />
+<!-- FontAwesome Styles-->
+<link th:href="@{/assets/css/font-awesome.css}" rel="stylesheet" />
+<!-- Morris Chart Styles-->
+<link th:href="@{/assets/js/morris/morris-0.4.3.min.css}"
+	rel="stylesheet" />
+<!-- Custom Styles-->
+<link th:href="@{/assets/css/custom-styles.css}" rel="stylesheet" />
+<!-- Google Fonts-->
+<link href='http://fonts.googleapis.com/css?family=Open+Sans'
+	rel='stylesheet' type='text/css' />
+<link rel="stylesheet"
+	th:href="@{/assets/js/Lightweight-Chart/cssCharts.css}">
+</head>
+<body>
+	<div id="wrapper">
+		<header th:include="@{/console/console-header}"></header>
+		<section><div th:include="${content} ? ${content} : @{/console/content}"></div></section>
+		<!-- /. PAGE WRAPPER  -->
+	</div>
+	<!-- /. WRAPPER  -->
+	<!-- JS Scripts-->
+	<!-- jQuery Js -->
+	<script th:src="@{/assets/js/jquery-1.10.2.js}"></script>
+	<!-- Bootstrap Js -->
+	<script th:src="@{/assets/js/bootstrap.min.js}"></script>
+	<script th:src="@{/assets/materialize/js/materialize.min.js}"></script>
+	<!-- Metis Menu Js -->
+	<script th:src="@{/assets/js/jquery.metisMenu.js}"></script>
+	<!-- Morris Chart Js -->
+	<script th:src="@{/assets/js/morris/raphael-2.1.0.min.js}"></script>
+	<script th:src="@{/assets/js/morris/morris.js}"></script>
+	<script th:src="@{/assets/js/easypiechart.js}"></script>
+	<script th:src="@{/assets/js/easypiechart-data.js}"></script>
+	<script th:src="@{/assets/js/Lightweight-Chart/jquery.chart.js}"></script>
+	<!-- Custom Js -->
+	<script th:src="@{/assets/js/custom-scripts.js}"></script>
+</body>
+</html>

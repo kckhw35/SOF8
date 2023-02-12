@@ -32,8 +32,7 @@ public class Paging {
 	private String keyword;
 	private String type;
 	private String first;
-	private String last;	
-	private Boolean  usaged;	
+	private String last;		
 	int cat_id = 0;
 	
 	public Paging(int rowCount, int pageCount, int totalRow, int page, String keyword, String type) {

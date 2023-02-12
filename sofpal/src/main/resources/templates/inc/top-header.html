@@ -34,7 +34,7 @@
 					</li><!-- / Admin Logout -->	
 					<!-- 콘솔 -->
 					<li th:if="${session.admin != null}">
- 						<a th:href="@{/admin/console}" class="account br-4"> 콘솔 </a>
+ 						<a th:href="@{/console}" class="account br-4"> 콘솔 </a>
 					</li>		
 					<!-- MyPage -->
 					<li class="account-site" th:if="${session.admin == null && session.member != null}">

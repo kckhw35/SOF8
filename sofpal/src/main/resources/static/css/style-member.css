@@ -22,6 +22,12 @@
 *******************************************/
 /*=== [ 1. Common ] ===*/
 
+.nav>li>a:focus, 
+.nav>li>a:hover {
+    text-decoration: none;
+    background-color: #8a8d9b;
+}
+
 .menu {
 	background-color: #D8CDCF;
 	display: block;
@@ -408,7 +414,7 @@ dl {
 }
 
 @media screen and (max-width: 768px) {
-	.search {
+	.order .sch {
 		text-align: center;
 	}
 	
