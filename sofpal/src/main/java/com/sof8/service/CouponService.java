@@ -54,12 +54,8 @@ public class CouponService implements Sof8Service<Integer, Coupon>{
 	     mapper.insertCoupon(map);
 	}
 
-	public int getTotal(String keyword, String type, String first, String last) throws Exception {
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("keyword", keyword);
-		map.put("type", type);
-		map.put("first", first);
-		map.put("last", last);
+	public int getTotal(Map<String, Object> map) throws Exception {
+
 		return mapper.selectTotal(map);
 	}
 
@@ -69,7 +65,7 @@ public class CouponService implements Sof8Service<Integer, Coupon>{
 
 	public Coupon getCoupon(Map<String, Object> map) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		return mapper.selectCoupon(map);
 	}
 
 

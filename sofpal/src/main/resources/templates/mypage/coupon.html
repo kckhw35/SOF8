@@ -33,58 +33,64 @@
 									<button type="submit" class="btn bf"><i class="tf-ion-ios-search-strong"></i> 조회</button>
 								</div>
 							</div>
-						</form>							
-						<div class="form-group clearfix">
-							<h5>쿠폰목록 내역 총 <span></span> 건</h5>
-							<table id="table_order" class="table">
-								<colgroup>
-									<col width="20%"/>
-									<col width="10%"/>
-									<col width="20%" class="widthDisplayNone"/>
-									<col width="20%" class="widthDisplayNone"/>
-									<col width="20%" class="widthDisplayNone"/>
-									<col width="10%" class="widthDisplayNone"/>
-								</colgroup>
-								<thead>
-									<tr class="cart-amount line">
-										<th>쿠폰명</th>
-										<th>혜택</th>
-										<th class="widthDisplayNone">조건</th>
-										<th class="widthDisplayNone">발급일</th>
-										<th class="widthDisplayNone">유효기간</th>									
-										<th class="widthDisplayNone">사용여부</th>									
-									</tr>
-								</thead>
-								<tbody>
-									<tr th:if="${coupons == null}">
-										<td class="text-class empty" colspan="5">조회된 주문 리스트가 없습니다.</td>
-									</tr>
-									<tr th:if="${coupons != null}" th:each="coupon : ${coupons}">
-										<td class="text-center" >
-										   <div class="form-horizontal"s>
-											  <img th:src="@{/images/my_coupon.png}" width="90" alt="">
-											  <p><strong th:text="${coupon.c_name}"></strong></p>
-										   </div>
-										</td>
-										<td class="text-center">
-											<p th:text="|${#numbers.formatInteger(coupon.c_discount, 3, 'COMMA')}원|"></p>
-										</td>
-										<td class="widthDisplayNone">
-											<p th:text="${coupon.c_content}"></p>
-										</td>
-										<td class="widthDisplayNone">
-											<p th:text="${coupon.startdate}"></p>
-										</td>	
-										<td class="widthDisplayNone">
-											<p th:text="${coupon.enddate}"></p>
-										</td>								
-										<td class="widthDisplayNone">
-											<p th:text="${coupon.usaged==true?'사용가능':'사용불가'}"></p>
-										</td>								
-									</tr>
-								</tbody>
-							</table>							
-						</div>
+						</form>				
+						<div class="tabCommon clearfix">
+							<ul class="nav nav-tabs">
+								<li class="active"><a th:href="@{/mypage/coupon?usaged=1}">사용가능</a></li>
+								<li class=""><a th:href="@{/mypage/coupon?usaged=0}">사용불가</a></li>
+							</ul>
+							<div class="form-group">
+								<h5>쿠폰목록 내역 총 <span></span> 건</h5>
+								<table id="table_order" class="table">
+									<colgroup>
+										<col width="20%"/>
+										<col width="10%"/>
+										<col width="20%" class="widthDisplayNone"/>
+										<col width="20%" class="widthDisplayNone"/>
+										<col width="20%" class="widthDisplayNone"/>
+										<col width="10%" class="widthDisplayNone"/>
+									</colgroup>
+									<thead>
+										<tr class="cart-amount line">
+											<th>쿠폰명</th>
+											<th>혜택</th>
+											<th class="widthDisplayNone">조건</th>
+											<th class="widthDisplayNone">발급일</th>
+											<th class="widthDisplayNone">유효기간</th>									
+											<th class="widthDisplayNone">사용여부</th>									
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:if="${coupons == null}">
+											<td class="text-class empty" colspan="6">조회된 주문 리스트가 없습니다.</td>
+										</tr>
+										<tr th:if="${coupons != null}" th:each="coupon : ${coupons}">
+											<td class="text-center" >
+											   <div class="form-horizontal"s>
+												  <img th:src="@{/images/my_coupon.png}" width="90" alt="">
+												  <p><strong th:text="${coupon.c_name}"></strong></p>
+											   </div>
+											</td>
+											<td class="text-center">
+												<p th:text="|${#numbers.formatInteger(coupon.c_discount, 3, 'COMMA')}원|"></p>
+											</td>
+											<td class="widthDisplayNone">
+												<p th:text="${coupon.c_content}"></p>
+											</td>
+											<td class="widthDisplayNone">
+												<p th:text="${coupon.startdate}"></p>
+											</td>	
+											<td class="widthDisplayNone">
+												<p th:text="${coupon.enddate}"></p>
+											</td>								
+											<td class="widthDisplayNone">
+												<p th:text="${coupon.usaged==true?'사용가능':'사용불가'}"></p>
+											</td>								
+										</tr>
+									</tbody>
+								</table>							
+							</div>
+						</div>			
 						<div class="text-center">
 					 		<ul class="pagination post-pagination" th:if="${paging.totalRow > 0}"><!--  -->
 								<!-- 맨 처음 페이지 이동 -->

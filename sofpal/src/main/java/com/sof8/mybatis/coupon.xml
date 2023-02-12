@@ -31,6 +31,12 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		order by startdate desc
 		<include refid="common.paging"></include>
 	</select>
+	<!-- 쿠폰 중복 조회 -->
+	<select id="selectCoupon" parameterType="map" resultType="Coupon">
+		SELECT *
+		FROM `coupon_detail`
+		WHERE user_id = #{user_id} AND co_id = #{co_id}
+	</select>
 	<!--  -->
 	<update id="update" parameterType="Coupon">
 	
