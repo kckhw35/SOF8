@@ -1,5 +1,6 @@
 package com.sof8.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -14,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.sof8.dto.Member;
 import com.sof8.dto.Order;
 import com.sof8.dto.Paging;
+import com.sof8.dto.Product;
 import com.sof8.dto.Review;
 import com.sof8.service.MemberService;
 import com.sof8.service.OrderService;
+import com.sof8.service.ProductService;
 import com.sof8.service.ReviewService;
 
 @Controller
@@ -29,6 +32,8 @@ public class ReviewController {
 	OrderService oservice;
 	@Autowired
 	ReviewService reviewService;
+	@Autowired
+	ProductService productService;
 
 	String dir = "review/";
 	
@@ -173,6 +178,7 @@ public class ReviewController {
 	@RequestMapping("/write")
 	public String reviewWrite(HttpSession session, Model model,
 			@RequestParam("de_id") int de_id,
+			@RequestParam("p_id") int p_id,
 			@RequestParam("user_id") String user_id) {
 		
 		Member member =  (Member) session.getAttribute("member");
@@ -187,6 +193,27 @@ public class ReviewController {
 			return "redirect:/";
 		}
 		
+		//상품 이미지와 상품 이름 가져오기 위해서
+		try {
+			Product product = productService.get(p_id);
+			model.addAttribute("product", product);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		//수정 폼의 경우 기존 리뷰를 가져온다.
+		try {
+			Review review = reviewService.getReviewByDetailId(de_id);
+			
+			if (review != null) {
+				model.addAttribute("review", review);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		model.addAttribute("member", member);
 		model.addAttribute("de_id", de_id);
 		model.addAttribute("content", dir + "review-write");
 		
@@ -198,18 +225,91 @@ public class ReviewController {
 			@RequestParam("user_id") String user_id,
 			@ModelAttribute Review review) {
 		
+		review.setRdate(LocalDateTime.now());
+		review.setMdate(LocalDateTime.now());
+		
 		Member member =  (Member) session.getAttribute("member");
 		
 		//예외처리 로직: 로그인 안되어있으면 로그인 화면으로 이동
 		if (member == null) {
 			return "redirect:/member/login";
 		}
-		
-		//본인이 아니라면 홈페이지로 이동
+		//예외처리 로직: 본인이 아니라면 홈페이지로 이동
 		if(!user_id.equals(member.getUser_id())) {
 			return "redirect:/";
 		}
 		
-		return "index";
+		//리뷰 추가
+		try {
+			reviewService.register(review);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		return "redirect:/review/record";
+	}
+	
+	@RequestMapping("/edit")
+	public String reviewEdit(HttpSession session, Model model,
+			@RequestParam("user_id") String user_id,
+			@ModelAttribute Review review) {
+		
+		review.setMdate(LocalDateTime.now());
+		
+		Member member =  (Member) session.getAttribute("member");
+		
+		//예외처리 로직: 로그인 안되어있으면 로그인 화면으로 이동
+		if (member == null) {
+			return "redirect:/member/login";
+		}
+		//예외처리 로직: 본인이 아니라면 홈페이지로 이동
+		if(!user_id.equals(member.getUser_id())) {
+			return "redirect:/";
+		}
+		
+		try {
+			Review originReview = reviewService.getReviewByDetailId(review.getDe_id());
+			
+			originReview.setContent(review.getContent());
+			originReview.setTitle(review.getTitle());
+			originReview.setMdate(LocalDateTime.now());
+			originReview.setGrade(review.getGrade());
+			
+			reviewService.modify(originReview);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "redirect:/review/record";
+	}
+	
+	@RequestMapping("/delete")
+	public String reviewDelete(HttpSession session, Model model,
+			@RequestParam("user_id") String user_id,
+			@ModelAttribute Review review) {
+		
+		Member member =  (Member) session.getAttribute("member");
+		
+		//예외처리 로직: 로그인 안되어있으면 로그인 화면으로 이동
+		if (member == null) {
+			return "redirect:/member/login";
+		}
+		//예외처리 로직: 본인이 아니라면 홈페이지로 이동
+		if(!user_id.equals(member.getUser_id())) {
+			return "redirect:/";
+		}
+		
+		System.out.println("호출");
+		
+		try {
+			Review originReview = reviewService.getReviewByDetailId(review.getDe_id());
+			originReview.setEnable(false);
+			reviewService.modify(originReview);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "redirect:/review/record";
 	}
 }
