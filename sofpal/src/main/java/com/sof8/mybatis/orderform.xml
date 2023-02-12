@@ -5,7 +5,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 <mapper namespace="com.sof8.mapper.OrderFormMapper">
 
 	<insert id="insertorder" parameterType="Order">
-		INSERT INTO orderTBL VALUES (o_id, #{user_id}, 1, ${totalprice}, ${totaldiscount}, #{pay_option}, #{o_status}, NOW(), #{c_date}, #{re_name}, #{re_tel}, #{re_zipcode}, #{re_addr}, #{re_deaddr}, #{re_req}, #{note})
+		INSERT INTO orderTBL VALUES (o_id, #{user_id}, ${c_id}, ${totalprice}, ${totaldiscount}, #{pay_option}, #{o_status}, NOW(), #{c_date}, #{re_name}, #{re_tel}, #{re_zipcode}, #{re_addr}, #{re_deaddr}, #{re_req}, #{note})
 			<selectKey keyProperty="o_id" resultType="Integer" order="AFTER"> 
                 SELECT LAST_INSERT_ID()
       		</selectKey> 

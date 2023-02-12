@@ -21,5 +21,12 @@ public interface CouponMapper extends Sof8Mapper<Integer, Coupon>{
 	public List<Coupon> selectList(Paging paging) throws Exception;
 	
 	public Coupon selectCoupon(Map<String, Object> map) throws Exception;
-
+	
+	public List<Coupon> couponlist(String k) throws Exception;
+	
+	public int coupondiscount(Integer k) throws Exception;
+	
+	public void usecoupon(Integer k) throws Exception;
+	
+	public int getcoid(Integer k) throws Exception;
 }

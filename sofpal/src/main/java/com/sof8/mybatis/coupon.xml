@@ -23,6 +23,14 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		FROM `coupon_detail` cd JOIN `coupon` c ON cd.co_id = c.co_id
 		<include refid="common.search"></include>
 	</select>
+	<!-- 사용자 쿠폰 리스트 -->
+	<select id="couponlist" parameterType="String" resultType="Coupon">
+		SELECT cd.cd_id AS cd_id, cd.user_id AS user_id, c.c_name AS c_name, c.c_discount AS c_discount, c.c_content AS c_content, cd.startdate AS startdate, cd.enddate AS enddate, cd.usaged AS usaged FROM coupon_detail cd JOIN coupon c ON cd.co_id = c.co_id WHERE cd.user_id = #{user_id} and usaged = 1
+	</select>
+	<!-- 쿠폰 할인 금액 조회 -->
+	<select id="coupondiscount" parameterType="int" resultType="int">
+		SELECT c.c_discount AS c_discount FROM coupon c JOIN coupon_detail cd ON c.co_id = cd.co_id WHERE cd.cd_id = ${cd_id}
+	</select>
 	<!-- 쿠폰 리스트 조회 -->
 	<select id="selectList" parameterType="Paging" resultType="Coupon">
 		SELECT cd.user_id, c.c_name, c.c_discount, c.c_content, cd.startdate, cd.enddate, cd.usaged
@@ -37,9 +45,15 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		FROM `coupon_detail`
 		WHERE user_id = #{user_id} AND co_id = #{co_id}
 	</select>
-	<!--  -->
+	<!-- 쿠폰 사용 -->
+	<update id="usecoupon" parameterType="int">
+		UPDATE coupon_detail SET usaged = 0 WHERE cd_id = ${cd_id}
+	</update>
+	<!-- 쿠폰 정보 조회 -->
+	<select id="getcoid" parameterType="int" resultType="int">
+		SELECT co_id FROM coupon_detail WHERE cd_id = ${cd_id}
+	</select>
 	<update id="update" parameterType="Coupon">
-	
 	</update>
 	<delete id="delete" parameterType="String">
 		

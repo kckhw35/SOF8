@@ -22,13 +22,10 @@ public class Coupon {
 	
 	
 	// 쿠폰상세 
+	private int cd_id;		//쿠폰 상세 아이디
 	private String user_id;   //사용자 아이디 
 	private boolean usaged; //사용여부
 	private String startdate; //발급일 
 	private String enddate; //유효기간 
-	
-	
-	
-
 	
 }

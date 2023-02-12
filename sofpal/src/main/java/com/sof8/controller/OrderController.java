@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sof8.dto.Cart;
+import com.sof8.dto.Coupon;
 import com.sof8.dto.DetailOrder;
 import com.sof8.dto.Mail;
 import com.sof8.dto.Member;
@@ -26,6 +27,7 @@ import com.sof8.dto.OrderForm;
 import com.sof8.dto.Product;
 import com.sof8.dto.Schedule;
 import com.sof8.service.CartService;
+import com.sof8.service.CouponService;
 import com.sof8.service.DeliveryService;
 import com.sof8.service.DetailOrderService;
 import com.sof8.service.EmailService;
@@ -74,6 +76,9 @@ public class OrderController {
 
 	@Autowired
 	EmailService eservice;
+	
+	@Autowired
+	CouponService coservice;
 
 	// 장바구니 보기
 	@RequestMapping("/cart")
@@ -287,6 +292,21 @@ public class OrderController {
 
 		return cant;
 	}
+	
+	// 쿠폰 적용
+	@ResponseBody
+	@PostMapping("/coupon")
+	public Map<String, Integer> coupon(Model model, @RequestParam(value = "cd_id") String cd_id) {
+		Map<String, Integer> coupon = new HashMap<String, Integer>();
+		int coupon_id = Integer.parseInt(cd_id);
+		
+		try {
+			coupon.put("discount", coservice.coupondiscount(coupon_id));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return coupon;
+	}
 
 	// 주문 폼
 	@RequestMapping("/order")
@@ -295,25 +315,33 @@ public class OrderController {
 		List<Cart> clist = new ArrayList<>();
 		List<Integer> c_id = c_ids.getC_ids();
 		Cart c = null;
-
+		List<Coupon> co = new ArrayList<Coupon>();
+		
 		int cnt = 0;
 
 		// 로그인 상태 확인
 		if (session.getAttribute("member") == null) {
 			return "redirect:/member/login";
 		} else {
+			// 쿠폰 정보
+			try {
+				co = coservice.couponlist(m.getUser_id());
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+			
 			// 상품 정보
 			for (int i : c_id) {
 				try {
 					c = cservice.selectedproduct(i);
 					clist.add(c);
-					model.addAttribute("clist", clist);
 					cnt++;
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
-
+			model.addAttribute("coupon", co);
+			model.addAttribute("clist", clist);
 			model.addAttribute("m", m);
 			model.addAttribute("totalcnt", cnt);
 			model.addAttribute("content", dir + "order");
@@ -324,7 +352,7 @@ public class OrderController {
 
 	// 주문 완료
 	@RequestMapping("ordered")
-	public String ordered(HttpSession session, Model model, OrderForm of, Cart c_ids) {
+	public String ordered(HttpSession session, Model model, OrderForm of, Coupon c, Cart c_ids) {
 		Member m = (Member) session.getAttribute("member");
 		Schedule s = new Schedule();
 		DetailOrder d = new DetailOrder();
@@ -342,7 +370,19 @@ public class OrderController {
 		} else {
 
 			of.setUser_id(m.getUser_id());
-
+			
+			// 쿠폰 적용
+			if(c.getCd_id() != 0) {
+				try {
+					coservice.usecoupon(c.getCd_id());
+					of.setC_id(coservice.getcoid(c.getCd_id()));
+					c.setC_discount(coservice.coupondiscount(c.getCd_id()));
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			
+			// 결제 옵션에 따른 상태 변경
 			if (of.getPay_option().equals("무통장입금")) {
 				of.setO_status("입금대기");
 				if(of.getNote().equals("신한")) {
@@ -431,12 +471,10 @@ public class OrderController {
 					mail.setTemplate("/mail-templates/order");
 					mail.setValues(values);
 
-					System.out.println("values : " + values);
-					System.out.println("mail : " + mail);
-					
 					// 이메일 전송
 					eservice.sendMail(mail);
 					
+				model.addAttribute("coupon", c);
 				model.addAttribute("bank", bank_info);
 				model.addAttribute("orderlist", orderedproduct);
 				model.addAttribute("content", dir + "confirmation");

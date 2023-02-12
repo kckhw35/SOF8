@@ -381,11 +381,12 @@ public class ProductController {
 		Product p = null;
 		try {
 			p = pservice.get(p_id);
+			p.setCat_name(cservice.selectcatname(p.getCat_id()));
 			model.addAttribute("p", p);
 		
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		}		
 		model.addAttribute("content", dir+"productdetail");
 		
 		
