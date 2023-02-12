@@ -22,4 +22,7 @@ public interface OrderMapper extends Sof8Mapper<Integer, Order>{
 	public int selectTotal(Map<String, Object> map) throws Exception;
 	public List<Order> selectList(Paging paging) throws Exception;
 	public void updateStatus(int o_id) throws Exception;
+	public int selectTodaySales() throws Exception;
+	public int selectTodayOrders() throws Exception;
+	public int selectTodayProducts() throws Exception;
 }
