@@ -47,10 +47,8 @@ public class MemberService implements Sof8Service<String, Member>{
 		return mapper.selectList(paging);
 	}
 	
-	public int getTotal(String keyword, String type) throws Exception {
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("keyword", keyword);
-		map.put("type", type);
+	public int getTotal(Map map) throws Exception {
+
 		return mapper.selectTotal(map);
 	}
 

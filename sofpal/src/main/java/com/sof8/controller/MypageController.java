@@ -14,11 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.sof8.dto.Coupon;
 import com.sof8.dto.Mark;
 import com.sof8.dto.Member;
 import com.sof8.dto.Order;
 import com.sof8.dto.Paging;
 import com.sof8.dto.Qna;
+import com.sof8.service.CouponService;
 import com.sof8.service.MarkService;
 import com.sof8.service.MemberService;
 import com.sof8.service.OrderService;
@@ -36,10 +38,15 @@ public class MypageController {
 	MarkService mservice;
 	
 	@Autowired
+	CouponService cservice;
+	
+	@Autowired
 	OrderService oservice;
+	
 	/* MyPage 1:1문의내역 확인 - Park */
 	@Autowired
 	QnaService qnaService;
+	
 	@Autowired
 	ReplyService replyService;
 
@@ -347,6 +354,65 @@ public class MypageController {
 		return result;
 	}	
 
+	@RequestMapping("/coupon")
+	public String coupon(HttpSession session, Model model, 
+			@RequestParam(defaultValue = "1") int page,
+			@RequestParam(defaultValue = "user_id") String type,
+			@RequestParam(defaultValue = "") String first, 
+			@RequestParam(defaultValue = "") String last) {
+
+		Member member =  (Member) session.getAttribute("member");
+
+		// 세션이 있다면(로그인 중이라면)
+		if (session.getAttribute("member") != null) {
+			try {
+				String keyword = member.getUser_id();
+				
+				// 검색한 아이디의 총 찜 수
+				int totalRow = cservice.getTotal(keyword, type, first, last);
+				Paging paging = null;
+				List<Coupon> coupons= null;
+				
+				System.out.println("totalRow: " + totalRow);
+				System.out.println("keyword: " + keyword);
+				System.out.println("type: " + type);
+				System.out.println("first: " + first);
+				System.out.println("last: " + last);
+				
+				if(totalRow>0) {
+					do {
+						// 페이징을 위한 데이터 입력
+						paging = new Paging(5,5,totalRow, page, keyword, type);
+						paging.setFirst(first);
+						paging.setLast(last);	
+						
+						// 페이징 후 데이터 검색 
+						coupons = cservice.getList(paging);
+						--page;
+					}while (coupons.isEmpty());	
+				} else {
+					paging = new Paging(5,5,totalRow, page, keyword, type);
+				}
+				
+				model.addAttribute("coupons", coupons);
+				model.addAttribute("page", page);
+				model.addAttribute("paging", paging);				
+				
+				System.out.println("coupons: " + coupons);
+				System.out.println("page: " + page);
+				System.out.println("paging: " + paging);
+				System.out.println("[SUCCESS] : MypageController/coupon - 쿠폰목록 검색 성공");
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("[ERROR] : MypageController/coupon  - 쿠폰목록 검색 실패");
+			}
+			
+			// 쿠폰목록 화면이동
+			model.addAttribute("content", dir + "coupon");
+			System.out.println("[SUCCESS] : MypageController/coupon - 쿠폰목록 화면 출력");
+		}
+		return "index";
+	}
 	
 	/* mypage에서 1:1 문의 내역 확인 - Park*/
 	// 127.0.0.1/mypage/qna

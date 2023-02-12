@@ -1,0 +1,528 @@
+ .title {
+	font-size: 2.5em;
+	padding: 30px 0;
+}
+
+table {
+	width: 100%;
+	border-top: 1px solid #eaeaea;
+	border-collapse: collapse;
+}
+
+th, td {
+	font-size: 1.5em;
+	border-bottom: 1px solid #eaeaea;
+	padding: 30px 0;
+}
+
+th {
+	text-align: left;
+	color: #888;
+	width: 10%;
+}
+
+
+ .titleArea {
+	width: 100%;
+	margin-bottom: 0 !important;
+	padding-bottom: 0 !important;
+}  
+
+.titleArea h2 {
+	display: block;
+	padding: 0;
+	color: #000;
+	font-size: 35px;
+	font-weight: normal;
+	letter-spacing: 0.1em;
+	*zoom: 1;
+	font-family: 'LatoWebBold', 'Noto Sans KR', sans-serif;
+} 
+
+ .titleArea .title_sub {
+	margin-bottom: 30px;
+	font-weight: normal;
+	letter-spacing: 0.05em;
+	*zoom: 1;
+	
+	width: 100%;
+	border-bottom: 1px solid #eaeaea;
+	padding-bottom: 30px;
+} 
+
+
+/*-------------------------------------------------------*/
+/* 
+.MainBanner {
+	width: 100%
+}  */
+
+/* .MainBanner .shrm_tab {
+	margin-top: 40px;
+} */
+
+/* .MainBanner .shrm_tab li {
+	display: inline-block;
+	border: 1px solid #ccc;
+} */
+
+/* .MainBanner .shrm_tab li a {
+	display: block;
+	padding: 5px 100px;
+} */
+
+/* .MainBanner>div {
+	padding-top: 20px;
+} */
+
+/* .MainBanner .txt_showroom {
+	margin-bottom: 130px;
+} */
+
+/* .MainBanner .txt_showroom img {
+	width: 100%;
+	min-width: 65%
+} */
+/* 
+.MainBanner .location_title {
+	width: 70%;
+	margin: 60px auto;
+	text-align: center; 
+}*/
+
+/* .MainBanner .location_title li:first-of-type {
+	font-size: 28px;
+	font-weight: 400;
+} */
+
+/* .MainBanner .location_title li.em {
+	font-size: 14px;
+	color: #777;
+} */
+/* ----------------사진 위치 ---------------------------------*/
+/* .MainBanner .img_showroom {
+	width: 100%;
+	text-align: center;
+} */
+/* 
+.MainBanner .img_showroom img {
+	max-width: 100%;
+	overflow: hidden;
+	margin: 0 auto;
+} */
+
+.MainBanner ul {
+	float: center;
+	text-align: center;
+	font-family: 'LatoWebBold', 'Noto Sans KR', sans-serif;
+	margin: 0 0 20px 0;
+}
+
+/* .MainBanner .xans-photoslide2 {
+	max-width: 70%;
+	min-width: 65%;
+	height: auto;
+	margin: 0 auto;
+	overflow: hidden;
+	width: auto !important;
+} */
+
+/* .MainBanner .txt_showroom2 {
+	width: 100%;
+	text-align: center;
+	overflow: hidden;
+	margin: 0 auto;
+} */
+
+/* .MainBanner .txt_showroom2 li {
+	display: inline-block;
+	margin: 0 1em;
+	width: 50%;
+	vertical-align: top;
+} */
+/* 
+.MainBanner .txt_showroom2 li img {
+	max-width: 100%;
+	height: auto;
+} */
+
+/* .MainBanner .txt_showroom3 {
+	width: 100%;
+	text-align: center;
+	overflow: hidden;
+	margin: 0 auto;
+}
+
+.MainBanner .txt_showroom3 li {
+	display: inline-block;
+	margin: 0 1em;
+	width: 50%;
+	vertical-align: top;
+	width: auto !important;
+}
+
+.MainBanner .txt_showroom3 li img {
+	max-width: 100%;
+	height: auto;
+}
+
+.MainBanner .txt_showroom4 {
+	width: 100%;
+	text-align: center;
+	overflow: hidden;
+	margin: 0 auto;
+}
+
+.MainBanner .txt_showroom4 li {
+	display: inline-block;
+	margin: 0 1em;
+	width: 100%;
+	vertical-align: top;
+	width: auto !important;
+} */
+
+/* .close-showroom {
+	position: relative;
+} */
+
+/* .close-showroom .notice-msg {
+	position: absolute;
+	display: flex;
+	width: 100.2%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	background-color: rgba(51, 51, 51, .65);
+	color: #fff;
+	z-index: 999;
+	text-align: center;
+	justify-content: center;
+	flex-direction: column;
+} */
+
+/* .close-showroom .notice-msg .tit {
+	font-size: 35px;
+} */
+
+/* .close-showroom .notice-msg .duration {
+	font-size: 18px;
+	font-weight: 400;
+	margin: 5px auto 50px;
+}
+
+.close-showroom .notice-msg .txt {
+	font-size: 18px;
+	font-weight: 400;
+	line-height: 26px;
+	letter-spacing: -.5px;
+}
+
+.close-showroom .notice-msg .txt b {
+	font-weight: 600;
+} */
+
+/* .info_area {
+	margin: 50px auto 120px;
+} */
+
+/* .info_area:after {
+	content: "";
+	display: block;
+	clear: both;
+}
+
+.info_area article {
+	float: left;
+	padding-left: 3%;
+	box-sizing: border-box;
+}
+
+.info_area article:first-of-type {
+	padding-left: 0;
+}
+
+.info_area .info {
+	width: 30%;
+}
+
+.info_area .info ul li {
+	text-align: left;
+	padding: 2px;
+	font-size: 14px;
+	color: #555;
+}
+
+.info_area .info ul li.strong {
+	font-size: 28px;
+	font-weight: bold;
+	letter-spacing: 1px;
+	color: #000;
+} */
+
+.info_area .map {
+	width: 70%;
+	font-size: 16px;
+	font-weight: bold;
+	border-left: 1px solid #ededed;
+} 
+/*  .info_area .map img {
+	height: 24px;
+	vertical-align: middle;
+	margin-right: 5px;
+}
+
+.info_area .map iframe {
+	width: 100%;
+	padding-top: 20px;
+	border:0;
+}  */
+
+.titleArea .aboutUs_tab {
+	margin: 100px 0 30px;
+	text-align: center;
+	font-size: 18px;
+}
+ .titleArea .aboutUs_tab li {
+	display: inline-block;
+	margin-right: 8px;
+} 
+/* --------쇼룸 아래 밑줄 --------*/
+
+ .titleArea .aboutUs_tab li a {
+	color: #999;
+} 
+
+
+
+
+
+/* .reserveShowroom {
+	margin-bottom: 40px !important;
+}
+
+.reserveShowroom .reserveBtn {
+	display: block;
+	width: 240px;
+	height: 45px;
+	margin: auto;
+	background-color: #000;
+	color: #fff;
+	font-size: 16px;
+	font-weight: bolder;
+	line-height: 45px;
+	text-align: center;
+} */
+
+/* .xans-photoslide2 .nivoSlider, .xans-photoslider-slide .nivoSlider {
+	width: 100% !important;
+	height: 700px !important;
+	overflow: hidden;
+	position: relative;
+	margin: 0 auto;
+	background: #fff
+		url("http://img.echosting.cafe24.com/apps/photo-slider/skin1/img-loading.gif")
+		no-repeat 50% 50%;
+} */
+/*
+.xans-photoslide2 .nivoSlider img, .xans-photoslider-slide .nivoSlider img
+	{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	display: none;
+}
+
+.xans-photoslide2 .nivoSlider a.nivo-imageLink, .xans-photoslider-slide .nivoSlider a.nivo-imageLink
+	{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	border: 0;
+	padding: 0;
+	margin: 0;
+	z-index: 6;
+	display: none;
+}
+
+.xans-photoslide2 .nivo-slice, .xans-photoslider-slide .nivo-slice {
+	display: block;
+	position: absolute;
+	z-index: 5;
+	height: 100%;
+}
+
+.xans-photoslide2 .nivo-box, .xans-photoslider-slide .nivo-box {
+	display: block;
+	position: absolute;
+	z-index: 5;
+}
+
+.xans-photoslide2 .nivo-caption, .xans-photoslider-slide .nivo-caption {
+	position: absolute;
+	left: 0px;
+	bottom: 0px;
+	height: 24px;
+	padding: 6px 0 0 0;
+	background:
+		url("http://img.echosting.cafe24.com/apps/photo-slider/skin1/bg-title.png")
+		0 0 repeat-x;
+	color: #3f3f3f;
+	font-size: 12px;
+	line-height: 180%;
+	opacity: 1;
+	width: 100%;
+	z-index: 8;
+}
+
+.xans-photoslide2 .nivo-caption p, .xans-photoslider-slide .nivo-caption p
+	{
+	margin: 0;
+	padding: 0 120px 0 11px;
+}
+
+.xans-photoslide2 .nivo-caption a, .xans-photoslider-slide .nivo-caption a
+	{
+	display: inline !important;
+	color: #3f3f3f;
+}
+
+.xans-photoslide2 .nivo-html-captio, .xans-photoslider-slide .nivo-html-caption
+	{
+	display: none;
+}
+
+.xans-photoslide2 .nivo-directionNav a, .xans-photoslider-slide .nivo-directionNav a
+	{
+	display: block;
+	overflow: hidden;
+	position: absolute;
+	top: 50%;
+	z-index: 9;
+	width: 53px;
+	height: 51px;
+	margin: -26px 0 0;
+	background:
+		url("http://img.echosting.cafe24.com/apps/photo-slider/skin1/sfix-ico.png")
+		0 -23px no-repeat;
+	text-indent: 100%;
+	white-space: nowrap;
+	cursor: pointer;
+}
+
+.xans-photoslide2 .nivo-prevNav, .xans-photoslider-slide .nivo-prevNav {
+	left: 0;
+	background-position: 0 -23px;
+}
+
+.xans-photoslide2 .nivo-prevNav:hover, .xans-photoslider-slide .nivo-prevNav:hover
+	{
+	background-position: -63px -23px;
+}
+
+.xans-photoslide2 .theme-default .nivo-nextNav, .xans-photoslider-slide .theme-default .nivo-nextNav
+	{
+	right: 0;
+	background-position: 0 -84px;
+}
+
+.xans-photoslide2 .theme-default .nivo-nextNav:hover,
+	.xans-photoslider-slide .theme-default .nivo-nextNav:hover {
+	background-position: -63px -84px;
+}
+
+.xans-photoslide2 .nivo-controlNav, .xans-photoslider-slide .nivo-controlNav
+	{
+	position: absolute;
+	right: 15px;
+	bottom: 9px;
+	z-index: 11
+}
+
+.xans-photoslide2 .nivo-controlNav a, .xans-photoslider-slide .nivo-controlNav a
+	{
+	overflow: hidden;
+	position: relative;
+	z-index: 9;
+	float: left;
+	width: 13px;
+	height: 13px;
+	margin: 0 0 0 7px;
+	background:
+		url("http://img.echosting.cafe24.com/apps/photo-slider/skin1/sfix-ico.png")
+		0 0 no-repeat;
+	text-indent: 100%;
+	white-space: nowrap;
+	cursor: pointer;
+}
+
+.xans-photoslide2 .nivo-controlNav a.active, .xans-photoslider-slide .nivo-controlNav a.active
+	{
+	background-position: -23px 0;
+}
+
+::selection {
+	background: #333;
+	color: #FFF;
+	text-shadow: none;
+}
+
+::-moz-selection {
+	background: #333;
+	color: #FFF;
+	text-shadow: none;
+}
+
+::-webkit-selection {
+	background: #333;
+	color: #FFF;
+	text-shadow: none;
+}
+
+*/
+.titleArea {
+	min-height: 0px;
+	margin: 0px 0 30px;
+	border-bottom: 0;
+	text-align: center;
+	padding-bottom: 40px;
+}
+
+.titleArea h2 {
+	display: block;
+	padding: 0;
+	color: #000;
+	font-size: 35px;
+	font-weight: normal;
+	letter-spacing: 0.1em;
+	*zoom: 1;
+	font-family: 'LatoWebBold', 'Noto Sans KR', sans-serif;
+}
+
+.titleArea p {
+	display: block;
+	margin: 0;
+	padding: 7px 0;
+	font-size: 11px;
+	color: #939393;
+	vertical-align: bottom;
+	*display: inline;
+	*zoom: 1;
+}
+
+.titleArea ul {
+	padding: 5px 0;
+	color: #939393;
+	line-height: 18px;
+}
+
+.titleArea ul li {
+	padding: 0 0 0 9px;
+	background:
+		url("//img.echosting.cafe24.com/skin/base/common/ico_square2.gif")
+		no-repeat 4px 7px;
+}
+	
+	
+

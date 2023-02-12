@@ -15,7 +15,7 @@
 						</div>
 					</div>
 					<div class="product-list">
-						<form id="form_memberlist" class="form-inline" method="post">
+						<form id="form_member" class="form-inline">
 							<div class="form-group">
 								<div class="col-md-6 col-sm-6 col-xs-12">
 									<a class="btn btn-default" th:onclick="memberEnable([[${paging.page}]])">선택 회원 가입</a>
@@ -84,48 +84,28 @@
 							<ul class="pagination post-pagination" th:if="${paging.totalRow > 0}">
 								<!-- 맨 처음 페이지 이동 -->
 								<li th:if="${paging.startPage > 1}">
-									<a th:if="${paging.keyword == null}"
-										th:href="@{'memberlist?page=1'}" 
-										th:text="처음"></a>
-									<a th:if="${paging.keyword != null}" 
-										th:href="@{'memberlist?page=1&type='+${paging.type}+'&keyword='+${paging.keyword}}"  
-										th:text="처음"></a>
+									<a th:if="${paging.keyword == null}" th:href="@{'member?page=1'}" th:text="처음"></a>
+									<a th:if="${paging.keyword != null}" th:href="@{'member?page=1&type='+${paging.type}+'&keyword='+${paging.keyword}}" th:text="처음"></a>
 								</li>
 								<!-- 이전 블록 이동 -->
 								<li th:if="${paging.prev}">
-									<a th:if="${paging.keyword == null}" 
-										th:href="@{'memberlist?page='+${paging.startPage-1}}" 
-										th:text="이전"></a>
-									<a th:if="${paging.keyword != null}" 
-										th:href="@{'memberlist?page='+${paging.startPage-1}+'&type='+${paging.type}+'&keyword='+${paging.keyword}}" 
-										th:text="이전"></a>
+									<a th:if="${paging.keyword == null}" th:href="@{'member?page='+${paging.startPage-1}}" th:text="이전"></a>
+									<a th:if="${paging.keyword != null}" th:href="@{'member?page='+${paging.startPage-1}+'&type='+${paging.type}+'&keyword='+${paging.keyword}}" th:text="이전"></a>
 								</li>
 								<!-- 시퀀스 보여주는 값 변경 -->
 								<li th:each="pageNum : ${#numbers.sequence(paging.startPage, paging.endPage)}" th:class="${pageNum == paging.page} ? 'active'" >
-									<a th:if="${paging.keyword == null}" 
-										th:href="@{'memberlist?page='+${pageNum}}" 
-										th:text="${pageNum}"></a>
-									<a th:if="${paging.keyword != null}" 
-										th:href="@{'memberlist?page='+${pageNum}+'&type='+${paging.type}+'&keyword='+${paging.keyword}}" 
-										th:text="${pageNum}"></a>
+									<a th:if="${paging.keyword == null}" th:href="@{'member?page='+${pageNum}}" th:text="${pageNum}"></a>
+									<a th:if="${paging.keyword != null}" th:href="@{'member?page='+${pageNum}+'&type='+${paging.type}+'&keyword='+${paging.keyword}}" th:text="${pageNum}"></a>
 								</li>
 								<!-- 다음 블록으로 이동 -->
 								<li th:if="${paging.next}">
-									<a th:if="${paging.keyword == null}" 
-										th:href="@{'memberlist?page='+|${paging.endPage + 1}|}" 
-										th:text="다음"></a>
-									<a th:if="${paging.keyword != null}" 
-										th:href="@{'memberlist?page='+|${paging.endPage + 1}|+'&type='+${paging.type}+'&keyword='+${paging.keyword}}" 
-										th:text="다음"></a>
+									<a th:if="${paging.keyword == null}" th:href="@{'member?page='+|${paging.endPage + 1}|}" th:text="다음"></a>
+									<a th:if="${paging.keyword != null}" th:href="@{'member?page='+|${paging.endPage + 1}|+'&type='+${paging.type}+'&keyword='+${paging.keyword}}" th:text="다음"></a>
 								</li>
 								<!-- 맨 뒷 페이지로 이동 -->
 								<li th:if="${paging.endPage < paging.totalPage}">
-									<a th:if="${paging.keyword == null}" 
-										th:href="@{'memberlist?page='+${paging.totalPage}}" 
-										th:text="끝"></a>
-									<a th:if="${paging.keyword != null}" 
-										th:href="@{'memberlist?page='+${paging.totalPage}+'&type='+${paging.type}+'&keyword='+${paging.keyword}}"  
-										th:text="끝"></a>
+									<a th:if="${paging.keyword == null}" th:href="@{'member?page='+${paging.totalPage}}" th:text="끝"></a>
+									<a th:if="${paging.keyword != null}" th:href="@{'member?page='+${paging.totalPage}+'&type='+${paging.type}+'&keyword='+${paging.keyword}}" th:text="끝"></a>
 								</li>
 							</ul>
 						</div>

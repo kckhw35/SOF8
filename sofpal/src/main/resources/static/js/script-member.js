@@ -63,6 +63,27 @@ function restartVideoSection() {
 
 /*=== [ 1. Button Fuction ] ===*/
 
+// 쿠폰 발급 
+function addCoupon(id){
+	var json = {'co_id': id};
+	var option = {
+		method: 'post',
+		url: '/event/addcoupon',
+		data: json,
+		success: function(result) {
+			if(result == 1) {
+				alert('쿠폰이 발급되었습니다.');
+			} else if(result == 2) {
+				alert('이미 발급된 쿠폰입니다.');
+			} else if(result == -1) {
+				alert('로그인 후 서비스를 이용해주세요.');
+				location.href='/member/login';
+			}
+		}
+	};
+	$.ajax(option);
+};
+
 // 기간조회 유효성검사
 function check_range() {
 	var first = document.getElementById('first').value;
@@ -134,7 +155,7 @@ function memberEnable(page) {
 				success: function(result) {
 					if (result) {
 						alert('성공적으로 가입처리 하였습니다.');
-						$('#form_memberlist').load('/admin/memberlist?page=' + page + ' #form_memberlist');
+						$('#form_member').load('/admin/member?page=' + page + ' #form_member');
 					}
 				}
 			};
@@ -177,7 +198,7 @@ function memberDisable(page) {
 				success: function(result) {
 					if (result) {
 						alert('성공적으로 탈퇴처리 하였습니다.');
-						$('#form_memberlist').load('/admin/memberlist?page=' + page + ' #form_memberlist');
+						$('#form_member').load('/admin/member?page=' + page + ' #form_member');
 					}
 				}
 			};
@@ -222,7 +243,7 @@ function memberDelete(page) {
 		success: function(result) {
 			if (result) {
 				alert('성공적으로 삭제처리 하였습니다.');
-				$('#form_memberlist').load('/admin/memberlist?page=' + page + ' #form_memberlist');
+				$('#form_member').load('/admin/member?page=' + page + ' #form_member');
 			}
 		}
 	};
@@ -252,7 +273,7 @@ function memberOneDelete(page, user_id) {
 		success: function(result) {
 			if (result) {
 				alert('성공적으로 삭제처리 하였습니다.');
-				$('#form_memberlist').load('/admin/memberlist?page=' + page + ' #form_memberlist');
+				$('#form_member').load('/admin/member?page=' + page + ' #form_member');
 			}
 		}
 	};

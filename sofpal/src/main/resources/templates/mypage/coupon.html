@@ -1,0 +1,117 @@
+<section class="order">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-3" th:include="@{/mypage/sidenav}"></div>
+			<div class="col-md-9">
+				<div class="page-wrapper shopping cart">
+					<div class="page-header">
+						<div class="container">
+							<h1>내 쿠폰</h1>
+							<ol class="breadcrumb">
+								<li><a th:href="@{/}">Home</a></li>
+								<li>혜택정보</li>
+								<li class="active">내 쿠폰</li>
+							</ol>
+						</div>
+					</div>
+					<!-- 장바구니에 아이템이 있을시 -->
+					<div class="product-list">
+						<form th:action="@{/mypage/coupon}" onsubmit="return check_range()" method="get">
+							<div class="form-group mt-20">
+								<h3><small>쿠폰 목록 조회</small></h3>
+								<div class="line">
+									<b>조회기간</b>
+									<div class="btn-group widthDisplayNone" role="group">
+										<a class="btn bf btn-secondary" th:href="@{/mypage/coupon?type=TODAY}">오늘</a>
+										<a class="btn bf btn-secondary" th:href="@{/mypage/coupon?type=ONEMONTH}">1개월</a>
+										<a class="btn bf btn-secondary" th:href="@{/mypage/coupon?type=THREEMONTH}">3개월</a>
+										<a class="btn bf btn-secondary" th:href="@{/mypage/coupon?type=ONEYEAR}">1년</a>
+									</div>
+									<input type="hidden" name="type" value="RANGE">
+									<input type="date" class="form-control" id="first" name="first"> ~
+									<input type="date" class="form-control" id="last" name="last">
+									<button type="submit" class="btn bf"><i class="tf-ion-ios-search-strong"></i> 조회</button>
+								</div>
+							</div>
+						</form>							
+						<div class="form-group clearfix">
+							<h5>쿠폰목록 내역 총 <span></span> 건</h5>
+							<table id="table_order" class="table">
+								<colgroup>
+									<col width="20%"/>
+									<col width="10%"/>
+									<col width="20%" class="widthDisplayNone"/>
+									<col width="20%" class="widthDisplayNone"/>
+									<col width="20%" class="widthDisplayNone"/>
+									<col width="10%" class="widthDisplayNone"/>
+								</colgroup>
+								<thead>
+									<tr class="cart-amount line">
+										<th>쿠폰명</th>
+										<th>혜택</th>
+										<th class="widthDisplayNone">조건</th>
+										<th class="widthDisplayNone">발급일</th>
+										<th class="widthDisplayNone">유효기간</th>									
+										<th class="widthDisplayNone">사용여부</th>									
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:if="${coupons == null}">
+										<td class="text-class empty" colspan="5">조회된 주문 리스트가 없습니다.</td>
+									</tr>
+									<tr th:if="${coupons != null}" th:each="coupon : ${coupons}">
+										<td class="text-center" >
+										   <div class="form-horizontal"s>
+											  <img th:src="@{/images/my_coupon.png}" width="90" alt="">
+											  <p><strong th:text="${coupon.c_name}"></strong></p>
+										   </div>
+										</td>
+										<td class="text-center">
+											<p th:text="|${#numbers.formatInteger(coupon.c_discount, 3, 'COMMA')}원|"></p>
+										</td>
+										<td class="widthDisplayNone">
+											<p th:text="${coupon.c_content}"></p>
+										</td>
+										<td class="widthDisplayNone">
+											<p th:text="${coupon.startdate}"></p>
+										</td>	
+										<td class="widthDisplayNone">
+											<p th:text="${coupon.enddate}"></p>
+										</td>								
+										<td class="widthDisplayNone">
+											<p th:text="${coupon.usaged==true?'사용가능':'사용불가'}"></p>
+										</td>								
+									</tr>
+								</tbody>
+							</table>							
+						</div>
+						<div class="text-center">
+					 		<ul class="pagination post-pagination" th:if="${paging.totalRow > 0}"><!--  -->
+								<!-- 맨 처음 페이지 이동 -->
+								<li th:if="${paging.startPage > 1}">
+									<a th:href="@{'coupon?page=1'}" th:text="처음"></a>
+								</li>
+								<!-- 이전 블록 이동 -->
+								<li th:if="${paging.prev}">
+									<a th:href="@{'coupon?page='+${paging.startPage-1}}" th:text="이전"></a>
+								</li>
+								<!-- 시퀀스 보여주는 값 변경 -->
+								<li th:each="pageNum : ${#numbers.sequence(paging.startPage, paging.endPage)}" th:class="${pageNum == paging.page} ? 'active'" >
+									<a th:href="@{'coupon?page='+${pageNum}}" th:text="${pageNum}"></a>
+								</li>
+								<!-- 다음 블록으로 이동 -->
+								<li th:if="${paging.next}">
+									<a th:href="@{'coupon?page='+|${paging.endPage + 1}|}" th:text="다음"></a>
+								</li>
+								<!-- 맨 뒷 페이지로 이동 -->
+								<li th:if="${paging.endPage < paging.totalPage}">
+									<a th:href="@{'coupon?page='+${paging.totalPage}}" th:text="끝"></a>
+								</li>
+							</ul> 
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

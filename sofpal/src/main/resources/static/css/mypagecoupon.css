@@ -1,0 +1,211 @@
+.mypage_zone_tit{margin:0 0 0 0; padding:0 0 10px 0; font-size:16px;}
+.mypage_zone_tit h3{display:inline-block; font-size:16px;}
+.mypage_zone_tit h4{font-size:16px;}
+.mypage_zone_tit span{padding:0 0 0 5px; color:#777777; font-size:12px; font-weight:normal;}
+
+
+
+/* ------------- 최근 주문 정보 ------------- */
+.mypage_lately_info{position:relative;}
+.mypage_lately_info_cont{}
+
+* reset */
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,textarea,p,blockquote,th,td,input,select,textarea,button {margin:0;padding:0;letter-spacing: -1.0px;}
+fieldset,img {border:0 none;vertical-align:top;}
+dl,ul,ol,li {list-style:none}
+blockquote, q {quotes: none}
+blockquote:before, blockquote:after,q:before, q:after {content:'';content:none}
+input,select,textarea,button {vertical-align:middle}
+button {border:0 none;background-color:transparent;cursor:pointer;outline:none; transition: all 0.1s ease-in-out;}
+body {background:#fff; min-width:320px;overflow-x: hidden;}
+@media screen and (min-width:0\0){body{margin-right:1px;}}/*ie9~10적용핵*/
+@media screen and (max-width:1300px){
+	body{margin:0 auto;}
+}
+body,th,td,input,select,textarea,button {font-size:12px;line-height:1.5;font-family:  'Malgun Gothic', "맑은 고딕", 'AppleGothic,Dotum',"돋움",sans-serif;color:#333; letter-spacing: -0.9;} /* color값은 디자인가이드에 맞게사용 */
+a {color:#333;text-decoration:none; outline:none; transition: all 0.1s ease-in-out;}
+a:active, a:hover {text-decoration:none;}
+address,caption,cite,code,dfn,em,var {font-style:normal;font-weight:normal}
+
+
+
+.btn_coupon_register{position:absolute; top:-5px; right:0px; width:70px; height:28px; line-height:26px; color:#fff; border:1px solid #979797; background:#979797; text-align:center;}
+
+
+
+a {color:#333;text-decoration:none; outline:none; transition: all 0.1s ease-in-out;}
+
+
+.date_check_box{margin:0 0 35px 0; padding:20px 20px 20px 30px; border:1px solid #eaeaea;}
+
+
+/* ------------- 상단 마이페이지 정보(회원등급, 쿠폰, 마일리지, 예치금) ------------- */
+.mypage_top_info{display:table; width:100%; margin:20px 0 35px 0; outline:1px solid #dcdcdc; background:#fdfdfd;}
+.mypage_top_txt{display:table-cell; width:30%; padding:20px 0 20px 0; text-align:center; vertical-align:middle; background:#fdfdfd;}
+.mypage_top_txt .grade_img{display:block; max-width:70px; margin:0 auto; padding:0 0 10px 0;}
+.mypage_top_txt .grade_img img{max-width:70px;}
+.mypage_top_txt .grade_txt{ line-height:20px;}
+.mypage_top_txt .grade_txt strong{display:block; font-size:16px;}
+.mypage_top_txt .grade_txt span{color:#333;}
+.mypage_top_txt .grade_txt .btn_layer{margin:4px 0 0 0; display: none;}
+
+.mypage_top_wallet{display:table-cell; width:69%; vertical-align:middle; background:#ffffff;}
+.mypage_top_wallet ul{padding:27px 10px 27px 10px; font-size:0; line-height:1;}
+.mypage_top_wallet ul li{display:inline-block; width:33%; font-size:14px; border-left:1px solid #eaeaea; text-align:center;}
+.mypage_top_wallet ul li:first-child{border-left:none 0;}
+.mypage_top_wallet li span{display:block; padding:0 10px 0 10px;}
+.mypage_top_wallet li em{display:block; padding:15px 0 15px 0; font-weight:bold;}
+.mypage_top_wallet li strong{padding:0 3px 0 0; font-size:20px; color:#000;}
+
+
+element.style {
+    display: none;
+}
+
+
+/* ------------- 상단 마이페이지 정보(회원등급, 쿠폰, 마일리지, 예치금) ------------- */
+.mypage_top_info{display:table; width:100%; margin:20px 0 35px 0; outline:1px solid #dcdcdc; background:#fdfdfd;}
+.mypage_top_txt{display:table-cell; width:30%; padding:20px 0 20px 0; text-align:center; vertical-align:middle; background:#fdfdfd;}
+.mypage_top_txt .grade_img{display:block; max-width:70px; margin:0 auto; padding:0 0 10px 0;}
+.mypage_top_txt .grade_img img{max-width:70px;}
+.mypage_top_txt .grade_txt{ line-height:20px;}
+.mypage_top_txt .grade_txt strong{display:block; font-size:16px;}
+.mypage_top_txt .grade_txt span{color:#333;}
+.mypage_top_txt .grade_txt .btn_layer{margin:4px 0 0 0; display: none;}
+
+.mypage_top_wallet{display:table-cell; width:69%; vertical-align:middle; background:#ffffff;}
+.mypage_top_wallet ul{padding:27px 10px 27px 10px; font-size:0; line-height:1;}
+.mypage_top_wallet ul li{display:inline-block; width:33%; font-size:14px; border-left:1px solid #eaeaea; text-align:center;}
+.mypage_top_wallet ul li:first-child{border-left:none 0;}
+.mypage_top_wallet li span{display:block; padding:0 10px 0 10px;}
+.mypage_top_wallet li em{display:block; padding:15px 0 15px 0; font-weight:bold;}
+.mypage_top_wallet li strong{padding:0 3px 0 0; font-size:20px; color:#000;}
+
+
+/* ------------- 혜택관리 > 쿠폰 ------------- */
+.mypage_coupon_name{}
+.mypage_coupon_name strong{display:block; padding:5px 0 0 0; color:#333333;}
+.coupon_date_day{display:inline-block; width:100%; padding:0 0 3px 0;}/* 유효기간 */
+/* 사용전 */
+.coupon_before_use{display:inline-block; width:66px; padding:2px 10px 3px 10px; color:#000; font-size:11px; border:1px solid #000; text-align:center; line-height:1;}
+/* 사용완료, 장바구니사용, 주문사용, 사용만료 */
+.coupon_finish_use,
+.coupon_cart_use,
+.coupon_order_use,
+.coupon_expire_use{display:inline-block; width:66px; padding:1px 10px 3px 10px; color:#5a5a5a; font-size:11px; border:1px solid #cccccc; text-align:center; line-height:1;}
+/* ------------- 테이블 공통(텍스트 센터 기본) ------------- */
+/* ------------- 상단 마이페이지 정보(회원등급, 쿠폰, 마일리지, 예치금) ------------- */
+.mypage_top_info{display:table; width:100%; margin:20px 0 35px 0; outline:1px solid #dcdcdc; background:#fdfdfd;}
+.mypage_top_txt{display:table-cell; width:30%; padding:20px 0 20px 0; text-align:center; vertical-align:middle; background:#fdfdfd;}
+.mypage_top_txt .grade_img{display:block; max-width:70px; margin:0 auto; padding:0 0 10px 0;}
+.mypage_top_txt .grade_img img{max-width:70px;}
+.mypage_top_txt .grade_txt{ line-height:20px;}
+.mypage_top_txt .grade_txt strong{display:block; font-size:16px;}
+.mypage_top_txt .grade_txt span{color:#333;}
+.mypage_top_txt .grade_txt .btn_layer{margin:4px 0 0 0; display: none;}
+
+.mypage_top_wallet{display:table-cell; width:69%; vertical-align:middle; background:#ffffff;}
+.mypage_top_wallet ul{padding:27px 10px 27px 10px; font-size:0; line-height:1;}
+.mypage_top_wallet ul li{display:inline-block; width:33%; font-size:14px; border-left:1px solid #eaeaea; text-align:center;}
+.mypage_top_wallet ul li:first-child{border-left:none 0;}
+.mypage_top_wallet li span{display:block; padding:0 10px 0 10px;}
+.mypage_top_wallet li em{display:block; padding:15px 0 15px 0; font-weight:bold;}
+.mypage_top_wallet li strong{padding:0 3px 0 0; font-size:20px; color:#000;}
+
+
+
+.sub_content {margin: 0 auto; position: relative; }
+
+
+
+
+
+coupon_content .cp_list_wrap .list_top {padding: 0 20px;}
+.coupon_content .cp_list_wrap .list_top .sub_title {font-size: 16px;}
+
+.coupon_content {max-width: 100%; width: 1106px; margin: 0 auto;}
+.coupon_content h2{font-size:24px;}            
+.coupon_content .cp_zone_wrap{margin-top:12px;}            
+.coupon_content .cp_list_wrap{margin: 30px 0; padding: 0 10px; border-bottom: 1px solid #ddd;}
+.coupon_content .cp_list_wrap.margin-type{margin-top:0;}
+.coupon_content .cp_list_wrap .list_top:after{display:block;content:'';clear:both;}            
+.coupon_content .cp_list_wrap .list_top .title{float:left;font-weight:bold;font-size:28px;letter-spacing:-0.1em; width: 100%; margin: 0 auto; margin-top: 60px; text-align: center;}
+.coupon_content .cp_list_wrap .cp_down{float:right;display:inline-block;height:33px;line-height:33px;border:1px solid #ab3e55;padding:0 9px 0 12px;}            
+.coupon_content .cp_list_wrap .cp_down span{display:inline-block;padding-right:22px;font-weight:bold;font-size:12px;letter-spacing:-0.05em;background:url(../../img/common/btn/btn_cp_down.png) no-repeat 100% 50%;color:#ab3e55;}            
+.coupon_content .cp_list_wrap .cp_list{display:table; max-width: 860px; width:auto; margin:30px auto;}            
+.coupon_content .cp_list_wrap .cp_list:after{display:block;content:'';clear:both;}            
+/*.coupon_content .cp_list_wrap .cp_list li{float:left;width:400px;margin-right:30px;margin-bottom:50px;vertical-align:middle;} */
+
+.coupon_content .cp_list_wrap .cp_list li{float:left; width:400px; margin: 20px auto; padding: 15px; vertical-align:middle;}
+
+.coupon_content .cp_list_wrap .cp_list li.last{padding-right:0;margin-right:0;}            
+.coupon_content .cp_list_wrap .cp_list li .box_coupon{position:relative;width:400px;min-height:196px;vertical-align:middle;}            
+.coupon_content .cp_list_wrap .cp_list li .box_coupon .img_cp{width:100%;min-height:196px;text-align:center;vertical-align:middle;}            
+.coupon_content .cp_list_wrap .cp_list li .box_coupon .img_cp img{max-width:100%;}            
+.coupon_content .cp_list_wrap .cp_list li .box_coupon .text_wrap{position:absolute;left:0;width:100%;z-index:1;} /*top:0*/
+.coupon_content .cp_list_wrap .cp_list li .box_coupon .text_wrap .text_info{padding:25px 25px 25px 70px;}            
+.coupon_content .cp_list_wrap .cp_list li .box_coupon .text_wrap .text_info span{display:block;text-align:left;overflow:hidden;}            
+.coupon_content .cp_list_wrap .cp_list li .box_coupon .text_wrap .text_info .tit{font-size:16px; color:#555; letter-spacing:-0.1em; max-height:22px;line-height:22px; font-weight: 500; margin-top:16px; text-align: right;}            
+.coupon_content .cp_list_wrap .cp_list li .box_coupon .text_wrap .text_info .dis{font-weight: 800;
+    font-size: 74px;
+    color: #ec8e7f;
+    letter-spacing: -0.1em;
+    line-height: 80px;
+    margin-top: 0;
+    word-spacing: -12px;
+    height: 78px;}            
+.coupon_content .cp_list_wrap .cp_list li .box_coupon .text_wrap .text_info .txt{font-weight:400;font-size:40px;color:#111; letter-spacing:-0.1em; line-height:40px;margin-top:0; display: none;}            
+.coupon_content .cp_list_wrap .cp_list li .box_coupon .text_wrap .text_info .date {display: block;
+    max-width: 205px;
+    height: 18px;
+    overflow: inherit;
+    font-size: 14px;
+    color: #333;
+    line-height: 20px;
+    letter-spacing: -0.1em;
+    font-weight: 400;
+    margin-left: 13px;
+    margin-top: 0;}
+.coupon_content .cp_list_wrap .cp_list li .cp_down_2{display:block;height:42px;line-height:42px;margin-top:10px;text-align:center;background:#333; /*border: 1px solid #ada236;*/ box-sizing: border-box;}            
+.coupon_content .cp_list_wrap .cp_list li .cp_down_2 span{display:inline-block;padding-right:25px;font-weight:normal;font-size:12px;letter-spacing:-0.1em;background:url(https://igaboro.kr/renewal/img/etc/couponzone_icon_01.png) no-repeat 100% 50%;color:#fff;}
+
+.coupon_content .cp_list_wrap .cp_list li .cp_down_3{display:block; width: 400px; height:45px;line-height:45px;margin-top:10px;text-align:center;border:1px solid #ab3e55;background:#fff;}            
+.coupon_content .cp_list_wrap .cp_list li .cp_down_3 span{display:inline-block;font-weight:bold;font-size:14px;letter-spacing:-0.05em;color:#ab3e55;}            
+.coupon_content .cp_list_wrap .cp_list li .cp_down_4{display:block;height:47px;line-height:47px;margin-top:10px;text-align:center;background:#efefef; border: 1px solid #ddd; box-sizing: border-box;}            
+.coupon_content .cp_list_wrap .cp_list li .cp_down_4 span{display:inline-block;font-weight:bold;font-size:14px;letter-spacing:-0.05em;color:#8a8a8a;}            
+.coupon_content .cp_list_none{display:none; margin-top:60px;border:1px solid #e1e1e1;text-align:center;padding:78px 0;}            
+.coupon_content .cp_list_none p{font-size:16px;letter-spacing:-0.05em;color:#666;}
+
+
+.coupon_content .testvar {display:block; height:70px; line-height:70px;margin-top:10px;text-align:center; background:#fff; border: 1px solid #ada236; box-sizing: border-box; font-size: 24px; font-weight: 700;} 
+.coupon_content .testvar span {color: #ada236; display: inline-block; width: 100%;}
+
+
+
+#container { position: relative; width: 100%; margin: 0 auto;}
+#contents { min-height:400px; /*padding:0 80px;*/ padding:0; margin: 0 auto;}
+#contents:after{display:block; clear:both; content:"";}
+
+
+
+
+/* ------------- 최근 주문 정보 ------------- */
+.mypage_lately_info{position:relative;}
+.mypage_lately_info_cont{}
+
+
+
+.date_check_box{margin:0 0 35px 0; padding:20px 20px 20px 30px; border:1px solid #eaeaea;}
+.date_check_box:after{display:block; clear:both; content:"";}
+.date_check_box h3{float:left; padding:6px 15px 0 0; color:#777777; font-size:13px;}
+
+
+
+
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: none;
+  -webkit-font-smoothing: antialiased;
+}

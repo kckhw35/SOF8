@@ -1,0 +1,78 @@
+.sub_content { padding-left: 0; padding-right: 0; }
+#footer_wrap { margin-top: 0; }
+.content { font-family: var(--noto); }
+
+.couponzone_title { padding: 90px 10px; text-align:center; }
+.couponzone_title h1 { color:#222222; font-size: 35px; line-height: 1.1;}
+.couponzone_title p { margin-top: 25px; color: #666; font-size: 20px; line-height: 1.1; font-weight: 300;}
+.coupon_cont { /* max-width: 1430px; */ margin: 0 auto; }
+.cp_list_wrap { padding: 90px 0 70px; }
+#cp_list_wrap0 { background:#f7f7f7; }
+#cp_list_wrap1 { position: relative; background:#f7f7f7; }
+#cp_list_wrap1:before { content: ''; display: block; position: absolute; left: 50%; top: 0; transform: translateX(-50%); max-width: 1430px; width: 100%; margin: 0 auto; border-top: 1px solid #e5e5e5; }
+.coupon_cont .list_top { margin-bottom: 30px; text-align:center; }
+.coupon_cont .list_top h2 { color:#222; font-size: 32px; line-height: 1.1; }
+.coupon_cont .cp_list { display: flex; flex-wrap: wrap; justify-content: center; max-width: 1430px; margin: 0 auto; }
+.coupon_cont .cp_list > li { width: 410px; margin: 24px; }
+.coupon_cont .cp_list > li .box_coupon { position: relative; }
+.coupon_cont .cp_list > li .box_coupon .img_cp img { width: 100%; }
+.coupon_cont .cp_list > li .box_coupon .text_wrap { display: flex; align-items: flex-end; justify-content: flex-end; position: absolute; left: 0; top: 0; width: 100%; height: 100%; padding: 20px 0 20px 30px; box-sizing: border-box; text-align: left; }
+.coupon_cont .cp_list > li .box_coupon .text_wrap span { display: block; }
+.coupon_cont .cp_list > li .box_coupon .text_wrap .sale { font-family: 'Eulyoo1945-SemiBold'; font-size: 60px; line-height: 1.1; }
+.coupon_cont .cp_list > li .box_coupon .text_wrap .sale i { font-size: 45px; font-style: normal; }
+.coupon_cont .cp_list > li .box_coupon .text_wrap .tit { font-size: 16px; }
+.coupon_cont .cp_list > li .box_coupon .text_wrap .date { opacity: .5; color:#222; font-size: 15px; line-height: 1.1;  }
+.coupon_cont .cp_list > li .box_coupon .text_wrap .btn_go { display: inline-block; position: relative; width: 140px; margin-top: 20px; }
+.coupon_cont .cp_list > li .box_coupon .text_wrap .btn_go img { width: 100%;}
+.coupon_cont .cp_list > li .box_coupon .text_wrap .btn_go .hover { opacity: 0; position: absolute; left: 0; top: 0;  transition: opacity .2s;}
+.coupon_cont .cp_list > li .box_coupon .text_wrap .btn_go:hover .hover { opacity: 1; transition: opacity .2s; }
+.coupon_cont .cp_list > li .box_coupon .text_wrap .text_info { flex: 1; }
+.coupon_cont .cp_list > li .box_coupon .text_wrap .cp_state { display: flex; justify-content: center; align-items: center; width: 98px; height: 100%; box-sizing: border-box; border-left: 1px solid rgba(0,0,0,0.2); }
+.coupon_cont .cp_list > li .box_coupon .text_wrap .cp_state img { width: 30px; }
+.coupon_cont .cp_list > li .box_coupon .text_wrap .cp_state span { position: relative; color:#222; opacity: .5; font-size: 16px; }
+.coupon_cont .cp_list > li .box_coupon .text_wrap .cp_state span:before { content: ''; display: block; margin: 0 auto; width: 15px; height: 12px; background:url(https://igaboro.kr/renewal/common/icon/icon_check_black.svg) no-repeat center center; background-size: contain; }
+.coupon_cont .cp_list > li:nth-child(6) { display: none; }
+
+.coupon_cont .btn_all_down {display: none; max-width: 520px; height: 70px; margin: 0 auto; display: flex; justify-content: center; align-items: center; background:#222; color:#fff; font-size: 16px; }
+.coupon_cont .btn_all_down.over { position: relative; background:#d0d0d0; color:#222222; }
+.coupon_cont .btn_all_down.over:after { content: ''; display: inline-block; width: 15px; height: 12px; margin-left: 8px; background:url(https://igaboro.kr/renewal/common/icon/icon_check_black.svg) no-repeat center center; background-size: contain; }
+
+.bottom_notice { padding: 70px 0; margin-top: 150px; background:#f7f7f7; }
+.bottom_notice dl { display: inline-flex; justify-content: center; font-size: 13px; line-height: 1.8; }
+.bottom_notice dl dt { margin-right: 45px; font-weight: 500; }
+.bottom_notice dl dd { flex: 1; font-weight: 300; text-align: left; }
+
+@media screen and (max-width: 767px) {
+.coupon_cont .cp_list > li { width: 71vw; }
+.coupon_cont .cp_list > li .box_coupon .text_wrap { padding: 3.91vw 0 3.91vw 6.25vw; }
+.coupon_cont .cp_list > li .box_coupon .text_wrap .cp_state {cursor:pointer; width: 17.20vw; }
+.coupon_cont .cp_list > li .box_coupon .text_wrap .cp_state img { width: 4.95vw; }
+.coupon_cont .cp_list > li .box_coupon .text_wrap .sale { font-size: 11.47vw; }
+.coupon_cont .cp_list > li .box_coupon .text_wrap .sale i { font-size: 7.17vw; }
+.coupon_cont .cp_list > li .box_coupon .text_wrap .tit { font-size: 2.86vw; }
+.coupon_cont .cp_list > li .box_coupon .text_wrap .date { font-size: 2.34vw; }
+.coupon_cont .cp_list > li .box_coupon .text_wrap .btn_go { width:28.68vw; margin-top: 3.25vw; } 
+.coupon_cont .cp_list > li .box_coupon .text_wrap .btn_go .hover { opacity: 1; }
+
+.couponzone_title { padding: 13.03vw 10px; }
+.couponzone_title h1 { font-size: 5.86vw; }
+.couponzone_title p { margin-top: 3.25vw; font-size: 3.91vw; text-align:center;}
+.cp_list_wrap { padding: 15vw 12.38vw; }
+.coupon_cont .list_top { margin-bottom: 6.51vw; }
+.coupon_cont .list_top h2 { font-size: 5.21vw; }
+.coupon_cont .cp_list > li { margin: 0; }
+.coupon_cont .cp_list > li + li { margin-top: 4.56vw; }
+
+.coupon_cont .btn_all_down { width: 71vw; height: 13.03vw; font-size: 3.25vw; }
+
+.bottom_notice { padding: 9.77vw 14.34vw; margin-top: 24.77vw; }
+.bottom_notice dl { display: block; text-align: left; }
+.bottom_notice dl dt { margin-right: 0; margin-bottom: 3vw; font-size: 2.86vw; font-weight: bold; }
+.bottom_notice dl dd { font-size: 2.34vw; line-height: 1.44; opacity: 0.8; }
+.bottom_notice dl dd p { position: relative; padding-left: 1.30vw; }
+.bottom_notice dl dd p:before { content:''; position: absolute; left: 0; top: 1.5vw; width: 0.4vw; height: 0.4vw; background:#222;  }
+.bottom_notice dl dd p + p { margin-top: 1.30vw; }
+
+.coupon_cont .cp_list > li .box_coupon .text_wrap .cp_state span { font-size: 3vw; }
+}
+
