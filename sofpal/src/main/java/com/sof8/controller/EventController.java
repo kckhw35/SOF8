@@ -46,23 +46,28 @@ public class EventController {
 		model.addAttribute("content", dir+"coupon");
 		return "index";
 	} 
+	
 	@ResponseBody    //데이터를 주고 받음 
 	@RequestMapping("/addcoupon")
 	public int addcoupon(HttpSession session, Model model, @RequestParam int co_id) {
 		System.out.println("Here is addcoupon");
 		int result = 0;
 		Member member = (Member)session.getAttribute("member");
+		
+		// 로그인 중이 아니라면 쿠폰 발급 거부
 		if(member == null) {
 			result = -1;
 			return result;
 		}
 		
-		
 		Map<String,Object> map= new HashMap<String,Object>();
-		map.put("co_id", co_id);
 		map.put("user_id", member.getUser_id());
+		map.put("co_id", co_id);
 		System.out.println("Map: "+map);
+		
 		try {
+			
+
 			Coupon coupon =service.getCoupon(map);
 			
 			if(coupon == null) { // 쿠폰이 없어요

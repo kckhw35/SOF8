@@ -359,25 +359,39 @@ public class MypageController {
 			@RequestParam(defaultValue = "1") int page,
 			@RequestParam(defaultValue = "user_id") String type,
 			@RequestParam(defaultValue = "") String first, 
-			@RequestParam(defaultValue = "") String last) {
+			@RequestParam(defaultValue = "") String last,
+			@RequestParam(defaultValue = "true") Boolean usaged) {
+	
 
+		// 변수 선언 및 초기화
+		String keyword = null;
 		Member member =  (Member) session.getAttribute("member");
-
+		Map<String, Object> map = new HashMap<String, Object>();
+		int totalRow = 0;
+		Paging paging = null;
+		List<Coupon> coupons= null;
+		
 		// 세션이 있다면(로그인 중이라면)
 		if (session.getAttribute("member") != null) {
 			try {
-				String keyword = member.getUser_id();
+				
+				keyword = member.getUser_id();
+				
+				map.put("keyword", keyword);
+				map.put("type", type);
+				map.put("first", first);
+				map.put("last", last);
+				map.put("usaged", usaged);
 				
 				// 검색한 아이디의 총 찜 수
-				int totalRow = cservice.getTotal(keyword, type, first, last);
-				Paging paging = null;
-				List<Coupon> coupons= null;
-				
+				totalRow = cservice.getTotal(map);
+
 				System.out.println("totalRow: " + totalRow);
 				System.out.println("keyword: " + keyword);
 				System.out.println("type: " + type);
 				System.out.println("first: " + first);
 				System.out.println("last: " + last);
+				System.out.println("usaged: " + usaged);
 				
 				if(totalRow>0) {
 					do {
@@ -385,6 +399,7 @@ public class MypageController {
 						paging = new Paging(5,5,totalRow, page, keyword, type);
 						paging.setFirst(first);
 						paging.setLast(last);	
+						paging.setUsaged(usaged);
 						
 						// 페이징 후 데이터 검색 
 						coupons = cservice.getList(paging);
