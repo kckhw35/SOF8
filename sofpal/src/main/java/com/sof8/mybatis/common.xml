@@ -40,25 +40,45 @@
 							user_id LIKE CONCAT('%', #{keyword}, '%') AND
 							o.o_date > CURRENT_DATE()
 						</when>
+						<when test="'TODAY'.equals(type)">
+							user_id LIKE CONCAT('%', #{keyword}, '%') AND
+							cd.startdate > CURRENT_DATE()
+						</when>
 						<!-- 1개월 검색 -->
 						<when test="'oneMonth'.equals(type)">
 							user_id LIKE CONCAT('%', #{keyword}, '%') AND
 							o.o_date > DATE_SUB(NOW(), INTERVAl 1 MONTH)
+						</when>
+						<when test="'ONEMONTH'.equals(type)">
+							user_id LIKE CONCAT('%', #{keyword}, '%') AND
+							cd.startdate > DATE_SUB(NOW(), INTERVAl 1 MONTH)
 						</when>
 						<!-- 3개월 검색 -->
 						<when test="'threeMonth'.equals(type)">
 							user_id LIKE CONCAT('%', #{keyword}, '%') AND
 							o.o_date > DATE_SUB(NOW(), INTERVAl 3 MONTH)
 						</when>
+						<when test="'THREEMONTH'.equals(type)">
+							user_id LIKE CONCAT('%', #{keyword}, '%') AND
+							cd.startdate > DATE_SUB(NOW(), INTERVAl 3 MONTH)
+						</when>
 						<!-- 1년 검색 -->
 						<when test="'oneYear'.equals(type)">
 							user_id LIKE CONCAT('%', #{keyword}, '%') AND
 							o.o_date > DATE_SUB(NOW(), INTERVAl 1 YEAR)
 						</when>
+						<when test="'ONEYEAR'.equals(type)">
+							user_id LIKE CONCAT('%', #{keyword}, '%') AND
+							cd.startdate > DATE_SUB(NOW(), INTERVAl 1 YEAR)
+						</when>
 						<!-- 선택기간 검색 -->
 						<when test="'range'.equals(type)">
 							user_id LIKE CONCAT('%', #{keyword}, '%') AND
 							DATE(o.o_date) BETWEEN #{first} AND #{last}
+						</when>
+						<when test="'RANGE'.equals(type)">
+							user_id LIKE CONCAT('%', #{keyword}, '%') AND
+							DATE(cd.startdate) BETWEEN #{first} AND #{last}
 						</when>
 					</choose>
 				</when>

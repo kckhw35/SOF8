@@ -1,0 +1,202 @@
+<link th:href="@{/css/event.css}" rel="stylesheet">
+<script>
+
+		var status = 'doing';
+		var type2 = 'DOING';
+
+		$(function() {
+
+			if("0"=="1") {
+				type2 = "DONE";
+				$("#ingEvent").removeClass("selected");
+				$("#endEvent").addClass("selected");
+				loadInitialEvent("done");
+			}
+
+
+			$("#ingEvent").click(function (e){
+				type2 = "DOING";
+				$(this).siblings().removeClass("selected");
+				$(this).addClass("selected");
+				loadInitialEvent("doing");
+			});
+
+			$("#endEvent").click(function (e){
+				type2 = "DONE";
+				$(this).siblings().removeClass("selected");
+				$(this).addClass("selected");
+				loadInitialEvent("done");
+			});
+
+
+			$(".eventBox").each(function(){
+				$(this).hover(function() {
+					$(this).find(".eventBoxTitle").css('font-weight', 'bold');
+					$(this).find(".eventBoxSubtitle").css('color', '#333333');
+				}, function() {
+					$(this).find(".eventBoxTitle").css('font-weight', 'normal');
+					$(this).find(".eventBoxSubtitle").css('color', '#aaaaaa');
+				});
+
+				$(this).click(function(){
+					var id = $(this).attr("data-no");
+					location.href="/eventNews/event_news_detail.do?type=EVENT&no="+id+"&type2="+type2;
+				});
+			});
+
+		});
+
+		/* function loadInitialEvent(sort) {
+
+			$.ajax({
+				url : "/eventNews/changeEvent",
+				data : { "type" : "EVENT", "sort" : sort},
+				dataType :"json",
+				cache : false,
+				method : "post"
+			}).done(function(data){
+
+				status = sort;
+				$("#EventTable").html("");
+				$("#moreListBtn").css("display", data.showMoreBtn ? "inline-block" : "none");
+
+
+				var str = "";
+
+				if(data.list.length == 0){
+					 $("#EventTable").append("<div style='padding: 200px 0;display:block;text-align:center' class=noto>이벤트 내역이 없습니다.</div>");
+					 return ;
+				}
+
+
+				$.each(data.list, function(index, value) {
+					var imgUrl = "";
+					if (value.imgBanner == "") { imgUrl = "/img/admin/uploadImg/img_contents250.png"; }
+					else { imgUrl = value.imgBanner; }
+
+					str += "<div class='eventBox' id='event" + value.no + "' data-no='"+value.no+"'>"
+						+  "	<img src='" + imgUrl + "' class='eventBoxImg'>"
+						+  "	<div class='eventBoxTitle noto'>" + value.title + "</div>"
+						+  "	<div class='eventBoxSubtitle noto'>" + value.subtitle + "</div>"
+						+  "	<div class='eventBoxDate arial'>" + value.fromDt.substring(0, 10) + "~"+value.toDt.substring(0,10) + "</div>"
+						+  "</div>";
+
+					$("#EventTable").html(str);
+
+					$(".eventBox").each(function(){
+						$(this).hover(function() {
+							$(this).find(".eventBoxTitle").css('font-weight', 'bold');
+							$(this).find(".eventBoxSubtitle").css('color', '#333333');
+						}, function() {
+							$(this).find(".eventBoxTitle").css('font-weight', 'normal');
+							$(this).find(".eventBoxSubtitle").css('color', '#aaaaaa');
+						});
+
+						$(this).click(function(){
+							var id = $(this).attr("data-no");
+							location.href="/eventNews/event_news_detail.do?type=EVENT&no="+id+"&type2="+type2;
+						});
+					});
+				});
+
+			});
+		}
+
+		function loadMore(){
+
+			$.ajax({
+				url : "/eventNews/moreEvent",
+				data : { "type" : "EVENT", "sort" : status},
+				dataType :"json",
+				cache : false,
+				method : "post"
+			}).done(function(data){
+				$("#moreListBtn").css("display", "none");
+				var str = "";
+
+				$.each(data.list, function(index, value) {
+					var imgUrl = "";
+					if (value.imgBanner == "") { imgUrl = "/img/admin/uploadImg/img_contents250.png"; }
+					else { imgUrl = value.imgBanner; }
+
+					str += "<div class='eventBox' id='event" + value.no + "' data-no='"+value.no+"'>"
+						+  "	<img src='" + imgUrl + "' class='eventBoxImg'>"
+						+  "	<div class='eventBoxTitle noto'>" + value.title + "</div>"
+						+  "	<div class='eventBoxSubtitle noto'>" + value.subtitle + "</div>"
+						+  "	<div class='eventBoxDate arial'>" + value.fromDt.substring(0, 10) + "~"+value.toDt.substring(0,10) + "</div>"
+						+  "</div>";
+
+					$("#EventTable").append(str);
+
+					$(".eventBox").each(function(){
+						$(this).hover(function() {
+							$(this).find(".eventBoxTitle").css('font-weight', 'bold');
+							$(this).find(".eventBoxSubtitle").css('color', '#333333');
+						}, function() {
+							$(this).find(".eventBoxTitle").css('font-weight', 'normal');
+							$(this).find(".eventBoxSubtitle").css('color', '#aaaaaa');
+						});
+
+						$(this).click(function(){
+							var id = $(this).attr("data-no");
+							location.href="/eventNews/event_news_detail.do?type=EVENT&no="+id;
+						});
+					});
+
+				});
+
+			});
+		} */
+
+	</script>
+
+
+<div id="contents">
+			
+			<span class="title" >EVENT</span>
+			<div style="margin:36px auto 65px;">
+				<input id="ingEvent" style="text-align:center;"class='eventBtn selected noto' type='submit' value='진행중 이벤트'>
+				<input id="endEvent" style="margin-left:15px;" class='eventBtn noto' type='submit' value='종료된 이벤트'>
+			</div>
+			<div id="EventTable" style="text-align:left;">
+			<div class='eventBox' data-no='220'>
+					<img class='eventBoxImg' src='/images/event/buy.jpeg'>
+					<a href="#"></a>
+					<div class='eventBoxTitle noto'>구매 금액별 프로모션</div>
+					<div class='eventBoxSubtitle noto'>지금, sof8에서 더 큰 혜택을 만나보세요.</div>
+					<div class='eventBoxDate arial'> 2023-01-19 ~ 2023-03-31</div>
+				</div>
+
+			<div class='eventBox' data-no='217'>
+					<img class='eventBoxImg' src='/images/event/petsof8.jpeg'>
+					<div class='eventBoxTitle noto'>육아고수 프로모션 </div>
+					<div class='eventBoxSubtitle noto'>pet sof8</div>
+					<div class='eventBoxDate arial'> 2022-12-12 ~ 2023-02-28</div>
+				</div>
+			<div class='eventBox' data-no='118'>
+					<img class='eventBoxImg' src='/images/event/soflife.jpeg'>
+					<div class='eventBoxTitle noto'>새해맞이 #나의sof8생활 제품 후기 이벤트</div>
+					<div class='eventBoxSubtitle noto'>Sof8로 채운 일상을 남겨주시면, 선물이 팡팡!</div>
+					<div class='eventBoxDate arial'> 2022-12-31 ~ 2023-02-28</div>
+				</div>
+			<div class='eventBox' data-no='216'>
+					<img class='eventBoxImg' src='/images/event/sofclean.jpeg'>
+					<div class='eventBoxTitle noto'>라이프 패키지 2: sof8 X 영구크린</div>
+					<div class='eventBoxSubtitle noto'>이사 / 청소하며, 새로운 공간에서 sof8과 특별한 혜택과 경험을 느껴보세요.</div>
+					<div class='eventBoxDate arial'> 2023-01-01 ~ 2023-05-31</div>
+				</div>
+
+				
+			<div class='eventBox' data-no='204'>
+					<img class='eventBoxImg' src='/images/event/wedding.jpeg'>
+					<div class='eventBoxTitle noto'>sof8 웨딩 프로모션</div>
+					<div class='eventBoxSubtitle noto'>맞춤 공간 제안 서비스부터 특별 프로모션까지, 다양한 혜택을 누려보세요.</div>
+					<div class='eventBoxDate arial'> 2023-01-01 ~ 2023-03-31</div>
+				</div>
+			</div>
+			</div>
+			
+			
+			
+			
+			

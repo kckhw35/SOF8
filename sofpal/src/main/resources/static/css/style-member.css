@@ -21,6 +21,16 @@
 
 *******************************************/
 /*=== [ 1. Common ] ===*/
+
+.menu {
+	background-color: #D8CDCF;
+	display: block;
+}
+
+.navbar-header {
+	vertical-align: middle!important;
+}
+
 .bf {
 	background-color: buttonface;
 }
@@ -48,7 +58,7 @@
 }
 
 #body {
-	padding-top: 303.5px;
+	padding-top: 322px;
 }
 
 header {
@@ -262,10 +272,28 @@ input[type="checkbox"]:checked+input+label:before {
 
 /*=== [ 4. Mypage ] ===*/
 /*== [ 4.1 sidenav ] ==*/
-.ud-space {
-	margin: 20px 0;
+.divider{
+    height: 1px;
+    margin: 9px 0;
+    overflow: hidden;
+    background-color: #8a8d9b;
 }
 
+.ud-space {
+	margin-bottom: 10px;
+	padding: 20px 0;
+	border-radius: 5px;
+	background-color: #8a8d9b;
+	text-align: center;
+}
+.sidenav {
+	background-color: #C4CED6;
+	margin-bottom: 40px;
+}
+
+.sidenav.line{
+	border-radius: 5px;
+}
 .sidenav .nav-pills>li.active>a,
 .sidenav .nav-pills>li.active>a:focus,
 .sidenav .nav-pills>li.active>a:hover {

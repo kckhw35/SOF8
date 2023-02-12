@@ -1,6 +1,8 @@
 package com.sof8.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -197,52 +199,51 @@ public class AdminController {
 	}
 
 	// 회원 리스트 화면
-	// 127.0.0.1/admin/memberlist
-	@RequestMapping("/memberlist")
-	public String memberlist(HttpSession session, Model model, 
+	// 127.0.0.1/admin/member
+	@RequestMapping("/member")
+	public String member(HttpSession session, Model model,
 			@RequestParam(defaultValue = "1") int page,
 			@RequestParam(required = false) String keyword,
 			@RequestParam(value = "type", defaultValue = "user_id") String type) {
-
+		
+		Paging paging = null;
+		List<Member> members = null;
+		
 		if (!checkNullSession(session)) {
 
 			try {
-				
+				System.out.println("page: " + page);
+				System.out.println("keyword: " + keyword);
+				System.out.println("type: " + type);
 				// 검색한 데이터의 총 개수
-				int totalRow = mservice.getTotal(keyword, type);
-				Paging paging = null;
-				List<Member> members = null;
+				Map<String, Object> map = new HashMap<String, Object>();
+				map.put("keyword", keyword);
+				map.put("type", type);
 				
-				if(totalRow>0) {
+				int totalRow = mservice.getTotal(map);
+
+				if (totalRow > 0) {
 					do {
 						// 페이징을 위한 데이터 입력
 						paging = new Paging(6, 5, totalRow, page, keyword, type);
 						// 페이징 후 데이터 검색
 						members = mservice.getList(paging);
 						--page;
-					}while(members.isEmpty());
+					} while (members.isEmpty());
 				} else {
 					// 페이징을 위한 데이터 입력
 					paging = new Paging(6, 5, totalRow, page, keyword, type);
 				}
-
 				model.addAttribute("members", members);
 				model.addAttribute("page", page);
 				model.addAttribute("paging", paging);
-				model.addAttribute("content", dir + "memberlist");
-
+				model.addAttribute("content", dir + "member");
 			} catch (Exception e) {
-
 				e.printStackTrace();
-
 			}
-
 			return "index";
-
 		} else {
-
 			return "redirect:/";
-
 		}
 
 	}
@@ -357,7 +358,7 @@ public class AdminController {
 
 			}
 
-			return "redirect:/admin/memberlist";
+			return "redirect:/admin/member";
 
 		} else {
 

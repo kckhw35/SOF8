@@ -625,7 +625,7 @@ input[type=email]:focus, input[type=password]:focus, input[type=text]:focus, inp
 .top-header .container {
   padding-top: 35px;
   padding-bottom: 35px;
-  border-bottom: 1px solid #dedede;
+/*   border-bottom: 1px solid #dedede; */
 }
 .top-header .dropdown-menu {
   left: auto;

@@ -1,0 +1,170 @@
+<link th:href="@{/css/coupon.css}" rel="stylesheet">
+
+<div class="content">
+	<div class="mypage_cont">
+		<div class="addition_zone">
+			<div class="onAll">
+				<img src="/images/event/couponzone.jpeg" alt="">
+			</div>
+		</div>
+		<div class="couponzone_title">
+			<h1> sof8 회원이라면<br />받을 수 있는 특별한 쿠폰 혜택 </h1>
+			<p>다양한 쿠폰 혜택으로 쇼핑을 즐겨보세요!</p>
+		</div>
+
+		<div class="coupon_cont">
+			<div class="cp_list_wrap cp_down0 " id="cp_list_wrap0">
+				<div class="list_top ">
+					<h2 class="title">2월 메인 기획전</h2> 
+				</div>
+				<ul class="cp_list">
+					<li>
+						<div class="box_coupon">
+							<div class="img_cp">
+								<img src="https://igaboro.kr/renewal/img/event/coupon_img01.png" alt="쿠폰이미지" />
+							</div>
+							<div class="text_wrap" th:each="coupon:${coupons}" th:if="${coupon.co_id==1}">
+								<div class="text_info">
+									<span class="sale" th:text="|${#numbers.formatInteger(coupon.c_discount, 3, 'COMMA')}원|"></span>
+									<span class="tit" th:text="${coupon.c_name}"></span> 
+									<span class="txt"  th:text="${coupon.c_content}"></span>
+									<a href="#" class="btn_go" arget="_blank"> </a>
+								</div>
+								<a href="#" class="cp_state cp_down_2 btn_alert_login" th:onclick="|javasript:addCoupon('${coupon.co_id}')|"> 
+									<img src="https://igaboro.kr/renewal/common/icon/icon_coupon_down.svg">
+								</a>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="cp_list_wrap cp_down1 margin-type" id="cp_list_wrap1">
+				<div class="list_top ">
+					<h2 class="title">온라인 전용 상품 기획전</h2>
+				</div>
+				<ul class="cp_list">
+					<li>
+						<div class="box_coupon">
+							<div class="img_cp">
+								<img src="https://igaboro.kr/renewal/img/event/coupon_img02.png" alt="쿠폰이미지" />
+							</div>
+							<div class="text_wrap"  th:each="coupon:${coupons}"  th:if="${coupon.co_id == 2}">
+								<div class="text_info">
+									<span class="sale" th:text="|${#numbers.formatInteger(coupon.c_discount, 3, 'COMMA')}원|"></span>
+									<span class="tit" th:text="${coupon.c_name}"></span> 
+									<span class="txt" th:text="${coupon.c_content}"></span> 
+									<a href="#" class="btn_go" target="_blank"> </a>
+								</div>
+								<a href="#;" class="cp_state cp_down_2 btn_alert_login"  th:onclick="|javasript:addCoupon('${coupon.co_id}')|"> 
+									<img src="https://igaboro.kr/renewal/common/icon/icon_coupon_down.svg">
+								</a>
+							</div>
+						</div>
+					</li>
+					<li class="last">
+						<div class="box_coupon">
+							<div class="img_cp"> 
+								<img src="https://igaboro.kr/renewal/img/event/coupon_img02.png" alt="쿠폰이미지" />
+							</div>
+							<div class="text_wrap"  th:each="coupon:${coupons}" th:if="${coupon.co_id==6}">
+								<div class="text_info">
+									<span class="sale" th:text="|${#numbers.formatInteger(coupon.c_discount, 3, 'COMMA')}원|"></span>
+									<span class="tit" th:text="${coupon.c_name}"></span> 
+									<span class="txt" th:text="${coupon.c_content}"></span> 
+									<a href="#" class="btn_go" target="_blank"></a>
+								</div>
+								<a href="#;" data-coupon-no="146" class="cp_state cp_down_2 btn_alert_login"  th:onclick="|javasript:addCoupon('${coupon.co_id}')|"> 
+									<img src="https://igaboro.kr/renewal/common/icon/icon_coupon_down.svg">
+								</a>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="cp_list_wrap cp_down2 margin-type" id="cp_list_wrap2">
+				<div class="list_top ">
+					<h2 class="title">상시 기획전</h2>
+				</div>
+				<ul class="cp_list">
+					<li>
+						<div class="box_coupon">
+							<div class="img_cp">
+								<img src=" https://igaboro.kr/renewal/img/event/coupon_img03.png" alt="쿠폰이미지" />
+							</div>
+							<div class="text_wrap"  th:each="coupon:${coupons}" th:if="${coupon.co_id==3}">
+								<div class="text_info">
+									<span class="sale" th:text="|${#numbers.formatInteger(coupon.c_discount, 3, 'COMMA')}원|"></span>
+									<span class="tit" th:text="${coupon.c_name}"></span> 
+									<span class="txt" th:text="${coupon.c_content}"></span> 
+									<a href="#" class="btn_go" target="_blank"> </a>
+								</div>	
+								<a href="#;" class="cp_state cp_down_2 btn_alert_login"  th:onclick="|javasript:addCoupon('${coupon.co_id}')|"> 
+									<img src="https://igaboro.kr/renewal/common/icon/icon_coupon_down.svg" alt="쿠폰 다운로드">
+								</a>
+							</div>
+						</div>
+					</li>
+					<li class="last">
+						<div class="box_coupon">
+							<div class="img_cp">
+     							<img src="https://igaboro.kr/renewal/img/event/coupon_img03.png" alt="쿠폰이미지" />
+							</div>
+							<div class="text_wrap" th:each="coupon:${coupons}" th:if="${coupon.co_id==4}">
+								<div class="text_info">
+									<span class="sale" th:text="|${#numbers.formatInteger(coupon.c_discount, 3, 'COMMA')}원|"></span>
+									<span class="tit" th:text="${coupon.c_name}"></span>
+									<span class="txt" th:text="${coupon.c_content}"></span>
+								    <a href="#" class="btn_go" target="_blank"> </a>
+								</div>
+								<a href="#;" class="cp_state cp_down_2 btn_alert_login"  th:onclick="|javasript:addCoupon('${coupon.co_id}')|"> 
+									<img src="https://igaboro.kr/renewal/common/icon/icon_coupon_down.svg" alt="쿠폰 다운로드">
+								</a>
+							</div>
+						</div>
+					</li>
+					<li class="">
+						<div class="box_coupon">
+							<div class="img_cp">
+                              <img src="https://igaboro.kr/renewal/img/event/coupon_img03.png" alt="쿠폰이미지" />
+							</div>
+							<div class="text_wrap" th:each="coupon:${coupons}" th:if="${coupon.co_id==5}">
+								<div class="text_info">
+									<span class="sale" th:text="|${#numbers.formatInteger(coupon.c_discount, 3, 'COMMA')}원|"></span>
+									<span class="tit" th:text="${coupon.c_name}"></span> 
+									<span class="txt" th:text="${coupon.c_content}"></span> 
+								    <a href="#" class="btn_go" target="_blank"> </a>
+								</div>
+								<a href="#;" class="cp_state cp_down_2 btn_alert_login"  th:onclick="|javasript:addCoupon('${coupon.co_id}')|"> 
+									<img src="https://igaboro.kr/renewal/common/icon/icon_coupon_down.svg" alt="쿠폰 다운로드">
+								</a>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+
+			<!-- 모든 쿠폰 발급 버튼 -->
+			<a href="javascript:;" class="btn_all_down pull">쿠폰 한번에 받기</a>
+		</div>
+
+		<!-- 유의사항 -->
+		<div class="bottom_notice">
+			<dl>
+				<dt>유의사항</dt>
+				<dd>
+					<p>쿠폰은 쿠폰당 1회 주문, 한상품 결제 시에 한해서만 적용하실 수 있습니다. (단, 중복 적용 가능 쿠폰 제외)</p>
+					<br>
+					<p>쿠폰은 유효기간 이내에 사용하셔야 합니다. 유효기간이 만료된 쿠폰은 더 이상 사용하실 수 없습니다.</p>
+					<br>
+					<p>쿠폰 상품은 사은행사에서 제외될 수 있습니다.</p>
+					<br>
+					<p>받으신 쿠폰은 마이페이지 > 쇼핑 혜택 > 쿠폰에서 확인하실 수 있습니다.</p>
+					<br>
+					<p>일부 상품은 쿠폰 적용에서 제외 될 수 있으며, 쿠폰 적용 불가 상품은 상품페이지 내 상품 요약 정보에서
+						확인 가능합니다.</p>
+					<br>
+				</dd>
+			</dl>
+		</div>
+	</div>
+</div>
