@@ -13,4 +13,6 @@ public interface OrderFormMapper{
 	public void insertdetailorder(DetailOrder v) throws Exception;
 	public void insertreservation(OrderForm v) throws Exception;
 	public void insertschedule(OrderForm v) throws Exception;
+	public String getpname(int v) throws Exception;
+	public String getpimg(int v) throws Exception;
 }

@@ -15,8 +15,19 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	</insert>
 	<insert id="insertreservation" parameterType="Reservation">
 		INSERT INTO reservation VALUES (re_id, ${d_id}, ${o_id}, #{r_date}, ${r_time})
+		<selectKey keyProperty="re_id" resultType="Integer" order="AFTER"> 
+                SELECT LAST_INSERT_ID()
+      		</selectKey>
 	</insert>
 	<insert id="insertschedule" parameterType="OrderForm">
 		INSERT INTO schedule VALUES(s_id, ${d_id}, #{r_date}, ${r_time}, '대기중')
 	</insert>
+	<!-- 상품 이름 가져오기-->
+	<select id="getpname" parameterType="int" resultType="String">
+		SELECT p_name FROM product WHERE p_id = ${p_id}
+	</select>
+	<!-- 상품 이미지 가져오기 -->
+	<select id="getpimg" parameterType="int" resultType="String">
+		SELECT p_img FROM product WHERE p_id = ${p_id}
+	</select>
 </mapper>

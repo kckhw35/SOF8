@@ -1,6 +1,7 @@
 package com.sof8.dto;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -44,4 +45,7 @@ public class OrderForm {
 	private String r_date;
 	private int r_time;
 	
+	private String name;
+	private List<String> p_name;
+	private List<String> p_img;
 }

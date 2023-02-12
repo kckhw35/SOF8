@@ -52,9 +52,6 @@ public class ProductController {
 		map.put("keyword", keyword);
 		map.put("type", type);
 		
-		System.out.println("키워드 : " + keyword);
-		System.out.println("맵 : " + map);
-		
 		// 카테고리
 		map.put("cat_id", 0);
 				
@@ -63,7 +60,7 @@ public class ProductController {
 			try {
 				// 검색한 데이터의 총 개수
 				totalRow = pservice.selecttotal(map);
-				System.out.println("총 상품 개수: " + totalRow);
+
 				if(totalRow>0) {
 					do {
 						// 페이징을 위한 데이터 입력

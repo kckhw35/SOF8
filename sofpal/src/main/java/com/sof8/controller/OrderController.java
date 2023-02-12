@@ -1,6 +1,8 @@
 package com.sof8.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sof8.dto.Cart;
 import com.sof8.dto.DetailOrder;
+import com.sof8.dto.Mail;
 import com.sof8.dto.Member;
 import com.sof8.dto.OrderForm;
 import com.sof8.dto.Product;
@@ -25,6 +28,7 @@ import com.sof8.dto.Schedule;
 import com.sof8.service.CartService;
 import com.sof8.service.DeliveryService;
 import com.sof8.service.DetailOrderService;
+import com.sof8.service.EmailService;
 import com.sof8.service.MemberService;
 import com.sof8.service.OrderFormService;
 import com.sof8.service.OrderService;
@@ -64,6 +68,12 @@ public class OrderController {
 
 	@Autowired
 	ScheduleService sservice;
+	
+	@Autowired
+	MemberService service;
+
+	@Autowired
+	EmailService eservice;
 
 	// 장바구니 보기
 	@RequestMapping("/cart")
@@ -349,7 +359,7 @@ public class OrderController {
 			} else if (of.getPay_option().equals("신용카드")) {
 				of.setO_status("결제완료");
 			}
-
+			
 			try {
 				// 주문 등록
 				ofservice.registerorder(of);
@@ -390,6 +400,43 @@ public class OrderController {
 					// 장바구니에서 해당 상품 삭제
 					cservice.remove(c_id);
 				}
+				
+					// 메일
+					Mail mail = new Mail();
+					Date date = new Date();
+					SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+					List<String> p_name = new ArrayList<String>();
+					List<String> p_img = new ArrayList<String>();
+					String name = null;
+					String img = null;
+					
+					// template에 넘길 값
+					HashMap<String, OrderForm> values = new HashMap<String, OrderForm>();
+					for(int id : of.getP_id()) {
+						name = ofservice.getpname(id);
+						img = ofservice.getpimg(id);
+						p_name.add(name);
+						p_img.add(img);
+					}
+					
+					of.setP_name(p_name);
+					of.setP_img(p_img);
+					of.setName(m.getName());
+					of.setO_date(formatter.format(date));
+					values.put("order",of);
+					
+					// 전송할 이메일 데이터 셋팅
+					mail.setTo(m.getEmail());
+					mail.setSubject("[SOF8] " + m.getName() + " 님 주문이 완료되었습니다.");
+					mail.setTemplate("/mail-templates/order");
+					mail.setValues(values);
+
+					System.out.println("values : " + values);
+					System.out.println("mail : " + mail);
+					
+					// 이메일 전송
+					eservice.sendMail(mail);
+					
 				model.addAttribute("bank", bank_info);
 				model.addAttribute("orderlist", orderedproduct);
 				model.addAttribute("content", dir + "confirmation");
