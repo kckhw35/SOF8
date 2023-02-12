@@ -28,4 +28,12 @@ public class OrderFormService{
 	public void registerschedule(OrderForm v) throws Exception{
 		mapper.insertschedule(v);
 	}
+	
+	public String getpname(int v) throws Exception{
+		 return mapper.getpname(v);
+	}
+	
+	public String getpimg(int v) throws Exception{
+		 return mapper.getpimg(v);
+	}
 }

@@ -1,0 +1,103 @@
+<div style="margin: auto; width: 600px; color: rgb(85, 85, 85); padding-right: 20px; padding-left: 20px; font-family: Malgun Gothic; font-size: 13px; background-color: rgb(255, 255, 255);">
+	<div style="height: 46px; text-align: right; margin-top: 20px; margin-bottom: 50px; border-bottom-color: rgb(102, 102, 102); border-bottom-width: 2px; border-bottom-style: solid;">
+		<a style="color: rgb(68, 68, 68); font-weight: bold; text-decoration: none; cursor: pointer;" href="http://118.67.134.52/" target="_blank" rel="noreferrer noopener">SOF8</a>
+	</div>
+	<div style="margin-bottom: 50px;">
+		<div style="color: rgb(68, 68, 68); letter-spacing: -2px; font-size: 32px;">
+			<b>주문이 완료되었습니다!</b><br> 
+			<img style="margin-top: -40px; margin-right: 10px; float: right;" alt="mailimg_join top image" src="https://jakomo1.cdn-nhncommerce.com/data/mail/img/mailimg_join.png" loading="lazy">
+		</div>
+		<div style="line-height: 22px; margin-top: 30px;">
+			안녕하세요. <strong>SOF8</strong>입니다. <br>
+			저희 쇼핑몰을 이용해주셔서 진심으로 감사드립니다. <br><br>
+			<strong>[[${order.name}]]([[${order.user_id}]])</strong> 고객님께서 저희 쇼핑몰에서 주문하신 내역입니다.<br><br>
+			고객님께서는 <strong>[[${order.o_date}]]</strong>에 <strong>SOF8</strong>에서 아래와 같은 상품을 주문하셨고,<br>
+			<strong>[[${order.totalprice}]] 원</strong> <strong>[[${order.pay_option}]]</strong> 결제 방법으로 선택하셨습니다.
+		</div>
+	</div>
+	<div style="color: rgb(68, 68, 68); font-size: 15px; font-weight: bold; margin-bottom: 10px;">주문정보</div>
+	<table style="width: inherit; border-top-color: rgb(181, 181, 181); border-top-width: 1px; border-top-style: solid; border-collapse: collapse;">
+		<thead>
+			<tr>
+				<th	style="width: 30%; height: 43px; color: rgb(136, 136, 136); padding-right: 20px; padding-left: 20px; font-size: 13px; border-bottom-color: rgb(229, 229, 229); border-bottom-width: 1px; border-bottom-style: solid; background-color: rgb(247, 247, 247);">주문자</th>
+				<th	style="width: 30%; height: 43px; color: rgb(136, 136, 136); padding-right: 20px; padding-left: 20px; font-size: 13px; border-bottom-color: rgb(229, 229, 229); border-bottom-width: 1px; border-bottom-style: solid; background-color: rgb(247, 247, 247);">주문번호</th>
+				<th	style="width: 40%; height: 43px; color: rgb(136, 136, 136); padding-right: 20px; padding-left: 20px; font-size: 13px; border-bottom-color: rgb(229, 229, 229); border-bottom-width: 1px; border-bottom-style: solid; background-color: rgb(247, 247, 247);">주문일자</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td	style="width: 30%; height: 43px; color: rgb(51, 51, 51); padding-left: 20px; font-size: 13px; border-bottom-color: rgb(229, 229, 229); border-bottom-width: 1px; border-bottom-style: solid;">[[${order.name}]]([[${order.user_id}]])</td>
+				<td	style="width: 30%; height: 43px; color: rgb(51, 51, 51); padding-left: 20px; font-size: 13px; border-bottom-color: rgb(229, 229, 229); border-bottom-width: 1px; border-bottom-style: solid;">[[${order.o_id}]]</td>
+				<td	style="width: 40%; height: 43px; color: rgb(51, 51, 51); padding-left: 20px; font-size: 13px; border-bottom-color: rgb(229, 229, 229); border-bottom-width: 1px; border-bottom-style: solid;">[[${order.o_date}]]</td>
+			</tr>
+		</tbody>
+	</table><br><br>
+	<div style="color: rgb(68, 68, 68); font-size: 15px; font-weight: bold; margin-bottom: 10px;">주문 상품 정보</div>
+	<table style="width: inherit; border-top-color: rgb(181, 181, 181); border-top-width: 1px; border-top-style: solid; border-collapse: collapse;">
+		<thead>
+			<tr>
+				<th	style="width: 80%; height: 43px; color: rgb(136, 136, 136); padding-right: 20px; padding-left: 20px; font-size: 13px; border-bottom-color: rgb(229, 229, 229); border-bottom-width: 1px; border-bottom-style: solid; background-color: rgb(247, 247, 247);">상품명</th>
+				<th	style="width: 20%; height: 43px; color: rgb(136, 136, 136); padding-right: 20px; padding-left: 20px; font-size: 13px; border-bottom-color: rgb(229, 229, 229); border-bottom-width: 1px; border-bottom-style: solid; background-color: rgb(247, 247, 247);">수량</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="o : ${order}">
+				<td style="width: 30%; height: 43px; color: rgb(51, 51, 51); padding-left: 20px; font-size: 13px; border-bottom-color: rgb(229, 229, 229); border-bottom-width: 1px; border-bottom-style: solid;">
+					<img class="img-responsive"  th:src="@{http://127.0.0.1/images/shop/products/}+${o.p_img}"/>
+				</td>
+				<td	style="width: 50%; height: 43px; color: rgb(51, 51, 51); padding-left: 20px; font-size: 13px; border-bottom-color: rgb(229, 229, 229); border-bottom-width: 1px; border-bottom-style: solid;">
+				<a th:href="@{http://127.0.0.1/product/productdetail(p_id=${o.p_id})}">[[${o.p_name}]]</a>
+				</td>
+				<td	style="width: 20%; height: 43px; color: rgb(51, 51, 51); padding-left: 20px; font-size: 13px; border-bottom-color: rgb(229, 229, 229); border-bottom-width: 1px; border-bottom-style: solid;">[[${o.d_cnt}]]</td>
+			</tr>
+			<tr>
+				<td	style="width: 100%; height: 43px; color: rgb(51, 51, 51); padding-left: 20px; font-size: 13px; border-bottom-color: rgb(229, 229, 229); border-bottom-width: 1px; border-bottom-style: solid;"><strong>총 결제 금액 [[${order.totalprice}]] 원</strong></td>
+			</tr>
+		</tbody>
+	</table><br><br>
+	<div style="color: rgb(68, 68, 68); font-size: 15px; font-weight: bold; margin-bottom: 10px;">배송지 정보</div>
+	<table style="width: inherit; border-top-color: rgb(181, 181, 181); border-top-width: 1px; border-top-style: solid; border-collapse: collapse;">
+		<tbody>
+			<tr>
+				<td	style="height: 43px; color: rgb(136, 136, 136); padding-right: 20px; padding-left: 20px; font-size: 13px; border-bottom-color: rgb(229, 229, 229); border-bottom-width: 1px; border-bottom-style: solid; background-color: rgb(247, 247, 247);">받으시는 분</td>
+				<td	style="width: 70%; height: 43px; color: rgb(51, 51, 51); padding-left: 20px; font-size: 13px; border-bottom-color: rgb(229, 229, 229); border-bottom-width: 1px; border-bottom-style: solid;">[[${order.re_name}]]</td>
+			</tr>
+			<tr>
+				<td	style="height: 43px; color: rgb(136, 136, 136); padding-right: 20px; padding-left: 20px; font-size: 13px; border-bottom-color: rgb(229, 229, 229); border-bottom-width: 1px; border-bottom-style: solid; background-color: rgb(247, 247, 247);">주소</td>
+				<td	style="width: 70%; height: 43px; color: rgb(51, 51, 51); padding-left: 20px; font-size: 13px; border-bottom-color: rgb(229, 229, 229); border-bottom-width: 1px; border-bottom-style: solid;">[[${order.re_addr}+${order.re_deaddr}]]</td>
+			</tr>
+			<tr>
+				<td	style="height: 43px; color: rgb(136, 136, 136); padding-right: 20px; padding-left: 20px; font-size: 13px; border-bottom-color: rgb(229, 229, 229); border-bottom-width: 1px; border-bottom-style: solid; background-color: rgb(247, 247, 247);">연락처</td>
+				<td	style="width: 70%; height: 43px; color: rgb(51, 51, 51); padding-left: 20px; font-size: 13px; border-bottom-color: rgb(229, 229, 229); border-bottom-width: 1px; border-bottom-style: solid;">[[${order.re_tel}]]</td>
+			</tr>
+			<tr>
+				<td	style="height: 43px; color: rgb(136, 136, 136); padding-right: 20px; padding-left: 20px; font-size: 13px; border-bottom-color: rgb(229, 229, 229); border-bottom-width: 1px; border-bottom-style: solid; background-color: rgb(247, 247, 247);">배송시 요청사항</td>
+				<td	style="width: 70%; height: 43px; color: rgb(51, 51, 51); padding-left: 20px; font-size: 13px; border-bottom-color: rgb(229, 229, 229); border-bottom-width: 1px; border-bottom-style: solid;">[[${order.re_req}]]</td>
+			</tr>
+		</tbody>
+	</table><br><br>
+	<div style="color: rgb(68, 68, 68); font-size: 15px; font-weight: bold; margin-bottom: 10px;">예약 정보</div>
+	<table style="width: inherit; border-top-color: rgb(181, 181, 181); border-top-width: 1px; border-top-style: solid; border-collapse: collapse;">
+		<tbody>
+			<tr>
+				<td	style="height: 43px; color: rgb(136, 136, 136); padding-right: 20px; padding-left: 20px; font-size: 13px; border-bottom-color: rgb(229, 229, 229); border-bottom-width: 1px; border-bottom-style: solid; background-color: rgb(247, 247, 247);">예약번호</td>
+				<td	style="width: 70%; height: 43px; color: rgb(51, 51, 51); padding-left: 20px; font-size: 13px; border-bottom-color: rgb(229, 229, 229); border-bottom-width: 1px; border-bottom-style: solid;">[[${order.re_id}]]</td>
+			</tr>
+			<tr>
+				<td	style="height: 43px; color: rgb(136, 136, 136); padding-right: 20px; padding-left: 20px; font-size: 13px; border-bottom-color: rgb(229, 229, 229); border-bottom-width: 1px; border-bottom-style: solid; background-color: rgb(247, 247, 247);">예약일</td>
+				<td	style="width: 70%; height: 43px; color: rgb(51, 51, 51); padding-left: 20px; font-size: 13px; border-bottom-color: rgb(229, 229, 229); border-bottom-width: 1px; border-bottom-style: solid;">[[${order.r_date}]]  [[${order.r_time}]]:00</td>
+			</tr>
+		</tbody>
+	</table>
+	<div style="color: rgb(229, 229, 229); margin-top: 80px; margin-bottom: 20px; border-bottom-color: currentColor; border-bottom-width: 1px; border-bottom-style: solid;"></div>
+	<div style="margin-bottom: 20px;"></div>
+	<div style="color: rgb(102, 102, 102); font-size: 13px; margin-bottom: 25px;">
+		<p>
+			문의사항이 있으시면 저희 쇼핑몰 <a style="color: rgb(68, 68, 68); font-size: 12px; font-weight: bold;" href="http://118.67.134.52/" rel="noreferrer noopener"	target="_blank">[고객센터]</a>로 연락 부탁드립니다.
+		</p>
+		<p>다시 한 번 저희 쇼핑몰을 이용해주신 <strong>[[${name}]]([[${user_id}]])</strong> 고객님께 진심으로 감사드립니다.</p>
+		<p style="color: rgb(153, 153, 153); font-size: 11px;">
+			Copyright(C) <b style="color: rgb(153, 153, 153); font-size: 11px;">SOF8</b> All right reserved.
+		</p>
+	</div>
+</div>

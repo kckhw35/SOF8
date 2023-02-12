@@ -5,7 +5,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 <mapper namespace="com.sof8.mapper.OrderFormMapper">
 
 	<insert id="insertorder" parameterType="Order">
-		INSERT INTO orderTBL VALUES (o_id, #{user_id}, 1, ${totalprice}, ${totaldiscount}, #{pay_option}, #{o_status}, NOW(), #{c_date}, #{re_name}, #{re_tel}, #{re_zipcode}, #{re_addr}, #{re_deaddr}, #{re_req}, #{note})
+		INSERT INTO orderTBL VALUES (o_id, #{user_id}, ${c_id}, ${totalprice}, ${totaldiscount}, #{pay_option}, #{o_status}, NOW(), #{c_date}, #{re_name}, #{re_tel}, #{re_zipcode}, #{re_addr}, #{re_deaddr}, #{re_req}, #{note})
 			<selectKey keyProperty="o_id" resultType="Integer" order="AFTER"> 
                 SELECT LAST_INSERT_ID()
       		</selectKey> 
@@ -15,8 +15,19 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	</insert>
 	<insert id="insertreservation" parameterType="Reservation">
 		INSERT INTO reservation VALUES (re_id, ${d_id}, ${o_id}, #{r_date}, ${r_time})
+		<selectKey keyProperty="re_id" resultType="Integer" order="AFTER"> 
+                SELECT LAST_INSERT_ID()
+      		</selectKey>
 	</insert>
 	<insert id="insertschedule" parameterType="OrderForm">
 		INSERT INTO schedule VALUES(s_id, ${d_id}, #{r_date}, ${r_time}, '대기중')
 	</insert>
+	<!-- 상품 이름 가져오기-->
+	<select id="getpname" parameterType="int" resultType="String">
+		SELECT p_name FROM product WHERE p_id = ${p_id}
+	</select>
+	<!-- 상품 이미지 가져오기 -->
+	<select id="getpimg" parameterType="int" resultType="String">
+		SELECT p_img FROM product WHERE p_id = ${p_id}
+	</select>
 </mapper>

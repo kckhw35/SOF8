@@ -35,7 +35,6 @@ public class CouponService implements Sof8Service<Integer, Coupon>{
 	@Override
 	public void modify(Coupon v) throws Exception {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -67,10 +66,21 @@ public class CouponService implements Sof8Service<Integer, Coupon>{
 		// TODO Auto-generated method stub
 		return mapper.selectCoupon(map);
 	}
+	
+	public List<Coupon> couponlist(String k) throws Exception{
+		return mapper.couponlist(k);
+	}
 
+	public int coupondiscount(int k) throws Exception{
+		return mapper.coupondiscount(k);
+	}
 
+	public void usecoupon(int k) throws Exception{
+		mapper.usecoupon(k);
+	}
 
-
-
+	public int getcoid(Integer k) throws Exception{
+		return mapper.getcoid(k);
+	}
 
 }

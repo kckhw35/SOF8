@@ -1,44 +1,11 @@
 <style>
-	/* 카드 정보 modal */
-	.card-info {
-	  border-collapse: collapse;
-	  line-height: 1.5;
-	  border: 1px solid #43454F;
-	  margin: 20px 10px;
-	}
-	.card-info thead {
-	  border-right: 1px solid #43454F;
-	  border-left: 1px solid #43454F;
-	  background: #BE3455;
-	}
-	.card-info thead th {
-	  padding: 10px;
-	  text-align: left;
-	  font-weight: bold;
-	  vertical-align: top;
-	  color: #fff;
-	}
-	.card-info tbody th {
-	  width: 150px;
-	  padding: 10px;
-	  text-align: left;
-	  font-weight: bold;
-	  vertical-align: top;
-	  border-bottom: 1px solid #43454F;
-	  background: #F0CFC3;
-	}
-	.card-info td {
-	  width: 350px;
-	  padding: 10px;
-	  vertical-align: top;
-	  border-bottom: 1px solid #43454F;
-	}
-	.card-num{
-		border: 1px solid #ccc;
-		width: 160px;
-	}
 	.cart-amount th, .order-product td{
 		text-align: center;
+	}
+	.coupon-box{
+		margin-bottom: 50px;
+    	padding: 10px 40px 10px 40px;
+   		border: 1px solid #dedede;
 	}
 	#ship_detail, #pay_detail{
 		margin-bottom: 10px;
@@ -107,11 +74,22 @@
 		background: url('arrow.jpg') no-repeat 95% 50%;
 	}
 	
+	#coupon_list{
+		width: 280px; 
+		height: 50px;
+		padding: .8em .5em; 
+		border: 1px solid #ccc;
+		font-family: inherit;
+		font-size: 12px;
+		text-align: center;
+		background: url('arrow.jpg') no-repeat 95% 50%;
+	}
+	
 	#pay_btn, #modal_pay_btn{
 		text-align: center;
 	}
 	
-	#pay_btn > a, #pay_btn > span > a, #modal_pay_btn > a{
+	#pay_btn > a, #pay_btn > span > a{
 		font-size: 16px;
 	}
 	
@@ -148,6 +126,36 @@
 		});
 	}
 	
+	// 쿠폰 적용
+	function coupon_apply(){
+		$('#coupon_list').change(function() {
+		    var cd_id = $('#coupon_list option:selected').val();
+		    
+		    if(cd_id != '0'){
+		    	$.ajax({
+					url:'/order/coupon',
+					type:'POST',
+					data:{'cd_id':cd_id},
+					traditional: true,
+					success: function(data){
+						// 쿠폰 할인 금액
+						$('#coupondiscount').text(data.discount);
+						
+						// 총 지불금액 변경
+						var price = $('#sumprice').text();
+						var delcost = $('#sumdelcost').text();
+						var discount = $('#sumdiscount').text();
+						var coupon = $('#coupondiscount').text();
+						var totalprice = Number(price) - Number(discount) - Number(coupon) + Number(delcost);
+						
+						$('#totalprice').text(totalprice);
+						$('input[name="totalprice"]').attr('value',totalprice);
+					}
+				});	    	
+		    }
+		});
+	}
+	
 	function sum(){
 		var count = $('input[name="price"]').length;
 		
@@ -171,7 +179,8 @@
 		var price = $('#sumprice').text();
 		var delcost = $('#sumdelcost').text();
 		var discount = $('#sumdiscount').text();
-		var totalprice = Number(price) - Number(discount)+ Number(delcost);
+		var coupon = $('#c_discount').val();
+		var totalprice = Number(price) - Number(discount) + Number(delcost);
 		
 		$('#totalprice').text(totalprice);
 		$('input[name="totalprice"]').attr('value',totalprice);
@@ -318,6 +327,7 @@
 	
 	window.onload = function(){
 		sum();
+		coupon_apply();
 		totalprice();
 		shipdetail();
 		payoption();
@@ -385,6 +395,13 @@
 								<div class="order-price-box col-md-12 col-xs-12 col-sm-12">
 									<div class="price-content">
 										<div class="price-list">
+											<div class="form-group">
+												<h3>쿠폰 사용 : </h3>
+							                	<select id="coupon_list" name="cd_id">
+							                		<option value="0">쿠폰을 선택하세요.</option>
+							                		<option th:each="co : ${coupon}" th:value="${co.cd_id}" th:text="${co.c_name}+'['+${co.c_discount}+'원 할인]'"></option>
+							        			</select>
+								        	</div><hr>
 											<dl>
 												<dt>
 													총 <p id="checked_cnt" th:text="${totalcnt}">0</p> 개의 상품금액
@@ -401,6 +418,15 @@
 													<input type="hidden" name="totaldiscount"/>
 												</dd>
 											</dl>
+											<span><iconify-icon icon="akar-icons:circle-minus-fill" width="25"></iconify-icon></span>
+											<dl>
+												<dt>쿠폰 할인</dt>
+												<dd>
+													<p id="coupondiscount">0</p>원
+													<input type="hidden" id="c_discount" />
+												</dd>
+											</dl>
+											
 											<span><iconify-icon icon="akar-icons:circle-plus-fill" width="25"></iconify-icon></span>
 											<dl>
 												<dt>배송비</dt>
@@ -545,58 +571,23 @@
       </div>
    </div>
 </div>
-   <!-- Modal -->
-   <div class="modal" id="card-pay-modal" tabindex="-1" role="dialog">
+  <!-- Modal -->
+   <div class="modal" id="coupon-modal" tabindex="-1" role="dialog">
       <div class="modal-dialog" role="document">
          <div class="modal-content">
             <div class="modal-body">
-              	  <div>
-              	  	<table class="card-info">
-              			<thead>
-              				<tr class="cart-amount">
-							<th>신용카드</th>
-							<th></th>
-						</tr>
-              			</thead>
-              			<tbody>
-              				<tr>
-              					<td>카드종류</td>
-              					<td><select id="card_name" name="card_name">
-			                		<option value="none">카드 종류를 선택하세요.</option>
-			        				<option value="신한">신한카드</option>
-			        				<option value="하나">하나카드</option>
-			        				<option value="우리">우리카드</option>
-			        				<option value="국민">국민카드</option>
-			        				<option value="기업">기업카드</option>
-			        				<option value="BC">BC카드</option>
-		        				</select>
-		        			</td>
-              				</tr>
-              				<tr>
-              					<td>카드번호</td>
-              					<td>
-              						<input class="card-num" type="text" placeholder="숫자만 입력하세요.">
-		        			</td>
-              				</tr>
-              				<tr>
-              					<td>할부선택</td>
-              					<td><select id="installment_plan" name="installment_plan">
-			        				<option value="일시불">일시불</option>
-			        				<option value="1개월">1개월</option>
-			        				<option value="2개월">2개월</option>
-			        				<option value="3개월">3개월</option>
-			        				<option value="4개월">4개월</option>
-			        				<option value="5개월">5개월</option>
-		        				</select>
-		        			</td>
-              				</tr>
-              			</tbody>
-              		</table>
-              	  </div>
-              	  <div id="modal_pay_btn">
-              	  	<button class="btn btn-main" id="pay_product">결제하기</button>
-              	  </div>
+               <form>
+                  <div class="form-group">
+					<span>쿠폰 </span>&emsp;
+                	<select id="coupon_list" name="c_id">
+                		<option value="none">쿠폰을 선택하세요.</option>
+                		<option th:each="co : ${coupon}" th:value="${co.co_id}" th:text="${co.c_name}+'['+${co.c_discount}+'원 할인]'">
+                		</option>
+        			</select>
+                  </div>
+                  <button type="button" class="btn btn-main" onclick="coupon_apply()">쿠폰 적용하기</button>
+               </form>
             </div>
          </div>
       </div>
-	</div>
+   </div>

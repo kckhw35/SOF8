@@ -5,6 +5,7 @@ import java.util.Random;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.aop.framework.autoproxy.BeanFactoryAdvisorRetrievalHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sof8.dto.Mail;
 import com.sof8.dto.Member;
+import com.sof8.dto.OrderForm;
 import com.sof8.frame.CryptoUtil;
 import com.sof8.frame.MaskingUtil;
 import com.sof8.service.EmailService;
@@ -66,9 +68,13 @@ public class MemberController {
 			service.register(member);
 
 			// templete에 넘길 값 저장
-			HashMap<String, String> values = new HashMap<String, String>();
-			values.put("name", member.getName());
-			values.put("user_id", member.getUser_id());
+			HashMap<String, OrderForm> values = new HashMap<String, OrderForm>();
+			OrderForm of = new OrderForm();
+			of.setName(member.getName());
+			of.setUser_id(member.getUser_id());
+			values.put("member", of);
+			/*values.put("name", member.getName());
+			values.put("user_id", member.getUser_id());*/
 
 			// 전송할 이메일 데이터 셋팅
 			mail.setTo(member.getEmail());
@@ -367,9 +373,13 @@ public class MemberController {
 				String auth = String.valueOf(r.nextInt(888888) + 111111);
 
 				// templete에 넘길 값 저장
-				HashMap<String, String> values = new HashMap<String, String>();
-				values.put("name", name);
-				values.put("auth", auth);
+				HashMap<String, OrderForm> values = new HashMap<String, OrderForm>();
+				OrderForm of = new OrderForm();
+				of.setName(member.getName());
+				of.setUser_id(member.getUser_id());
+				values.put("member", of);
+				/*values.put("name", member.getName());
+				values.put("user_id", member.getUser_id());*/
 
 				// 전송할 이메일 데이터 셋팅
 				mail.setTo(to);

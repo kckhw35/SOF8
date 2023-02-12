@@ -29,6 +29,7 @@
 								<th>수량</th>
 								<th>상품금액</th>
 								<th>할인</th>
+								<th>쿠폰 할인</th>
 								<th>배송비</th>
 								<th>합계금액</th>
 							</tr>
@@ -44,8 +45,9 @@
 								<td th:text="${o.p_cnt}"></td>
 								<td th:text="${o.price}"></td>
 								<td th:text="${o.discount}"></td>
+								<td th:text="${coupon.c_discount}"></td>
 								<td th:text="${o.del_cost}"></td>
-								<td th:text="${o.p_cnt*o.price-o.discount+o.del_cost}"></td>
+								<td th:text="${o.p_cnt*o.price-o.discount-coupon.c_discount+o.del_cost}"></td>
 							</tr>
 						</tbody>
 					</table>

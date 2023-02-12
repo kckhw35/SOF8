@@ -18,5 +18,5 @@ public class Mail {
 	private String to;	// 받는사람
 	private String template;// 이메일 템플릿
 	private String subject;	// 이메일 제목	
-	private HashMap<String, String> values;	// 이메일에 들어가는 값
+	private HashMap<String, OrderForm> values; // 이메일에 들어가는 값
 }
