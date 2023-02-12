@@ -82,6 +82,7 @@ iframe {
 }
 
 a, a:focus, a:hover {
+  vertical-align: middle;
   text-decoration: none;
   outline: 0;
   color: #43454f;

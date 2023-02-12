@@ -16,7 +16,7 @@
 						</div>
 						<div class="card-stacked red">
 							<div class="card-content">
-								<h3 th:text="|${sales != 0 ? #numbers.formatInteger(sales, 3, 'COMMA'):0}|"></h3>
+								<h3 th:text="|${sales >= 100 ? #numbers.formatInteger(sales, 3, 'COMMA'):sales}|"></h3>
 							</div>
 							<div class="card-action">
 								<strong>금일매출액</strong>
@@ -32,7 +32,7 @@
 						</div>
 						<div class="card-stacked orange">
 							<div class="card-content">
-								<h3 th:text="|${orders != 0 ? #numbers.formatInteger(orders, 3, 'COMMA'):0}|"></h3>
+								<h3 th:text="|${orders >= 100 ? #numbers.formatInteger(orders, 3, 'COMMA'):orders}|"></h3>
 							</div>
 							<div class="card-action">
 								<strong>금일주문수</strong>
@@ -47,7 +47,7 @@
 						</div>
 						<div class="card-stacked blue">
 							<div class="card-content">
-								<h3 th:text="|${products != 0 ? #numbers.formatInteger(products, 3, 'COMMA'):0}|"></h3>
+								<h3 th:text="|${products >= 100 ? #numbers.formatInteger(products, 3, 'COMMA'):products}|"></h3>
 							</div>
 							<div class="card-action">
 								<strong>금일판매품수</strong>
