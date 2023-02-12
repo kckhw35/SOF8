@@ -77,4 +77,15 @@ public class OrderService implements Sof8Service<Integer, Order>{
 	public void modifyStatus(int o_id) throws Exception {
 		mapper.updateStatus(o_id);
 	}
+
+	public int getTodaySales() throws Exception {
+		return mapper.selectTodaySales();
+	}
+
+	public int getTodayOrders() throws Exception {
+		return mapper.selectTodayOrders();
+	}
+	public int getTodayProducts() throws Exception {
+		return mapper.selectTodayProducts();
+	}
 }

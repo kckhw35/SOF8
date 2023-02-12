@@ -8,6 +8,7 @@
 4. Run Script 			: 스크립트 실행부
 *******************************************/
 
+
 /*=== [ 0. Youtube API ] ===*/
 
 // 1. IFrame Player API 코드를 비동기적으로 로드합니다.
@@ -1199,4 +1200,5 @@ window.onload = function() {
 	check_valid();
 	show_id();
 	mypage_nav();
+	chart();
 };
