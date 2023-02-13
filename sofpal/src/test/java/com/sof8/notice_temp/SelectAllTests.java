@@ -1,4 +1,4 @@
-package com.sof8.notice;
+package com.sof8.notice_temp;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,21 +7,21 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.sof8.dto.Notice;
-import com.sof8.service.NoticeService;
+import com.sof8.dto.NoticeTemp;
+import com.sof8.service.NoticeServiceTemp;
 
 @SpringBootTest
-class OptionSelectTests {
+class SelectAllTests {
 	 
 	@Autowired
-	NoticeService service;
+	NoticeServiceTemp service;
 
 	@Test
 	void contextLoads() {
-		List<Notice> notices = new ArrayList<Notice>();
+		List<NoticeTemp> notices = new ArrayList<NoticeTemp>();
 		try {
-			notices = service.getSearchedNotice("title", "제주");
-			for (Notice notice : notices) {
+			notices = service.get();
+			for (NoticeTemp notice : notices) {
 				System.out.println(notice);
 			}
 			System.out.println("OK");

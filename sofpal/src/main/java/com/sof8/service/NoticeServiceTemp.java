@@ -7,19 +7,19 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sof8.dto.Faq;
+import com.sof8.dto.NoticeTemp;
 import com.sof8.dto.Paging;
 import com.sof8.frame.Sof8Service;
-import com.sof8.mapper.FaqMapper;
+import com.sof8.mapper.NoticeMapperTemp;
 
 @Service
-public class FaqService implements Sof8Service<Integer, Faq>{
+public class NoticeServiceTemp implements Sof8Service<Integer, NoticeTemp>{
 
 	@Autowired
-	FaqMapper mapper;
+	NoticeMapperTemp mapper;
 
 	@Override
-	public void register(Faq v) throws Exception {
+	public void register(NoticeTemp v) throws Exception {
 		mapper.insert(v);
 	}
 
@@ -29,21 +29,21 @@ public class FaqService implements Sof8Service<Integer, Faq>{
 	}
 
 	@Override
-	public void modify(Faq v) throws Exception {
+	public void modify(NoticeTemp v) throws Exception {
 		mapper.update(v);
 	}
 
 	@Override
-	public Faq get(Integer k) throws Exception {
+	public NoticeTemp get(Integer k) throws Exception {
 		return mapper.select(k);
 	}
 
 	@Override
-	public List<Faq> get() throws Exception {
+	public List<NoticeTemp> get() throws Exception {
 		return mapper.selectall();
 	}
 	
-	public List<Faq> getList(Paging paging) throws Exception {
+	public List<NoticeTemp> getList(Paging paging) throws Exception {
 		return mapper.selectList(paging);
 	}
 	
@@ -53,5 +53,5 @@ public class FaqService implements Sof8Service<Integer, Faq>{
 		map.put("type", type);
 		return mapper.getTotal(map);
 	}
-	
+
 }

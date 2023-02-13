@@ -1,0 +1,75 @@
+<script>
+	function deleteFaq(){
+		if(!confirm("정말 삭제하시겠습니까?")){
+			return
+		}
+		location.href="/notice/content/[[${notice.b_id}]]/delete";
+	}
+</script>
+
+
+<section th:fragment="page-header" class="fabir-bar page-header">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="content">
+					<h1>공지사항</h1>
+					<ol class="breadcrumb">
+						<li><a th:href="@{/}">Home</a></li>
+						<li>커뮤니티</li>
+						<li class="active">공지사항</li>
+					</ol>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<section class="memberlist">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="page-wrapper shopping cart">
+					<div class="row"
+						style="background-color: #F7F7F7; padding: 20px 20px 20px 5px; margin: 5px; border-top: solid 2px; border-bottom: solid 2px">
+						<h3 style="font-weight: bold;" class="col" th:text=${notice.title}>
+							tilte</h3>
+					</div>
+					<div class="row"
+						style="padding: 5px 20px 5px 5px; margin: 0px 5px 0px 5px; margin-bottom: 25px; border-bottom: solid 1px">
+						<span style="font-weight: bold;" class="col-md-1"
+							th:text="SOF8">작성자</span> <span
+							style="border-left: solid 1px" class="col-md-2"
+							th:text="${#temporals.format(notice.rdate,'yyyy-MM-dd HH:mm')}">1996.09.25</span> <span
+							class="pull-right" th:text="${notice.hit}"></span> <span
+							style="font-weight: bold;" class="pull-right">조회수&nbsp&nbsp</span>
+					</div>
+
+					<div
+						style="border-bottom: solid 1px; padding: 5px 5px 30px 5px; margin: 0px 5px 0px 5px;">
+						<div class="text-center" th:text=${notice.content}></div>
+					</div>
+					
+					<div class="row pull-right"
+						style="margin-top: 50px; margin-right: 5px;">
+						<div class="btn-group" role="group">
+							<button th:if="!${paging.keyword}" type="button"
+								class="btn btn-default">
+								<a th:href="@{|/notice/list?page=${page}|}">목록</a>
+							</button>
+							<button th:unless="!${paging.keyword}"
+								type="button" class="btn btn-default">
+								<a th:href="@{|/notice/list|(page=${page},keyword=${paging.keyword},type=${paging.type})}">목록</a>
+							</button>
+
+							<button th:if="${admin} != null" type="button" class="btn btn-default">
+								<a th:href="@{|/notice/content/write?b_id=${notice.b_id}|}">수정</a>
+							</button>
+							<button th:if="${admin} != null" type="button" class="btn btn-default"
+								onclick="deleteFaq()">삭제</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

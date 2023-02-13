@@ -1,0 +1,111 @@
+
+<section th:fragment="page-header" class="fabir-bar page-header">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="content">
+					<h1>공지사항</h1>
+					<ol class="breadcrumb">
+						<li><a th:href="@{/}">Home</a></li>
+						<li>커뮤니티</li>
+						<li class="active">공지사항</li>
+					</ol>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<section class="memberlist">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="page-wrapper shopping cart">
+					<div class="product-list">
+						<form id="form_qnalist" class="form-inline" th:action="@{/notice/list}" method="get">
+							<div class="form-group">
+								<div class="col-md-offset-6 col-md-6">
+									<div class="pull-right">
+										<select th:name="type" class="form-control">
+											<option th:value="title" th:text="제목" th:selected="${paging.type}=='title'"></option>
+											<option th:value="content" th:text="내용" th:selected="${paging.type}=='content'"></option>
+										</select> 
+										<input type="search" th:name="keyword" class="form-control" th:value=${paging.keyword}>
+										<button type="submit" class="btn btn-default" th:text="검색"></button>
+									</div>
+								</div>
+							</div>
+							<table class="table line">
+								<colgroup>
+									<col width="5%"/>
+									<col width="20%"/>
+									<col width="10%"/>
+									<col width="5%"/>
+									<col width="5%"/>
+								</colgroup>
+								<thead>
+									<tr class="cart-amount" >
+										<th class="text-center">번호</th>
+										<th class="text-center">공지사항</th>
+										<th class="text-center">작성일</th>
+										<th class="text-center">작성자</th>
+										<th class="text-center">조회수</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:if="${paging.totalRow == 0}">
+										<td class="text-class empty" colspan="7">공지사항이 없습니다.</td>
+									</tr>	
+									<tr th:if="${notices != null}" th:each="notice : ${notices}">
+										<td class="text-center" th:text="${paging.totalRow - (noticeStat.index + paging.offset)}"></td>
+								 		<td th:if="${paging.keyword == null}" class=""><a style="margin-left:5%;" th:text="${notice.title}" th:href="@{|/notice/content/${notice.b_id}|(page=${paging.page})}"></a></td>
+										<td th:if="${paging.keyword != null}" class=""><a style="margin-left:5%;" th:text="${notice.title}" th:href="@{|/notice/content/${notice.b_id}|(page=${paging.page},keyword=${paging.keyword},type=${paging.type})}"></a></td>
+										<td th:text="${#temporals.format(notice.rdate,'yyyy-MM-dd HH:mm')}"></td>
+										<td>SOFAL</td>
+										<td th:text="${notice.hit}"></td>
+									</tr>
+								</tbody>
+							</table>
+							
+							<a th:if="${admin != null}" class="btn btn-primary pull-right" th:href="@{/notice/content/write}">등록</a>
+					
+							<div class="text-center">
+								<ul class="pagination post-pagination" th:if="${paging.totalRow > 0}">
+									<li th:if="${paging.startPage > 1}">
+										<a th:href="@{'list?page=1'}" th:text="처음"></a>
+									</li>
+									<li th:if="${paging.prev}">
+										<a th:if="${paging.keyword == null}" 
+											th:href="@{'list?page='+${paging.startPage-1}}" 
+											th:text="이전"></a>
+										<a th:if="${paging.keyword != null}" 
+										th:href="@{'list?page='+${paging.startPage-1}+'&type='+${paging.type}+'&keyword='+${paging.keyword}}" 
+										th:text="이전"></a>
+									</li>
+									<li th:each="pageNum : ${#numbers.sequence(paging.startPage, paging.endPage)}" th:class="${pageNum == paging.page} ? 'active'" >
+										<a th:if="${paging.keyword == null}" 
+											th:href="@{'list?page='+${pageNum}}" 
+											th:text="${pageNum}"></a>
+										<a th:if="${paging.keyword != null}" 
+											th:href="@{'list?page='+${pageNum}+'&type='+${paging.type}+'&keyword='+${paging.keyword}}" 
+											th:text="${pageNum}"></a>
+									</li>
+									<li th:if="${paging.next}">
+										<a th:if="${paging.keyword == null}" 
+											th:href="@{'list?page='+|${paging.endPage + 1}|}" 
+											th:text="다음"></a>
+										<a th:if="${paging.keyword != null}" 
+											th:href="@{'list?page='+|${paging.endPage + 1}|+'&type='+${paging.type}+'&keyword='+${paging.keyword}}" 
+											th:text="다음"></a>
+									</li>
+									<li th:if="${paging.endPage < paging.totalPage}">
+										<a th:href="@{'list?page='+${paging.totalPage}}" th:text="끝"></a>
+									</li>
+								</ul>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
