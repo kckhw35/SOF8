@@ -47,6 +47,17 @@
 		});
 	};
 	
+	var oEditors = []
+
+    function smartEditor() {
+      nhn.husky.EZCreator.createInIFrame({
+        	oAppRef: oEditors,
+        	elPlaceHolder: "editorTxt",
+        	sSkinURI: "/smarteditor/SmartEditor2Skin.html",
+        	fCreator: "createSEditor2"
+      })
+    };
+	
 	function registerproduct(){
 		$('#register_form a[name="register_product"]').click(function(){
 			var c = confirm('등록 하시겠습니까?');
@@ -62,6 +73,7 @@
 	};
 
 	window.onload = function() {
+		smartEditor();
 		registerproduct();
 		showsize();
 	};
@@ -163,7 +175,7 @@
 							</ul>
 							<div class="tab-content patternbg">
 								<div id="details" class="tab-pane fade active in">
-									<textarea id="p_content" name="p_content" rows="10" cols="100" style="width: 100%;"></textarea>
+									<textarea name="editorTxt" id="editorTxt"  rows="20" cols="10" style="width: 100%"></textarea>
 								</div>
 							</div>
 						</div>

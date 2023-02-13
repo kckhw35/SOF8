@@ -29,5 +29,4 @@ public class MainController {
 		model.addAttribute("newlist", newlist);
 		return "index";
 	}
-
 }

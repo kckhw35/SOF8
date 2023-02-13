@@ -20,8 +20,9 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<update id="update" parameterType="Reservation">
 		UPDATE reservation SET d_id = ${d_id}, r_date = #{r_date}, r_time = ${r_time} where re_id = ${re_id}
 	</update>
+	<!-- 주문 취소시 예약 취소(삭제) -->
 	<delete id="delete" parameterType="int">
-		DELETE FROM reservation WHERE re_id = ${re_id}
+		DELETE FROM reservation WHERE o_id = ${o_id}
 	</delete>
 	<insert id="insertreservation" parameterType="OrderForm">
 		INSERT INTO reservation VALUES (re_id, ${d_id}, ${o_id}, #{r_date}, ${r_time})

@@ -26,6 +26,7 @@ import com.sof8.service.MemberService;
 import com.sof8.service.OrderService;
 import com.sof8.service.QnaService;
 import com.sof8.service.ReplyService;
+import com.sof8.service.ReservationService;
 
 @Controller
 @RequestMapping("/mypage")
@@ -42,6 +43,9 @@ public class MypageController {
 	
 	@Autowired
 	OrderService oservice;
+	
+	@Autowired
+	ReservationService rservice;
 	
 	/* MyPage 1:1문의내역 확인 - Park */
 	@Autowired
@@ -242,7 +246,10 @@ public class MypageController {
 		Boolean result = false;
 		System.out.println("o_id: " + o_id);
 		try {
+			// 주문 상태 변경 - 주문 취소
 			oservice.modifyStatus(o_id);
+			// 예약 취소
+			rservice.remove(o_id);
 			result = true;
 			System.out.println("[SUCCESS] 주문취소 성공");
 		} catch (Exception e) {
