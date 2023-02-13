@@ -175,3 +175,33 @@ th {
 
 .popupBox._veRvwBox{text-align: left;}
 .popupBox._veRvwBox #tmplBox_revwPrdct .revwPrdct{margin: 0;}
+
+
+
+
+
+
+
+
+.box {
+    margin: 40px auto 0px auto;
+    display: inline;
+    width: 1200px;
+    display: block;
+    text-align:center;max-width:100%;
+    
+}
+.contents_title {
+    margin: 40px auto 0px auto;
+    clear: both;
+    text-align: center;
+    font-size: 32px;
+    padding: 0px;
+    boder: 0px;
+    
+    }
+    contents_100contents {
+    margin: 40px 0px 0px 0px;
+    clear: both;
+    width: 100%;
+}

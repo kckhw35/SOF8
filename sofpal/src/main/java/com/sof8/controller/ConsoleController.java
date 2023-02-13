@@ -1,20 +1,21 @@
 package com.sof8.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.sof8.dto.Admin;
-import com.sof8.dto.Chart;
-import com.sof8.service.DetailOrderService;
 import com.sof8.dto.OrderForm;
+import com.sof8.service.DetailOrderService;
 import com.sof8.service.OrderService;
 import com.sof8.service.ReservationService;
 
@@ -162,10 +163,14 @@ public class ConsoleController {
 	public String category(HttpSession session, Model model, Admin admin) {
 		admin = (Admin) session.getAttribute("admin");
 		if(admin != null) {
-			model.addAttribute("day", dayCategoryProducts());
-			model.addAttribute("week", weekCategoryProducts());
-			model.addAttribute("month", monthCategoryProducts());
-			model.addAttribute("year", yearCategoryProducts());
+			
+			Map<String, Object> map =  new HashMap<String, Object>();
+			map.put("day", dayCategoryProducts());
+			map.put("week", weekCategoryProducts());
+			map.put("month", monthCategoryProducts());
+			map.put("year", yearCategoryProducts());
+
+			model.addAttribute("map", map);
 			model.addAttribute("admin", admin);
 			model.addAttribute("content", dir + "category");
 			return dir+"console";
@@ -173,54 +178,54 @@ public class ConsoleController {
 	}
 
 	// 카테고리별 금일 목표판매량
-	public List<Chart> dayCategoryProducts() {
-		List<Chart> chart = null;
+	public Map<String, Object> dayCategoryProducts() {
+		Map<String, Object> day = new HashMap<String, Object>();
 		try {
-			chart = doservice.getTodayCategoryProducts();
+			day = doservice.getTodayCategoryProducts();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println(chart);
-		return chart;
+		System.out.println(day);
+		return day;
 	}
 	
 	// 카테고리별 금일 목표판매량
-	public List<Chart> weekCategoryProducts() {
-		List<Chart> chart = null;
+	public Map<String, Object> weekCategoryProducts() {
+		Map<String, Object> week = new HashMap<String, Object>();
 		try {
-			chart = doservice.getWeekCategoryProducts();
+			week = doservice.getWeekCategoryProducts();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println(chart);
+		System.out.println(week);
 
-		return chart;
+		return week;
 	}
 	
 	// 카테고리별 금일 목표판매량
-	public List<Chart> monthCategoryProducts() {
-		List<Chart> chart = null;
+	public Map<String, Object> monthCategoryProducts() {
+		Map<String, Object> month = new HashMap<String, Object>();
 		try {
-			chart = doservice.getMonthCategoryProducts();
+			month = doservice.getMonthCategoryProducts();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}	
-		System.out.println(chart);
+		System.out.println(month);
 
-		return chart;
+		return month;
 	}
 	
 	// 카테고리별 금일 목표판매량
-	public List<Chart> yearCategoryProducts() {
-		List<Chart> chart = null;
+	public Map<String, Object> yearCategoryProducts() {
+		Map<String, Object> year = new HashMap<String, Object>();
 		try {
-			chart = doservice.getYearCategoryProducts();
+			year = doservice.getYearCategoryProducts();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}	
-		System.out.println(chart);
+		System.out.println(year);
 
-		return chart;
+		return year;
 	}
 	
 	// 127.0.0.1/console/order

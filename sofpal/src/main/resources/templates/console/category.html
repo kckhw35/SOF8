@@ -1,6 +1,10 @@
 ﻿<script>
 window.onload = function() {
-
+	var map = '[[${map}]]';
+	var json = JSON.stringfy(map);
+	alert(json);
+	console.log(json);
+	
 	/* 카테고리별 금년 판매현황
 	----------------------------------------*/
 	Morris.Donut({

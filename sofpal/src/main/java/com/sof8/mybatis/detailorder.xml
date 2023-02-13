@@ -45,7 +45,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 			AND date_format(o.o_date,'%Y')=date_format(CURRENT_DATE(),'%Y')
 	</select>
 	<!-- 카테고리별 금일판매수 -->
-	<select id="selectTodayCategoryProducts" resultType="Chart">
+	<select id="selectTodayCategoryProducts" resultType="HashMap">
 		SELECT c.cat_id2 cat_id2, ifnull(sum(d.d_cnt), 0) cnt
 		FROM detail_order d
 			JOIN `ordertbl` o ON  d.o_id=o.o_id
@@ -55,7 +55,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		GROUP BY cat_id2
 	</select>
 	<!-- 카테고리별 금주판매수 -->
-	<select id="selectWeekCategoryProducts" resultType="Chart">
+	<select id="selectWeekCategoryProducts" resultType="HashMap">
 		SELECT c.cat_id2 cat_id2, ifnull(sum(d.d_cnt), 0) cnt
 		FROM detail_order d
 			JOIN `ordertbl` o ON  d.o_id=o.o_id
@@ -68,7 +68,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		GROUP BY cat_id2
 	</select>	
 	<!-- 카테고리별 금월판매수 -->
-	<select id="selectMonthCategoryProducts" resultType="Chart">
+	<select id="selectMonthCategoryProducts" resultType="HashMap">
 		SELECT c.cat_id2 cat_id2, ifnull(sum(d.d_cnt), 0) cnt
 		FROM detail_order d
 			JOIN `ordertbl` o ON  d.o_id=o.o_id
@@ -79,7 +79,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		GROUP BY cat_id2
 	</select>	
 	<!-- 카테고리별 금년판매수 -->
-	<select id="selectYearCategoryProducts" resultType="Chart">
+	<select id="selectYearCategoryProducts" resultType="HashMap">
 		SELECT c.cat_id2 cat_id2, ifnull(sum(d.d_cnt), 0) cnt
 		FROM detail_order d
 			JOIN `ordertbl` o ON  d.o_id=o.o_id

@@ -1,17 +1,14 @@
 package com.sof8.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sof8.dto.Chart;
 import com.sof8.dto.DetailOrder;
-import com.sof8.dto.Order;
-import com.sof8.dto.OrderForm;
 import com.sof8.frame.Sof8Service;
 import com.sof8.mapper.DetailOrderMapper;
-import com.sof8.mapper.OrderMapper;
 
 @Service
 public class DetailOrderService implements Sof8Service<Integer, DetailOrder>{
@@ -60,19 +57,19 @@ public class DetailOrderService implements Sof8Service<Integer, DetailOrder>{
 		return mapper.selectYearProducts();
 	}
 
-	public List<Chart> getTodayCategoryProducts() throws Exception {
+	public HashMap<String, Object> getTodayCategoryProducts() throws Exception {
 		return mapper.selectTodayCategoryProducts();
 	}
 	
-	public List<Chart> getWeekCategoryProducts() throws Exception {
+	public HashMap<String, Object> getWeekCategoryProducts() throws Exception {
 		return mapper.selectWeekCategoryProducts();
 	}
 	
-	public List<Chart> getMonthCategoryProducts() throws Exception {
+	public HashMap<String, Object> getMonthCategoryProducts() throws Exception {
 		return mapper.selectMonthCategoryProducts();
 	}
 	
-	public List<Chart> getYearCategoryProducts() throws Exception {
+	public HashMap<String, Object> getYearCategoryProducts() throws Exception {
 		return mapper.selectYearCategoryProducts();
 	}
 }
