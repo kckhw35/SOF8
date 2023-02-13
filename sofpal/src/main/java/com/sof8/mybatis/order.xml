@@ -39,7 +39,9 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	</select>
 	<!-- 주문 상품 정보 -->
 	<select id="selectorderd" parameterType="int" resultType="Product">
-		SELECT d.p_id AS p_id, d.d_cnt AS p_cnt, d.price AS price, p.p_name as p_name, p.p_img AS p_img, p.del_cost AS del_cost, p.discount AS discount FROM detail_order d JOIN product p ON d.p_id = p.p_id WHERE o_id = ${o_id};
+		SELECT d.p_id AS p_id, d.d_cnt AS p_cnt, d.price AS price, p.p_name as p_name, p.p_img AS p_img, p.del_cost AS del_cost, p.discount AS discount 
+		FROM detail_order d JOIN product p ON d.p_id = p.p_id 
+		WHERE o_id = ${o_id};
 	</select>
 	<!-- 총 주문 수 구하기 -->
 	<select id="selectTotal" parameterType="Map" resultType="int">
@@ -81,6 +83,33 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	</update>
 	<!-- 주문 내역 -->
 	<select id="getorderlist" resultType="OrderForm">
-		SELECT o.o_id AS o_id, p.p_name AS b_name, do.d_cnt AS b_cnt, do.price AS price, o.o_date AS o_date, o.c_date AS c_date, o.o_status AS o_status FROM ordertbl o JOIN (detail_order do JOIN product p ON do.p_id = p.p_id) ON o.o_id = do.o_id
+		SELECT o.o_id AS o_id, p.p_name AS b_name, do.d_cnt AS b_cnt, do.price AS price, o.o_date AS o_date, o.c_date AS c_date, o.o_status AS o_status 
+		FROM ordertbl o 
+		JOIN (detail_order do JOIN product p ON do.p_id = p.p_id) ON o.o_id = do.o_id
+	</select>
+	<!-- 오늘 전체 주문 내역 -->
+	<select id="gettodayorder" resultType="OrderForm">
+		SELECT o.o_id AS o_id, p.p_name AS p_name, do.d_cnt AS d_cnt, do.price AS price, o.pay_option AS pay_option, o.o_status AS o_status 
+		FROM ordertbl o 
+		JOIN (detail_order do JOIN product p ON do.p_id = p.p_id) ON o.o_id = do.o_id 
+		WHERE o_date > CURRENT_DATE()
+	</select>
+	<!-- 오늘 주문 확정 내역 -->
+	<select id="gettodayconfrim" resultType="OrderForm">
+		SELECT o.o_id AS o_id, p.p_name AS p_name, do.price AS price, o.pay_option AS pay_option, o.o_status AS o_status 
+		FROM ordertbl o 
+		JOIN (detail_order do JOIN product p ON do.p_id = p.p_id) ON o.o_id = do.o_id 
+		WHERE o_date > CURRENT_DATE()
+	</select>
+	<!-- 주문 취소 및 환불 내역 -->
+	<select id="getcancelorder" resultType="OrderForm">
+		SELECT * FROM orderTBL WHERE o_status in ('주문취소' ,'환불진행중','환불완료')
+	</select>
+	<!-- 이번달 최대 구매 고객 내역 -->
+	<select id="getmonth" resultType="OrderForm">
+		SELECT user_id, SUM(totalprice) 
+		FROM orderTBL 
+		WHERE o_date > CURRENT_DATE() AND o_status = '구매확정' 
+		GROUP BY user_id
 	</select>
 </mapper>

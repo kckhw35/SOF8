@@ -102,14 +102,27 @@ public class ConsoleController {
 	public String order(HttpSession session, Model model, Admin admin) {
 		admin = (Admin) session.getAttribute("admin");
 		if(admin != null) {
-			List<OrderForm> olist = null;
+			List<OrderForm> olist = null;	// 전체 주문 내역
+			List<OrderForm> tolist = null;	// 금일 주문 내역
+			List<OrderForm> tcolist = null;	// 금일 주문 확정 내역
+			List<OrderForm> colist = null;	// 주문 취소 내역
+			List<OrderForm> mlist = null;	// 금월 최고 고객
 			
 			try {
 				olist = oservice.getorderlist();
+				tolist = oservice.gettodayorder();
+				tcolist = oservice.gettodayconfrim();
+				colist = oservice.getcancelorder();
+				mlist = oservice.getmonth();
+						
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			model.addAttribute("olist", olist);
+			model.addAttribute("tolist", tolist);
+			model.addAttribute("tcolist", tcolist);
+			model.addAttribute("colist", colist);
+			model.addAttribute("mlist", mlist);
 			model.addAttribute("admin", admin);
 			model.addAttribute("content", dir + "order");
 			return dir+"console";

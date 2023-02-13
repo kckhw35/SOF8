@@ -26,4 +26,8 @@ public interface OrderMapper extends Sof8Mapper<Integer, Order>{
 	public int selectTodayOrders() throws Exception;
 	public int selectTodayProducts() throws Exception;
 	public List<OrderForm> getorderlist() throws Exception;
+	public List<OrderForm> gettodayorder() throws Exception;
+	public List<OrderForm> gettodayconfrim() throws Exception;
+	public List<OrderForm> getmonth() throws Exception;
+	public List<OrderForm> getcancelorder() throws Exception;
 }
