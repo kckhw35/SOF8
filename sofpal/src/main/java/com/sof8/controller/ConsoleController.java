@@ -12,7 +12,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.sof8.dto.Admin;
+import com.sof8.dto.Delivery;
+import com.sof8.dto.Order;
 import com.sof8.dto.OrderForm;
+import com.sof8.service.DeliveryService;
 import com.sof8.service.DetailOrderService;
 import com.sof8.service.OrderService;
 import com.sof8.service.ReservationService;
@@ -23,10 +26,15 @@ public class ConsoleController {
 
 	@Autowired
 	OrderService oservice;
+	
 	@Autowired
 	DetailOrderService doservice;
+	
 	@Autowired
 	ReservationService rservice;
+	
+	@Autowired
+	DeliveryService dservice;
 	
 	String dir = "console/";
 

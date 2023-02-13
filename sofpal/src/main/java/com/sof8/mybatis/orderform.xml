@@ -6,8 +6,8 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 
 	<insert id="insertorder" parameterType="Order">
 		INSERT INTO orderTBL(o_id, user_id, 
-			<if test="c_id != 0">
-				c_id, 
+			<if test="co_id != 0">
+				co_id, 
 			</if>
 		totalprice, totaldiscount ,pay_option, o_status, o_date, c_date, re_name, re_tel, re_zipcode, re_addr, re_deaddr, re_req
 			<if test="note != null">
@@ -15,8 +15,8 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 			</if>
 		) 
 		VALUES (o_id, #{user_id}, 
-			<if test="c_id != 0">
-				${c_id}, 
+			<if test="co_id != 0">
+				${co_id}, 
 			</if>
 		${totalprice}, ${totaldiscount}, #{pay_option}, #{o_status}, NOW(), #{c_date}, #{re_name}, #{re_tel}, #{re_zipcode}, #{re_addr}, #{re_deaddr}, #{re_req} 
 			<if test="note != null">

@@ -31,11 +31,11 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		SELECT * FROM reservation WHERE r_date = CURRENT_DATE() ORDER BY r_date ASC
 	</select>
 	<!-- 아직 배송전인 예약 리스트 -->
-	<select id="gettodaydelivery" resultType="Reservation">
+	<select id="getreservelist" resultType="Reservation">
 		SELECT * FROM reservation WHERE r_date > CURRENT_DATE() ORDER BY r_date ASC
 	</select>
 	<!-- 이번달 예약 리스트 -->
-	<select id="gettodaydelivery" resultType="Reservation">
+	<select id="getmonthdelivery" resultType="Reservation">
 		SELECT * FROM reservation WHERE DATE_FORMAT(r_date,'$Y-%m') = DATE_FORMAT(now(),'$Y-%m') ORDER BY r_date ASC
 	</select>
 </mapper>

@@ -400,12 +400,12 @@ public class AdminController {
 	}
 	
 	// 상품등록 폼
-	@RequestMapping("/registerproduct")
-	public String registerproduct(Model model) {
-		model.addAttribute("content", dir + "registerproduct");
-		return "index";
-	}
-	
+		@RequestMapping("/registerproduct")
+		public String registerproduct(Model model) {
+			model.addAttribute("content", dir + "registerproduct");
+			return "index";
+		}
+		
 	// 상품수정 폼
 	@RequestMapping("/updateproduct")
 	public String updateproduct(Model model, int p_id) {
@@ -421,6 +421,12 @@ public class AdminController {
 
 		model.addAttribute("content", dir + "updateproduct");
 		return "index";
+	}
+
+	@RequestMapping("/console")
+	public String console() {
+
+		return "/admin/console";
 	}
 	
 	// 로그인 중인지 유무 확인 메소드

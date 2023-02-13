@@ -18,7 +18,6 @@ public class OrderForm {
 	// Order
 	private int o_id;
 	private String user_id;
-	private int c_id;
 	private int totalprice;
 	private int totaldiscount;
 	private String pay_option;
