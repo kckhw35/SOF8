@@ -79,7 +79,7 @@
 								&nbsp;&nbsp;
 								<p style="text-decoration: line-through;"><td th:text="${o.price}"></td></p>
 								&emsp;&emsp;&emsp;
-								<h2 id="discount"><td id="p_discount" th:text="|${#numbers.formatPercent((o.discount/o.price),1,0)}|"></h2>
+								<h2 id="discount"><td id="p_discount" th:text="|${#numbers.formatPercent((o.discount/(o.price*1.0)),1,0)}|"></h2>
 								<br /> <br /> <br />
 							</div>
 						</div>				

@@ -72,11 +72,15 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		SELECT ifnull(sum(d_cnt), 0) 
 		FROM `detail_order` d
 			JOIN `ordertbl` o ON  d.o_id=o.o_id 
-		WHERE o_date > CURRENT_DATE();	</select>
-	
+		WHERE o_date > CURRENT_DATE();
+	</select>
 	<update id="updateStatus" parameterType="int">
 		UPDATE ordertbl
 		SET o_status = '주문취소'
 		WHERE o_id = #{o_id}
 	</update>
+	<!-- 주문 내역 -->
+	<select id="getorderlist" resultType="OrderForm">
+		SELECT o.o_id AS o_id, p.p_name AS b_name, do.d_cnt AS b_cnt, do.price AS price, o.o_date AS o_date, o.c_date AS c_date, o.o_status AS o_status FROM ordertbl o JOIN (detail_order do JOIN product p ON do.p_id = p.p_id) ON o.o_id = do.o_id
+	</select>
 </mapper>

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.sof8.dto.Mark;
 import com.sof8.dto.Order;
+import com.sof8.dto.OrderForm;
 import com.sof8.dto.Paging;
 import com.sof8.dto.Product;
 import com.sof8.frame.Sof8Service;
@@ -85,7 +86,12 @@ public class OrderService implements Sof8Service<Integer, Order>{
 	public int getTodayOrders() throws Exception {
 		return mapper.selectTodayOrders();
 	}
+	
 	public int getTodayProducts() throws Exception {
 		return mapper.selectTodayProducts();
+	}
+	
+	public List<OrderForm> getorderlist() throws Exception{
+		return mapper.getorderlist();
 	}
 }

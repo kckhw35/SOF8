@@ -1,5 +1,8 @@
 package com.sof8.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.sof8.dto.Admin;
+import com.sof8.dto.Order;
+import com.sof8.dto.OrderForm;
 import com.sof8.service.OrderService;
 
 @Controller
@@ -91,16 +96,48 @@ public class ConsoleController {
 	}
 
 	
-	
-	// 127.0.0.1/console/table
-	@RequestMapping("/table")
-	public String table(HttpSession session, Model model, Admin admin) {
+	// 127.0.0.1/console/order
+	// 주문
+	@RequestMapping("/order")
+	public String order(HttpSession session, Model model, Admin admin) {
 		admin = (Admin) session.getAttribute("admin");
 		if(admin != null) {
+			List<OrderForm> olist = null;
+			
+			try {
+				olist = oservice.getorderlist();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			model.addAttribute("olist", olist);
 			model.addAttribute("admin", admin);
-			model.addAttribute("content", dir + "table");
+			model.addAttribute("content", dir + "order");
 			return dir+"console";
 		} else	return "redirect:/";
 	}
+	
+	// 127.0.0.1/console/reservation
+	// 예약
+	@RequestMapping("/reservation")
+	public String reservation(HttpSession session, Model model, Admin admin) {
+		admin = (Admin) session.getAttribute("admin");
+		if(admin != null) {
+			model.addAttribute("admin", admin);
+			model.addAttribute("content", dir + "reservation");
+			return dir+"console";
+		} else	return "redirect:/";
+	}
+	
+	// 127.0.0.1/console/order
+	// 배송
+	@RequestMapping("/delivery")
+	public String delivery(HttpSession session, Model model, Admin admin) {
+		admin = (Admin) session.getAttribute("admin");
+		if(admin != null) {
+			model.addAttribute("admin", admin);
+			model.addAttribute("content", dir + "delivery");
+			return dir+"console";
+		} else	return "redirect:/";
+	}	
 	
 }

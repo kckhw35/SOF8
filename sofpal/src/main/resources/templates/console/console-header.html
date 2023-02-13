@@ -35,8 +35,16 @@
 	<div class="sidebar-collapse">
 		<ul class="nav" id="main-menu">
 			<li><a th:href="@{/console}" class="active-menu waves-effect waves-dark"	><i class="fa fa-dashboard"></i> 대쉬보드</a></li>
-			<li><a th:href="@{/console/chart}" class="waves-effect waves-dark"><i class="fa fa-bar-chart-o"></i> 차트</a></li>
-            <li><a th:href="@{/console/table}" class="waves-effect waves-dark"><i class="fa fa-table"></i> 테이블</a></li>
+			<li><a th:href="@{/console/chart}" class="waves-effect waves-dark"><i class="fa fa-bar-chart-o"></i> 매출</a></li>
+			<li><a href="#" class="waves-effect waves-dark"><i class="fa fa-table"></i> 주문 및 예약 관리<span class="fa arrow"></span></a>
+				<ul class="nav nav-second-level">
+					<li><a th:href="@{/console/order}">주문 관리</a></li>
+					<li><a href="#">예약 및 배송 관리<span class="fa arrow"></span></a>
+						<ul class="nav nav-third-level">
+							<li><a th:href="@{/console/reservation}">예약 관리</a></li>
+							<li><a th:href="@{/console/delivery}">배송 관리</a></li>
+						</ul></li>
+				</ul></li>
 		</ul>
 	</div>
 </nav>

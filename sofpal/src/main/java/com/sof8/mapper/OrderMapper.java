@@ -6,8 +6,8 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
-import com.sof8.dto.Mark;
 import com.sof8.dto.Order;
+import com.sof8.dto.OrderForm;
 import com.sof8.dto.Paging;
 import com.sof8.dto.Product;
 import com.sof8.frame.Sof8Mapper;
@@ -25,4 +25,5 @@ public interface OrderMapper extends Sof8Mapper<Integer, Order>{
 	public int selectTodaySales() throws Exception;
 	public int selectTodayOrders() throws Exception;
 	public int selectTodayProducts() throws Exception;
+	public List<OrderForm> getorderlist() throws Exception;
 }
