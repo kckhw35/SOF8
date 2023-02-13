@@ -1,6 +1,5 @@
 package com.sof8.service;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -47,7 +46,7 @@ public class MemberService implements Sof8Service<String, Member>{
 		return mapper.selectList(paging);
 	}
 	
-	public int getTotal(Map map) throws Exception {
+	public int getTotal(Map<String, Object> map) throws Exception {
 
 		return mapper.selectTotal(map);
 	}

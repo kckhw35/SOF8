@@ -1,13 +1,11 @@
 package com.sof8.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -158,76 +156,7 @@ public class ConsoleController {
 		}
 		return day;
 	}
-	// 127.0.0.1/console/category
-	@RequestMapping("/category")
-	public String category(HttpSession session, Model model, Admin admin) {
-		admin = (Admin) session.getAttribute("admin");
-		if(admin != null) {
-			
-			Map<String, Object> map =  new HashMap<String, Object>();
-			map.put("day", dayCategoryProducts());
-			map.put("week", weekCategoryProducts());
-			map.put("month", monthCategoryProducts());
-			map.put("year", yearCategoryProducts());
 
-			model.addAttribute("map", map);
-			model.addAttribute("admin", admin);
-			model.addAttribute("content", dir + "category");
-			return dir+"console";
-		} else	return "redirect:/";
-	}
-
-	// 카테고리별 금일 목표판매량
-	public Map<String, Object> dayCategoryProducts() {
-		Map<String, Object> day = new HashMap<String, Object>();
-		try {
-			day = doservice.getTodayCategoryProducts();
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-		System.out.println(day);
-		return day;
-	}
-	
-	// 카테고리별 금일 목표판매량
-	public Map<String, Object> weekCategoryProducts() {
-		Map<String, Object> week = new HashMap<String, Object>();
-		try {
-			week = doservice.getWeekCategoryProducts();
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-		System.out.println(week);
-
-		return week;
-	}
-	
-	// 카테고리별 금일 목표판매량
-	public Map<String, Object> monthCategoryProducts() {
-		Map<String, Object> month = new HashMap<String, Object>();
-		try {
-			month = doservice.getMonthCategoryProducts();
-		} catch(Exception e) {
-			e.printStackTrace();
-		}	
-		System.out.println(month);
-
-		return month;
-	}
-	
-	// 카테고리별 금일 목표판매량
-	public Map<String, Object> yearCategoryProducts() {
-		Map<String, Object> year = new HashMap<String, Object>();
-		try {
-			year = doservice.getYearCategoryProducts();
-		} catch(Exception e) {
-			e.printStackTrace();
-		}	
-		System.out.println(year);
-
-		return year;
-	}
-	
 	// 127.0.0.1/console/order
 	// 주문
 	@RequestMapping("/order")

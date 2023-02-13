@@ -1,6 +1,5 @@
 package com.sof8.service;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,19 +56,4 @@ public class DetailOrderService implements Sof8Service<Integer, DetailOrder>{
 		return mapper.selectYearProducts();
 	}
 
-	public HashMap<String, Object> getTodayCategoryProducts() throws Exception {
-		return mapper.selectTodayCategoryProducts();
-	}
-	
-	public HashMap<String, Object> getWeekCategoryProducts() throws Exception {
-		return mapper.selectWeekCategoryProducts();
-	}
-	
-	public HashMap<String, Object> getMonthCategoryProducts() throws Exception {
-		return mapper.selectMonthCategoryProducts();
-	}
-	
-	public HashMap<String, Object> getYearCategoryProducts() throws Exception {
-		return mapper.selectYearCategoryProducts();
-	}
 }
