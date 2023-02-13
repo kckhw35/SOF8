@@ -17,6 +17,7 @@ public interface ProductMapper extends Sof8Mapper<Integer, Product>{
 	public int selectcategory(Product v) throws Exception;
 	public int selectcnt(Integer k) throws Exception;
 	public int updatecnt(Integer k) throws Exception;
+	public List<Product> selectold() throws Exception;
 	public List<Product> selectnew() throws Exception;
 	public int selecttotal(Map<String, Object> map) throws Exception;
 	public int selecttotaladmin(Map<String, Object> map) throws Exception;

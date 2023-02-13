@@ -1,0 +1,80 @@
+<script>
+	function savePost(){
+		if($("#title").val() == ""){
+			alert("제목을 입력하세요.");
+			$("#title").focus();
+			return false;
+		}
+		
+		if($("#content").val() == ""){
+			alert("내용을 입력하세요.");
+			$("#content").focus();
+			return false;
+		}
+		
+		$("#saveButton").attr("disabled", true);
+		if ([[ ${faq == null} ]]) {
+			$("#saveForm").attr("action", "/faq/content/save").submit();
+		}else{
+			$("#saveForm").attr("action", "/faq/content/update").submit();
+		}
+	};
+</script>
+
+
+<section th:fragment="page-header" class="fabir-bar page-header">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="content">
+					<h1 class="page-name">FAQ 등록&수정</h1>
+					<ol class="breadcrumb">
+						<li><a th:href="@{/}">Home</a></li>
+						<li>커뮤니티</li>
+						<li class="active">자주하는 문의 등록 및 수정</li>
+					</ol>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<body id="body">
+	<!-- ========================== page-wrapper========================== -->
+
+	<div class="container">
+		<div class="col-md-12">
+			<form id="saveForm" style="padding: 40px 20px 50px 20px;"
+				method="post">
+				<!-- 만약 게시글 수정이라면, 게시글 b_id를 같이 보내기 위함 -->
+				<input type="hidden" id="b_id" name="b_id" th:if="${faq != null}"
+					th:value="${faq.b_id}" />
+				<div class="form-group" style="padding: 10px 0 10px 0">
+					<label>제목</label> <input th:if="${faq != null}" type="text"
+						class="form-control" id="title" name="title"
+						th:value="${faq.title}"> <input
+						th:unless="${faq != null}" type="text" class="form-control"
+						id="title" name="title" placeholder="제목을 입력해주세요">
+				</div>
+
+				<div class="form-group">
+					<label>내용</label>
+					<textarea style="resize: none" th:if="${faq != null}"
+						class="form-control" rows="5" id="content" name="content"
+						th:text="${faq.content}"></textarea>
+					<textarea style="resize: none" th:unless="${faq != null}"
+						class="form-control" rows="5" id="content" name="content"
+						placeholder="내용을 입력해주세요"></textarea>
+				</div>
+				<div class="btn-group col-md-offset-10 col-md-2">
+					<button type="button" id="saveButton" onclick="savePost();"
+						class="btn btn-default col-md-6">저장</button>
+					<a th:if="${faq != null}"
+						th:href="@{/faq/content/{b_id}(b_id=${faq.b_id})}"
+						class="btn btn-default col-md-6">취소</a> <a
+						th:unless="${faq != null}" th:href="@{/faq/list}"
+						class="btn btn-default col-md-6">취소</a>
+				</div>
+			</form>
+		</div>
+	</div>
+</body>

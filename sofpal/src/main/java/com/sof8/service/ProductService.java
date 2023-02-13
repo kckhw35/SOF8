@@ -58,6 +58,10 @@ public class ProductService implements Sof8Service<Integer, Product>{
 		return mapper.updatecnt(k);
 	}
 	
+	public List<Product> selectold() throws Exception{
+		return mapper.selectold();
+	}
+	
 	public List<Product> selectnew() throws Exception{
 		return mapper.selectnew();
 	}

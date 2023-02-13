@@ -13,21 +13,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sof8.dto.Admin;
-import com.sof8.dto.Faq;
+import com.sof8.dto.NoticeTemp;
 import com.sof8.dto.Paging;
-import com.sof8.service.FaqService;
+import com.sof8.service.NoticeServiceTemp;
 
 @Controller
-@RequestMapping("/faq")
-public class FaqController {
+@RequestMapping("/notice")
+public class NoticeTempController {
 	
 	@Autowired
-	FaqService faqService;
+	NoticeServiceTemp noticeService;
 	
-	String dir ="faq/";
+	String dir ="notice/";
 	
+	//127.0.0.1/notice/list
 	@RequestMapping("/list")
-	public String getFaqList(HttpSession session, Model model, 
+	public String noticeList(HttpSession session, Model model,
 			@RequestParam(defaultValue = "1") int page,
 			@RequestParam(required = false) String keyword,
 			@RequestParam(required = false) String type) {
@@ -39,28 +40,27 @@ public class FaqController {
 		}
 		
 		try {
-			int totalRow = faqService.getTotal(keyword, type);
+			int totalRow = noticeService.getTotal(keyword, type);
 			Paging paging = new Paging(10, 5, totalRow, page, keyword, type);
-			List<Faq> faqs = faqService.getList(paging);
+			List<NoticeTemp> notices = noticeService.getList(paging);
 			
-			
-			model.addAttribute("faqs", faqs);
+			model.addAttribute("notices", notices);
 			model.addAttribute("page", page);
 			model.addAttribute("paging", paging);
-			model.addAttribute("content", dir + "faq-list");
+			model.addAttribute("content", dir + "notice-list");
 			
-			System.out.println("[SUCCESS] : FAQ리스트 화면출력");
+			System.out.println("[SUCCESS] : QnaController/qna - QnA리스트 화면출력");
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("[ERROR] : FAQ리스트 로딩 실패");
+			System.out.println("[ERROR] : QnaController/qna - QnA리스트 로딩 실패");
 		}
 		
 		return "index";
 	}
 	
-	
+	//127.0.0.1/notice/content/{id}
 	@RequestMapping("/content/{id}")
-	public String faqContent(HttpSession session, Model model,
+	public String noticeContent(HttpSession session, Model model,
 			@PathVariable("id") int id,
 			@RequestParam(defaultValue = "1") int page,
 			@RequestParam(required = false) String keyword,
@@ -72,38 +72,36 @@ public class FaqController {
 			model.addAttribute("admin", admin);
 		}
 		
-		Faq faq = new Faq();
-		
+		NoticeTemp notice = null;
 		
 		try {
-			faq = faqService.get(id);
+			//페이지에 보여줄 공지사항
+			notice = noticeService.get(id);
 			
 			//공지사항 조회수 증가
-			int hit = faq.getHit();
-			faq.setHit(hit + 1);
-			faqService.modify(faq);
+			int hit = notice.getHit();
+			notice.setHit(hit + 1);
+			noticeService.modify(notice);
 			
-			int totalRow = faqService.getTotal(keyword, type);
+			int totalRow = noticeService.getTotal(keyword, type);
 			Paging paging = new Paging(10, 5, totalRow, page, keyword, type);
 			
-			model.addAttribute("faq", faq);
+			model.addAttribute("notice", notice);
 			model.addAttribute("page", page);
 			model.addAttribute("paging", paging);
-			model.addAttribute("content", dir + "faq-content");
+			model.addAttribute("content", dir + "notice-content");
 			
-			System.out.println("[SUCCESS] : ");
+			System.out.println("[SUCCESS] : QnaController/qna - QnA리스트 화면출력");
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("[ERROR] : ");
+			System.out.println("[ERROR] : QnaController/qna - QnA리스트 로딩 실패");
 		}
 		
 		return "index";
 	}
 	
-
-	
 	@RequestMapping("/content/write")
-	public String writeFaq(HttpSession session, Model model,
+	public String writeNotice(HttpSession session, Model model,
 			@RequestParam(required=false) Integer b_id) {
 		
 		// 관리자인지 확인
@@ -113,17 +111,18 @@ public class FaqController {
 		
 		if (b_id !=null) {
 			try {
-				Faq faq = faqService.get(b_id);
-				model.addAttribute("faq", faq);
+				NoticeTemp notice = noticeService.get(b_id);
+				model.addAttribute("notice", notice);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 		
-		model.addAttribute("content", dir+"faq-write");
+		model.addAttribute("content", dir+"notice-write");
 		return "index";
 	}
 	
+
 	@RequestMapping("/content/save")
 	public String writeNotice(HttpSession session, Model model, 
 			@RequestParam String title,
@@ -134,20 +133,19 @@ public class FaqController {
 			return "redirect:/";
 		}
 		
-		Faq faq = new Faq();
-		faq.setTitle(title);
-		faq.setContent(content);
-		faq.setRdate(LocalDateTime.now());
+		NoticeTemp notice = new NoticeTemp();
+		notice.setTitle(title);
+		notice.setContent(content);
+		notice.setRdate(LocalDateTime.now());
 
 		try {
-			faqService.register(faq);
+			noticeService.register(notice);
 			System.out.println("저장 성공");
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "redirect:/faq/list";
+		return "redirect:/notice/list";
 	}
-	
 	
 	@RequestMapping("/content/update")
 	public String updateNotice(HttpSession session, Model model,
@@ -160,22 +158,23 @@ public class FaqController {
 			return "redirect:/";
 		}
 		
-		Faq faq = null;
+		NoticeTemp notice = null;
 		try {
-			faq = faqService.get(b_id);
-			faq.setTitle(title);
-			faq.setContent(content);
-			faq.setRdate(LocalDateTime.now());
+			notice = noticeService.get(b_id);
+			notice.setTitle(title);
+			notice.setContent(content);
+			notice.setRdate(LocalDateTime.now());
 
-			faqService.modify(faq);
+			noticeService.modify(notice);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		return "redirect:/faq/content/" + b_id;
+		return "redirect:/notice/content/" + b_id;
 	}
 	
+	// view를 통하지 않고 url 검색으로 게시판을 지워버릴 수 도 있다....
 	@RequestMapping("/content/{b_id}/delete")
 	public String NoticeDelete(HttpSession session, Model model, 
 			@PathVariable("b_id") int b_id) {
@@ -186,12 +185,11 @@ public class FaqController {
 		}
 		
 		try {
-			faqService.remove(b_id);
+			noticeService.remove(b_id);
 		} catch (Exception e) {
 			System.out.println("Fail");
 			e.printStackTrace();
 		} 
-		return "redirect:/faq/list";
+		return "redirect:/notice/list";
 	}
-	
 }

@@ -59,8 +59,8 @@
 							role="button" aria-haspopup="true" aria-expanded="false">커뮤니티 <span
 								class="tf-ion-ios-arrow-down"></span></a>
 						<ul class="dropdown-menu">
-							<li><a href="#" th:href="@{/notice}">공지사항</a></li>
-							<li><a href="#" th:href="@{/faq}">자주하는 문의</a></li>
+							<li><a href="#" th:href="@{/notice/list}">공지사항</a></li>
+							<li><a href="#" th:href="@{/faq/list}">자주하는 문의</a></li>
 							<li th:if="${session.admin != null}"><a href="#" th:href="@{/admin/qna}">1:1 문의목록</a></li><!-- 관리자만 이 항목이 보임  -->
 						</ul>
 					</li><!-- / Blog -->

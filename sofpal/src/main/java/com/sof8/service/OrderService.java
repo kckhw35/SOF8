@@ -7,8 +7,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sof8.dto.Mark;
 import com.sof8.dto.Order;
+import com.sof8.dto.OrderForm;
 import com.sof8.dto.Paging;
 import com.sof8.dto.Product;
 import com.sof8.frame.Sof8Service;
@@ -86,4 +86,23 @@ public class OrderService implements Sof8Service<Integer, Order>{
 		return mapper.selectTodayOrders();
 	}
 
+	public List<OrderForm> getorderlist() throws Exception{
+		return mapper.getorderlist();
+	}
+	
+	public List<OrderForm> gettodayorder() throws Exception{
+		return mapper.gettodayorder();
+	}
+	
+	public List<OrderForm> gettodayconfrim() throws Exception{
+		return mapper.gettodayconfrim();
+	}
+	
+	public List<OrderForm> getmonth() throws Exception{
+		return mapper.getmonth();
+	}
+	
+	public List<OrderForm> getcancelorder() throws Exception{
+		return mapper.getcancelorder();
+	}
 }

@@ -17,14 +17,16 @@ public class MainController {
 	
 	@RequestMapping("/")
 	public String main(Model model) {
-		List<Product> list = null;
-		
+		List<Product> oldlist = null;
+		List<Product> newlist = null;
 		try {
-			list = pservice.selectnew();
+			oldlist = pservice.selectold();
+			newlist = pservice.selectnew();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		model.addAttribute("plist", list);
+		model.addAttribute("oldlist", oldlist);
+		model.addAttribute("newlist", newlist);
 		return "index";
 	}
 

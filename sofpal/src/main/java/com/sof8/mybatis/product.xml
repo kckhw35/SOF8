@@ -40,9 +40,13 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<update id="updatecnt" parameterType="Product">
 		UPDATE product Set p_cnt = ${p_cnt} where p_id = ${p_id}
 	</update>
+	<!-- 메인 메뉴 이월 상품 세일 보여주기 -->
+	<select id="selectold" resultType="Product">
+		SELECT * FROM product WHERE visiable = 1 ORDER BY p_id ASC LIMIT 4
+	</select>
 	<!-- 메인 메뉴 신규 상품 보여주기 -->
 	<select id="selectnew" resultType="Product">
-		SELECT * FROM product ORDER BY p_id DESC LIMIT 6
+		SELECT * FROM product WHERE visiable = 1 ORDER BY p_id DESC LIMIT 6
 	</select>
 	<!-- 총 상품수 구하기(일반사용자) -->	
 	<select id="selecttotal" parameterType="Map" resultType="int">

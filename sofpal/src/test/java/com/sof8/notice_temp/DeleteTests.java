@@ -1,29 +1,22 @@
-package com.sof8.notice;
-
-import java.util.ArrayList;
-import java.util.List;
+package com.sof8.notice_temp;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.sof8.dto.Notice;
-import com.sof8.service.NoticeService;
+import com.sof8.service.NoticeServiceTemp;
 
 @SpringBootTest
-class SelectAllTests {
+class DeleteTests {
 	 
 	@Autowired
-	NoticeService service;
+	NoticeServiceTemp service;
 
 	@Test
 	void contextLoads() {
-		List<Notice> notices = new ArrayList<Notice>();
+		
 		try {
-			notices = service.get();
-			for (Notice notice : notices) {
-				System.out.println(notice);
-			}
+			service.remove(1);
 			System.out.println("OK");
 		} catch (Exception e) {
 			System.out.println("Fail");

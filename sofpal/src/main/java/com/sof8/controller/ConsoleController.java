@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.sof8.dto.Admin;
 import com.sof8.dto.Chart;
 import com.sof8.service.DetailOrderService;
+import com.sof8.dto.OrderForm;
 import com.sof8.service.OrderService;
 import com.sof8.service.ReservationService;
 
@@ -222,16 +223,61 @@ public class ConsoleController {
 		return chart;
 	}
 	
-	
-	// 127.0.0.1/console/table
-	@RequestMapping("/table")
-	public String table(HttpSession session, Model model, Admin admin) {
+	// 127.0.0.1/console/order
+	// 주문
+	@RequestMapping("/order")
+	public String order(HttpSession session, Model model, Admin admin) {
 		admin = (Admin) session.getAttribute("admin");
 		if(admin != null) {
+			List<OrderForm> olist = null;	// 전체 주문 내역
+			List<OrderForm> tolist = null;	// 금일 주문 내역
+			List<OrderForm> tcolist = null;	// 금일 주문 확정 내역
+			List<OrderForm> colist = null;	// 주문 취소 내역
+			List<OrderForm> mlist = null;	// 금월 최고 고객
+			
+			try {
+				olist = oservice.getorderlist();
+				tolist = oservice.gettodayorder();
+				tcolist = oservice.gettodayconfrim();
+				colist = oservice.getcancelorder();
+				mlist = oservice.getmonth();
+						
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			model.addAttribute("olist", olist);
+			model.addAttribute("tolist", tolist);
+			model.addAttribute("tcolist", tcolist);
+			model.addAttribute("colist", colist);
+			model.addAttribute("mlist", mlist);
 			model.addAttribute("admin", admin);
-			model.addAttribute("content", dir + "table");
+			model.addAttribute("content", dir + "order");
 			return dir+"console";
 		} else	return "redirect:/";
 	}
+	
+	// 127.0.0.1/console/reservation
+	// 예약
+	@RequestMapping("/reservation")
+	public String reservation(HttpSession session, Model model, Admin admin) {
+		admin = (Admin) session.getAttribute("admin");
+		if(admin != null) {
+			model.addAttribute("admin", admin);
+			model.addAttribute("content", dir + "reservation");
+			return dir+"console";
+		} else	return "redirect:/";
+	}
+	
+	// 127.0.0.1/console/order
+	// 배송
+	@RequestMapping("/delivery")
+	public String delivery(HttpSession session, Model model, Admin admin) {
+		admin = (Admin) session.getAttribute("admin");
+		if(admin != null) {
+			model.addAttribute("admin", admin);
+			model.addAttribute("content", dir + "delivery");
+			return dir+"console";
+		} else	return "redirect:/";
+	}	
 	
 }

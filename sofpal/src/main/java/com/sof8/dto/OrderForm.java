@@ -53,4 +53,6 @@ public class OrderForm {
 	private String name;
 	private List<String> p_name;
 	private List<String> p_img;
+	private String b_name;		// 구매 상품 이름
+	private String b_cnt;		// 구매 상품 수량
 }
