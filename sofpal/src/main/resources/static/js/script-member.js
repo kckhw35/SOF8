@@ -1200,5 +1200,4 @@ window.onload = function() {
 	check_valid();
 	show_id();
 	mypage_nav();
-	chart();
 };

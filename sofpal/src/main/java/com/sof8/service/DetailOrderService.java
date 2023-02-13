@@ -6,11 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sof8.dto.DetailOrder;
-import com.sof8.dto.Order;
-import com.sof8.dto.OrderForm;
 import com.sof8.frame.Sof8Service;
 import com.sof8.mapper.DetailOrderMapper;
-import com.sof8.mapper.OrderMapper;
 
 @Service
 public class DetailOrderService implements Sof8Service<Integer, DetailOrder>{
@@ -41,6 +38,22 @@ public class DetailOrderService implements Sof8Service<Integer, DetailOrder>{
 	@Override
 	public List<DetailOrder> get() throws Exception {
 		return mapper.selectall();
+	}
+	
+	public int getTodayProducts() throws Exception {
+		return mapper.selectTodayProducts();
+	}
+	
+	public int getWeekProducts() throws Exception {
+		return mapper.selectWeekProducts();
+	}
+	
+	public int getMonthProducts() throws Exception {
+		return mapper.selectMonthProducts();
+	}
+	
+	public int getYearProducts() throws Exception {
+		return mapper.selectYearProducts();
 	}
 
 }

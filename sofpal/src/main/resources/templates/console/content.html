@@ -1,3 +1,17 @@
+<script>
+window.onload = function() {
+
+	var year = '[[${((map.yearProducts*1.0)/map.yearTarget)*100}]]';
+	var month = '[[${((map.monthProducts*1.0)/map.monthTarget)*100}]]';
+	var week = '[[${((map.weekProducts*1.0)/map.weekTarget)*100}]]';
+	var day = '[[${((map.dayProducts*1.0)/map.dayTarget)*100}]]';
+	$('#easypiechart-blue').data('easyPieChart').update(year);
+	$('#easypiechart-red').data('easyPieChart').update(month);
+	$('#easypiechart-teal').data('easyPieChart').update(week);
+	$('#easypiechart-orange').data('easyPieChart').update(day);
+	
+};
+</script>
 <div id="page-wrapper">
 	<div class="header">
 		<h1 class="page-header">대쉬보드</h1>
@@ -16,7 +30,7 @@
 						</div>
 						<div class="card-stacked red">
 							<div class="card-content">
-								<h3 th:text="|${sales >= 100 ? #numbers.formatInteger(sales, 3, 'COMMA'):sales}|"></h3>
+								<h3 th:text="|${map.sales >= 100 ? #numbers.formatInteger(map.sales, 3, 'COMMA'):map.sales}|"></h3>
 							</div>
 							<div class="card-action">
 								<strong>금일매출액</strong>
@@ -32,7 +46,7 @@
 						</div>
 						<div class="card-stacked orange">
 							<div class="card-content">
-								<h3 th:text="|${orders >= 100 ? #numbers.formatInteger(orders, 3, 'COMMA'):orders}|"></h3>
+								<h3 th:text="|${map.orders >= 100 ? #numbers.formatInteger(map.orders, 3, 'COMMA'):map.orders}|"></h3>
 							</div>
 							<div class="card-action">
 								<strong>금일주문수</strong>
@@ -47,7 +61,7 @@
 						</div>
 						<div class="card-stacked blue">
 							<div class="card-content">
-								<h3 th:text="|${products >= 100 ? #numbers.formatInteger(products, 3, 'COMMA'):products}|"></h3>
+								<h3 th:text="|${map.products >= 100 ? #numbers.formatInteger(map.products, 3, 'COMMA'):map.products}|"></h3>
 							</div>
 							<div class="card-action">
 								<strong>금일판매품수</strong>
@@ -63,10 +77,10 @@
 						</div>
 						<div class="card-stacked green">
 							<div class="card-content">
-								<h3>88,658</h3>
+								<h3 th:text="|${map.deliverys >= 100 ? #numbers.formatInteger(map.deliverys, 3, 'COMMA'):map.deliverys}|"></h3>
 							</div>
 							<div class="card-action">
-								<strong>금일배송수</strong>
+								<strong>배송예약수</strong>
 							</div>
 						</div>
 					</div>
@@ -75,195 +89,61 @@
 		</div>
 		<!-- /. ROW  -->
 		<div class="row">
-			<div class="col-xs-12 col-sm-12 col-md-7">
+			<div class="col-xs-12 col-sm-12 col-md-12">
 				<div class="cirStats">
 					<div class="row">
-						<div class="col-xs-12 col-sm-6 col-md-6">
+						<div class="col-xs-12 col-sm-6 col-md-3">
 							<div class="card-panel text-center">
-								<h4>금년 목표판매량</h4>
-								<div class="easypiechart" id="easypiechart-blue" data-percent="82">
-									<span class="percent">82%</span>
+								<h4><strong>금년 목표판매량</strong></h4>
+								<div class="easypiechart" id="easypiechart-blue">
+									<span class="percent" th:text="|${#numbers.formatPercent((map.yearProducts*1.0)/map.yearTarget, 1, 1)}|"></span>
 								</div>
-								<h5>164/200개</h5>
+								<h5 th:text="|${map.yearProducts}/${map.yearTarget}개|"></h5>
 							</div>
 						</div>
-						<div class="col-xs-12 col-sm-6 col-md-6">
+						<div class="col-xs-12 col-sm-6 col-md-3">
 							<div class="card-panel text-center">
-								<h4>금월 목표판매량</h4>
-								<div class="easypiechart" id="easypiechart-red" data-percent="46">
-									<span class="percent">46%</span>
+								<h4><strong>금월 목표판매량</strong></h4>
+								<div class="easypiechart" id="easypiechart-red">
+									<span class="percent" th:text="|${#numbers.formatPercent((map.monthProducts*1.0)/map.monthTarget, 1, 1)}|"></span>
 								</div>
-								<h5>92/200개</h5>
+								<h5 th:text="|${map.monthProducts}/${map.monthTarget}개|"></h5>
 							</div>
 						</div>
-						<div class="col-xs-12 col-sm-6 col-md-6">
+						<div class="col-xs-12 col-sm-6 col-md-3">
 							<div class="card-panel text-center">
-								<h4>금주 목표판매량</h4>
-								<div class="easypiechart" id="easypiechart-teal" data-percent="84">
-									<span class="percent">84%</span>
+								<h4><strong>금주 목표판매량</strong></h4>
+								<div class="easypiechart" id="easypiechart-teal">
+									<span class="percent" th:text="|${#numbers.formatPercent((map.weekProducts*1.0)/map.weekTarget, 1, 1)}|"></span>
 								</div>
-								<h5>168/200개</h5>
+								<h5 th:text="|${map.weekProducts}/${map.weekTarget}개|"></h5>
 							</div>
 						</div>
-						<div class="col-xs-12 col-sm-6 col-md-6">
+						<div class="col-xs-12 col-sm-6 col-md-3">
 							<div class="card-panel text-center">
-								<h4>금일 목표판매량</h4>
-								<div class="easypiechart" id="easypiechart-orange" data-percent="55">
-									<span class="percent">55%</span>
+								<h4><strong>금일 목표판매량</strong></h4>
+								<div class="easypiechart" id="easypiechart-orange">
+									<span class="percent" th:text="|${#numbers.formatPercent((map.dayProducts*1.0)/map.dayTarget, 1, 1)}|"></span>
 								</div>
-								<h5>110/200개</h5>
+								<h5 th:text="|${map.dayProducts}/${map.dayTarget}개|"></h5>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<!--/.row-->
-			
-			<div class="col-xs-12 col-sm-12 col-md-5">
-				<div class="row">
-					<div class="col-xs-12">
-						<div class="card">
-							<div class="card-action">
-								<b>카테고리별 금일 판매현황</b>
-							</div>
-							<div class="card-image donutpad">
-								<div id="morris-donut-chart"></div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!--/.row-->
-			
+			<!--/.row-->		
 		</div>
-
-		<div class="row">
-			<div class="col-md-5">
-				<div class="card">
-					<div class="card-image">
-						<div id="morris-line-chart"></div>
-					</div>
-					<div class="card-action">
-						<b>Line Chart</b>
-					</div>
-				</div>
-
-			</div>
-
-			<div class="col-md-7">
-				<div class="card">
-					<div class="card-image">
-						<div id="morris-bar-chart"></div>
-					</div>
-					<div class="card-action">
-						<b> Bar Chart Example</b>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="col-xs-12">
-				<div class="card">
-					<div class="card-image">
-						<div id="morris-area-chart"></div>
-					</div>
-					<div class="card-action">
-						<b>Area Chart</b>
-					</div>
-				</div>
-			</div>
-
-		</div>
+		
 		<div class="row">
 			<div class="col-md-12"></div>
 		</div>
 		<!-- /. ROW  -->
 
-		<div class="row">
-			<div class="col-md-4 col-sm-12 col-xs-12">
-				<div class="card">
-					<div class="card-action">
-						<b>Tasks Panel</b>
-					</div>
-					<div class="card-image">
-						<div class="collection">
-							<a href="#!" class="collection-item">Red
-								<span class="new badge red" data-badge-caption="red">4</span>	
-							</a> 
-							<a href="#!" class="collection-item">Blue
-								<span class="new badge blue" data-badge-caption="blue">4</span>
-							</a>
-							<a href="#!" class="collection-item">
-								<span class="badge">1</span>Alan
-							</a>
-							<a href="#!" class="collection-item">
-								<span class="new badge">4</span>Alan
-							</a> 
-							<a href="#!" class="collection-item">Alan
-								<span class="new badge blue" data-badge-caption="blue">4</span>
-							</a> 
-							<a href="#!" class="collection-item">
-								<span class="badge">14</span>Alan
-							</a>
-							<a href="#!" class="collection-item">Custom Badge Captions
-								<span class="new badge" data-badge-caption="custom caption">4</span>
-							</a>
-							<a href="#!" class="collection-item">Custom Badge Captions
-								<span class="badge" data-badge-caption="custom caption">4</span>
-							</a>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-8 col-sm-12 col-xs-12">
-				<div class="card">
-					<div class="card-action">
-						<b>User List</b>
-					</div>
-					<div class="card-image">
-						<ul class="collection">
-							<li class="collection-item avatar">
-								<i class="material-icons circle green">track_changes</i> 
-								<span class="title">Title</span>
-								<p>	First Line <br> Second Line </p> 
-								<a href="#!" class="secondary-content">	<i class="material-icons">grade</i>	</a>
-							</li>
-							<li class="collection-item avatar">
-								<i class="material-icons circle">folder</i> 
-								<span class="title">Title</span>
-								<p>	First Line <br> Second Line	</p> 
-								<a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-							</li>
-							<li class="collection-item avatar">
-								<i class="material-icons circle green">track_changes</i> 
-								<span class="title">Title</span>
-								<p> First Line <br> Second Line	</p> 
-								<a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-							</li>
-							<li class="collection-item avatar">
-								<i class="material-icons circle red">play_arrow</i>
-								<span class="title">Title</span>
-								<p>	First Line <br> Second Line	</p> 
-								<a href="#!" class="secondary-content"><i class="material-icons">grade</i></a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
 		<!-- /. ROW  -->
-		<div class="fixed-action-btn horizontal click-to-toggle">
-			<a class="btn-floating btn-large red"> <i class="material-icons">menu</i> </a>
-			<ul>
-				<li><a class="btn-floating red"><i class="material-icons">track_changes</i></a></li>
-				<li><a class="btn-floating yellow darken-1"><i class="material-icons">format_quote</i></a></li>
-				<li><a class="btn-floating green"><i class="material-icons">publish</i></a></li>
-				<li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>
-			</ul>
-		</div>
-
 		<footer>
-			<p> All right reserved.	</p>
+			<p> All right reserved. Template by: 
+				<a href="https://webthemez.com/admin-template/">WebThemez.com</a>
+			</p>
 		</footer>
 	</div>
 	<!-- /. PAGE INNER  -->

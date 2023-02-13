@@ -30,6 +30,22 @@ public class EventController {
 		model.addAttribute("content", dir+"event");
 		return "index";
 	}
+	@RequestMapping("/eventBuy")
+	public String eventBuy(Model model) {
+		model.addAttribute("content", dir+"eventBuy");
+		return "index";
+	}
+	@RequestMapping("/eventPet")
+	public String eventPet(Model model) {
+		model.addAttribute("content", dir+"eventPet");
+		return "index";
+	}
+
+	@RequestMapping("/eventWedding")
+	public String eventWedding(Model model) {
+		model.addAttribute("content", dir+"eventWedding");
+		return "index";
+	}
 	
 	@RequestMapping("/coupon")
 	public String coupon(Model model) {

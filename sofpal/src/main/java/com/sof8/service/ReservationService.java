@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sof8.dto.OrderForm;
 import com.sof8.dto.Reservation;
 import com.sof8.frame.Sof8Service;
 import com.sof8.mapper.ReservationMapper;
@@ -39,6 +38,10 @@ public class ReservationService implements Sof8Service<Integer, Reservation>{
 	@Override
 	public List<Reservation> get() throws Exception {
 		return mapper.selectall();
+	}
+
+	public int getTodayDeliverys() throws Exception {
+		return mapper.selectTodayDeliverys();
 	}
 	
 }

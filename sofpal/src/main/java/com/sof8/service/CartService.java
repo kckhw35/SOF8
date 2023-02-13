@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sof8.dto.Cart;
-import com.sof8.dto.Product;
 import com.sof8.frame.Sof8Service;
 import com.sof8.mapper.CartMapper;
 
