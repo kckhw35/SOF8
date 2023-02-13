@@ -10,6 +10,10 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<select id="selectall" resultType="Reservation">
 		SELECT * FROM reservation
 	</select>
+	<!-- 금일배송수(주문상태 기준은?)-->
+	<select id="selectTodayDeliverys" resultType="int">
+		SELECT ifnull(count(*), 0) FROM reservation WHERE r_date > CURRENT_DATE()
+	</select>	
 	<insert id="insert" parameterType="Reservation">
 		INSERT INTO reservation VALUES (re_id, ${d_id}, ${o_id}, #{r_date}, ${r_time})
 	</insert>

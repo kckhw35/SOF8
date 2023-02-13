@@ -24,5 +24,4 @@ public interface OrderMapper extends Sof8Mapper<Integer, Order>{
 	public void updateStatus(int o_id) throws Exception;
 	public int selectTodaySales() throws Exception;
 	public int selectTodayOrders() throws Exception;
-	public int selectTodayProducts() throws Exception;
 }

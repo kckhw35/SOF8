@@ -9,4 +9,6 @@ import com.sof8.frame.Sof8Mapper;
 @Repository
 @Mapper
 public interface ReservationMapper extends Sof8Mapper<Integer, Reservation>{
+
+	public int selectTodayDeliverys() throws Exception;
 }

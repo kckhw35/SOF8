@@ -10,6 +10,85 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<select id="selectall" resultType="DetailOrder">
 		SELECT * FROM detail_order
 	</select>
+	<!-- 금일판매수 -->
+	<select id="selectTodayProducts" resultType="int">
+		SELECT ifnull(sum(d.d_cnt), 0) 
+		FROM detail_order d
+			JOIN `ordertbl` o ON  d.o_id=o.o_id
+		WHERE o.o_status='결제완료' 
+			AND date_format(o.o_date,'%Y-%m-%d')=CURRENT_DATE()
+	</select>
+	<!-- 금주판매수 -->
+	<select id="selectWeekProducts" resultType="int">
+		SELECT ifnull(sum(d.d_cnt), 0) 
+		FROM detail_order d
+			JOIN `ordertbl` o ON  d.o_id=o.o_id
+		WHERE o.o_status='결제완료' 
+			AND (date_format(o.o_date,'%Y-%m-%d') 
+				BETWEEN DATE_FORMAT(DATE_SUB(o.o_date, INTERVAL(DAYOFWEEK(o.o_date)-1) DAY), '%Y-%m-%d') 
+				AND DATE_FORMAT(DATE_SUB(o.o_date, INTERVAL(DAYOFWEEK(o.o_date)-7) DAY), '%Y-%m-%d')) 
+	</select>	
+	<!-- 금월판매수 -->
+	<select id="selectMonthProducts" resultType="int">
+		SELECT  ifnull(sum(d.d_cnt), 0) 
+		FROM detail_order d
+			JOIN `ordertbl` o ON  d.o_id=o.o_id
+		WHERE o.o_status='결제완료' 
+			AND date_format(o.o_date,'%Y-%m')=date_format(CURRENT_DATE(),'%Y-%m')
+	</select>	
+	<!-- 금년판매수 -->
+	<select id="selectYearProducts" resultType="int">
+		SELECT ifnull(sum(d.d_cnt), 0) 
+		FROM detail_order d
+			JOIN `ordertbl` o ON  d.o_id=o.o_id
+		WHERE o.o_status='결제완료' 
+			AND date_format(o.o_date,'%Y')=date_format(CURRENT_DATE(),'%Y')
+	</select>
+	<!-- 카테고리별 금일판매수 -->
+	<select id="selectTodayCategoryProducts" resultType="Chart">
+		SELECT c.cat_id2 cat_id2, ifnull(sum(d.d_cnt), 0) cnt
+		FROM detail_order d
+			JOIN `ordertbl` o ON  d.o_id=o.o_id
+		    JOIN `product` p ON d.p_id=p.p_id
+		    JOIN `category` c ON p.cat_id=c.cat_id    
+		WHERE o.o_status='입금대기' AND date_format(o.o_date,'%Y-%m-%d')=CURRENT_DATE()
+		GROUP BY cat_id2
+	</select>
+	<!-- 카테고리별 금주판매수 -->
+	<select id="selectWeekCategoryProducts" resultType="Chart">
+		SELECT c.cat_id2 cat_id2, ifnull(sum(d.d_cnt), 0) cnt
+		FROM detail_order d
+			JOIN `ordertbl` o ON  d.o_id=o.o_id
+		    JOIN `product` p ON d.p_id=p.p_id
+		    JOIN `category` c ON p.cat_id=c.cat_id        
+		WHERE o.o_status='입금대기' 
+			AND (date_format(o.o_date,'%Y-%m-%d') 
+				BETWEEN DATE_FORMAT(DATE_SUB(o.o_date, INTERVAL(DAYOFWEEK(o.o_date)-1) DAY), '%Y-%m-%d') 
+				AND DATE_FORMAT(DATE_SUB(o.o_date, INTERVAL(DAYOFWEEK(o.o_date)-7) DAY), '%Y-%m-%d'))
+		GROUP BY cat_id2
+	</select>	
+	<!-- 카테고리별 금월판매수 -->
+	<select id="selectMonthCategoryProducts" resultType="Chart">
+		SELECT c.cat_id2 cat_id2, ifnull(sum(d.d_cnt), 0) cnt
+		FROM detail_order d
+			JOIN `ordertbl` o ON  d.o_id=o.o_id
+		    JOIN `product` p ON d.p_id=p.p_id
+		    JOIN `category` c ON p.cat_id=c.cat_id      
+		WHERE o.o_status='입금대기' 
+			AND date_format(o.o_date,'%Y-%m')=date_format(CURRENT_DATE(),'%Y-%m')
+		GROUP BY cat_id2
+	</select>	
+	<!-- 카테고리별 금년판매수 -->
+	<select id="selectYearCategoryProducts" resultType="Chart">
+		SELECT c.cat_id2 cat_id2, ifnull(sum(d.d_cnt), 0) cnt
+		FROM detail_order d
+			JOIN `ordertbl` o ON  d.o_id=o.o_id
+		    JOIN `product` p ON d.p_id=p.p_id
+		    JOIN `category` c ON p.cat_id=c.cat_id    
+		WHERE o.o_status='입금대기' 
+			AND date_format(o.o_date,'%Y')=date_format(CURRENT_DATE(),'%Y')
+		GROUP BY cat_id2
+	</select>	
 	<insert id="insert" parameterType="DetailOrder">
 		INSERT INTO detail_order VALUES (de_id, ${o_id}, ${p_id}, ${d_cnt}, ${price})
 	</insert>

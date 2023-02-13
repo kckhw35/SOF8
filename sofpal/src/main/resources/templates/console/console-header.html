@@ -29,14 +29,21 @@
 <ul id="dropdown1" class="dropdown-content">
 	<li><a th:href="@{/admin/logout}"><i class="fa fa-sign-out fa-fw"></i> 로그아웃</a>	</li>
 </ul>
-
 <!--/. NAV TOP  -->
 <nav class="navbar-default navbar-side" role="navigation">
 	<div class="sidebar-collapse">
 		<ul class="nav" id="main-menu">
 			<li><a th:href="@{/console}" class="active-menu waves-effect waves-dark"	><i class="fa fa-dashboard"></i> 대쉬보드</a></li>
-			<li><a th:href="@{/console/chart}" class="waves-effect waves-dark"><i class="fa fa-bar-chart-o"></i> 차트</a></li>
-            <li><a th:href="@{/console/table}" class="waves-effect waves-dark"><i class="fa fa-table"></i> 테이블</a></li>
+			<li>
+				<a th:href="@{/console/category}" class="waves-effect waves-dark">
+					<i class="fa fa-sitemap"></i> 차트
+					<span class="fa arrow"></span>
+				</a>
+				<ul class="nav nav-second-level">
+					<li><a th:href="@{/console/category}">카테고리별 판매현황</a></li>
+
+				</ul></li>
+			<li><a th:href="@{/console/table}" class="waves-effect waves-dark"><i class="fa fa-table"></i> 테이블</a></li>
 		</ul>
 	</div>
 </nav>

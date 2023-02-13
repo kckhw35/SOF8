@@ -1,10 +1,4 @@
-/*------------------------------------------------------
-    Author : www.webthemez.com
-    License: Commons Attribution 3.0
-    http://creativecommons.org/licenses/by/3.0/
----------------------------------------------------------  */
 
-(function ($) { "use strict";
 	var mainApp = {
 
         initFunction: function () {
@@ -96,31 +90,14 @@
 			      lineColors:['gray','#414e63']
             });
             
-            /* MORRIS DONUT CHART - 도너츠
-			----------------------------------------*/
-            Morris.Donut({
-				element: 'morris-donut-chart',
-                data: [
-                	{ label: "Profits", value: 12 }, 
-                	{ label: "Users",   value: 30 }, 
-                	{ label: "", value: 20 },
-                	{ label: "Total Sales", value: 20 }],
-				colors: [ '#A6A6A6','#414e63', '#e96562' ],
-                resize: true
-            });
 
             $('.bar-chart').cssCharts({type:"bar"});
             $('.donut-chart').cssCharts({type:"donut"}).trigger('show-donut-chart');
             $('.line-chart').cssCharts({type:"line"});
-
             $('.pie-thychart').cssCharts({type:"pie"});
-       
-	 
         },
-
         initialization: function () {
             mainApp.initFunction();
-
         }
 
     }
@@ -142,9 +119,10 @@
 			}
 		});
 		
+
+		
         mainApp.initFunction(); 
     });
 
 	$(".dropdown-button").dropdown();
-	
-}(jQuery));
+

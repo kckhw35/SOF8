@@ -61,19 +61,14 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	</select>
 	<!-- 금일매출(결제완료된것만 조건추가필요)-->
 	<select id="selectTodaySales" resultType="int">
-		SELECT ifnull(sum(totalprice), 0) FROM ordertbl WHERE o_date > CURRENT_DATE()
+		SELECT ifnull(sum(totalprice), 0) FROM ordertbl WHERE o_date > CURRENT_DATE() AND o_status='결제완료'
 	</select>
 	<!-- 금일주문수(주문상태 기준은?)-->
 	<select id="selectTodayOrders" resultType="int">
-		SELECT ifnull(count(*), 0) FROM ordertbl WHERE o_date > CURRENT_DATE()
+		SELECT ifnull(count(*), 0) FROM ordertbl o
+			JOIN `detail_order` d ON o.o_id = d.o_id
+		WHERE o.o_date > CURRENT_DATE()  AND o.o_status='결제완료'
 	</select>
-	<!-- 금일판매수 -->
-	<select id="selectTodayProducts" resultType="int">
-		SELECT ifnull(sum(d_cnt), 0) 
-		FROM `detail_order` d
-			JOIN `ordertbl` o ON  d.o_id=o.o_id 
-		WHERE o_date > CURRENT_DATE();	</select>
-	
 	<update id="updateStatus" parameterType="int">
 		UPDATE ordertbl
 		SET o_status = '주문취소'
