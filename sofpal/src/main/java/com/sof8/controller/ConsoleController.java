@@ -231,7 +231,6 @@ public class ConsoleController {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
 			model.addAttribute("dlist", dlist);
 			model.addAttribute("admin", admin);
 			model.addAttribute("content", dir + "reservation");

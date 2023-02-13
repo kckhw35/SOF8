@@ -6,6 +6,8 @@
 	1.1 product			: 상품보기
 	1.2 product detail	: 상품 상세보기
 	1.3 search			: 상품 검색
+	1.4 cart			: 장바구니
+	1.5	order			: 주문
 	
 2. Admin 				: 관리자
 	2.1 register		: 상품등록
@@ -34,6 +36,20 @@
 
 #product-img {
 	width: 400px;
+}
+
+.cart-bar, .order-bar {
+	background-image: url( "/images/backgrounds/cart.jpg" );
+	height: 300px;
+	display: flex;
+}
+
+.cart-bar {
+	background-image: url( "/images/backgrounds/cart.jpg" );
+}
+
+.order-bar {
+	background-image: url( "/images/backgrounds/cart.jpg" );
 }
 
 .checkout-form .checkout-email input {
