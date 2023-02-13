@@ -1,4 +1,13 @@
-﻿<div id="page-wrapper">
+﻿<script>
+	function changestatus(o_status,o_id){
+		location.href='/console/updateorderstatus?o_id='+o_id+'&o_status='+o_status;
+	}
+	
+	window.onload = function(){
+		changestatus(o_status,o_id);
+	}
+</script>
+<div id="page-wrapper">
 	<div class="header">
 		<h1 class="page-header">주문 관리</h1>
 		<ol class="breadcrumb">
@@ -31,9 +40,9 @@
 								<tbody>
 									<tr th:each="o : ${olist}" class="odd gradeX">
 										<td class="center"><p th:text="${o.o_id}"></p></td>
-										<td ><p th:text="${o.b_name}"></p></td>
+										<td class="center"><p th:text="${o.b_name}"></p></td>
 										<td class="center"><p th:text="${o.b_cnt}"></p></td>
-										<td class="center"><p th:text="${o.price}"></p></td>
+										<td class="center"><p th:text="${o.b_price}"></p></td>
 										<td class="center"><p th:text="${o.pay_option}"></p></td>
 										<td class="center"><p th:text="${o.o_date}"></p></td>
 										<td class="center"><p th:text="${o.c_date}"></p></td>
@@ -69,9 +78,9 @@
 								<tbody>
 									<tr th:each="to : ${tolist}">
 										<td class="center"><p th:text="${to.o_id}"></p></td>
-										<td><p th:text="${to.b_name}"></p></td>
+										<td class="center"><p th:text="${to.b_name}"></p></td>
 										<td class="center"><p th:text="${to.b_cnt}"></p></td>
-										<td class="center"><p th:text="${to.price}"></p></td>
+										<td class="center"><p th:text="${to.b_price}"></p></td>
 										<td class="center"><p th:text="${to.pay_option}"></p></td>
 										<td class="center"><p th:text="${to.o_status}"></p></td>
 									</tr>
@@ -101,8 +110,8 @@
 								<tbody>
 									<tr th:each="tco : ${tcolist}">
 										<td class="center"><p th:text="${tco.o_id}"></p></td>
-										<td><p th:text="${tco.b_name}"></p></td>
-										<td class="center"><p th:text="${tco.price}"></p></td>
+										<td class="center"><p th:text="${tco.b_name}"></p></td>
+										<td class="center"><p th:text="${tco.b_price}"></p></td>
 										<td class="center"><p th:text="${tco.pay_option}"></p></td>
 										<td class="center"><p th:text="${tco.o_status}"></p></td>
 									</tr>
@@ -136,11 +145,18 @@
 								<tbody>
 									<tr th:each="co : ${colist}">
 										<td class="center"><p th:text="${co.o_id}"></p></td>
-										<td><p th:text="${co.user_id}"></p></td>
-										<td class="center"><p th:text="${co.price}"></p></td>
+										<td class="center"><p th:text="${co.user_id}"></p></td>
+										<td class="center"><p th:text="${co.totalprice}"></p></td>
 										<td class="center"><p th:text="${co.pay_option}"></p></td>
 										<td class="center"><p th:text="${co.o_date}"></p></td>
-										<td class="center"><p th:text="${co.o_status}"></p></td>
+										<td class="center">
+											<select class="form-control center" id="order_status" th:onchange="changestatus(this.value,[[${co.o_id}]])">
+						                		<option th:value="${co.o_status}" th:text="${co.o_status}"></option>
+						                		<option th:value="주문취소">주문취소</option>
+						                		<option th:value="환불진행중">환불진행중</option>
+						                		<option th:value="환불완료">환불완료</option>
+								        	</select>
+								        </td>
 									</tr>
 								</tbody>
 							</table>

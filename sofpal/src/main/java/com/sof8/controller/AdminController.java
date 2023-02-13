@@ -413,6 +413,7 @@ public class AdminController {
 
 		try {
 			p = pservice.get(p_id);
+			p.setCat_id(pservice.getmaincat(p.getCat_id()));
 			model.addAttribute("p", p);
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -15,7 +15,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	</insert>
 	<!-- 주문 상태 변경 -->
 	<update id="update" parameterType="Order">
-		UPDATE orderTBL SET WHERE o_status = #{o_status}
+		UPDATE orderTBL SET o_status = #{o_status}  WHERE o_id = ${o_id}
 	</update>
 	<!-- 구매 확정 -->
 	<update id="confirmbuying" parameterType="Order">
@@ -83,23 +83,24 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	</update>
 	<!-- 주문 내역 -->
 	<select id="getorderlist" resultType="OrderForm">
-		SELECT o.o_id AS o_id, p.p_name AS b_name, do.d_cnt AS b_cnt, do.price AS price, o.o_date AS o_date, o.c_date AS c_date, o.o_status AS o_status 
+		SELECT o.o_id AS o_id, p.p_name AS b_name, do.d_cnt AS b_cnt, do.price AS b_price, o.pay_option AS pay_option, o.o_date AS o_date, o.c_date AS c_date, o.o_status AS o_status 
 		FROM ordertbl o 
 		JOIN (detail_order do JOIN product p ON do.p_id = p.p_id) ON o.o_id = do.o_id
+		ORDER BY o.o_id DESC
 	</select>
 	<!-- 오늘 전체 주문 내역 -->
 	<select id="gettodayorder" resultType="OrderForm">
-		SELECT o.o_id AS o_id, p.p_name AS p_name, do.d_cnt AS d_cnt, do.price AS price, o.pay_option AS pay_option, o.o_status AS o_status 
+		SELECT o.o_id AS o_id, p.p_name AS b_name, do.d_cnt AS b_cnt, do.price AS b_price, o.pay_option AS pay_option, o.o_status AS o_status 
 		FROM ordertbl o 
 		JOIN (detail_order do JOIN product p ON do.p_id = p.p_id) ON o.o_id = do.o_id 
 		WHERE o_date > CURRENT_DATE()
 	</select>
 	<!-- 오늘 주문 확정 내역 -->
 	<select id="gettodayconfrim" resultType="OrderForm">
-		SELECT o.o_id AS o_id, p.p_name AS p_name, do.price AS price, o.pay_option AS pay_option, o.o_status AS o_status 
+		SELECT o.o_id AS o_id, p.p_name AS b_name, do.price AS b_price, o.pay_option AS pay_option, o.o_status AS o_status 
 		FROM ordertbl o 
 		JOIN (detail_order do JOIN product p ON do.p_id = p.p_id) ON o.o_id = do.o_id 
-		WHERE o_date > CURRENT_DATE()
+		WHERE c_date > CURRENT_DATE() and o.o_status = '구매확정'
 	</select>
 	<!-- 주문 취소 및 환불 내역 -->
 	<select id="getcancelorder" resultType="OrderForm">
