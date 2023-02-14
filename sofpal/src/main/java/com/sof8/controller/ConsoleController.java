@@ -157,6 +157,16 @@ public class ConsoleController {
 		return day;
 	}
 
+	// 127.0.0.1/console/chart
+	// 주문
+	@RequestMapping("/chart")
+	public String chart(HttpSession session, Model model, Admin admin) {
+		admin = (Admin) session.getAttribute("admin");
+		model.addAttribute("admin", admin);
+		model.addAttribute("content", dir + "chart");
+		return dir+"console";
+	}
+	
 	// 127.0.0.1/console/order
 	// 주문
 	@RequestMapping("/order")
