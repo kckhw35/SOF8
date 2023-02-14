@@ -39,7 +39,6 @@
 }
 
 .cart-bar, .order-bar {
-	background-image: url( "/images/backgrounds/cart.jpg" );
 	height: 300px;
 	display: flex;
 }
