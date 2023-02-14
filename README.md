@@ -1,12 +1,12 @@
 # SOF8
 Multi-Campus Team Project Group8  'SOF8'
-<p align="center"><img src="SOF8/sofpal/src/main/resources/static/images/readme/logo_readme.png" width="300" height="300"/></p>
+<p align="center"><img src="sofpal/src/main/resources/static/images/readme/logo_readme.png" width="300" height="300"/></p>
 
 
 ## 1. 프로젝트 주제
 - 네이버 AI 플랫폼과 API(지도, 결제)를 활용하여 소파 상품 예약 및 배송 서비스를 제공하는 웹 애플리케이션 ‘ SOF8 : SOFA + Team8 ’
 
-![main_page](SOF8/sofpal/src/main/resources/static/images/readme/main_page.png)
+![main_page](sofpal/src/main/resources/static/images/readme/main_page.png)
 
 
 ## 2. 프로젝트 목적
@@ -25,7 +25,7 @@ Multi-Campus Team Project Group8  'SOF8'
 
 
 ## 3. 시스템 구성도 / 개발 사용 도구
-![system_structure](SOF8/sofpal/src/main/resources/static/images/readme/system_structure.png)
+![system_structure](sofpal/src/main/resources/static/images/readme/system_structure.png)
 
 |                            언어                            |                 개발도구                  |    Database    |                           협업도구                           |          Framework          |         Server          |
 |:--------------------------------------------------------:|:-------------------------------------:|:--------------:|:--------------------------------------------------------:|:---------------------------:|:-----------------------:|
@@ -33,24 +33,24 @@ Multi-Campus Team Project Group8  'SOF8'
 
 <br>
 
-![tool](SOF8/sofpal/src/main/resources/static/images/readme/tool.png)
+![tool](sofpal/src/main/resources/static/images/readme/tool.png)
 
 
 ## 4. 데이터베이스 설계
 > 16개의 테이블 사용  <br>
 
-![erd](SOF8/sofpal/src/main/resources/static/images/readme/erd.png)
+![erd](sofpal/src/main/resources/static/images/readme/erd.png)
 
 
 
 ## 5. 프로젝트 기능 구현
 > USER PAGE <br>
 
-![plan](SOF8/sofpal/src/main/resources/static/images/readme/user_page.jpg)
+![plan](sofpal/src/main/resources/static/images/readme/user_page.jpg)
 
 > ADMIN PAGE <br>
 
-![plan](SOF8/sofpal/src/main/resources/static/images/readme/admin_page.png)
+![plan](sofpal/src/main/resources/static/images/readme/admin_page.png)
 
 ## 6. 프로젝트 구성원 및 역할
 | 이름 |                                      <center>USER PAGE                                      |<center>ADMIN PAGE|
@@ -65,7 +65,7 @@ Multi-Campus Team Project Group8  'SOF8'
 ## 7. 프로젝트 수행 기간
 > 2023.01.06 ~ 2023.02.17(8주)
 > [WBS(Work Breakdown Structure)](https://docs.google.com/spreadsheets/d/1l5RytZX4ybEn0ufmhfsFigrCAuVmxXFy/edit#gid=1506713151)
-![plan](SOF8/sofpal/src/main/resources/static/images/readme/plan.png)
+![plan](sofpal/src/main/resources/static/images/readme/plan.png)
 
 
 ## 8. 시연영상
