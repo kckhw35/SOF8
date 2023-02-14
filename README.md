@@ -29,7 +29,7 @@ Multi-Campus Team Project Group8  'SOF8'
 
 |                            언어                            |                 개발도구                  |    Database    |                           협업도구                           |          Framework          |         Server          |
 |:--------------------------------------------------------:|:-------------------------------------:|:--------------:|:--------------------------------------------------------:|:---------------------------:|:-----------------------:|
-| Java<br/>XML<br/>AJAX<br/>jQuery<br/>HTML5<br/>CSS3<br/>JavaScript<br/>JSON | Eclipse 2020-12<br/>SpringBoot 2.7.7 | MySQL 8.0.32  | zoom<br/>GitHub<br/>Figma<br/>ERD Cloud<br/>Google Drive | Thymeleaf<br/>Mybatis 3.2.2 | NCP(Naver Cloud Platform)<br/>Apache Tomcat |
+| Java<br/>XML<br/>AJAX<br/>jQuery<br/>HTML5<br/>CSS3<br/>JavaScript<br/>JSON | Eclipse 2020-12<br/>SpringBoot 2.7.7 | MySQL 8.0.32  | zoom<br/>GitHub<br/>Figma<br/>ERD Cloud<br/>Google Drive | Thymeleaf<br/>Mybatis 3.2.2 | NCP(Naver Cloud Platform)<br/>CentOS<br/>Apache Tomcat |
 
 <br>
 
