@@ -47,17 +47,6 @@
 		});
 	};
 	
-	var oEditors = []
-
-    function smartEditor() {
-      nhn.husky.EZCreator.createInIFrame({
-        	oAppRef: oEditors,
-        	elPlaceHolder: "editorTxt",
-        	sSkinURI: "/smarteditor/SmartEditor2Skin.html",
-        	fCreator: "createSEditor2"
-      })
-    };
-	
 	function registerproduct(){
 		$('#register_form a[name="register_product"]').click(function(){
 			var c = confirm('등록 하시겠습니까?');
@@ -73,7 +62,6 @@
 	};
 
 	window.onload = function() {
-		smartEditor();
 		registerproduct();
 		showsize();
 	};
@@ -84,7 +72,11 @@
 		<div class="row mt-20">
 			<form id="register_form">
 				<div class="col-md-5">
-					<input type="file" id="p_img" name="img" accept="images/shop/products/*" required multiple>
+					<input type="file" id="p_img" name="img_product" accept="images/shop/products/*" required multiple>
+					<input type="file" id="p_img" name="img_product" accept="images/shop/products/*" required multiple>
+					<input type="file" id="p_img" name="img_product" accept="images/shop/products/*" required multiple>
+					<input type="file" id="p_img" name="img_product" accept="images/shop/products/*" required multiple>
+					<input type="file" id="p_img" name="img_product" accept="images/shop/products/*" required multiple>
 				</div>
 				<div class="col-md-7">
 					<div class="single-product-details">
@@ -175,7 +167,11 @@
 							</ul>
 							<div class="tab-content patternbg">
 								<div id="details" class="tab-pane fade active in">
-									<textarea name="editorTxt" id="editorTxt"  rows="20" cols="10" style="width: 100%"></textarea>
+									<input type="file" name="img_list" accept="images/shop/products/content/*" required multiple>
+									<input type="file" name="img_list" accept="images/shop/products/content/*" required multiple>
+									<input type="file" name="img_list" accept="images/shop/products/content/*" required multiple>
+									<input type="file" name="img_list" accept="images/shop/products/content/*" required multiple>
+									<input type="file" name="img_list" accept="images/shop/products/content/*" required multiple>
 								</div>
 							</div>
 						</div>

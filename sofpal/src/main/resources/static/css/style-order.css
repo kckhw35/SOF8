@@ -39,6 +39,7 @@
 }
 
 .cart-bar, .order-bar {
+	background-size: cover;
 	height: 300px;
 	display: flex;
 }
@@ -49,6 +50,10 @@
 
 .order-bar {
 	background-image: url( "/images/backgrounds/cart.jpg" );
+}
+
+.sort-center{
+	text-align : center;
 }
 
 .checkout-form .checkout-email input {

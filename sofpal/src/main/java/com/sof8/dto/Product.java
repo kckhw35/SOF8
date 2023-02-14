@@ -1,5 +1,7 @@
 package com.sof8.dto;
 
+import java.util.List;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.AllArgsConstructor;
@@ -27,7 +29,10 @@ public class Product {
 	private String color;
 	private boolean visiable;
 	
-	private MultipartFile img;
+	private List<MultipartFile> img_product;	// 상품 이미지
+	private List<MultipartFile> img_list;		// 상품 설명 이미지
+	private List<String> img_namelist;
+	private String main_img;
 	private String cat_name;
 	
 }

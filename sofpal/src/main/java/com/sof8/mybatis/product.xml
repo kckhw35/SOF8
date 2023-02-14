@@ -8,15 +8,18 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		SELECT * FROM product WHERE p_id = ${p_id}
 	</select>
 	<select id="selectall" resultType="Product">
-		SELECT * FROM product
+		SELECT * FROM product ORDER BY p_id DESC
 	</select>
 	<insert id="insert" parameterType="Product">
 		INSERT INTO product VALUES (p_id, ${cat_id}, #{p_name}, #{p_content}, #{p_img}, ${price}, ${del_cost}, ${p_cnt}, ${discount}, #{size}, #{color}, #{visiable})
 	</insert>
 	<!-- 상품 수정하기 -->
 	<update id="update" parameterType="Product">
-		UPDATE product SET cat_id = ${cat_id}, p_name = #{p_name}, p_content = #{p_content}, 
-		<if test="p_img !=null">
+		UPDATE product SET cat_id = ${cat_id}, p_name = #{p_name}, 
+		<if test="p_content != null">
+			p_content = #{p_content},
+		</if>
+		<if test="p_img != null">
 			p_img = #{p_img}, 
 		</if>
 		price = ${price}, del_cost = ${del_cost}, p_cnt = ${p_cnt}, discount = ${discount}, size = #{size}, color = #{color}, visiable = #{visiable} WHERE p_id = ${p_id}

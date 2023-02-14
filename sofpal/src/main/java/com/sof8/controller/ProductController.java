@@ -1,5 +1,6 @@
 package com.sof8.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.sof8.dto.Member;
 import com.sof8.dto.Paging;
@@ -40,10 +42,15 @@ public class ProductController {
 	@Value("${imgdir}")
 	String imgdir;
 	
+	@Value("${imgdir2}")
+	String imgdir2;
+	
 	// 전체 상품보기
 	@RequestMapping("/productall")
 	public String productall(HttpSession session, Model model, @RequestParam(defaultValue = "1") int page, @RequestParam(required = false) String keyword, @RequestParam(value = "type", defaultValue = "p_name") String type) {
 		List<Product> list = null;
+		String[] p_img = null;
+		String main_img = null;
 		Map<String, Object> map = new HashMap<String, Object>();
 		Paging paging = null;
 		int totalRow;
@@ -68,6 +75,13 @@ public class ProductController {
 						// 페이징 후 데이터 검색
 						list = pservice.selectlist(paging);
 						--page;
+						
+						for(Product p : list) {
+							main_img = p.getP_img();
+							p_img = main_img.split(",");
+							main_img = p_img[0];
+							p.setP_img(main_img);
+						}
 					}while(list.isEmpty());
 				} else {
 					// 페이징을 위한 데이터 입력
@@ -88,6 +102,13 @@ public class ProductController {
 						// 페이징 후 데이터 검색
 						list = pservice.selectlistadmin(paging);
 						--page;
+						
+						for(Product p : list) {
+							main_img = p.getP_img();
+							p_img = main_img.split(",");
+							main_img = p_img[0];
+							p.setP_img(main_img);
+						}
 					}while(list.isEmpty());
 				} else {
 					// 페이징을 위한 데이터 입력
@@ -109,6 +130,8 @@ public class ProductController {
 	@RequestMapping("/fabric")
 	public String fabric(HttpSession session, Model model, @RequestParam(defaultValue = "1") int page, @RequestParam(required = false) String keyword, @RequestParam(value = "type", defaultValue = "p_name") String type) {
 		List<Product> list = null;
+		String[] p_img = null;
+		String main_img = null;
 		Map<String, Object> map = new HashMap<String, Object>();
 		Paging paging = null;
 		int totalRow;
@@ -134,6 +157,13 @@ public class ProductController {
 						// 페이징 후 데이터 검색
 						list = pservice.selectlist(paging);
 						--page;
+						
+						for(Product p : list) {
+							main_img = p.getP_img();
+							p_img = main_img.split(",");
+							main_img = p_img[0];
+							p.setP_img(main_img);
+						}
 					}while(list.isEmpty());
 				} else {
 					// 페이징을 위한 데이터 입력
@@ -155,6 +185,13 @@ public class ProductController {
 						// 페이징 후 데이터 검색
 						list = pservice.selectlistadmin(paging);
 						--page;
+						
+						for(Product p : list) {
+							main_img = p.getP_img();
+							p_img = main_img.split(",");
+							main_img = p_img[0];
+							p.setP_img(main_img);
+						}
 					}while(list.isEmpty());
 				} else {
 					// 페이징을 위한 데이터 입력
@@ -176,6 +213,8 @@ public class ProductController {
 	@RequestMapping("/leather")
 	public String leather(HttpSession session, Model model, @RequestParam(defaultValue = "1") int page, @RequestParam(required = false) String keyword, @RequestParam(value = "type", defaultValue = "p_id") String type) {
 		List<Product> list = null;
+		String[] p_img = null;
+		String main_img = null;
 		Map<String, Object> map = new HashMap<String, Object>();
 		Paging paging = null;
 		int totalRow;
@@ -201,6 +240,13 @@ public class ProductController {
 						// 페이징 후 데이터 검색
 						list = pservice.selectlist(paging);
 						--page;
+						
+						for(Product p : list) {
+							main_img = p.getP_img();
+							p_img = main_img.split(",");
+							main_img = p_img[0];
+							p.setP_img(main_img);
+						}
 					}while(list.isEmpty());
 				} else {
 					// 페이징을 위한 데이터 입력
@@ -222,6 +268,13 @@ public class ProductController {
 						// 페이징 후 데이터 검색
 						list = pservice.selectlistadmin(paging);
 						--page;
+						
+						for(Product p : list) {
+							main_img = p.getP_img();
+							p_img = main_img.split(",");
+							main_img = p_img[0];
+							p.setP_img(main_img);
+						}
 					}while(list.isEmpty());
 				} else {
 					// 페이징을 위한 데이터 입력
@@ -243,6 +296,8 @@ public class ProductController {
 	@RequestMapping("/pet")
 	public String pet(HttpSession session, Model model, @RequestParam(defaultValue = "1") int page, @RequestParam(required = false) String keyword, @RequestParam(value = "type", defaultValue = "p_id") String type) {
 		List<Product> list = null;
+		String[] p_img = null;
+		String main_img = null;
 		Map<String, Object> map = new HashMap<String, Object>();
 		Paging paging = null;
 		int totalRow;
@@ -268,6 +323,13 @@ public class ProductController {
 						// 페이징 후 데이터 검색
 						list = pservice.selectlist(paging);
 						--page;
+						
+						for(Product p : list) {
+							main_img = p.getP_img();
+							p_img = main_img.split(",");
+							main_img = p_img[0];
+							p.setP_img(main_img);
+						}
 					}while(list.isEmpty());
 				} else {
 					// 페이징을 위한 데이터 입력
@@ -289,6 +351,13 @@ public class ProductController {
 						// 페이징 후 데이터 검색
 						list = pservice.selectlistadmin(paging);
 						--page;
+						
+						for(Product p : list) {
+							main_img = p.getP_img();
+							p_img = main_img.split(",");
+							main_img = p_img[0];
+							p.setP_img(main_img);
+						}
 					}while(list.isEmpty());
 				} else {
 					// 페이징을 위한 데이터 입력
@@ -310,6 +379,8 @@ public class ProductController {
 	@RequestMapping("/livingroom")
 	public String livingroom(HttpSession session, Model model, @RequestParam(defaultValue = "1") int page, @RequestParam(required = false) String keyword, @RequestParam(value = "type", defaultValue = "p_id") String type) {
 		List<Product> list = null;
+		String[] p_img = null;
+		String main_img = null;
 		Map<String, Object> map = new HashMap<String, Object>();
 		Paging paging = null;
 		int totalRow;
@@ -335,6 +406,13 @@ public class ProductController {
 						// 페이징 후 데이터 검색
 						list = pservice.selectlist(paging);
 						--page;
+						
+						for(Product p : list) {
+							main_img = p.getP_img();
+							p_img = main_img.split(",");
+							main_img = p_img[0];
+							p.setP_img(main_img);
+						}
 					}while(list.isEmpty());
 				} else {
 					// 페이징을 위한 데이터 입력
@@ -356,6 +434,13 @@ public class ProductController {
 						// 페이징 후 데이터 검색
 						list = pservice.selectlistadmin(paging);
 						--page;
+						
+						for(Product p : list) {
+							main_img = p.getP_img();
+							p_img = main_img.split(",");
+							main_img = p_img[0];
+							p.setP_img(main_img);
+						}
 					}while(list.isEmpty());
 				} else {
 					// 페이징을 위한 데이터 입력
@@ -379,9 +464,30 @@ public class ProductController {
 		
 		/* 상품 관련 로직 */
 		Product p = null;
+		String main_img = null;		// 상품 메인 이미지(첫 번째 등록한 사진)
+		String[] img = null;
+		String[] content = null;
+		List<String> p_img = new ArrayList<String>();
+		List<String> p_content = new ArrayList<String>();
+		
 		try {
 			p = pservice.get(p_id);
+			
+			img = p.getP_img().split(",");
+			main_img = img[0];
+			for(int i=1; i<img.length; i++) {
+				p_img.add(img[i]);
+			}
+			
+			content = p.getP_content().split(",");
+			for(String s : content) {
+				p_content.add(s);
+			}
+			
 			p.setCat_name(cservice.selectcatname(p.getCat_id()));
+			model.addAttribute("main_img", main_img);
+			model.addAttribute("p_imglist", p_img);
+			model.addAttribute("imglist", p_content);
 			model.addAttribute("p", p);
 		
 		} catch (Exception e) {
@@ -416,14 +522,39 @@ public class ProductController {
 	@RequestMapping("/register")
 	public String register(Model model, Product product) {
 		
-		String p_img = product.getImg().getOriginalFilename();		
-		product.setP_img(p_img);
+		String p_name = "";	// 상품 이미지 파일 리스트(,로 구분)
+		String c_content = "";	// 상품 설명 이미지 파일 리스트(,로 구분)
+		
+		// 상품 이미지 이름 등록
+		for (MultipartFile c_img : product.getImg_product()) {
+			String img_name = c_img.getOriginalFilename();
+			p_name += img_name+",";
+		}
+		product.setP_img(p_name);
+				
+		// 상품 설명 이미지 이름 등록
+		for (MultipartFile c_img : product.getImg_list()) {
+			String img_name = c_img.getOriginalFilename();
+			c_content += img_name+",";
+		}
+		
+		product.setP_content(c_content);
 		
 		try {
-			ImgUtil.saveFile(product.getImg(), imgdir);
 			// 카테고리 설정
 			product.setCat_id(pservice.selectcategory(product));
 			pservice.register(product);
+			
+			// 상품 이미지 등록
+			for(MultipartFile c_img : product.getImg_product()) {
+				ImgUtil.saveFile2(c_img, imgdir);
+			}
+			
+			// 상품 설명 이미지 등록
+			for(MultipartFile c_img : product.getImg_list()) {
+				ImgUtil.saveFile2(c_img, imgdir2);
+			}
+			
 			model.addAttribute("obj", product);
 			
 		} catch (Exception e) {
@@ -437,23 +568,51 @@ public class ProductController {
 	@RequestMapping("/update")
 	public String update(Model model, Product product) {
 		
-		String p_img = product.getImg().getOriginalFilename();		
+		String p_name = "";
+		String c_content = "";
 		
-		if(p_img.equals("") || p_img == null) {
+		// 상품 이미지 이름 가져오기
+		System.out.println("상품 이미지 : " + product.getImg_product());
+		System.out.println("상품 설명 이미지 : " + product.getImg_list());
+		if((product.getImg_product().equals("") || product.getImg_product() == null) || (product.getImg_list().equals("") || product.getImg_list() == null)) {
 			try {
 				// 카테고리 설정
 				product.setCat_id(pservice.selectcategory(product));
 				pservice.modify(product);
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}else {
-			p_img = product.getImg().getOriginalFilename();
-			product.setP_img(p_img);
+			// 상품 이미지 이름 가져오기
+			for (MultipartFile c_img : product.getImg_product()) {
+				String img_name = c_img.getOriginalFilename();
+				p_name += img_name + ",";
+			}
+			System.out.println("이미지 이름: "+p_name);
+			product.setP_img(p_name);
+
+			// 상품 설명 이미지 이름 가져오기
+			for (MultipartFile c_img : product.getImg_list()) {
+				String img_name = c_img.getOriginalFilename();
+				c_content += img_name + ",";
+			}
+			System.out.println("설명 이름: "+c_content);
+			product.setP_content(c_content);
+			
 			try {
 				product.setCat_id(pservice.selectcategory(product));
 				pservice.modify(product);
-				ImgUtil.saveFile(product.getImg(), imgdir);
+				
+				// 새로운 상품 이미지 등록
+				for(MultipartFile c_img : product.getImg_product()) {
+					ImgUtil.saveFile(c_img, imgdir);
+				}
+				
+				// 새로운 상품 설명 이미지 등록
+				for(MultipartFile c_img2 : product.getImg_list()) {
+					ImgUtil.saveFile2(c_img2, imgdir2);
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

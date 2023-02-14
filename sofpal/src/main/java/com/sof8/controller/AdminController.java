@@ -1,5 +1,6 @@
 package com.sof8.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -410,10 +411,31 @@ public class AdminController {
 	@RequestMapping("/updateproduct")
 	public String updateproduct(Model model, int p_id) {
 		Product p = null;
-
+		String main_img = null;
+		String[] img = null;
+		String[] content = null;
+		List<String> p_img = new ArrayList<String>();
+		List<String> p_content = new ArrayList<String>();
+		
 		try {
 			p = pservice.get(p_id);
+			
+			img = p.getP_img().split(",");
+			main_img = img[0];
+			for(int i=1; i<img.length; i++) {
+				p_img.add(img[i]);
+			}
+			
+			content = p.getP_content().split(",");
+			for(String s : content) {
+				p_content.add(s);
+			}
+			
 			p.setCat_id(pservice.getmaincat(p.getCat_id()));
+			
+			model.addAttribute("main_img", main_img);
+			model.addAttribute("p_imglist", p_img);
+			model.addAttribute("imglist", p_content);
 			model.addAttribute("p", p);
 		} catch (Exception e) {
 			e.printStackTrace();

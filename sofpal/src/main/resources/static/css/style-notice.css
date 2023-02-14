@@ -1,6 +1,7 @@
 @charset "UTF-8";
 
 .notice-bar, .faq-bar {
+	background-size: cover;
 	height: 300px;
 	display: flex;
 }

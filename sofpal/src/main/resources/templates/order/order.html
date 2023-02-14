@@ -268,21 +268,21 @@
 									<tbody>
 										<tr th:each="c : ${clist}" class="">
 											<input type="hidden" th:value="${c.c_id}" name="c_ids"/>
-											<td class="">
+											<td class="sort-center">
 												<div class="product-info">
 													<img width="200" th:src="@{/images/shop/products/}+${c.p_img}" />
 													<a th:href="@{/product/productdetail(p_id=${c.p_id})}" id="p_name" th:value="${c.p_id}" th:text="${c.p_name}"></a>
 													<input type="hidden" th:value="${c.p_id}" name="p_id"/>
 												</div>
 											</td>
-											<td class="widthDisplayNone" th:text="${c.c_cnt}" id="c_cnt"></td>
+											<td class="sort-center widthDisplayNone" th:text="${c.c_cnt}" id="c_cnt"></td>
 											<input type="hidden" th:value="${c.c_cnt}" name="d_cnt"/>
-											<td class="widthDisplayNone" th:text="${c.price}" id="price"></td>
-											<td th:text="${c.c_cnt*c.price}" ></td>
+											<td class="sort-center widthDisplayNone" th:text="|${#numbers.formatInteger(c.price, 3, 'COMMA')}원|" id="price"></td>
+											<td class="sort-center" th:text="|${#numbers.formatInteger(c.c_cnt*c.price, 3, 'COMMA')}원|" ></td>
 											<input type="hidden" th:value="${c.c_cnt*c.price}" name="price" />
-											<td class="widthDisplayNone" th:text="${c.c_cnt*c.discount}" id="discount"></td>
+											<td class="sort-center widthDisplayNone" th:text="|${#numbers.formatInteger(c.c_cnt*c.discount, 3, 'COMMA')}원|" id="discount"></td>
 											<input type="hidden" th:value="${c.c_cnt*c.discount}" name="discount">
-											<td class="widthDisplayNone" th:text="${c.c_cnt*c.del_cost}" name="del_cost"></td>
+											<td class="sort-center widthDisplayNone" th:text="|${#numbers.formatInteger(c.c_cnt*c.del_cost, 3, 'COMMA')}원|" name="del_cost"></td>
 											<input type="hidden" name="del_cost" th:value="${c.c_cnt*c.del_cost}" />
 										</tr>
 									</tbody>
@@ -290,11 +290,11 @@
 								<div class="order-price-box col-md-12 col-xs-12 col-sm-12">
 									<div class="price-content">
 										<div class="price-list">
-											<div class="form-group">
-												<h3>쿠폰 사용 : </h3>
+											<div class="form-group sort-center">
+												<h3 class="widthDisplayNone">쿠폰 사용 : </h3>
 							                	<select id="coupon_list" name="cd_id">
 							                		<option value="0">쿠폰을 선택하세요.</option>
-							                		<option th:each="co : ${coupon}" th:value="${co.cd_id}" th:text="${co.c_name}+'['+${co.c_discount}+'원 할인]'"></option>
+							                		<option th:each="co : ${coupon}" th:value="${co.cd_id}" th:text="${co.c_name}+'['+|${#numbers.formatInteger(co.c_discount, 3, 'COMMA')}원|+' 할인]'"></option>
 							        			</select>
 								        	</div><hr>
 											<dl>

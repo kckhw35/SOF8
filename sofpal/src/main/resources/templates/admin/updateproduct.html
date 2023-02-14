@@ -175,8 +175,34 @@
 			<form id="update_form">
 				<input type="hidden" th:value="${p.p_id}" name="p_id"/>
 				<div class="col-md-5">
-					<input type="file" id="p_img" name="img" accept="images/shop/products/*" required multiple>
-					<img th:src="@{/images/shop/products/}+${p.p_img}" alt='' th:data-zoom-image="@{/images/shop/products/}+${p.p_img}" />
+					<input type="file" id="img_product" name="img_product" accept="images/shop/products/*" required multiple>
+					<input type="file" id="img_product" name="img_product" accept="images/shop/products/*" required multiple>
+					<input type="file" id="img_product" name="img_product" accept="images/shop/products/*" required multiple>
+					<input type="file" id="img_product" name="img_product" accept="images/shop/products/*" required multiple>
+					<input type="file" id="img_product" name="img_product" accept="images/shop/products/*" required multiple>
+					<input type="file" id="img_product" name="img_product" accept="images/shop/products/*" required multiple>
+					<div class="single-product-slider">
+						<div id='carousel-custom' class='carousel slide' data-ride='carousel'>
+							<div class='carousel-outer'>
+								<!-- me art lab slider -->
+								<div class='carousel-inner '>
+								<div class='item active'>
+									<img th:src="@{/images/shop/products/}+${main_img}" alt='' th:data-zoom-image="@{/images/shop/products/}+${main_img}" />
+								</div>
+								<div th:each="pimg : ${p_imglist}" class='item'>
+									<img th:src="@{/images/shop/products/}+${pimg}" alt='' th:data-zoom-image="@{/images/shop/products/}+${pimg}" />
+								</div>
+							</div>
+								<!-- sag sol -->
+								<a class='left carousel-control' href='#carousel-custom' data-slide='prev'>
+									<i class="tf-ion-ios-arrow-left"></i>
+								</a>
+								<a class='right carousel-control' href='#carousel-custom' data-slide='next'>
+									<i class="tf-ion-ios-arrow-right"></i>
+								</a>
+							</div>
+						</div>
+					</div>
 				</div>
 				<div class="col-md-7">
 					<div class="single-product-details">
@@ -273,7 +299,14 @@
 							</ul>
 							<div class="tab-content patternbg">
 								<div id="details" class="tab-pane fade active in">
-									<textarea id="p_content" name="p_content" th:text="${p.p_content}" rows="10" cols="100" style="width: 100%;"></textarea>
+									<input type="file" name="img_list" accept="images/shop/products/content/*" required multiple>
+									<input type="file" name="img_list" accept="images/shop/products/content/*" required multiple>
+									<input type="file" name="img_list" accept="images/shop/products/content/*" required multiple>
+									<input type="file" name="img_list" accept="images/shop/products/content/*" required multiple>
+									<input type="file" name="img_list" accept="images/shop/products/content/*" required multiple>
+								</div>
+								<div th:each="img : ${imglist}">
+									<img th:src="@{/images/shop/products/content/}+${img}" alt='' th:data-zoom-image="@{/images/shop/products/content/}+${img}" />
 								</div>
 							</div>
 						</div>

@@ -15,6 +15,7 @@
 *******************************************/
 /*=== [ 1. Common ] ===*/
 .all-bar, .fabric-bar, .leather-bar, .pet-bar, .livingroom-bar {
+	background-size: cover;
 	height: 300px;
 	display: flex;
 }
@@ -52,6 +53,7 @@
 }
 
 #product-list {
+	margin : auto;
 	width: 380px;
 	height: 350px;
 }
