@@ -615,9 +615,6 @@ function check_auth() {
 
 	var auth = $('input[name=auth]').val();
 	var inputauth = $('input[name=inputauth]').val();
-	alert(auth);
-	alert(inputauth);
-
 
 	if (auth != inputauth) {
 		alert('인증번호가 일치하지 않습니다.');
@@ -1004,7 +1001,7 @@ function check_email() {
 	// input 값 초기화 
 	var email = $('#email').val();
 	var check = $('.find').val();
-	alert(check);
+	
 	// 이메일 글자 앞 중간 뒤에 영문+숫자 포함하여 
 	// 특수문자 중 점( . ) 하이픈( - ) 언더바( _ ) 만 사용 가능하도록 하는 정규식
 	var reg = /^([\w\.\_\-])*[a-zA-Z0-9]+([\w\.\_\-])*([a-zA-Z0-9])+([\w\.\_\-])+@([a-zA-Z0-9]+\.)+[a-zA-Z0-9]{2,8}$/;
