@@ -46,7 +46,7 @@ Multi-Campus Team Project Group8  'SOF8'
 ## 5. 프로젝트 기능 구현
 > USER PAGE <br>
 
-![plan](sofpal/src/main/resources/static/images/readme/user_page.jpg)
+![plan](sofpal/src/main/resources/static/images/readme/user_page.png)
 
 > ADMIN PAGE <br>
 
