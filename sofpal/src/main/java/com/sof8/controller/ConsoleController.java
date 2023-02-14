@@ -12,7 +12,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.sof8.dto.Admin;
+import com.sof8.dto.Delivery;
+import com.sof8.dto.Order;
 import com.sof8.dto.OrderForm;
+import com.sof8.service.DeliveryService;
 import com.sof8.service.DetailOrderService;
 import com.sof8.service.OrderService;
 import com.sof8.service.ReservationService;
@@ -23,10 +26,15 @@ public class ConsoleController {
 
 	@Autowired
 	OrderService oservice;
+	
 	@Autowired
 	DetailOrderService doservice;
+	
 	@Autowired
 	ReservationService rservice;
+	
+	@Autowired
+	DeliveryService dservice;
 	
 	String dir = "console/";
 
@@ -189,6 +197,7 @@ public class ConsoleController {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			
 			model.addAttribute("olist", olist);
 			model.addAttribute("tolist", tolist);
 			model.addAttribute("tcolist", tcolist);
@@ -200,28 +209,44 @@ public class ConsoleController {
 		} else	return "redirect:/";
 	}
 	
+	// 취소 내역 상태 변경
+	@RequestMapping("/updateorderstatus")
+	public String updateorderstatus(HttpSession session, Model model, Admin admin, String o_status, int o_id) {
+		Order o = null;
+		admin = (Admin) session.getAttribute("admin");
+		if(admin != null) {
+			try {
+				o = oservice.get(o_id);
+				o.setO_status(o_status);
+				oservice.modify(o);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			model.addAttribute("admin", admin);
+			model.addAttribute("content", dir + "order");
+			return "redirect:/console/order";
+		} else	return "redirect:/";
+	}
+	
 	// 127.0.0.1/console/reservation
-	// 예약
+	// 예약 및 배송
 	@RequestMapping("/reservation")
 	public String reservation(HttpSession session, Model model, Admin admin) {
 		admin = (Admin) session.getAttribute("admin");
 		if(admin != null) {
+			List<Delivery> dlist = null;	// 배송기사 정보
+			
+			try {
+				dlist = dservice.get();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			model.addAttribute("dlist", dlist);
 			model.addAttribute("admin", admin);
 			model.addAttribute("content", dir + "reservation");
 			return dir+"console";
 		} else	return "redirect:/";
 	}
-	
-	// 127.0.0.1/console/order
-	// 배송
-	@RequestMapping("/delivery")
-	public String delivery(HttpSession session, Model model, Admin admin) {
-		admin = (Admin) session.getAttribute("admin");
-		if(admin != null) {
-			model.addAttribute("admin", admin);
-			model.addAttribute("content", dir + "delivery");
-			return dir+"console";
-		} else	return "redirect:/";
-	}	
+
 	
 }

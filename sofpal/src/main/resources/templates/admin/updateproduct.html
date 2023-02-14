@@ -38,18 +38,26 @@
 		var frm = document.querySelectorAll('input[name="size"]');
 		var size = '[[${p.size}]]';
 		
-		if(size == 1){
+		if(size == '1인용'){
 			frm[0].checked = true;
-		}else if(size == 2){
+		}else if(size == '2인용'){
 			frm[1].checked = true;
-		}else if(size == 3){
+		}else if(size == '3인용'){
 			frm[2].checked = true;
-		}else if(size == 4){
+		}else if(size == '4인용'){
 			frm[3].checked = true;
-		}else if(size == 5){
+		}else if(size == '5인용'){
 			frm[4].checked = true;
-		}else if(size == 6){
+		}else if(size == '6인용'){
 			frm[5].checked = true;
+		}else if(size == '펫쇼파'){
+			frm[6].checked = true;
+		}else if(size == '펫스텝'){
+			frm[7].checked = true;
+		}else if(size == '쿠션'){
+			frm[8].checked = true;
+		}else if(size == '러그'){
+			frm[9].checked = true;
 		}
 	};
 	
@@ -118,9 +126,20 @@
 	
 	function showsize(){
 		// 크기 기본
-		$('#size1').show();
-		$('#size2').hide();
-		$('#size3').hide();
+		var result = $('#cat_id option:selected').val();
+		if(result == 1 || result == 2){
+			$('#size1').show();
+			$('#size2').hide();
+			$('#size3').hide();
+		}else if(result == 3){
+			$('#size2').show();
+			$('#size1').hide();
+			$('#size3').hide();
+		}else if(result == 4){
+			$('#size3').show();
+			$('#size1').hide();
+			$('#size2').hide();
+		}
 		
 		$('#cat_id').change(function(){
 			var result = $('#cat_id option:selected').val();
@@ -142,9 +161,9 @@
 	
 	
 	window.onload = function() {
-		showsize();
-		checksize();
 		checkcat();
+		checksize();
+		showsize();
 		checkcolor();
 		checkvisiable();
 		updateproduct();

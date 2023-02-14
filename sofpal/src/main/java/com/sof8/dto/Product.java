@@ -29,4 +29,5 @@ public class Product {
 	
 	private MultipartFile img;
 	private String cat_name;
+	
 }

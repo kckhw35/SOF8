@@ -18,7 +18,6 @@ public class OrderForm {
 	// Order
 	private int o_id;
 	private String user_id;
-	private int c_id;
 	private int totalprice;
 	private int totaldiscount;
 	private String pay_option;
@@ -55,4 +54,5 @@ public class OrderForm {
 	private List<String> p_img;
 	private String b_name;		// 구매 상품 이름
 	private String b_cnt;		// 구매 상품 수량
+	private String b_price;		// 구매 상품 총 금액
 }

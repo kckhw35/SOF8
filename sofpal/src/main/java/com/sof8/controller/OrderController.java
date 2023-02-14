@@ -375,7 +375,7 @@ public class OrderController {
 			if(c.getCd_id() != 0) {
 				try {
 					coservice.usecoupon(c.getCd_id());
-					of.setC_id(coservice.getcoid(c.getCd_id()));
+					of.setCo_id(coservice.getcoid(c.getCd_id()));
 					c.setC_discount(coservice.coupondiscount(c.getCd_id()));
 				} catch (Exception e) {
 					e.printStackTrace();

@@ -20,10 +20,23 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<update id="update" parameterType="Reservation">
 		UPDATE reservation SET d_id = ${d_id}, r_date = #{r_date}, r_time = ${r_time} where re_id = ${re_id}
 	</update>
+	<!-- 주문 취소시 예약 취소(삭제) -->
 	<delete id="delete" parameterType="int">
-		DELETE FROM reservation WHERE re_id = ${re_id}
+		DELETE FROM reservation WHERE o_id = ${o_id}
 	</delete>
 	<insert id="insertreservation" parameterType="OrderForm">
 		INSERT INTO reservation VALUES (re_id, ${d_id}, ${o_id}, #{r_date}, ${r_time})
 	</insert>
+	<!-- 오늘 배송되야하는 예약 리스트 -->
+	<select id="gettodaydelivery" resultType="Reservation">
+		SELECT * FROM reservation WHERE r_date = CURRENT_DATE() ORDER BY r_date ASC
+	</select>
+	<!-- 아직 배송전인 예약 리스트 -->
+	<select id="getreservelist" resultType="Reservation">
+		SELECT * FROM reservation WHERE r_date > CURRENT_DATE() ORDER BY r_date ASC
+	</select>
+	<!-- 이번달 예약 리스트 -->
+	<select id="getmonthdelivery" resultType="Reservation">
+		SELECT * FROM reservation WHERE DATE_FORMAT(r_date,'$Y-%m') = DATE_FORMAT(now(),'$Y-%m') ORDER BY r_date ASC
+	</select>
 </mapper>

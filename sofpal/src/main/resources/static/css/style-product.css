@@ -14,16 +14,16 @@
 
 *******************************************/
 /*=== [ 1. Common ] ===*/
-.all_bar, .fabir-bar, .leather-bar, .pet-bar, .livingroom-bar {
+.all-bar, .fabric-bar, .leather-bar, .pet-bar, .livingroom-bar {
 	height: 300px;
 	display: flex;
 }
 
-.all_bar {
+.all-bar {
 	background-image: url( "/images/backgrounds/all.jpg" );
 }
 
-.fabir-bar {
+.fabric-bar {
 	background-image: url( "/images/backgrounds/fabric.jpg" );
 	}
 

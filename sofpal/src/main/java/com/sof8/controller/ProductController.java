@@ -389,7 +389,6 @@ public class ProductController {
 		}		
 		model.addAttribute("content", dir+"productdetail");
 		
-		
 		/* 로그인 확인 - 본인 리뷰 수정 삭제 가능구현 위해서 */ 
 		if (httpsession.getAttribute("member") != null) {
 			Member member = (Member) httpsession.getAttribute("member");

@@ -15,6 +15,7 @@ public class Delivery {
 	private int d_id;
 	private String d_name;
 	private String d_tel;
+	private String d_img;
 	private float longitude;
 	private float latitude;
 }

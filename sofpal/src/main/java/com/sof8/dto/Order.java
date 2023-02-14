@@ -15,7 +15,7 @@ import lombok.ToString;
 @ToString
 public class Order {
 	private String user_id;
-	private int c_id;
+	private int co_id;
 	private int totalprice;
 	private int discount;
 	private String pay_option;
