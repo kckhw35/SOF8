@@ -741,25 +741,24 @@ function member_edit() {
 
 // 회원탈퇴
 function member_cancel() {
-	var result = confirm('탈퇴하시겠습니까?')
-	if (result == true) {
-		var member = $('#form_cancel').serialize();
-
+	var member = $('#form_cancel').serialize();
+	var c = confirm('탈퇴하시겠습니까?');
+	if (c == true) {
 		var option = {
-			type: 'post',
-			url: '/mypage/cancelok',
-			data: member
-		};
-		$.ajax(option).done(function(data) {
-			if (data == true) {
-				alert('SOF8를 탈퇴하셨습니다.');
-				location.href = '/';
+			method : 'post',
+			url : '/mypage/cancelok',
+			data: member,
+			async: false,
+			success: function(data) {
+				if(data == true) {
+					alert('SOF8를 탈퇴하셨습니다.');
+					location.href = '/';
+				} else $('#error').text('비밀번호가 일치하지 않습니다.');
 			}
-			else $('#error').text('비밀번호가 일치하지 않습니다.')
-		});
+		};
+		$.ajax(option);
 	}
-	return false;
-}
+};
 
 
 

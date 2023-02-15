@@ -175,15 +175,19 @@ public class MypageController {
 
 	// 127.0.0.1/mypage/cancelok
 	@ResponseBody
-	@RequestMapping("/mypage/cancelok")
+	@RequestMapping("/cancelok")
 	public Boolean cancelok(HttpSession session, Model model, Member member) {
 		Boolean result = false;
+		System.out.println("member: " + member);
+
 		// 세션이 있다면(로그인 중이라면)
 		if (session.getAttribute("member") != null) {
 			try {
 				Member m = (Member) session.getAttribute("member");
 				System.out.println("member: " + member);
 				System.out.println("m: " + m);
+				String encryptPwd = CryptoUtil.sha512(member.getPwd());
+				member.setPwd(encryptPwd);
 				if (m.getPwd().equals(member.getPwd())) {
 
 					service.modifyDisable(m.getUser_id());
