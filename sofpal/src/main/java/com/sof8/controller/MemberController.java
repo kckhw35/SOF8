@@ -122,19 +122,32 @@ public class MemberController {
 
 	@ResponseBody
 	@RequestMapping("/checkemail")
-	public Object checkemail(String email) {
+	public int checkemail(String email) {
 		int result = 0;
-	
 		try {
 			// 가입된 이메일 검색
-			Member member = service.getEmail(email);
-
+			String mail = service.getEmail(email);
+			System.out.println(email);
 			// 가입된 이메일 존재함
-			if (member != null) result = 1;
+			if (mail != null) result = 1;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		System.out.println(result);
 		return result;
+	}
+	
+	@ResponseBody
+	@RequestMapping("/getemail")
+	public String getemail(String email) {
+		String mail = null;
+		try {
+			// 가입된 이메일 검색
+			mail = service.getEmail(email);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return mail;
 	}
 	
 	// 127.0.0.1/member/login

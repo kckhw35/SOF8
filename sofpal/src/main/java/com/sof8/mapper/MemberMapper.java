@@ -32,6 +32,6 @@ public interface MemberMapper extends Sof8Mapper<String, Member>{
 	public Member selectMemberId(Member v) throws Exception;
 
 	// 중복 이메일 검색
-	public Member selectMemberEmail(String k) throws Exception;	
+	public String selectMemberEmail(String k) throws Exception;
 	
 }

@@ -202,6 +202,11 @@ input[type="checkbox"]:checked+input+label:before {
 	margin-right: 4px;
 }
 
+.edit-email #edit_email {
+	width: calc(70% - 2px);
+	margin-right: 4px;
+}
+
 .edit-email #slt_email {
 	width: calc(30% - 2px);
 	font-size: 12px;

@@ -67,10 +67,9 @@ public class MemberService implements Sof8Service<String, Member>{
 		return mapper.selectMemberId(v);
 	}
 
-	public Member getEmail(String k) throws Exception {
+	public String getEmail(String k) throws Exception {
 		// TODO Auto-generated method stub
 		return mapper.selectMemberEmail(k);
 	}
-
 
 }

@@ -4,7 +4,7 @@
 			<div class="col-md-8 col-md-offset-2">
 				<div class="block text-center">
 					<h2>회원가입 정보입력</h2>
-					<form class="text-left" th:action="@{/member/accountok}" th:onsubmit="return check_member_account" th:object="${member}" method="post">
+					<form class="text-left" th:action="@{/member/accountok}" th:onsubmit="return check_member_account()" th:object="${member}" method="post">
 						<div class="text-right text-danger">
 							<small>* 표시는 필수입력 항목입니다.</small>
 						</div>

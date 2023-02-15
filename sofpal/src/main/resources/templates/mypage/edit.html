@@ -14,7 +14,7 @@
 							</ol>
 						</div>
 					</div>
-					<form class="form-horizontal line" th:action="@{/mypage/editok}" th:onsubmit="return check_edit()" th:object="${member}" method="post">
+					<form class="form-horizontal line" th:action="@{/mypage/editok}" th:onsubmit="return member_edit()" th:object="${member}" method="post">
 						<div class="form-group mt-8">						
 							<label class="col-md-2 control-label">아이디:</label>
 							<div class="col-md-10">
@@ -62,7 +62,7 @@
 							<label class="col-md-2 control-label">이메일:</label>							
 							<div class="col-md-10">
 								<div class="edit-email">				
-									<input type="text" th:field="*{email}" class="form-control" th:value="${member.email}">
+									<input type="text" id="edit_email" th:field="*{email}" class="form-control" th:value="${member.email}">
 									<select id="slt_email" class="form-control input-lg">
 										<option value="">직접입력</option>
 										<option value="naver">naver.com</option>
@@ -72,6 +72,7 @@
 										<option value="hotmail">hotmail.com</option>
 										<option value="gmail">gmail.com</option>
 									</select>
+									<input type="hidden" id="member_email" th:value="${member.email}">
 								</div>
 								<span id="error_email" class="control-label"></span>
 							</div>
@@ -101,7 +102,7 @@
 						<div id="form_addr" class="form-group">
 							<label class="col-md-2 control-label">주소:</label>
 							<div class="col-md-10">
-								<input type="text" th:field=*{addr} class="form-control"	th:value="${member.addr}">
+								<input type="text" th:field=*{addr} class="form-control" th:value="${member.addr}">
 								<span id="error_addr" class="control-label"></span>
 							</div>
 						</div>

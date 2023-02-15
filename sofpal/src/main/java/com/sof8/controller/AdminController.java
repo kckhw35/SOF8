@@ -348,7 +348,7 @@ public class AdminController {
 		if (!checkNullSession(session)) {
 
 			try {
-
+				
 				// 회원정보 수정
 				mservice.modify(member);
 
