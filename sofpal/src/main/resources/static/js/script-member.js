@@ -8,7 +8,6 @@
 4. Run Script 			: 스크립트 실행부
 *******************************************/
 
-
 /*=== [ 0. Youtube API ] ===*/
 
 // 1. IFrame Player API 코드를 비동기적으로 로드합니다.
@@ -195,11 +194,12 @@ function memberDisable(page) {
 			var option = {
 				method: 'post',
 				url: '/admin/memberdisable',
-				data: json,
+				data: json,	
 				success: function(result) {
 					if (result) {
 						alert('성공적으로 탈퇴처리 하였습니다.');
 						$('#form_member').load('/admin/member?page=' + page + ' #form_member');
+						
 					}
 				}
 			};
@@ -241,6 +241,7 @@ function memberDelete(page) {
 		method: 'post',
 		url: '/admin/memberdelete',
 		data: json,
+		async: false,		
 		success: function(result) {
 			if (result) {
 				alert('성공적으로 삭제처리 하였습니다.');
