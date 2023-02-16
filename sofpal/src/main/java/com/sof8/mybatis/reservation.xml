@@ -29,14 +29,32 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	</insert>
 	<!-- 오늘 배송되야하는 예약 리스트 -->
 	<select id="gettodaydelivery" resultType="Reservation">
-		SELECT * FROM reservation WHERE r_date = CURRENT_DATE() ORDER BY r_date ASC
+		SELECT r.re_id AS re_id, d.d_id AS d_id, r.o_id AS o_id, o.o_status AS o_status, r.r_date AS r_date, r.r_time AS r_time, d.d_name AS d_name, d.d_tel AS d_tel, o.re_req AS re_req FROM reservation r
+		JOIN delivery d
+		ON r.d_id = d.d_id
+		JOIN orderTBL o
+		ON r.o_id = o.o_id
+		WHERE r_date = CURRENT_DATE()
+		ORDER BY r_date ASC
 	</select>
 	<!-- 아직 배송전인 예약 리스트 -->
 	<select id="getreservelist" resultType="Reservation">
-		SELECT * FROM reservation WHERE r_date > CURRENT_DATE() ORDER BY r_date ASC
+		SELECT r.re_id AS re_id, d.d_id AS d_id, r.o_id AS o_id, o.o_status AS o_status, r.r_date AS r_date, r.r_time AS r_time, d.d_name AS d_name, d.d_tel AS d_tel, o.re_req AS re_req FROM reservation r
+		JOIN delivery d
+		ON r.d_id = d.d_id
+		JOIN orderTBL o
+		ON r.o_id = o.o_id
+		WHERE r_date >= CURRENT_DATE()
+		ORDER BY r_date ASC
 	</select>
 	<!-- 이번달 예약 리스트 -->
 	<select id="getmonthdelivery" resultType="Reservation">
-		SELECT * FROM reservation WHERE DATE_FORMAT(r_date,'$Y-%m') = DATE_FORMAT(now(),'$Y-%m') ORDER BY r_date ASC
+		SELECT r.re_id AS re_id, d.d_id AS d_id, r.o_id AS o_id, o.o_status AS o_status, r.r_date AS r_date, r.r_time AS r_time, d.d_name AS d_name, d.d_tel AS d_tel, o.re_req AS re_req FROM reservation r
+		JOIN delivery d
+		ON r.d_id = d.d_id
+		JOIN orderTBL o
+		ON r.o_id = o.o_id
+		WHERE DATE_FORMAT(r_date,'$Y-%m') = DATE_FORMAT(now(),'$Y-%m')
+		ORDER BY r_date ASC
 	</select>
 </mapper>

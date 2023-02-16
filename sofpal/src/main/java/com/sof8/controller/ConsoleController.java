@@ -15,6 +15,7 @@ import com.sof8.dto.Admin;
 import com.sof8.dto.Delivery;
 import com.sof8.dto.Order;
 import com.sof8.dto.OrderForm;
+import com.sof8.dto.Reservation;
 import com.sof8.service.DeliveryService;
 import com.sof8.service.DetailOrderService;
 import com.sof8.service.OrderService;
@@ -193,7 +194,7 @@ public class ConsoleController {
 				tcolist = oservice.gettodayconfrim();
 				colist = oservice.getcancelorder();
 				mlist = oservice.getmonth();
-						
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -209,7 +210,7 @@ public class ConsoleController {
 		} else	return "redirect:/";
 	}
 	
-	// 취소 내역 상태 변경
+	// 주문, 취소, 내역 상태 변경
 	@RequestMapping("/updateorderstatus")
 	public String updateorderstatus(HttpSession session, Model model, Admin admin, String o_status, int o_id) {
 		Order o = null;
@@ -232,21 +233,49 @@ public class ConsoleController {
 	// 예약 및 배송
 	@RequestMapping("/reservation")
 	public String reservation(HttpSession session, Model model, Admin admin) {
+		List<Delivery> dlist = null;	// 배송기사 정보
+		List<Reservation> tlist = null;	// 오늘 배송되야하는 예약 리스트
+		List<Reservation> rlist = null; // 아직 배송전인 예약 리스트
+		List<Reservation> mlist = null; // 이번달 예약 리스트
+		
 		admin = (Admin) session.getAttribute("admin");
 		if(admin != null) {
-			List<Delivery> dlist = null;	// 배송기사 정보
 			
 			try {
 				dlist = dservice.get();
+				tlist = rservice.gettodaydelivery();
+				rlist = rservice.getreservelist();
+				mlist = rservice.getmonthdelivery();
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			model.addAttribute("dlist", dlist);
+			model.addAttribute("tlist", tlist);
+			model.addAttribute("rlist", rlist);
+			model.addAttribute("mlist", mlist);
 			model.addAttribute("admin", admin);
 			model.addAttribute("content", dir + "reservation");
 			return dir+"console";
 		} else	return "redirect:/";
 	}
-
+	
+	@RequestMapping("/updatereservestatus")
+	public String updatereservestatus(HttpSession session, Model model, Admin admin, String o_status, int o_id) {
+		Order o = null;
+		admin = (Admin) session.getAttribute("admin");
+		if(admin != null) {
+			try {
+				o = oservice.get(o_id);
+				o.setO_status(o_status);
+				oservice.modify(o);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			model.addAttribute("admin", admin);
+			model.addAttribute("content", dir + "reservation");
+			return "redirect:/console/reservation";
+		} else	return "redirect:/";
+	}
 	
 }

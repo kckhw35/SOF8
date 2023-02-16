@@ -44,4 +44,16 @@ public class ReservationService implements Sof8Service<Integer, Reservation>{
 		return mapper.selectTodayDeliverys();
 	}
 	
+	public List<Reservation> gettodaydelivery() throws Exception{
+		return mapper.gettodaydelivery();
+	}
+	
+	public List<Reservation> getreservelist() throws Exception{
+		return mapper.getreservelist();
+	}
+	
+	public List<Reservation> getmonthdelivery() throws Exception{
+		return mapper.getmonthdelivery();
+	}
+	
 }

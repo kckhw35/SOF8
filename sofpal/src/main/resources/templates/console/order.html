@@ -82,7 +82,13 @@
 										<td class="center"><p th:text="${to.b_cnt}"></p></td>
 										<td class="center"><p th:text="${to.b_price}"></p></td>
 										<td class="center"><p th:text="${to.pay_option}"></p></td>
-										<td class="center"><p th:text="${to.o_status}"></p></td>
+										<td class="center">
+											<select class="form-control center" id="order_status" th:onchange="changestatus(this.value,[[${to.o_id}]])">
+						                		<option th:value="${to.o_status}" th:text="${to.o_status}"></option>
+						                		<option th:value="결제완료">결제완료</option>
+						                		<option th:value="상품준비중">상품준비중</option>
+								        	</select>
+										</td>
 									</tr>
 								</tbody>
 							</table>
@@ -174,36 +180,16 @@
 							<table class="table">
 								<thead>
 									<tr>
-										<th class="center">#</th>
-										<th class="center">고객이름</th>
+										<th class="center">고객아이디</th>
 										<th class="center">주문건수</th>
 										<th class="center">결제금액</th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr class="danger">
-										<td>4</td>
-										<td>John</td>
-										<td>Smith</td>
-										<td>@jsmith</td>
-									</tr>
-									<tr class="warning">
-										<td>3</td>
-										<td>Larry</td>
-										<td>the Bird</td>
-										<td>@twitter</td>
-									</tr>
-									<tr class="success">
-										<td>1</td>
-										<td>Mark</td>
-										<td>Otto</td>
-										<td>@mdo</td>
-									</tr>
-									<tr class="info">
-										<td>2</td>
-										<td>Jacob</td>
-										<td>Thornton</td>
-										<td>@fat</td>
+									<tr class="warning" th:each="m : ${mlist}">
+										<td class="center"><p th:text="${m.user_id}"></p></td>
+										<td class="center"><p th:text="${m.totalprice}"></p></td>
+										<td class="center"><p th:text="${m.d_cnt}"></p></td>
 									</tr>
 								</tbody>
 							</table>

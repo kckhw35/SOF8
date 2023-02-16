@@ -88,14 +88,14 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		SELECT o.o_id AS o_id, p.p_name AS b_name, do.d_cnt AS b_cnt, do.price AS b_price, o.pay_option AS pay_option, o.o_status AS o_status 
 		FROM ordertbl o 
 		JOIN (detail_order do JOIN product p ON do.p_id = p.p_id) ON o.o_id = do.o_id 
-		WHERE o_date > CURRENT_DATE()
+		WHERE o.o_date > CURRENT_DATE() and o.o_status != '주문취소'
 	</select>
 	<!-- 오늘 주문 확정 내역 -->
 	<select id="gettodayconfrim" resultType="OrderForm">
 		SELECT o.o_id AS o_id, p.p_name AS b_name, do.price AS b_price, o.pay_option AS pay_option, o.o_status AS o_status 
 		FROM ordertbl o 
 		JOIN (detail_order do JOIN product p ON do.p_id = p.p_id) ON o.o_id = do.o_id 
-		WHERE c_date > CURRENT_DATE() and o.o_status = '구매확정'
+		WHERE o.c_date > CURRENT_DATE() and o.o_status = '구매확정'
 	</select>
 	<!-- 주문 취소 및 환불 내역 -->
 	<select id="getcancelorder" resultType="OrderForm">
@@ -103,9 +103,10 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	</select>
 	<!-- 이번달 최대 구매 고객 내역 -->
 	<select id="getmonth" resultType="OrderForm">
-		SELECT user_id, SUM(totalprice) 
+		SELECT user_id, SUM(totalprice) AS totalprice, count(user_id) AS d_cnt
 		FROM orderTBL 
-		WHERE o_date > CURRENT_DATE() AND o_status = '구매확정' 
+		WHERE DATE_FORMAT(o_date,'$Y-%m') = DATE_FORMAT(now(),'$Y-%m') AND o_status = '구매확정'
 		GROUP BY user_id
+        ORDER BY SUM(totalprice) DESC
 	</select>
 </mapper>

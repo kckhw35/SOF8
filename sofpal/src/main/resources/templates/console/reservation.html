@@ -3,6 +3,15 @@
 		display: inline;
 	}
 </style>
+<script>
+	function changestatus(o_status,o_id){
+		location.href='/console/updatereservestatus?o_id='+o_id+'&o_status='+o_status;
+	}
+	
+	window.onload = function(){
+		changestatus(o_status,o_id);
+	}
+</script>
 <div id="page-wrapper">
 	<div class="header">
 		<h1 class="page-header">예약 및 배송 관리</h1>
@@ -85,304 +94,117 @@
 		</div>
 		<div class="row">
 			<div class="col-md-12">
-				<!-- Advanced Tables -->
+				<!-- 금일 배송 리스트 Tables -->
 				<div class="card">
-					<div class="card-action">금일 배송 리스트</div>
+					<div class="card-action">금일 배송 예약 리스트</div>
 					<div class="card-content">
 						<div class="table-responsive">
 							<table class="table table-striped table-bordered table-hover"
 								id="dataTables-example">
 								<thead>
 									<tr>
-										<th>예약번호</th>
-										<th>예약시간</th>
-										<th>배송상태</th>
-										<th>배송기사 이름</th>
-										<th>배송기사 연락처</th>
+										<th class="center">예약번호</th>
+										<th class="center">예약시간</th>
+										<th class="center">배송상태</th>
+										<th class="center">배송기사 이름</th>
+										<th class="center">배송기사 연락처</th>
+										<th class="center">배송시 요청사항</th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr class="odd gradeX">
-										<td>Trident</td>
-										<td>Internet Explorer 4.0</td>
-										<td>Win 95+</td>
-										<td class="center">4</td>
-										<td class="center">X</td>
+									<tr th:each="t : ${tlist}" class="odd gradeX">
+										<td class="center"><p th:text="${t.re_id}"></p></td>
+										<td class="center"><p th:text="${t.r_time}+':00'"></p></td>
+										<td class="center">
+											<select class="form-control center" id="order_status" th:onchange="changestatus(this.value,[[${t.o_id}]])">
+						                		<option th:value="${t.o_status}" th:text="${t.o_status}"></option>
+						                		<option th:value="상품배송중">상품배송중</option>
+						                		<option th:value="배송완료">배송완료</option>
+								        	</select>
+										</td>
+										<td class="center"><p th:text="${t.d_name}"></p></td>
+										<td class="center"><p th:text="${t.d_tel}"></p></td>
+										<td class="center"><p th:text="${t.d_tel}"></p></td>
+										<td class="center"><p th:text="${t.re_req}"></p></td>
 									</tr>
 								</tbody>
 							</table>
 						</div>
 					</div>
 				</div>
-				<!--End Advanced Tables -->
+				<!--End 금일 배송 리스트 Tables -->
 			</div>
 		</div>
 		<!-- /. ROW  -->
 		<div class="row">
 			<div class="col-md-6">
-				<!--   Kitchen Sink -->
+				<!--   이번달 예약 리스트 Sink -->
 				<div class="card">
-					<div class="card-action">Kitchen Sink</div>
+					<div class="card-action">이번달 예약 리스트</div>
 					<div class="card-content">
 						<div class="table-responsive">
 							<table class="table table-striped table-bordered table-hover">
 								<thead>
 									<tr>
-										<th>#</th>
-										<th>First Name</th>
-										<th>Last Name</th>
-										<th>Username</th>
+										<th class="center">예약번호</th>
+										<th class="center">예약날짜</th>
+										<th class="center">예약시간</th>
+										<th class="center">상태</th>
+										<th class="center">배송기사 이름</th>
 									</tr>
 								</thead>
 								<tbody>
 									<tr>
-										<td>1</td>
-										<td>Mark</td>
-										<td>Otto</td>
-										<td>@mdo</td>
+										<tr th:each="m : ${mlist}" class="odd gradeX">
+										<td class="center"><p th:text="${m.re_id}"></p></td>
+										<td class="center"><p th:text="${m.r_date}"></p></td>
+										<td class="center"><p th:text="${m.r_time}+':00'"></p></td>
+										<td class="center"><p th:text="${m.o_status}"></p></td>
+										<td class="center"><p th:text="${m.d_name}"></p></td>
 									</tr>
-									<tr>
-										<td>2</td>
-										<td>Jacob</td>
-										<td>Thornton</td>
-										<td>@fat</td>
-									</tr>
-									<tr>
-										<td>3</td>
-										<td>Larry</td>
-										<td>the Bird</td>
-										<td>@twitter</td>
 									</tr>
 								</tbody>
 							</table>
 						</div>
 					</div>
 				</div>
-				<!-- End  Kitchen Sink -->
+				<!-- End  이번달 예약 리스트 Sink -->
 			</div>
 			<div class="col-md-6">
-				<!--   Basic Table  -->
+				<!--   배송전 예약 리스트 Table  -->
 				<div class="card">
-					<div class="card-action">Basic Table</div>
+					<div class="card-action">배송전 예약 리스트</div>
 					<div class="card-content">
 						<div class="table-responsive">
 							<table class="table">
 								<thead>
 									<tr>
-										<th>#</th>
-										<th>First Name</th>
-										<th>Last Name</th>
-										<th>Username</th>
+										<th class="center">예약번호</th>
+										<th class="center">예약날짜</th>
+										<th class="center">예약시간</th>
+										<th class="center">상태</th>
+										<th class="center">배송기사 이름</th>
 									</tr>
 								</thead>
 								<tbody>
 									<tr>
-										<td>1</td>
-										<td>Mark</td>
-										<td>Otto</td>
-										<td>@mdo</td>
+										<tr th:each="r : ${rlist}" class="odd gradeX">
+										<td class="center"><p th:text="${r.re_id}"></p></td>
+										<td class="center"><p th:text="${r.r_date}"></p></td>
+										<td class="center"><p th:text="${r.r_time}+':00'"></p></td>
+										<td class="center"><p th:text="${r.o_status}"></p></td>
+										<td class="center"><p th:text="${r.d_name}"></p></td>
 									</tr>
-									<tr>
-										<td>2</td>
-										<td>Jacob</td>
-										<td>Thornton</td>
-										<td>@fat</td>
-									</tr>
-									<tr>
-										<td>3</td>
-										<td>Larry</td>
-										<td>the Bird</td>
-										<td>@twitter</td>
 									</tr>
 								</tbody>
 							</table>
 						</div>
 					</div>
 				</div>
-				<!-- End  Basic Table  -->
+				<!-- End  배송전 예약 리스트 Table  -->
 			</div>
 		</div>
 		<!-- /. ROW  -->
-		<div class="row">
-			<div class="col-md-6">
-				<!--    Striped Rows Table  -->
-				<div class="card">
-					<div class="card-action">Striped Rows Table</div>
-					<div class="card-content">
-						<div class="table-responsive">
-							<table class="table table-striped">
-								<thead>
-									<tr>
-										<th>#</th>
-										<th>First Name</th>
-										<th>Last Name</th>
-										<th>Username</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>1</td>
-										<td>Mark</td>
-										<td>Otto</td>
-										<td>@mdo</td>
-									</tr>
-									<tr>
-										<td>2</td>
-										<td>Jacob</td>
-										<td>Thornton</td>
-										<td>@fat</td>
-									</tr>
-									<tr>
-										<td>3</td>
-										<td>Larry</td>
-										<td>the Bird</td>
-										<td>@twitter</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
-				<!--  End  Striped Rows Table  -->
-			</div>
-			<div class="col-md-6">
-				<!--    Bordered Table  -->
-				<div class="card">
-					<div class="card-action">Bordered Table</div>
-					<!-- /.panel-heading -->
-					<div class="card-content">
-						<div class="table-responsive table-bordered">
-							<table class="table">
-								<thead>
-									<tr>
-										<th>#</th>
-										<th>First Name</th>
-										<th>Last Name</th>
-										<th>Username</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>1</td>
-										<td>Mark</td>
-										<td>Otto</td>
-										<td>@mdo</td>
-									</tr>
-									<tr>
-										<td>2</td>
-										<td>Jacob</td>
-										<td>Thornton</td>
-										<td>@fat</td>
-									</tr>
-									<tr>
-										<td>3</td>
-										<td>Larry</td>
-										<td>the Bird</td>
-										<td>@twitter</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
-				<!--  End  Bordered Table  -->
-			</div>
-		</div>
-		<!-- /. ROW  -->
-		<div class="row">
-			<div class="col-md-6">
-				<!--    Hover Rows  -->
-				<div class="card">
-					<div class="card-action">Hover Rows</div>
-					<div class="card-content">
-						<div class="table-responsive">
-							<table class="table table-hover">
-								<thead>
-									<tr>
-										<th>#</th>
-										<th>First Name</th>
-										<th>Last Name</th>
-										<th>Username</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>1</td>
-										<td>Mark</td>
-										<td>Otto</td>
-										<td>@mdo</td>
-									</tr>
-									<tr>
-										<td>2</td>
-										<td>Jacob</td>
-										<td>Thornton</td>
-										<td>@fat</td>
-									</tr>
-									<tr>
-										<td>3</td>
-										<td>Larry</td>
-										<td>the Bird</td>
-										<td>@twitter</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
-				<!-- End  Hover Rows  -->
-			</div>
-			<div class="col-md-6">
-				<!--    Context Classes  -->
-				<div class="card">
-
-					<div class="card-action">Context Classes</div>
-
-					<div class="card-content">
-						<div class="table-responsive">
-							<table class="table">
-								<thead>
-									<tr>
-										<th>#</th>
-										<th>First Name</th>
-										<th>Last Name</th>
-										<th>Username</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr class="success">
-										<td>1</td>
-										<td>Mark</td>
-										<td>Otto</td>
-										<td>@mdo</td>
-									</tr>
-									<tr class="info">
-										<td>2</td>
-										<td>Jacob</td>
-										<td>Thornton</td>
-										<td>@fat</td>
-									</tr>
-									<tr class="warning">
-										<td>3</td>
-										<td>Larry</td>
-										<td>the Bird</td>
-										<td>@twitter</td>
-									</tr>
-									<tr class="danger">
-										<td>4</td>
-										<td>John</td>
-										<td>Smith</td>
-										<td>@jsmith</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
-				<!--  end  Context Classes  -->
-			</div>
-		</div>
-		<!-- /. ROW  -->
-
 		<footer>
 			<p>
 				All right reserved. Template by: <a
