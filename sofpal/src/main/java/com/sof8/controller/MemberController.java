@@ -466,7 +466,10 @@ public class MemberController {
 				String user_id = (String) session.getAttribute("id");
 
 				member.setUser_id(user_id);
-				member.setPwd(pwd);
+				
+				// 가입할 비밀번호 암호화
+				String encryptPwd = CryptoUtil.sha512(pwd);
+				member.setPwd(encryptPwd);
 
 				service.modifyPwd(member);
 
