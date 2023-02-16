@@ -46,7 +46,7 @@
 
 					<div
 						style="border-bottom: solid 1px; padding: 5px 5px 30px 5px; margin: 0px 5px 0px 5px;">
-						<div class="text-center" th:text=${faq.content}></div>
+						<textarea style="resize:none; width:100%; font-size:18px" rows=40 readonly class="text-center" th:utext=${faq.content}></textarea>
 					</div>
 					
 					<div class="row pull-right"
