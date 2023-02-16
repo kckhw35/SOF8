@@ -71,7 +71,7 @@ public class ProductController {
 				if(totalRow>0) {
 					do {
 						// 페이징을 위한 데이터 입력
-						paging = new Paging(12, 5, totalRow, page, keyword, type);
+						paging = new Paging(9, 5, totalRow, page, keyword, type);
 						// 페이징 후 데이터 검색
 						list = pservice.selectlist(paging);
 						--page;
@@ -85,7 +85,7 @@ public class ProductController {
 					}while(list.isEmpty());
 				} else {
 					// 페이징을 위한 데이터 입력
-					paging = new Paging(12, 5, totalRow, page, keyword, type);
+					paging = new Paging(9, 5, totalRow, page, keyword, type);
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -98,7 +98,7 @@ public class ProductController {
 				if(totalRow>0) {
 					do {
 						// 페이징을 위한 데이터 입력
-						paging = new Paging(12, 5, totalRow, page, keyword, type);
+						paging = new Paging(9, 5, totalRow, page, keyword, type);
 						// 페이징 후 데이터 검색
 						list = pservice.selectlistadmin(paging);
 						--page;
@@ -112,7 +112,7 @@ public class ProductController {
 					}while(list.isEmpty());
 				} else {
 					// 페이징을 위한 데이터 입력
-					paging = new Paging(12, 5, totalRow, page, keyword, type);
+					paging = new Paging(9, 5, totalRow, page, keyword, type);
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -152,7 +152,7 @@ public class ProductController {
 				if(totalRow>0) {
 					do {
 						// 페이징을 위한 데이터 입력
-						paging = new Paging(12, 5, totalRow, page, keyword, type);
+						paging = new Paging(9, 5, totalRow, page, keyword, type);
 						paging.setCat_id(1);
 						// 페이징 후 데이터 검색
 						list = pservice.selectlist(paging);
@@ -167,7 +167,7 @@ public class ProductController {
 					}while(list.isEmpty());
 				} else {
 					// 페이징을 위한 데이터 입력
-					paging = new Paging(12, 5, totalRow, page, keyword, type);
+					paging = new Paging(9, 5, totalRow, page, keyword, type);
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -180,7 +180,7 @@ public class ProductController {
 				if(totalRow>0) {
 					do {
 						// 페이징을 위한 데이터 입력
-						paging = new Paging(12, 5, totalRow, page, keyword, type);
+						paging = new Paging(9, 5, totalRow, page, keyword, type);
 						paging.setCat_id(1);
 						// 페이징 후 데이터 검색
 						list = pservice.selectlistadmin(paging);
@@ -195,7 +195,7 @@ public class ProductController {
 					}while(list.isEmpty());
 				} else {
 					// 페이징을 위한 데이터 입력
-					paging = new Paging(12, 5, totalRow, page, keyword, type);
+					paging = new Paging(9, 5, totalRow, page, keyword, type);
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -235,7 +235,7 @@ public class ProductController {
 				if(totalRow>0) {
 					do {
 						// 페이징을 위한 데이터 입력
-						paging = new Paging(12, 5, totalRow, page, keyword, type);
+						paging = new Paging(9, 5, totalRow, page, keyword, type);
 						paging.setCat_id(2);
 						// 페이징 후 데이터 검색
 						list = pservice.selectlist(paging);
@@ -250,7 +250,7 @@ public class ProductController {
 					}while(list.isEmpty());
 				} else {
 					// 페이징을 위한 데이터 입력
-					paging = new Paging(12, 5, totalRow, page, keyword, type);
+					paging = new Paging(9, 5, totalRow, page, keyword, type);
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -263,7 +263,7 @@ public class ProductController {
 				if(totalRow>0) {
 					do {
 						// 페이징을 위한 데이터 입력
-						paging = new Paging(12, 5, totalRow, page, keyword, type);
+						paging = new Paging(9, 5, totalRow, page, keyword, type);
 						paging.setCat_id(2);
 						// 페이징 후 데이터 검색
 						list = pservice.selectlistadmin(paging);
@@ -278,7 +278,7 @@ public class ProductController {
 					}while(list.isEmpty());
 				} else {
 					// 페이징을 위한 데이터 입력
-					paging = new Paging(12, 5, totalRow, page, keyword, type);
+					paging = new Paging(9, 5, totalRow, page, keyword, type);
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -318,7 +318,7 @@ public class ProductController {
 				if(totalRow>0) {
 					do {
 						// 페이징을 위한 데이터 입력
-						paging = new Paging(12, 5, totalRow, page, keyword, type);
+						paging = new Paging(9, 5, totalRow, page, keyword, type);
 						paging.setCat_id(3);
 						// 페이징 후 데이터 검색
 						list = pservice.selectlist(paging);
@@ -333,7 +333,7 @@ public class ProductController {
 					}while(list.isEmpty());
 				} else {
 					// 페이징을 위한 데이터 입력
-					paging = new Paging(12, 5, totalRow, page, keyword, type);
+					paging = new Paging(9, 5, totalRow, page, keyword, type);
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -346,7 +346,7 @@ public class ProductController {
 				if(totalRow>0) {
 					do {
 						// 페이징을 위한 데이터 입력
-						paging = new Paging(12, 5, totalRow, page, keyword, type);
+						paging = new Paging(9, 5, totalRow, page, keyword, type);
 						paging.setCat_id(3);
 						// 페이징 후 데이터 검색
 						list = pservice.selectlistadmin(paging);
@@ -361,7 +361,7 @@ public class ProductController {
 					}while(list.isEmpty());
 				} else {
 					// 페이징을 위한 데이터 입력
-					paging = new Paging(12, 5, totalRow, page, keyword, type);
+					paging = new Paging(9, 5, totalRow, page, keyword, type);
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -401,7 +401,7 @@ public class ProductController {
 				if(totalRow>0) {
 					do {
 						// 페이징을 위한 데이터 입력
-						paging = new Paging(12, 5, totalRow, page, keyword, type);
+						paging = new Paging(9, 5, totalRow, page, keyword, type);
 						paging.setCat_id(4);
 						// 페이징 후 데이터 검색
 						list = pservice.selectlist(paging);
@@ -416,7 +416,7 @@ public class ProductController {
 					}while(list.isEmpty());
 				} else {
 					// 페이징을 위한 데이터 입력
-					paging = new Paging(12, 5, totalRow, page, keyword, type);
+					paging = new Paging(9, 5, totalRow, page, keyword, type);
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -429,7 +429,7 @@ public class ProductController {
 				if(totalRow>0) {
 					do {
 						// 페이징을 위한 데이터 입력
-						paging = new Paging(12, 5, totalRow, page, keyword, type);
+						paging = new Paging(9, 5, totalRow, page, keyword, type);
 						paging.setCat_id(4);
 						// 페이징 후 데이터 검색
 						list = pservice.selectlistadmin(paging);
@@ -444,7 +444,7 @@ public class ProductController {
 					}while(list.isEmpty());
 				} else {
 					// 페이징을 위한 데이터 입력
-					paging = new Paging(12, 5, totalRow, page, keyword, type);
+					paging = new Paging(9, 5, totalRow, page, keyword, type);
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -521,7 +521,9 @@ public class ProductController {
 	// 상품 등록하기
 	@RequestMapping("/register")
 	public String register(Model model, Product product) {
-		
+		System.out.println("확인 : "+product);
+		List<MultipartFile> obj = product.getImg_product();
+		List<MultipartFile> obj2 = product.getImg_list();
 		String p_name = "";	// 상품 이미지 파일 리스트(,로 구분)
 		String c_content = "";	// 상품 설명 이미지 파일 리스트(,로 구분)
 		
@@ -545,15 +547,44 @@ public class ProductController {
 			product.setCat_id(pservice.selectcategory(product));
 			pservice.register(product);
 			
-			// 상품 이미지 등록
-			for(MultipartFile c_img : product.getImg_product()) {
-				ImgUtil.saveFile2(c_img, imgdir);
+			System.out.println("상품 : " + obj);
+			System.out.println("설명 : " + obj2);
+			if(obj.get(0)!=null) {
+				ImgUtil.saveFile(obj.get(0), imgdir);
+			}else if(obj.get(1)!=null) {
+				ImgUtil.saveFile(obj.get(1), imgdir);
+			}else if(obj.get(2)!=null) {
+				ImgUtil.saveFile(obj.get(2), imgdir);
+			}else if(obj.get(3)!=null) {
+				ImgUtil.saveFile(obj.get(3), imgdir);
+			}else if(obj.get(4)!=null) {
+				ImgUtil.saveFile(obj.get(4), imgdir);
 			}
 			
-			// 상품 설명 이미지 등록
-			for(MultipartFile c_img : product.getImg_list()) {
-				ImgUtil.saveFile2(c_img, imgdir2);
+			if(obj2.get(0)!=null) {
+				ImgUtil.saveFile2(obj2.get(0), imgdir2);
+			}else if(obj2.get(1)!=null) {
+				ImgUtil.saveFile2(obj2.get(1), imgdir2);
+			}else if(obj2.get(2)!=null) {
+				ImgUtil.saveFile2(obj2.get(2), imgdir2);
+			}else if(obj2.get(3)!=null) {
+				ImgUtil.saveFile2(obj2.get(3), imgdir2);
+			}else if(obj2.get(4)!=null) {
+				ImgUtil.saveFile2(obj2.get(4), imgdir2);
 			}
+			
+			// for문 사용 시 Thread 이슈가 발생하여 일단 위의 방법으로 대체
+			// 상품 이미지 등록
+//			for(MultipartFile c_img : product.getImg_product()) {
+//				ImgUtil.saveFile(c_img, imgdir);
+//				Thread.sleep(500);
+//			}
+			
+			// 상품 설명 이미지 등록
+//			for(MultipartFile c_img : product.getImg_list()) {
+//				ImgUtil.saveFile2(c_img, imgdir2);
+//				Thread.sleep(500);
+//			}
 			
 			model.addAttribute("obj", product);
 			
@@ -567,7 +598,8 @@ public class ProductController {
 	// 상품 수정하기
 	@RequestMapping("/update")
 	public String update(Model model, Product product) {
-		
+		List<MultipartFile> obj = product.getImg_product();
+		List<MultipartFile> obj2 = product.getImg_list();
 		String p_name = "";
 		String c_content = "";
 		
@@ -589,7 +621,6 @@ public class ProductController {
 				String img_name = c_img.getOriginalFilename();
 				p_name += img_name + ",";
 			}
-			System.out.println("이미지 이름: "+p_name);
 			product.setP_img(p_name);
 
 			// 상품 설명 이미지 이름 가져오기
@@ -597,22 +628,45 @@ public class ProductController {
 				String img_name = c_img.getOriginalFilename();
 				c_content += img_name + ",";
 			}
-			System.out.println("설명 이름: "+c_content);
 			product.setP_content(c_content);
 			
 			try {
 				product.setCat_id(pservice.selectcategory(product));
 				pservice.modify(product);
 				
-				// 새로운 상품 이미지 등록
-				for(MultipartFile c_img : product.getImg_product()) {
-					ImgUtil.saveFile(c_img, imgdir);
+				if(obj.get(0)!=null) {
+					ImgUtil.saveFile(obj.get(0), imgdir);
+				}else if(obj.get(1)!=null) {
+					ImgUtil.saveFile(obj.get(1), imgdir);
+				}else if(obj.get(2)!=null) {
+					ImgUtil.saveFile(obj.get(2), imgdir);
+				}else if(obj.get(3)!=null) {
+					ImgUtil.saveFile(obj.get(3), imgdir);
+				}else if(obj.get(4)!=null) {
+					ImgUtil.saveFile(obj.get(4), imgdir);
 				}
 				
-				// 새로운 상품 설명 이미지 등록
-				for(MultipartFile c_img2 : product.getImg_list()) {
-					ImgUtil.saveFile2(c_img2, imgdir2);
+				if(obj2.get(0)!=null) {
+					ImgUtil.saveFile2(obj2.get(0), imgdir2);
+				}else if(obj2.get(1)!=null) {
+					ImgUtil.saveFile2(obj2.get(1), imgdir2);
+				}else if(obj2.get(2)!=null) {
+					ImgUtil.saveFile2(obj2.get(2), imgdir2);
+				}else if(obj2.get(3)!=null) {
+					ImgUtil.saveFile2(obj2.get(3), imgdir2);
+				}else if(obj2.get(4)!=null) {
+					ImgUtil.saveFile2(obj2.get(4), imgdir2);
 				}
+				
+//				// 새로운 상품 이미지 등록
+//				for(MultipartFile c_img : product.getImg_product()) {
+//					ImgUtil.saveFile(c_img, imgdir);
+//				}
+//				
+//				// 새로운 상품 설명 이미지 등록
+//				for(MultipartFile c_img2 : product.getImg_list()) {
+//					ImgUtil.saveFile2(c_img2, imgdir2);
+//				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
