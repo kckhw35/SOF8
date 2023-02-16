@@ -85,6 +85,8 @@ public class OrderController {
 	public String cart(HttpSession session, Model model, Cart c) {
 		List<Cart> clist = null;
 		Member m = (Member) session.getAttribute("member");
+		String[] p_img = null;
+		String main_img = null;
 		Cart c_ids = new Cart();
 		
 		if (session.getAttribute("member") == null) {
@@ -102,6 +104,12 @@ public class OrderController {
 					total_price += (i.getC_cnt() * i.getPrice());
 					total_discount += i.getDiscount();
 					total_delcost += i.getDel_cost();
+					
+					// 상품 메인 이미지
+					main_img = i.getP_img();
+					p_img = main_img.split(",");
+					main_img = p_img[0];
+					i.setP_img(main_img);
 				}
 
 				c.setTotal_price(total_price);
@@ -314,6 +322,8 @@ public class OrderController {
 		Member m = (Member) session.getAttribute("member");
 		List<Cart> clist = new ArrayList<>();
 		List<Integer> c_id = c_ids.getC_ids();
+		String[] p_img = null;
+		String main_img = null;
 		Cart c = null;
 		List<Coupon> co = new ArrayList<Coupon>();
 		
@@ -336,6 +346,14 @@ public class OrderController {
 					c = cservice.selectedproduct(i);
 					clist.add(c);
 					cnt++;
+					
+					for(Cart cart : clist) {
+						main_img = cart.getP_img();
+						p_img = main_img.split(",");
+						main_img = p_img[0];
+						cart.setP_img(main_img);
+					}
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -360,6 +378,8 @@ public class OrderController {
 		ArrayList<Integer> d_cnt = of.getD_cnt();
 		ArrayList<Integer> price = of.getPrice();
 		List<Product> orderedproduct = new ArrayList<Product>();
+		String[] product_img = null;
+		String main_img = null;
 		String bank_info = null;
 		int dman_id = 0;
 		int before_cnt = 0;
@@ -441,38 +461,46 @@ public class OrderController {
 					cservice.remove(c_id);
 				}
 				
-					// 메일
-					Mail mail = new Mail();
-					Date date = new Date();
-					SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-					List<String> p_name = new ArrayList<String>();
-					List<String> p_img = new ArrayList<String>();
-					String name = null;
-					String img = null;
-					
-					// template에 넘길 값
-					HashMap<String, OrderForm> values = new HashMap<String, OrderForm>();
-					for(int id : of.getP_id()) {
-						name = ofservice.getpname(id);
-						img = ofservice.getpimg(id);
-						p_name.add(name);
-						p_img.add(img);
-					}
-					
-					of.setP_name(p_name);
-					of.setP_img(p_img);
-					of.setName(m.getName());
-					of.setO_date(formatter.format(date));
-					values.put("order",of);
-					
-					// 전송할 이메일 데이터 셋팅
-					mail.setTo(m.getEmail());
-					mail.setSubject("[SOF8] " + m.getName() + " 님 주문이 완료되었습니다.");
-					mail.setTemplate("/mail-templates/order");
-					mail.setValues(values);
+				// 상품 메인 이미지
+				for(Product p : orderedproduct) {
+					main_img = p.getP_img();
+					product_img = main_img.split(",");
+					main_img = product_img[0];
+					p.setP_img(main_img);
+				}
+				
+				// 메일
+				Mail mail = new Mail();
+				Date date = new Date();
+				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				List<String> p_name = new ArrayList<String>();
+				List<String> p_img = new ArrayList<String>();
+				String name = null;
+				String img = null;
+				
+				// template에 넘길 값
+				HashMap<String, OrderForm> values = new HashMap<String, OrderForm>();
+				for(int id : of.getP_id()) {
+					name = ofservice.getpname(id);
+					img = ofservice.getpimg(id);
+					p_name.add(name);
+					p_img.add(img);
+				}
+				
+				of.setP_name(p_name);
+				of.setP_img(p_img);
+				of.setName(m.getName());
+				of.setO_date(formatter.format(date));
+				values.put("order",of);
+				
+				// 전송할 이메일 데이터 셋팅
+				mail.setTo(m.getEmail());
+				mail.setSubject("[SOF8] " + m.getName() + " 님 주문이 완료되었습니다.");
+				mail.setTemplate("/mail-templates/order");
+				mail.setValues(values);
 
-					// 이메일 전송
-					eservice.sendMail(mail);
+				// 이메일 전송
+				eservice.sendMail(mail);
 					
 				model.addAttribute("coupon", c);
 				model.addAttribute("bank", bank_info);

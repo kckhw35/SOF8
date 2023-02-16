@@ -21,6 +21,7 @@ import com.sof8.dto.Mark;
 import com.sof8.dto.Member;
 import com.sof8.dto.Order;
 import com.sof8.dto.Paging;
+import com.sof8.dto.Product;
 import com.sof8.dto.Qna;
 import com.sof8.frame.CryptoUtil;
 import com.sof8.service.CouponService;
@@ -298,6 +299,8 @@ public class MypageController {
 			@RequestParam(defaultValue = "1") int page,
 			@RequestParam(defaultValue = "user_id") String type) {
 		
+		String[] p_img = null;
+		String main_img = null;
 		Member member =  (Member) session.getAttribute("member");
 		// 세션이 있다면(로그인 중이라면)
 		if (session.getAttribute("member") != null) {
@@ -316,6 +319,14 @@ public class MypageController {
 						// 페이징 후 데이터 검색 
 						marks = mservice.getList(paging);
 						--page;
+						
+						// 상품 메인 이미지
+						for(Mark m : marks) {
+							main_img = m.getP_img();
+							p_img = main_img.split(",");
+							main_img = p_img[0];
+							m.setP_img(main_img);
+						}
 					}while (marks.isEmpty());
 				} else {
 					paging = new Paging(5,5,totalRow, page, keyword, type);

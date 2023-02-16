@@ -268,7 +268,7 @@
 		    	<div class="modal-content">
 			      	<div class="modal-body">
 			        	<div class="row">
-			        		<img th:src="@{/images/shop/products/}+${p.p_img}"/>
+			        		<img th:src="@{/images/shop/products/}+${main_img}"/>
 			        		<h1 id="p_name" th:text="${p.p_name}"></h1>
 			        		<div><h3>찜에 추가되었습니다.</h3></div>
 			        		<a th:href="@{/mypage/mark}" class="btn btn-main mt-20">찜 목록 확인하기</a>
@@ -285,7 +285,7 @@
 		    	<div class="modal-content">
 			      	<div class="modal-body">
 			        	<div class="row">
-			        		<img th:src="@{/images/shop/products/}+${p.p_img}"/>
+			        		<img th:src="@{/images/shop/products/}+${main_img}"/>
 			        		<h1 id="p_name" th:text="${p.p_name}"></h1>
 			        		<div><h3>장바구니에 추가되었습니다.</h3></div>
 			        		<a th:href="@{/order/cart}" class="btn btn-main mt-20">장바구니 목록 확인하기</a>
