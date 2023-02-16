@@ -122,19 +122,32 @@ public class MemberController {
 
 	@ResponseBody
 	@RequestMapping("/checkemail")
-	public Object checkemail(String email) {
+	public int checkemail(String email) {
 		int result = 0;
-	
 		try {
 			// 가입된 이메일 검색
-			Member member = service.getEmail(email);
-
+			String mail = service.getEmail(email);
+			System.out.println(email);
 			// 가입된 이메일 존재함
-			if (member != null) result = 1;
+			if (mail != null) result = 1;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		System.out.println(result);
 		return result;
+	}
+	
+	@ResponseBody
+	@RequestMapping("/getemail")
+	public String getemail(String email) {
+		String mail = null;
+		try {
+			// 가입된 이메일 검색
+			mail = service.getEmail(email);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return mail;
 	}
 	
 	// 127.0.0.1/member/login
@@ -327,29 +340,26 @@ public class MemberController {
 			try {
 
 				session.setAttribute("id", member.getUser_id());
-
 				// 아이디와 일치하는 회원정보 저장
+				
 				Member m = service.get(member.getUser_id());
-				model.addAttribute("name", m.getName());
-				model.addAttribute("email", m.getEmail());
+				if(m != null) {
+					model.addAttribute("name", m.getName());
+					model.addAttribute("email", m.getEmail());	
+				} else {
+					model.addAttribute("error", "조회되지 않는 아이디 입니다.");	
+					model.addAttribute("content", dir + "find_password");
+				}
 				model.addAttribute("masking", MaskingUtil.getMaskedEmail(m.getEmail()));
 				model.addAttribute("member", m);
 				model.addAttribute("content", dir + "user_auth");
-
 			} catch (Exception e) {
-
 				e.printStackTrace();
-
 			}
-
 			return "index";
-
 		} else {
-
 			return "redirect:/";
-
 		}
-
 	}
 
 	// 127.0.0.1/member/send_authemail
@@ -376,6 +386,7 @@ public class MemberController {
 				OrderForm of = new OrderForm();
 				of.setName(member.getName());
 				of.setUser_id(member.getUser_id());
+				of.setAuth(auth);
 				values.put("member", of);
 				/*values.put("name", member.getName());
 				values.put("user_id", member.getUser_id());*/

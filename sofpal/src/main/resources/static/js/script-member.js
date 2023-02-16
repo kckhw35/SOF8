@@ -19,28 +19,28 @@ var firstScriptTag = document.getElementsByTagName('script')[0];
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
 var section = {
-	start : 0, 	// 반복 시작 시간(초)
-	end : 27.1	// 반복 종료 시간(초)
+	start: 0, 	// 반복 시작 시간(초)
+	end: 27.1	// 반복 종료 시간(초)
 };
 
 // 2.  API 코드 다운로드 후 <iframe>(및 YouTube 플레이어)를 생성합니다.
 function onYouTubeIframeAPIReady() {
 	player = new YT.Player('player', {
-		height : '360',
-		width : '640',
-	    host: 'https://www.youtube-nocookie.com',
-		videoId : '-OjCvIYIXEg', 	// 영상 고유 주소
-		playerVars : {
-		    origin: window.location.host,
-			'autoplay' : 1,			// 자동재생, 	 0: off, 1: on
-			'controls' : 0,			// 컨트롤러,	 0: off, 1: on 
-			'mute' : 1,				// 음소거, 	 	 0: off, 1: on
-			'disablekb ' : 1,		// 키보드금지, 	 0: off, 1: on
-			'rel' : 0				// 관련영상표시, 0: off, 1: on
+		height: '360',
+		width: '640',
+		host: 'https://www.youtube-nocookie.com',
+		videoId: '-OjCvIYIXEg', 	// 영상 고유 주소
+		playerVars: {
+			origin: window.location.host,
+			'autoplay': 1,			// 자동재생, 	 0: off, 1: on
+			'controls': 0,			// 컨트롤러,	 0: off, 1: on 
+			'mute': 1,				// 음소거, 	 	 0: off, 1: on
+			'disablekb ': 1,		// 키보드금지, 	 0: off, 1: on
+			'rel': 0				// 관련영상표시, 0: off, 1: on
 		},
-		events : {
-			'onReady' : onPlayerReady,
-			'onStateChange' : onPlayerStateChange
+		events: {
+			'onReady': onPlayerReady,
+			'onStateChange': onPlayerStateChange
 		}
 	});
 }
@@ -65,20 +65,20 @@ function restartVideoSection() {
 /*=== [ 1. Button Fuction ] ===*/
 
 // 쿠폰 발급 
-function addCoupon(id){
-	var json = {'co_id': id};
+function addCoupon(id) {
+	var json = { 'co_id': id };
 	var option = {
 		method: 'post',
 		url: '/event/addcoupon',
 		data: json,
 		success: function(result) {
-			if(result == 1) {
+			if (result == 1) {
 				alert('쿠폰이 발급되었습니다.');
-			} else if(result == 2) {
+			} else if (result == 2) {
 				alert('이미 발급된 쿠폰입니다.');
-			} else if(result == -1) {
+			} else if (result == -1) {
 				alert('로그인 후 서비스를 이용해주세요.');
-				location.href='/member/login';
+				location.href = '/member/login';
 			}
 		}
 	};
@@ -89,10 +89,10 @@ function addCoupon(id){
 function check_range() {
 	var first = document.getElementById('first').value;
 	var last = document.getElementById('last').value;
-	
-	if(first == '' || last == '') {
+
+	if (first == '' || last == '') {
 		alert('조회할 기간을 입력해주세요.');
-		var result =  false;	
+		var result = false;
 	}
 	return result;
 };
@@ -100,23 +100,23 @@ function check_range() {
 // 주문취소
 function cancelOrder(page, o_id) {
 	var c = confirm('주문을 취소하시겠습니까?');
-	if(c) {
+	if (c) {
 		var json = {
-			'o_id' : o_id
+			'o_id': o_id
 		}
-	
+
 		var option = {
-			method : 'post',
-			url : '/mypage/cancelOrder',
-			data : json,
+			method: 'post',
+			url: '/mypage/cancelOrder',
+			data: json,
 			success: function(result) {
-				if(result) {
+				if (result) {
 					alert('주문이 취소되었습니다.');
-					$('#table_order').load('/mypage/order?page='+ page + ' #table_order');
+					$('#table_order').load('/mypage/order?page=' + page + ' #table_order');
 				}
 			}
 		};
-		
+
 		$.ajax(option);
 	} else {
 		return false;
@@ -258,11 +258,11 @@ function memberOneDelete(page, user_id) {
 	if (confirm("정말로 삭제하시겠습니까?")) {
 		//배열생성
 		var arr = new Array(1);
-		
+
 		arr[0] = user_id;
 	}
-	
-	
+
+
 	var json = {
 		"arrlist": arr
 	};
@@ -299,13 +299,13 @@ function cartDelete() {
 		if (confirm("정말로 삭제하시겠습니까?")) {
 			//배열생성
 			var arr = new Array(selectedElementsCnt);
-			
+
 			document.querySelectorAll('input[name="c_ids"]:checked').forEach(function(v, i) {
 				arr[i] = v.value;
 			});
 		}
 	}
-	
+
 	var json = {
 		"arrlist": arr
 	};
@@ -342,13 +342,13 @@ function markDelete(page) {
 		if (confirm("정말로 삭제하시겠습니까?")) {
 			//배열생성
 			var arr = new Array(selectedElementsCnt);
-			
+
 			document.querySelectorAll('input[name="checkbox"]:checked').forEach(function(v, i) {
 				arr[i] = v.value;
 			});
 		}
 	}
-	
+
 	var json = {
 		"arrlist": arr
 	};
@@ -374,11 +374,11 @@ function markOneDelete(page, m_id) {
 	if (confirm("정말로 삭제하시겠습니까?")) {
 		//배열생성
 		var arr = new Array(1);
-		
+
 		arr[0] = m_id;
 	}
-	
-	
+
+
 	var json = {
 		"arrlist": arr
 	};
@@ -582,7 +582,7 @@ function find_id() {
 function send_authemail(name, email) {
 	console.log(name);
 	console.log(email);
-	if (name != null && email != null) {
+	if (name != null || email != null) {
 		var member = {
 			'name': name,
 			'email': email
@@ -615,9 +615,6 @@ function check_auth() {
 
 	var auth = $('input[name=auth]').val();
 	var inputauth = $('input[name=inputauth]').val();
-	alert(auth);
-	alert(inputauth);
-
 
 	if (auth != inputauth) {
 		alert('인증번호가 일치하지 않습니다.');
@@ -708,47 +705,60 @@ function save_admin_id() {
 	return false;
 };
 
-// 회원정보수정
+// 비밀번호 찾기 - 새로운 비밀번호 등록
 function check_edit(auth) {
 	var result = true;
 	var c = confirm('수정 하시겠습니까?');
 	if (c == true) {
-	
-		if (check_nowpwd() == 1 || auth != null) {
+
+		if (auth != null) {
 			if ((check_pwd() & check_chkpwd()) == 0) {
 				result = false;
 			}
 		}
-		
-		if (auth == null) {
-			if ((check_name() & check_email() & check_tel() & check_postcode() & check_addr() & check_detailaddr()) == 0)
+
+	}
+	return result;
+};
+
+// 회원정보수정
+function member_edit() {
+	var result = false;
+	var c = confirm('수정 하시겠습니까?');
+	if (c == true) {
+		if (check_nowpwd() == 1) {
+			if ((check_pwd() & check_chkpwd()) == 0) {
+				return false;
+			} else result = true;
+		} else result = true;
+
+		if ((check_name() & check_editemail() & check_tel() & check_postcode() & check_addr() & check_detailaddr()) == 0)
 			result = false;
-		}
+		else result = true;
 	}
 	return result;
 };
 
 // 회원탈퇴
 function member_cancel() {
-	var result = confirm('탈퇴하시겠습니까?')
-	if (result == true) {
-		var member = $('#form_cancel').serialize();
-
+	var member = $('#form_cancel').serialize();
+	var c = confirm('탈퇴하시겠습니까?');
+	if (c == true) {
 		var option = {
-			type: 'post',
-			url: '/mypage/cancelok',
-			data: member
-		};
-		$.ajax(option).done(function(data) {
-			if (data == true) {
-				alert('SOF8를 탈퇴하셨습니다.');
-				location.href = '/';
+			method : 'post',
+			url : '/mypage/cancelok',
+			data: member,
+			async: false,
+			success: function(data) {
+				if(data == true) {
+					alert('SOF8를 탈퇴하셨습니다.');
+					location.href = '/';
+				} else $('#error').text('비밀번호가 일치하지 않습니다.');
 			}
-			else $('#error').text('비밀번호가 일치하지 않습니다.')
-		});
+		};
+		$.ajax(option);
 	}
-	return false;
-}
+};
 
 
 
@@ -873,14 +883,25 @@ function check_adminid() {
 // 현재 비밀번호 유효성 검사
 function check_nowpwd() {
 	var result = 0;
+	var now_pwd = $('#now_pwd').val();		// 사용자가 입력한 비밀번호
+	var edit_pwd = $('#edit_pwd').val();	// 사용자 현재 비밀번호
 
-	var now_pwd = $('#now_pwd').val();
-	var edit_pwd = $('#edit_pwd').val();
+	if (now_pwd == null || now_pwd == '') {
+		$('#form_nowpwd').removeClass('has-error');
+		$('#error_nowpwd').text('');
+		result = 0;
+	} else if (now_pwd != '') {
+		var option = {
+			method: 'post',
+			url: '/mypage/getEncryptPwd',
+			data: { 'now_pwd': now_pwd },
+			async: false,
+			success: function(pwd) {
+				now_pwd = pwd;
+			}
+		};
 
-	if (now_pwd == null) {
-		result = -1;
-	}
-	else if (now_pwd != '') {
+		$.ajax(option);
 
 		// 입력한 비밀번호와 현재 비밀번호와 일치
 		if (now_pwd == edit_pwd) {
@@ -894,6 +915,7 @@ function check_nowpwd() {
 			result = 0;
 		}
 	}
+
 	return result;
 };
 
@@ -981,20 +1003,30 @@ function getMatchedEmail(email) {
 		url: '/member/checkemail',
 		data: {
 			'email': email
+		},
+		async: false,
+		success: function(data) {
+			result = data;
 		}
 	};
-	$.ajax(option).done(function(data) {
-		if (data == 0) {
-			$('#form_email').removeClass('has-error');
-			$('#form_email').addClass('has-success');
-			$('#error_email').text('사용가능한 이메일입니다.');
-			result = 1;
-		} else {
-			$('#form_email').removeClass('has-success');
-			$('#form_email').addClass('has-error');
-			$('#error_email').text('중복된 이메일입니다.');
+	$.ajax(option);
+	return result;
+};
+
+// 사용자 이메일 조회 
+function getEmail(email) {
+	var result;
+	var option = {
+		url: '/member/getemail',
+		data: {
+			'email': email
+		},
+		async: false,
+		success: function(data) {
+			result = data;
 		}
-	});
+	};
+	$.ajax(option);
 	return result;
 };
 
@@ -1003,8 +1035,7 @@ function check_email() {
 	var result = 0;
 	// input 값 초기화 
 	var email = $('#email').val();
-	var check = $('.find').val();
-	alert(check);
+
 	// 이메일 글자 앞 중간 뒤에 영문+숫자 포함하여 
 	// 특수문자 중 점( . ) 하이픈( - ) 언더바( _ ) 만 사용 가능하도록 하는 정규식
 	var reg = /^([\w\.\_\-])*[a-zA-Z0-9]+([\w\.\_\-])*([a-zA-Z0-9])+([\w\.\_\-])+@([a-zA-Z0-9]+\.)+[a-zA-Z0-9]{2,8}$/;
@@ -1018,15 +1049,65 @@ function check_email() {
 		$('#error_email').text('잘못된 형식의 이메일입니다.');
 		result = 0;
 	} else {
-		if(check == null) {
-			// 사용자 이메일 중복 확인
-			result = getMatchedEmail(email);
+
+		// 사용자 이메일 중복 확인
+		matchResult = getMatchedEmail(email);
+		if (matchResult == 1) {
+			$('#form_email').addClass('has-error');
+			$('#error_email').text('중복된 이메일입니다.');
+			result = 0;
 		} else {
 			$('#form_email').removeClass('has-error');
-			$('#error_email').text('');
+			$('#form_email').addClass('has-success');
+			$('#error_email').text('사용가능한 이메일입니다.');
 			result = 1;
 		}
-		
+
+	}
+	return result;
+}
+
+// 회원정보수정 이메일 유효성 검사
+function check_editemail() {
+	var result = 0;
+	// input 값 초기화 
+	var email = $('#edit_email').val();
+	var member_email = $('#member_email').val();
+
+	// 이메일 글자 앞 중간 뒤에 영문+숫자 포함하여 
+	// 특수문자 중 점( . ) 하이픈( - ) 언더바( _ ) 만 사용 가능하도록 하는 정규식
+	var reg = /^([\w\.\_\-])*[a-zA-Z0-9]+([\w\.\_\-])*([a-zA-Z0-9])+([\w\.\_\-])+@([a-zA-Z0-9]+\.)+[a-zA-Z0-9]{2,8}$/;
+
+	if (email == null || email == "") {
+		$('#form_email').addClass('has-error');
+		$('#error_email').text('이메일을 입력해 주세요.');
+		result = 0;
+	} else if (!reg.test(email)) {
+		$('#form_email').addClass('has-error');
+		$('#error_email').text('잘못된 형식의 이메일입니다.');
+		result = 0;
+	} else {
+
+		// 사용자 이메일 중복 확인
+		var matchEmail = getEmail(email);
+		if (matchEmail != null || matchEmail != '') {
+			if (matchEmail == member_email) {
+				$('#form_email').removeClass('has-error');
+				$('#form_email').removeClass('success-error');
+				$('#error_email').text('');
+				result = 1;
+			} else {
+				$('#form_email').addClass('has-error');
+				$('#error_email').text('중복된 이메일입니다.');
+				result = 0;
+			}
+		} else {
+			$('#form_email').removeClass('has-error');
+			$('#form_email').addClass('has-success');
+			$('#error_email').text('사용가능한 이메일입니다.');
+			result = 1;
+		}
+
 	}
 	return result;
 }
@@ -1161,6 +1242,10 @@ function check_valid() {
 
 	$('#email').focusout(function() {
 		check_email();
+	});
+
+	$('#edit_email').focusout(function() {
+		check_editemail();
 	});
 
 	$('#tel').focusout(function() {

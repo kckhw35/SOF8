@@ -1,5 +1,7 @@
 package com.sof8.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +22,7 @@ import com.sof8.dto.Member;
 import com.sof8.dto.Order;
 import com.sof8.dto.Paging;
 import com.sof8.dto.Qna;
+import com.sof8.frame.CryptoUtil;
 import com.sof8.service.CouponService;
 import com.sof8.service.MarkService;
 import com.sof8.service.MemberService;
@@ -108,12 +111,35 @@ public class MypageController {
 		return "redirect:/";
 	}
 
+	//
+	@ResponseBody
+	@RequestMapping("/getEncryptPwd")
+	public String getEncryptPwd(String now_pwd) {
+		String encryptPwd = null;
+		// 가입할 비밀번호 암호화
+		try {
+			encryptPwd = CryptoUtil.sha512(now_pwd);
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return encryptPwd;
+	}
+	
 	// 127.0.0.1/mypage/editok
 	@RequestMapping("/editok")
 	public String editok(HttpSession session, Member member, Model model) {
 		// 세션이 있다면(로그인 중이라면)
 		if (session.getAttribute("member") != null) {
 			try {
+				// 수정할 비밀번호 암호화
+				String encryptPwd = CryptoUtil.sha512(member.getPwd());
+				member.setPwd(encryptPwd);
+				
 				// 회원정보 수정
 				service.modify(member);
 				System.out.println("[SUCCESS] : MypageController/editok - 회원정보 수정 성공");
@@ -149,15 +175,19 @@ public class MypageController {
 
 	// 127.0.0.1/mypage/cancelok
 	@ResponseBody
-	@RequestMapping("/mypage/cancelok")
+	@RequestMapping("/cancelok")
 	public Boolean cancelok(HttpSession session, Model model, Member member) {
 		Boolean result = false;
+		System.out.println("member: " + member);
+
 		// 세션이 있다면(로그인 중이라면)
 		if (session.getAttribute("member") != null) {
 			try {
 				Member m = (Member) session.getAttribute("member");
 				System.out.println("member: " + member);
 				System.out.println("m: " + m);
+				String encryptPwd = CryptoUtil.sha512(member.getPwd());
+				member.setPwd(encryptPwd);
 				if (m.getPwd().equals(member.getPwd())) {
 
 					service.modifyDisable(m.getUser_id());

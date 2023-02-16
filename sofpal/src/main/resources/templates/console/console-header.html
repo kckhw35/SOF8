@@ -34,10 +34,11 @@
 	<div class="sidebar-collapse">
 		<ul class="nav" id="main-menu">
 			<li>
-				<a th:href="@{/console}" class="active-menu waves-effect waves-dark">
-					<i class="fa fa-dashboard"></i> 대쉬보드
+				<a th:href="@{/console}" class="active-menu waves-effect waves-dark"><i class="fa fa-dashboard"></i> 대쉬보드
 				</a>
 			</li>
+			<li><a th:href="@{/console/chart}" class="waves-effect waves-dark"><i class="fa fa-bar-chart-o"></i> 차트</a>
+            </li>			
 			<li><a href="#" class="waves-effect waves-dark"><iclass="fa fa-table"></i> 주문 및 예약 관리<span class="fa arrow"></span></a>
 				<ul class="nav nav-second-level">
 					<li><a th:href="@{/console/order}">주문 관리</a></li>
