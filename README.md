@@ -65,7 +65,7 @@ Multi-Campus Team Project Group8  'SOF8'
 > 8 - 1. 결제(Iamprot)
 > 아임포트 api를 사용하여 결제 기능 구현
 
-> 8 - 2. 주문 결제 완료 시, 확인 email 발송  
+> 8 - 2. 회원가입 및 주문 결제 완료 시, 확인 email 발송  
 
 > 8 - 3. 우편번호 검색 
 
