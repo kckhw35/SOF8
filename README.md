@@ -78,7 +78,7 @@ Multi-Campus Team Project Group8  'SOF8'
 
 
 ## 9. 시연영상
-[![SOF8 시연 영상](http://img.youtube.com/vi/QYNwbZHmh8g/0.jpg)](https://youtu.be/QYNwbZHmh8g?t=0s) 
+[![SOF8 시연 영상](http://img.youtube.com/vi/xuwvW2Yy91k/0.jpg)](https://youtu.be/xuwvW2Yy91k?t=0s) 
 
 
 
